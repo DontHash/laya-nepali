@@ -1,9 +1,9 @@
 """Dataset loading and dataset-level validation.
 
 ``load_cases`` accepts a JSONL file, a JSON array, or a directory containing
-either, so both the reviewed export (true JSONL rows with ``state`` /
-``questions`` / ``gold`` as JSON strings) and the readable golden fixtures
-(nested objects) load through the same path.
+either (recursively), so both the reviewed export (true JSONL rows with
+``state`` / ``questions`` / ``gold`` as JSON strings) and the readable golden
+fixtures (nested objects) load through the same path.
 """
 
 from __future__ import annotations
@@ -13,6 +13,7 @@ import re
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
+from .provenance import provenance_failures
 from .schema import Case, SchemaError, validate_case
 
 PII_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
@@ -29,7 +30,7 @@ def _read_json(path: Path) -> Any:
 def load_rows(path: Path) -> list[dict[str, Any]]:
     if path.is_dir():
         rows: list[dict[str, Any]] = []
-        for child in sorted(path.iterdir()):
+        for child in sorted(path.rglob("*")):
             if child.is_file() and child.suffix in {".jsonl", ".json"}:
                 rows.extend(load_rows(child))
         return rows
@@ -71,14 +72,26 @@ def scan_pii(text: str) -> list[str]:
 
 
 def case_pii_findings(case: Case) -> list[str]:
-    payload = json.dumps(case.state, ensure_ascii=False)
-    findings = [f"state:{name}" for name in scan_pii(payload)]
+    """Scan every field of a case, not just the state and instructions."""
+    findings: list[str] = []
+
+    def scan(label: str, text: str) -> None:
+        findings.extend(f"{label}:{name}" for name in scan_pii(text))
+
+    scan("id", case.id)
+    scan("workflow", case.workflow)
+    scan("state", json.dumps(case.state, ensure_ascii=False))
     for qid, question in case.questions.items():
-        findings.extend(f"question {qid}:{name}" for name in scan_pii(question.instructions))
+        scan(f"question {qid}", question.instructions)
+        if question.criteria:
+            scan(f"criteria {qid}", json.dumps(question.criteria, ensure_ascii=False))
+    for qid, gold in case.gold.items():
+        scan(f"gold {qid}", json.dumps(gold.to_dict(), ensure_ascii=False))
+    scan("provenance", json.dumps(case.provenance, ensure_ascii=False))
     return findings
 
 
-def validate_dataset(cases: Sequence[Case]) -> list[str]:
+def validate_dataset(cases: Sequence[Case], *, require_reviewed: bool = False) -> list[str]:
     failures: list[str] = []
     duplicates = find_duplicate_ids(cases)
     if duplicates:
@@ -89,6 +102,8 @@ def validate_dataset(cases: Sequence[Case]) -> list[str]:
         except SchemaError as exc:
             failures.append(str(exc))
             continue
+        for finding in provenance_failures(case.provenance, require_reviewed=require_reviewed):
+            failures.append(f"{case.id}: {finding}")
         findings = case_pii_findings(case)
         if findings:
             failures.append(f"{case.id}: PII pattern hit ({', '.join(findings)})")
@@ -100,10 +115,15 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser(description="Validate a laya-nepali dataset against the pinned schema.")
     parser.add_argument("--data", type=Path, required=True, help="JSONL/JSON file or directory")
+    parser.add_argument(
+        "--require-reviewed",
+        action="store_true",
+        help="require provenance.reviewed_by (use for export data)",
+    )
     args = parser.parse_args(argv)
 
     cases = load_cases(args.data)
-    failures = validate_dataset(cases)
+    failures = validate_dataset(cases, require_reviewed=args.require_reviewed)
     decisions = sum(len(case.questions) for case in cases)
     if failures:
         print(f"FAIL: {len(failures)} problem(s) across {len(cases)} case(s)")

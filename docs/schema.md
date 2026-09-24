@@ -24,6 +24,11 @@ A dataset row carries `state`, `questions` and `gold` as **JSON strings**, plus
 `state` + `questions` together are exactly the body of a `POST /v1/systemone`
 request, so a row can be replayed without reshaping it.
 
+Every row also carries a `provenance` object (`source`, `generator`, `license`);
+rows in `data/export` must additionally record `reviewed_by`. The deterministic
+gate enforces the lanes defined in `src/layanep/provenance.py` and documented in
+`docs/provenance.md`.
+
 ## Question
 
 ```json

@@ -40,3 +40,37 @@ def test_gate_fails_on_pii(tmp_path: Path) -> None:
 def test_gate_cli_exit_codes(capsys) -> None:
     assert main(["--check", "--data", str(FIXTURE)]) == 0
     assert "PASS" in capsys.readouterr().out
+
+
+def test_gate_finds_nested_export_rows(tmp_path: Path) -> None:
+    nested = tmp_path / "batch"
+    nested.mkdir()
+    row = json.loads(FIXTURE.read_text(encoding="utf-8"))[0]
+    (nested / "rows.json").write_text(json.dumps([row], ensure_ascii=False), encoding="utf-8")
+    result = run_gate([tmp_path])
+    assert result.passed, result.failures
+    assert result.cases == 1
+
+
+def test_gate_fails_on_empty_directory(tmp_path: Path) -> None:
+    result = run_gate([tmp_path])
+    assert not result.passed
+    assert any("no cases found" in failure for failure in result.failures)
+
+
+def test_gate_fails_on_missing_path(tmp_path: Path) -> None:
+    result = run_gate([tmp_path / "missing.jsonl"])
+    assert not result.passed
+    assert any("no dataset at" in failure for failure in result.failures)
+
+
+def test_export_directory_requires_reviewed_by(tmp_path: Path, monkeypatch) -> None:
+    import layanep.eval as eval_module
+
+    monkeypatch.setattr(eval_module, "DEFAULT_DATA_DIR", tmp_path)
+    row = json.loads(FIXTURE.read_text(encoding="utf-8"))[0]
+    row["provenance"]["reviewed_by"] = None
+    (tmp_path / "rows.jsonl").write_text(json.dumps(row, ensure_ascii=False) + "\n", encoding="utf-8")
+    result = eval_module.run_gate(None)
+    assert not result.passed
+    assert any("reviewed_by" in failure for failure in result.failures)

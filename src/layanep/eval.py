@@ -1,9 +1,9 @@
-"""Deterministic eval gate: schema, duplicates, PII, and the frozen revision.
+"""Deterministic eval gate: schema, provenance lanes, duplicates, and PII.
 
-Runs without network or model weights so CI can execute it on every push.
-By default it loads ``data/export`` when that directory has dataset files and
-falls back to the golden fixtures, which keeps the gate meaningful from P0
-onward.
+Runs without network or model weights so CI can execute it on every push. By
+default it loads ``data/export`` (recursively) when that directory has dataset
+files and falls back to the golden fixtures, which keeps the gate meaningful
+from P0 onward. Export data must additionally record ``provenance.reviewed_by``.
 """
 
 from __future__ import annotations
@@ -34,16 +34,36 @@ class GateResult:
         return not self.failures
 
 
+def dataset_files(directory: Path) -> list[Path]:
+    return [
+        path
+        for path in sorted(directory.rglob("*"))
+        if path.is_file() and path.suffix in {".jsonl", ".json"}
+    ]
+
+
+def is_export_path(path: Path) -> bool:
+    resolved = path.resolve()
+    export = DEFAULT_DATA_DIR.resolve()
+    return resolved == export or export in resolved.parents
+
+
 def resolve_paths(paths: Sequence[Path] | None) -> list[Path]:
     if paths:
         return [Path(p) for p in paths]
-    if DEFAULT_DATA_DIR.exists() and any(DEFAULT_DATA_DIR.glob("*.json*")):
+    if DEFAULT_DATA_DIR.exists() and dataset_files(DEFAULT_DATA_DIR):
         return [DEFAULT_DATA_DIR]
     return [FIXTURE_DIR]
 
 
-def run_gate(paths: Sequence[Path] | None = None) -> GateResult:
+def run_gate(
+    paths: Sequence[Path] | None = None,
+    *,
+    require_reviewed: bool | None = None,
+) -> GateResult:
     resolved = resolve_paths(paths)
+    if require_reviewed is None:
+        require_reviewed = any(is_export_path(path) for path in resolved)
     cases = []
     failures: list[str] = []
     for path in resolved:
@@ -53,7 +73,7 @@ def run_gate(paths: Sequence[Path] | None = None) -> GateResult:
             failures.append(f"{path}: {exc}")
     if not cases and not failures:
         failures.append(f"no cases found under {[str(p) for p in resolved]}")
-    failures.extend(validate_dataset(cases))
+    failures.extend(validate_dataset(cases, require_reviewed=require_reviewed))
     return GateResult(
         paths=resolved,
         cases=len(cases),

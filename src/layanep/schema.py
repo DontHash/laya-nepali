@@ -98,10 +98,15 @@ class Gold:
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "Gold":
         raw = data.get("probabilities", {})
+        try:
+            probabilities = {str(k): float(v) for k, v in dict(raw).items()}
+            score = float(data["score"]) if data.get("score") is not None else None
+        except (TypeError, ValueError) as exc:
+            raise SchemaError(f"gold probabilities and score must be numeric ({exc})") from exc
         return cls(
             label=str(data.get("label", "")),
-            probabilities={str(k): float(v) for k, v in dict(raw).items()},
-            score=float(data["score"]) if data.get("score") is not None else None,
+            probabilities=probabilities,
+            score=score,
         )
 
 
