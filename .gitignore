@@ -19,3 +19,15 @@ data/generated/*
 *.parquet
 *.safetensors
 *.pt
+*.bin
+*.gguf
+*.npy
+*.npz
+*.onnx
+*.h5
+*.ckpt
+
+# secrets
+.env
+.env.*
+!.env.example

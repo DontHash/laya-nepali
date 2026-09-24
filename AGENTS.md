@@ -4,13 +4,15 @@ Context for AI coding assistants working in this repository.
 
 `laya-nepali` builds the Nepali typed-decision dataset, fine-tune and benchmark
 for the Laya System 1 decision model. It is private until v1. Nothing here may
-touch OrderWorkFlow before P5, and the only artifacts that ever leave are the
-upstream PRs (P4) and the optional sidecar adapter (P5).
+touch OrderWorkFlow before P5; the only artifacts that ever leave are the P3
+dataset/checkpoint publication, the upstream PRs (P4), and the optional
+sidecar adapter (P5).
 
 ## Do NOT
 
 - Add a row to `data/export` without a recorded license lane in
-  `docs/provenance.md` and a matching row-level `provenance.license`.
+  `docs/provenance.md` and a matching row-level `provenance.license`; the gate
+  enforces the lanes in `src/layanep/provenance.py`.
 - Include real names, phone numbers, addresses, emails or URLs in any state,
   question or gold — the deterministic gate fails on PII patterns.
 - Use a blocked source: OpenSLR54 (share-alike), NepTrans conversation
