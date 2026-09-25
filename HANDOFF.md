@@ -1,11 +1,11 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-25. State: P0, vocabulary unification, the P1 generation
-and review pipeline, and **batch 1 reviewed + applied** are done and pushed to
-the private `DontHash/laya-nepali` repo. Ground truth now lives in
-`data/reviewed/ne-decisions-v1.jsonl` (53 cases / 265 decisions; gate passes).
-Next: top up generation to the 400-case / 2,000-decision target and build
-`export.py` (splits + freeze).
+Last updated: 2026-09-25. State: the Devanagari benchmark v2 is authored (272
+steps), the base-checkpoint baseline is measured, and the step review CLI is
+ready. **Next action: human review of the 272 benchmark steps**
+(`python -m layanep.benchmark.review run`) and `apply` to freeze the corpus.
+After that: P1b generation (Devanagari-only, ~1,800 cases, LLM judge + tiered
+review) and export.
 
 ## Commit map (main)
 
@@ -22,22 +22,25 @@ Next: top up generation to the 400-case / 2,000-decision target and build
 | `4a2053e` | `normalize.py` + `review.py`: script filters, review sheet CLI, apply with `reviewed_by` |
 | `052ee20` | Review UX: show the intent under review; fix double `gemini-` prefix |
 | `cbab57e` | Apply-time script guard; `staff sanga kura` phrasing; batch 1 applied (53 cases) |
+| `e8020f7` | Devanagari benchmark v2 (272 steps) + multi-revision support + base baseline |
+| `595ddbb` | Benchmark step review CLI + the 272-step review sheet |
 
 ## Verified
 
-- `python -m pytest -q` -> 62 passed.
+- `python -m pytest -q` -> 70 passed.
 - `python -m layanep.eval --check` -> `ne-decisions-v1 gate: 1 cases, 5 decisions, PASS`.
 - `ruff check src/ tests/ --select=E9,F63,F7,F82,F401,F811 --line-length=120` -> clean;
   `python -m compileall -q src/ tests/` -> clean.
-- Baseline benchmark (`--classifier=laya --device=cpu --threads 6`): **55/79 (69.6%)**,
-  abstain 12/17, p50 1232 ms (busy box), 0 errors. Report in `reports/ne-probe-laya.{md,json}`.
-- Generation batch 1 (Gemini `gemini-3.5-flash-lite`, 4.5 s pacing, `--cases 69
-  --businesses 1`): 69 planned, 55 accepted, 14 rejected (12 restaurant-name leakage,
-  2 mixed-script); 2 more dropped on re-validation for stray Cyrillic letters.
-- **Batch 1 review applied**: `data/reviewed/ne-decisions-v1.jsonl` = 53 cases /
-  265 decisions, 50 accepted + 3 edited, 0 rejected (ne 18 / ne-rom 21 / en 14);
-  `python -m layanep.validate --check` with `--require-reviewed` passes.
-  Review fixes include gender-neutral greetings and the `staff sanga kura` handoff phrasing.
+- **Devanagari benchmark v2** (`data/benchmark/ne-bench-deva-v2.json`): 46 cases /
+  272 steps, 12 per kind (36 for `discovery.query`), 92 safety/abstain, two
+  held-out businesses; `validate_corpus` passes.
+- **Base baseline on v2** (`reports/ne-bench-deva-v2-laya.{md,json}`):
+  113/272 (41.5%), abstain 53/92, p50 406 ms, 0 errors. Failure shape:
+  `show_menu` 0/12, `view_cart` 0/12, `use_saved_address` 0/12,
+  `discovery.query` 9/36, 19 safety false commands.
+- Baseline on `ne-probe-v1` (mixed script) unchanged: 55/79, abstain 12/17.
+- Batch 1 dataset: `data/reviewed/ne-decisions-v1.jsonl` = 53 cases / 265
+  decisions, 50 accepted + 3 edited; strict validation passes.
 - `.env` is gitignored (it holds the Gemini keys); `.env.example` is tracked.
 
 ## Environment (this machine)
@@ -72,21 +75,25 @@ Next: top up generation to the 400-case / 2,000-decision target and build
 - `docs/provenance.md` lanes marked "per-card - verify before use"
   (`kshitizgajurel/*`, Kaggle Foodmandu) hard-fail in code until verified.
 
-## Next: top up to target volume, then export
+## Next: benchmark review, then P1b generation, then export
 
-1. Top up generation until 400 cases / 2,000 decisions: `python -m layanep.generate
-   --cases N --businesses 1` (add `--variants` for more phrasings; more training
-   businesses in `templates.py` add fresh contexts). Rejected candidates can be
-   regenerated; every new batch needs its own review pass:
-   `python -m layanep.review build` -> `run` -> `apply` (apply appends nothing;
-   it rewrites `data/reviewed/ne-decisions-v1.jsonl` from the sheet, so rebuild
-   the sheet from all candidate files before applying).
-2. `export.py` - template-family splits (train / calibration / frozen benchmark
-   + never-trained safety/abstain subset), freeze `ne-decisions-v1`, emit JSONL
+1. **Review the 272 benchmark steps (critical path):**
+   ```bash
+   python -m layanep.benchmark.review run --reviewer <name>   # a/e/l/r/s/q
+   python -m layanep.benchmark.review list --status pending
+   python -m layanep.benchmark.review apply                   # freezes the corpus
+   ```
+   Then re-run the baseline on the frozen corpus and record the number.
+2. **P1b generation** per the revised plan: Devanagari-only default,
+   class-balanced allocation (~100 per kind, ~320 safety/abstain), 7-8 training
+   businesses, LLM judge pass, dedup; target ~1,800 cases / ~9,000 decisions.
+   Reference stats from NepTrans/LINCE/tweets; spelling-variation augmentation
+   from nspell/Bhasha; Kshitiz rows as auxiliary (cap ~30%); Foodmandu menus.
+   Review: 100% human on safety/abstain, judge + 25% sample on kinds.
+3. `export.py` - train/calibration splits, freeze `ne-decisions-v1`, emit JSONL
    to `data/export/`; the gate requires provenance + `reviewed_by` there.
-3. P2: Kaggle 2xT4 fine-tune of `convaiinnovations/laya-multilingual` +
-   temperature fitting; P3 publish; P4 upstream; P5 optional OrderWorkFlow
-   adapter (shadow only).
+4. P2 scaling experiment (400/900/1,800 cases) then the final fine-tune; P3
+   publish; P4 upstream; P5 optional OrderWorkFlow adapter (shadow only).
 
 ## Open decisions / risks
 
@@ -108,6 +115,8 @@ Next: top up generation to the 400-case / 2,000-decision target and build
 - Generation: `src/layanep/templates.py`, `src/layanep/generate.py`.
 - Review: `src/layanep/normalize.py`, `src/layanep/review.py`,
   `data/reviewed/ne-decisions-v1.review.jsonl`.
-- Benchmark: `src/layanep/benchmark/{corpus,runner,report}.py`,
-  `data/benchmark/ne-probe-v1.json`, `reports/ne-probe-laya.*`.
+- Benchmark: `src/layanep/benchmark/{corpus,runner,report,review}.py`,
+  `data/benchmark/ne-probe-v1.json`, `data/benchmark/ne-bench-deva-v2.json`,
+  `data/benchmark/ne-bench-deva-v2.review.jsonl`,
+  `reports/ne-probe-laya.*`, `reports/ne-bench-deva-v2-laya.*`.
 - Research basis: `docs/CASE_STUDY.md`.
