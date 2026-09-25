@@ -307,10 +307,12 @@ def run_review(
     limit: int | None,
     *,
     include_all: bool = False,
+    selected: list[ReviewRecord] | None = None,
 ) -> int:
+    queue = selected if selected is not None else records
     pending = [
         record
-        for record in records
+        for record in queue
         if record.status == "pending" and (include_all or record.needs_human)
     ]
     if limit:
@@ -465,7 +467,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "run":
         print(f"reviewer: {reviewer}")
         selected = filter_records(records, status=args.status, family=args.family, language=args.language)
-        return run_review(selected, args.sheet, reviewer, args.limit or None, include_all=args.all)
+        return run_review(
+            records, args.sheet, reviewer, args.limit or None, include_all=args.all, selected=selected
+        )
 
     if args.command == "set":
         for record in records:

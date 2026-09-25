@@ -139,6 +139,25 @@ def test_run_review_interactive(tmp_path: Path, monkeypatch) -> None:
     assert persisted[ids[2]].note == "not natural"
 
 
+def test_run_review_saves_the_full_sheet_for_a_filtered_queue(tmp_path: Path, monkeypatch) -> None:
+    candidates, ids = make_candidates(tmp_path)
+    sheet = tmp_path / "sheet.jsonl"
+    records = build_sheet(candidates, sheet)
+    records[0].status = "accepted"
+    records[0].reviewed_by = "tester"
+    save_sheet(sheet, records)
+
+    selected = [record for record in records if record.id == ids[1]]
+    answers = iter(["a"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(answers))
+    assert run_review(records, sheet, "tester", None, selected=selected) == 0
+
+    persisted = load_sheet(sheet)
+    assert [record.id for record in persisted] == ids
+    assert persisted[0].status == "accepted"
+    assert persisted[1].status == "accepted"
+
+
 def test_filter_and_format(tmp_path: Path) -> None:
     candidates, ids = make_candidates(tmp_path)
     records = build_sheet(candidates, tmp_path / "sheet.jsonl")
