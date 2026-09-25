@@ -1,11 +1,10 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-26 (morning). State: **dataset v1 reviewed and exported** —
-1,835 cases / 9,175 decisions applied (692 human + 1,143 judge-auto; reviewer
-DontHash), splits train 1,666 / calibration 169, deterministic gate PASS, all 106
-tests green. Two human rows stayed pending and were excluded (`ne-v2-1292`
-view_cart, `ne-v3-0248` allergy); review them to add the last 2. Benchmark v2
-frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook + gates.
+Last updated: 2026-09-26 (morning). State: **dataset v1 complete** — 1,837 cases /
+9,185 decisions applied (694 human + 1,143 judge-auto; reviewer DontHash), splits
+train 1,667 / calibration 170, deterministic gate PASS, all 107 tests green.
+Review-sheet truncation bug fixed (`00344e2`); sheet reconstructed and re-applied.
+Benchmark v2 frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook.
 
 ## Commit map (main)
 
@@ -38,6 +37,9 @@ frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook + gates.
 | `94654c1` | Batch-2/3 tiered review sheet (1,838 records, 694 human) |
 | `d86fb8b` | Handoff: batch 2+3 complete, review sheet state |
 | `45c8198` | Review applied (692 human + 1,143 judge-auto); export 1,835 cases / 9,175 decisions |
+| `5f47f55` | Handoff: dataset v1 reviewed and exported |
+| `00344e2` | Fix: filtered `review run` queue no longer truncates the saved sheet |
+| `e6b9e76` | Final two human rows applied; export 1,837 cases / 9,185 decisions |
 
 ## Verified
 
@@ -47,10 +49,15 @@ frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook + gates.
 - **Devanagari benchmark v2** (`data/benchmark/ne-bench-deva-v2.json`): 46 cases /
   272 steps, frozen after review (272 accepted, 0 edits). Baseline:
   `reports/ne-bench-deva-v2-laya.{md,json}` = 113/272 (41.5%), abstain 53/92.
-- **Dataset export v1**: `data/export/ne-decisions-v1-{train,calibration}.jsonl` +
-  manifest = **1,835 cases / 9,175 decisions** (train 1,666 / calibration 169);
+- **Dataset export v1 (final)**: `data/export/ne-decisions-v1-{train,calibration}.jsonl`
+  + manifest = **1,837 cases / 9,185 decisions** (train 1,667 / calibration 170);
   `python -m layanep.eval --check` passes with `reviewed_by` required. Review
-  modes: 692 human (all safety + sampled kinds) + 1,143 judge-auto.
+  modes: 694 human (all safety + sampled kinds) + 1,143 judge-auto.
+- **Review-sheet guard**: `review run` with a filtered queue used to save only
+  the filtered rows, truncating the sheet (real incident 2026-09-26; recovered
+  by rebuilding the sheet and replaying `review_mode`/`reviewed_by` from the
+  reviewed dataset, plus the two straggler decisions). Fixed in `00344e2` with a
+  regression test (`run_review(records, ..., selected=queue)` saves `records`).
 - **Leakage gate worked**: 3 batch-1 messages coincided with benchmark steps
   (`नमस्ते हजुर`, `मेरो अर्डर कहाँ पुग्यो?`, `स्टाफसँग कुरा गर्न मिल्छ?`); they are
   recorded as rejected with the `leakage-gate` note and dropped from the export.
@@ -144,12 +151,10 @@ frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook + gates.
 
 ## Next: finish batch 2, tiered review, top-up export, then P2
 
-1. **Dataset v1 is reviewed and exported** (2026-09-26 morning): 1,835 cases /
-   9,175 decisions, train 1,666 / calibration 169, gate PASS. Two human rows
-   stayed pending and are excluded; to include them, re-open
-   `python -m layanep.review run --reviewer DontHash`, then `python -m
-   layanep.review apply` and `python -m layanep.export` (sheet decisions persist;
-   ids `ne-v2-1292` view_cart and `ne-v3-0248` allergy).
+1. **Dataset v1 is DONE** (2026-09-26 morning): 1,837 cases / 9,185 decisions
+   applied and exported (train 1,667 / calibration 170; gate PASS). No rows
+   pending in the sheet. The Kaggle notebook consumes `data/export` plus
+   `data/benchmark/ne-bench-deva-v2.json` and `ne-probe-v1.json`.
 3. **P2**: `notebooks/laya_finetune_nepali_2xT4_kaggle.ipynb` is ready (loads the
    `multilingual` subfolder, trains with RLCD, fits temperatures on the
    calibration split, evaluates on `ne-bench-deva-v2`); run the scaling
