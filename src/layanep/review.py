@@ -29,6 +29,7 @@ from typing import Sequence
 from .normalize import normalize_text
 from .provenance import provenance_failures
 from .schema import Case, SchemaError, validate_case
+from .templates import FAMILY_BY_ID
 from .validate import load_rows
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -162,6 +163,9 @@ def format_record(record: ReviewRecord, index: int | None = None, total: int | N
     ]
     if record.status == "edited":
         lines.append(f"  was:  {record.original_text}")
+    family = FAMILY_BY_ID.get(str(provenance.get("family", "")))
+    if family:
+        lines.append(f"  should express: {family.instruction}")
     lines.append(f"  expected: {_expected_summary(record.case)}")
     lines.append(f"  generator: {provenance.get('generator', '?')}")
     if record.note:
@@ -250,13 +254,15 @@ def run_review(records: list[ReviewRecord], sheet_path: Path, reviewer: str, lim
     if not pending:
         print("nothing pending")
         return 0
+    print("Accept when the message is natural and expresses exactly the intent above.")
+    print("Edit to fix the wording; reject when it is wrong, unnatural or unsafe.")
     print("commands: [a]ccept  [e]dit  [r]eject  [s]kip  [q]uit")
     for index, record in enumerate(pending, start=1):
         print()
         print(format_record(record, index=index, total=len(pending)))
         while True:
             try:
-                command = input("> ").strip()
+                command = input("[a/e/r/s/q] > ").strip()
             except (EOFError, KeyboardInterrupt):
                 print()
                 return 0
@@ -267,6 +273,7 @@ def run_review(records: list[ReviewRecord], sheet_path: Path, reviewer: str, lim
             if command in ("a", "accept"):
                 set_decision(record, "accept", reviewer=reviewer)
                 save_sheet(sheet_path, records)
+                print("  accepted")
                 break
             if command in ("r", "reject"):
                 try:
@@ -276,6 +283,7 @@ def run_review(records: list[ReviewRecord], sheet_path: Path, reviewer: str, lim
                     return 0
                 set_decision(record, "reject", reviewer=reviewer, note=note)
                 save_sheet(sheet_path, records)
+                print("  rejected")
                 break
             if command in ("e", "edit"):
                 try:
@@ -289,6 +297,7 @@ def run_review(records: list[ReviewRecord], sheet_path: Path, reviewer: str, lim
                     print(f"  {exc}")
                     continue
                 save_sheet(sheet_path, records)
+                print("  edited")
                 break
             print("commands: [a]ccept  [e]dit  [r]eject  [s]kip  [q]uit")
     return 0

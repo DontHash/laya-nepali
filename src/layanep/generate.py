@@ -289,11 +289,12 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     load_env_file(REPO_ROOT / ".env")
     model = args.model or os.environ.get("GEMINI_MODEL") or DEFAULT_MODEL
+    model_name = model if model.startswith("gemini-") else f"gemini-{model}"
     generator = GeminiGenerator(gemini_keys(), model=model, retries=args.retries)
     report = generate_candidates(
         tasks,
         generator,
-        generator_name=f"gemini-{model}@{date.today().isoformat()}",
+        generator_name=f"{model_name}@{date.today().isoformat()}",
         out_path=args.out,
         seed=args.seed,
         delay_ms=args.delay_ms,

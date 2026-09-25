@@ -139,6 +139,7 @@ def test_filter_and_format(tmp_path: Path) -> None:
 
     rendered = format_record(records[0], index=1, total=3)
     assert "[1/3]" in rendered
+    assert "should express:" in rendered
     assert "command=greet" in rendered
     assert "fake@unit" in rendered
 
