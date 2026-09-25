@@ -1,9 +1,9 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-24. State: P0 scaffold + pre-P1 hardening + the
+Last updated: 2026-09-25. State: P0 scaffold + pre-P1 hardening + the
 OrderWorkFlow migration are done and pushed to the private
-`DontHash/laya-nepali` repo. The next work block is P1 (LLM-assisted dataset
-generation + CLI review).
+`DontHash/laya-nepali` repo. The command vocabulary is unified (natural keys);
+the next work block is P1 step 1 (`generate.py`).
 
 ## Commit map (main)
 
@@ -15,16 +15,19 @@ generation + CLI review).
 | `f1b6290` | Migrated `ne-probe-v1` corpus + Python eval harness + glossary/transliterator from OrderWorkFlow |
 | `ddeecf0` | `docs/CASE_STUDY.md` (research basis) |
 | `ffc9f08` | Seed benchmark report (`reports/ne-probe-laya.*`) |
+| `a44dac1` | Unified command vocabulary on natural keys across dataset + benchmark; baseline re-run |
 
 ## Verified
 
-- `python -m pytest -q` -> 36 passed.
+- `python -m pytest -q` -> 38 passed.
 - `python -m layanep.eval --check` -> `ne-decisions-v1 gate: 1 cases, 5 decisions, PASS`.
 - `ruff check src/ tests/ --select=E9,F63,F7,F82,F401,F811 --line-length=120` -> clean;
   `python -m compileall -q src/ tests/` -> clean.
-- Seed run (`--classifier=laya --device=cpu --threads 6`) reproduces the
-  OrderWorkFlow probe exactly: **55/79 (69.6%)**, abstain 13/17, p50 953 ms,
-  0 errors. Report in `reports/ne-probe-laya.{md,json}`.
+- Baseline re-run after the vocabulary unification (`--classifier=laya --device=cpu
+  --threads 6`): **55/79 (69.6%)**, abstain 12/17, p50 1232 ms (busy box), 0 errors.
+  The seed run measured 55/79, abstain 13/17, p50 953 ms with a duplicated
+  instruction sentence; the clean shared prompt trades `best seller?` (recovered)
+  for `yo k ho?` (newly over-confident). Report in `reports/ne-probe-laya.{md,json}`.
 - `.env` is gitignored (it holds the Gemini keys); `.env.example` is tracked.
 
 ## Environment (this machine)
@@ -44,10 +47,11 @@ generation + CLI review).
 
 ## Findings to carry into P1/P2
 
-- **Criteria-key wording is the accuracy lever**: natural keys scored 61/79 vs
-  16/79 for dotted keys in the OrderWorkFlow probe. `questions.py` currently uses
-  dotted LU kinds as criteria keys for the dataset; revisit before the
-  `ne-decisions-v1` freeze (the benchmark runner already uses natural keys).
+- **Criteria-key wording is the accuracy lever — resolved**: dataset and
+  benchmark now share the natural keys from `questions.py`
+  (`COMMAND_CRITERIA` + `COMMAND_LABEL_TO_KIND`), which the zero-shot probe
+  measured at 55/79 against 16/79 for dotted keys. Train and evaluate with the
+  same question text.
 - The multilingual checkpoint ships invalid temperature entries
   (`choice:11+ = 0.1006 -> clamped to 0.5`); confidence from those buckets is
   uncalibrated until P2 fits temperatures on our data.
@@ -77,8 +81,8 @@ generation + CLI review).
 
 ## Open decisions / risks
 
-- Dataset criteria keys: switch `questions.py` to natural keys or keep dotted
-  keys for training? Decide before the freeze (see finding above).
+- Dataset criteria keys: **resolved 2026-09-25** - natural keys shared by
+  training and benchmark (`a44dac1`).
 - Target volume: 400 cases x 5 questions (~2,000 decisions) per the dataset
   card; generation cost/quota with the free-tier keys is unmeasured.
 - CI runs only the deterministic gates (no weights); the benchmark is a manual
