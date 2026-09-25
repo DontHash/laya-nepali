@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generated_at": "2026-09-25T05:59:43.648431+00:00",
+    "generated_at": "2026-09-25T06:38:08.269160+00:00",
     "classifier": "laya",
     "corpus_revision": "ne-probe-v1",
-    "commit": "dbfa24a",
+    "commit": "a8fd61a",
     "device": "cpu",
     "threshold": 0.5,
     "threads": 6
@@ -14,13 +14,13 @@
     "total": 79,
     "correct": 55,
     "abstain_total": 17,
-    "abstain_correct": 13,
+    "abstain_correct": 12,
     "per_kind": {
       "social.greet": {
         "expected": 4,
         "correct": 3,
-        "predicted": 5,
-        "false_positive": 2
+        "predicted": 6,
+        "false_positive": 3
       },
       "social.thanks": {
         "expected": 4,
@@ -42,8 +42,8 @@
       },
       "discovery.recommend": {
         "expected": 4,
-        "correct": 2,
-        "predicted": 2,
+        "correct": 3,
+        "predicted": 3,
         "false_positive": 0
       },
       "discovery.query": {
@@ -96,13 +96,13 @@
       },
       "none": {
         "expected": 17,
-        "correct": 13,
-        "predicted": 24,
-        "false_positive": 11
+        "correct": 12,
+        "predicted": 22,
+        "false_positive": 10
       }
     },
-    "latency_p50": 953.4094000118785,
-    "latency_p95": 1155.0994999997783,
+    "latency_p50": 1232.6146999839693,
+    "latency_p95": 3301.4114999969024,
     "errors": 0,
     "results": [
       {
@@ -112,7 +112,7 @@
         "text": "hi there",
         "expected": "social.greet",
         "predicted": null,
-        "latency_ms": 1149.9083999951836,
+        "latency_ms": 9086.639899993315,
         "error": null
       },
       {
@@ -122,7 +122,7 @@
         "text": "good morning",
         "expected": "social.greet",
         "predicted": "social.greet",
-        "latency_ms": 894.092600006843,
+        "latency_ms": 3301.4114999969024,
         "error": null
       },
       {
@@ -132,7 +132,7 @@
         "text": "hello!",
         "expected": "social.greet",
         "predicted": "social.greet",
-        "latency_ms": 990.8815000089817,
+        "latency_ms": 1713.9458000019658,
         "error": null
       },
       {
@@ -142,7 +142,7 @@
         "text": "hey, good evening",
         "expected": "social.greet",
         "predicted": "social.greet",
-        "latency_ms": 937.0617000095081,
+        "latency_ms": 1174.125699995784,
         "error": null
       },
       {
@@ -152,7 +152,7 @@
         "text": "thanks a lot",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 892.0333000132814,
+        "latency_ms": 1250.6222999945749,
         "error": null
       },
       {
@@ -162,7 +162,7 @@
         "text": "thank you so much",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 927.887700003339,
+        "latency_ms": 1177.0237000018824,
         "error": null
       },
       {
@@ -172,7 +172,7 @@
         "text": "dhanyabad",
         "expected": "social.thanks",
         "predicted": null,
-        "latency_ms": 933.8866000180133,
+        "latency_ms": 1384.4241999904625,
         "error": null
       },
       {
@@ -182,7 +182,7 @@
         "text": "धन्यवाद",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 423.3142999873962,
+        "latency_ms": 1242.580199992517,
         "error": null
       },
       {
@@ -192,7 +192,7 @@
         "text": "bye",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 911.755200009793,
+        "latency_ms": 2757.4327000183985,
         "error": null
       },
       {
@@ -202,7 +202,7 @@
         "text": "see you tomorrow",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 907.493099977728,
+        "latency_ms": 2579.694300016854,
         "error": null
       },
       {
@@ -212,7 +212,7 @@
         "text": "talk to you later",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 885.6568000046536,
+        "latency_ms": 2826.047999988077,
         "error": null
       },
       {
@@ -222,7 +222,7 @@
         "text": "फेरि भेटौंला",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 423.7515999993775,
+        "latency_ms": 1114.282099995762,
         "error": null
       },
       {
@@ -232,7 +232,7 @@
         "text": "menu please",
         "expected": "discovery.show_menu",
         "predicted": "discovery.show_menu",
-        "latency_ms": 928.3275000052527,
+        "latency_ms": 2252.37780000316,
         "error": null
       },
       {
@@ -242,7 +242,7 @@
         "text": "what do you have?",
         "expected": "discovery.show_menu",
         "predicted": "social.greet",
-        "latency_ms": 929.3332000088412,
+        "latency_ms": 2623.235000006389,
         "error": null
       },
       {
@@ -252,7 +252,7 @@
         "text": "show me what you serve",
         "expected": "discovery.show_menu",
         "predicted": "discovery.show_menu",
-        "latency_ms": 950.2991999906953,
+        "latency_ms": 2503.35760001326,
         "error": null
       },
       {
@@ -262,7 +262,7 @@
         "text": "menu pathaunus",
         "expected": "discovery.show_menu",
         "predicted": "discovery.show_menu",
-        "latency_ms": 1093.6284000054002,
+        "latency_ms": 2216.1955000192393,
         "error": null
       },
       {
@@ -272,7 +272,7 @@
         "text": "menu ma k k cha?",
         "expected": "discovery.show_menu",
         "predicted": "discovery.show_menu",
-        "latency_ms": 931.6326999978628,
+        "latency_ms": 2338.5061000008136,
         "error": null
       },
       {
@@ -282,7 +282,7 @@
         "text": "मेनु देखाउनुहोस्",
         "expected": "discovery.show_menu",
         "predicted": "social.goodbye",
-        "latency_ms": 440.1161000132561,
+        "latency_ms": 1294.096699974034,
         "error": null
       },
       {
@@ -292,7 +292,7 @@
         "text": "what do you recommend?",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 912.99079998862,
+        "latency_ms": 2857.923800009303,
         "error": null
       },
       {
@@ -302,7 +302,7 @@
         "text": "suggest something nice",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 937.1866000001319,
+        "latency_ms": 3747.615800006315,
         "error": null
       },
       {
@@ -311,8 +311,8 @@
         "language": "en",
         "text": "best seller?",
         "expected": "discovery.recommend",
-        "predicted": null,
-        "latency_ms": 953.5371999954805,
+        "predicted": "discovery.recommend",
+        "latency_ms": 2648.1415999878664,
         "error": null
       },
       {
@@ -322,7 +322,7 @@
         "text": "के राम्रो छ?",
         "expected": "discovery.recommend",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 463.1144999875687,
+        "latency_ms": 1073.6402999900747,
         "error": null
       },
       {
@@ -332,7 +332,7 @@
         "text": "how much is chicken momo?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 946.1224999977276,
+        "latency_ms": 3518.853299989132,
         "error": null
       },
       {
@@ -342,7 +342,7 @@
         "text": "what's the price of masala chai",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 950.4770000057761,
+        "latency_ms": 2310.1655000064056,
         "error": null
       },
       {
@@ -352,7 +352,7 @@
         "text": "momo ko price kati ho?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 978.1697999860626,
+        "latency_ms": 1337.4688000185415,
         "error": null
       },
       {
@@ -362,7 +362,7 @@
         "text": "मोमोको मूल्य कति हो?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 400.0948000175413,
+        "latency_ms": 552.0402000111062,
         "error": null
       },
       {
@@ -372,7 +372,7 @@
         "text": "do you have veg momo?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 981.5865000127815,
+        "latency_ms": 1253.6936000105925,
         "error": null
       },
       {
@@ -382,7 +382,7 @@
         "text": "is there any chai?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 967.4370000138879,
+        "latency_ms": 1036.9109000021126,
         "error": null
       },
       {
@@ -392,7 +392,7 @@
         "text": "masala chai cha?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 956.0910000000149,
+        "latency_ms": 1155.2196000120603,
         "error": null
       },
       {
@@ -402,7 +402,7 @@
         "text": "तपाईंसँग भेज मोमो छ?",
         "expected": "discovery.query",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 470.9813999943435,
+        "latency_ms": 652.4450999859255,
         "error": null
       },
       {
@@ -412,7 +412,7 @@
         "text": "tell me about the thali",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 1077.5837999826763,
+        "latency_ms": 1258.2813000190072,
         "error": null
       },
       {
@@ -422,7 +422,7 @@
         "text": "what's in the veg thali?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 989.5219000172801,
+        "latency_ms": 1197.7940000069793,
         "error": null
       },
       {
@@ -432,7 +432,7 @@
         "text": "मोमोमा के छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 397.3979000002146,
+        "latency_ms": 496.04669999098405,
         "error": null
       },
       {
@@ -442,7 +442,7 @@
         "text": "what time do you open?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 962.6780000107829,
+        "latency_ms": 1196.9320999924093,
         "error": null
       },
       {
@@ -452,7 +452,7 @@
         "text": "are you open now?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 1076.6988999966998,
+        "latency_ms": 1247.1998000110034,
         "error": null
       },
       {
@@ -462,7 +462,7 @@
         "text": "kati baje khulcha?",
         "expected": "fulfillment.ask_hours",
         "predicted": null,
-        "latency_ms": 1188.6674000124913,
+        "latency_ms": 1150.0989999913145,
         "error": null
       },
       {
@@ -472,7 +472,7 @@
         "text": "कति बजे खुल्छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 517.9908999998588,
+        "latency_ms": 512.7925999986473,
         "error": null
       },
       {
@@ -482,7 +482,7 @@
         "text": "do you deliver to Lazimpat?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "discovery.query",
-        "latency_ms": 1118.8190000248142,
+        "latency_ms": 1244.9855000013486,
         "error": null
       },
       {
@@ -492,7 +492,7 @@
         "text": "what's the delivery fee?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 1037.951600010274,
+        "latency_ms": 1142.1616000006907,
         "error": null
       },
       {
@@ -502,7 +502,7 @@
         "text": "delivery area kaha samma?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 1071.1747000168543,
+        "latency_ms": 1243.4253999963403,
         "error": null
       },
       {
@@ -512,7 +512,7 @@
         "text": "डेलिभरी कहाँसम्म हुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 440.08309999480844,
+        "latency_ms": 513.960300013423,
         "error": null
       },
       {
@@ -522,7 +522,7 @@
         "text": "where is my order?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 1029.3635000125505,
+        "latency_ms": 1306.392099999357,
         "error": null
       },
       {
@@ -532,7 +532,7 @@
         "text": "any update on my order?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 1138.3863000082783,
+        "latency_ms": 1281.9184999971185,
         "error": null
       },
       {
@@ -542,7 +542,7 @@
         "text": "mero order kaha cha?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 1155.0994999997783,
+        "latency_ms": 1449.9322999909054,
         "error": null
       },
       {
@@ -552,7 +552,7 @@
         "text": "मेरो अर्डर कहाँ छ?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 435.2352000132669,
+        "latency_ms": 496.69609998818487,
         "error": null
       },
       {
@@ -562,7 +562,7 @@
         "text": "show me my cart",
         "expected": "ordering.view_cart",
         "predicted": "ordering.view_cart",
-        "latency_ms": 1134.5692000177223,
+        "latency_ms": 1217.620800016448,
         "error": null
       },
       {
@@ -572,7 +572,7 @@
         "text": "what's in my order?",
         "expected": "ordering.view_cart",
         "predicted": "discovery.query",
-        "latency_ms": 1419.4300000090152,
+        "latency_ms": 1293.5456999985036,
         "error": null
       },
       {
@@ -582,7 +582,7 @@
         "text": "mero cart dekhaunus",
         "expected": "ordering.view_cart",
         "predicted": null,
-        "latency_ms": 1001.1434000043664,
+        "latency_ms": 1156.886199984001,
         "error": null
       },
       {
@@ -592,7 +592,7 @@
         "text": "मेरो कार्ट देखाउनुहोस्",
         "expected": "ordering.view_cart",
         "predicted": "social.goodbye",
-        "latency_ms": 409.63700000429526,
+        "latency_ms": 641.4583000005223,
         "error": null
       },
       {
@@ -602,7 +602,7 @@
         "text": "checkout please",
         "expected": "ordering.request_checkout",
         "predicted": "ordering.request_checkout",
-        "latency_ms": 967.9140000080224,
+        "latency_ms": 1425.550200016005,
         "error": null
       },
       {
@@ -612,7 +612,7 @@
         "text": "i'm done, place my order",
         "expected": "ordering.request_checkout",
         "predicted": "social.goodbye",
-        "latency_ms": 953.4094000118785,
+        "latency_ms": 1288.940400001593,
         "error": null
       },
       {
@@ -622,7 +622,7 @@
         "text": "checkout garna chahanchhu",
         "expected": "ordering.request_checkout",
         "predicted": "ordering.request_checkout",
-        "latency_ms": 1246.377500006929,
+        "latency_ms": 1227.0595000009052,
         "error": null
       },
       {
@@ -632,7 +632,7 @@
         "text": "अर्डर गर्नुहोस्",
         "expected": "ordering.request_checkout",
         "predicted": "ordering.request_checkout",
-        "latency_ms": 635.4571999981999,
+        "latency_ms": 551.1748999997508,
         "error": null
       },
       {
@@ -642,7 +642,7 @@
         "text": "repeat my last order",
         "expected": "ordering.repeat_order",
         "predicted": "ordering.repeat_order",
-        "latency_ms": 1038.730200001737,
+        "latency_ms": 1232.6146999839693,
         "error": null
       },
       {
@@ -652,7 +652,7 @@
         "text": "feri tyahi order garna man cha",
         "expected": "ordering.repeat_order",
         "predicted": null,
-        "latency_ms": 1013.3609999902546,
+        "latency_ms": 1113.020199991297,
         "error": null
       },
       {
@@ -662,7 +662,7 @@
         "text": "फेरि उही अर्डर गर्नुहोस्",
         "expected": "ordering.repeat_order",
         "predicted": null,
-        "latency_ms": 457.680799998343,
+        "latency_ms": 562.9255999810994,
         "error": null
       },
       {
@@ -672,7 +672,7 @@
         "text": "use my saved address",
         "expected": "ordering.use_saved_address",
         "predicted": "ordering.use_saved_address",
-        "latency_ms": 952.9580000089481,
+        "latency_ms": 1167.7544999984093,
         "error": null
       },
       {
@@ -682,7 +682,7 @@
         "text": "saved address use garnus",
         "expected": "ordering.use_saved_address",
         "predicted": "ordering.use_saved_address",
-        "latency_ms": 974.3878000008408,
+        "latency_ms": 1094.4278000097256,
         "error": null
       },
       {
@@ -692,7 +692,7 @@
         "text": "सेभ गरेको ठेगाना प्रयोग गर्नुहोस्",
         "expected": "ordering.use_saved_address",
         "predicted": null,
-        "latency_ms": 447.68240000121295,
+        "latency_ms": 476.09929999453016,
         "error": null
       },
       {
@@ -702,7 +702,7 @@
         "text": "momos please",
         "expected": null,
         "predicted": null,
-        "latency_ms": 960.6883000233211,
+        "latency_ms": 1210.2079000032973,
         "error": null
       },
       {
@@ -712,7 +712,7 @@
         "text": "2 chicken momo",
         "expected": null,
         "predicted": null,
-        "latency_ms": 931.6689999832306,
+        "latency_ms": 1265.6475999974646,
         "error": null
       },
       {
@@ -722,7 +722,7 @@
         "text": "one veg thali and a chai",
         "expected": null,
         "predicted": null,
-        "latency_ms": 913.3336000086274,
+        "latency_ms": 1155.727500008652,
         "error": null
       },
       {
@@ -732,7 +732,7 @@
         "text": "yes",
         "expected": null,
         "predicted": null,
-        "latency_ms": 907.9642999859061,
+        "latency_ms": 1226.5575999917928,
         "error": null
       },
       {
@@ -742,7 +742,7 @@
         "text": "no thanks",
         "expected": null,
         "predicted": "social.thanks",
-        "latency_ms": 934.7323999973014,
+        "latency_ms": 1086.6098999977112,
         "error": null
       },
       {
@@ -752,7 +752,7 @@
         "text": "does the momo have nuts?",
         "expected": null,
         "predicted": "discovery.query",
-        "latency_ms": 962.3546999937389,
+        "latency_ms": 1074.144400015939,
         "error": null
       },
       {
@@ -762,7 +762,7 @@
         "text": "i'm allergic to peanuts",
         "expected": null,
         "predicted": null,
-        "latency_ms": 948.8163999922108,
+        "latency_ms": 1104.8301000264473,
         "error": null
       },
       {
@@ -772,7 +772,7 @@
         "text": "i want a refund",
         "expected": null,
         "predicted": null,
-        "latency_ms": 953.9042999967933,
+        "latency_ms": 1113.4402999887243,
         "error": null
       },
       {
@@ -782,7 +782,7 @@
         "text": "the food was cold, i want to complain",
         "expected": null,
         "predicted": null,
-        "latency_ms": 993.9600999932736,
+        "latency_ms": 1173.0661999899894,
         "error": null
       },
       {
@@ -792,7 +792,7 @@
         "text": "can i talk to a human?",
         "expected": null,
         "predicted": "social.greet",
-        "latency_ms": 966.8143999879248,
+        "latency_ms": 1194.9508000107016,
         "error": null
       },
       {
@@ -802,7 +802,7 @@
         "text": "asdfgh",
         "expected": null,
         "predicted": null,
-        "latency_ms": 992.9857999959495,
+        "latency_ms": 1093.0952999915462,
         "error": null
       },
       {
@@ -812,7 +812,7 @@
         "text": "???",
         "expected": null,
         "predicted": null,
-        "latency_ms": 930.1629999827128,
+        "latency_ms": 1131.9154999800958,
         "error": null
       },
       {
@@ -822,7 +822,7 @@
         "text": "maybe later",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 933.956599998055,
+        "latency_ms": 1101.7141999909654,
         "error": null
       },
       {
@@ -832,7 +832,7 @@
         "text": "i'll think about it",
         "expected": null,
         "predicted": null,
-        "latency_ms": 962.293899996439,
+        "latency_ms": 2727.1715000097174,
         "error": null
       },
       {
@@ -841,8 +841,8 @@
         "language": "ne-rom",
         "text": "yo k ho?",
         "expected": null,
-        "predicted": null,
-        "latency_ms": 956.9838000170421,
+        "predicted": "social.greet",
+        "latency_ms": 2610.112599999411,
         "error": null
       },
       {
@@ -852,7 +852,7 @@
         "text": "अहिले पछि",
         "expected": null,
         "predicted": null,
-        "latency_ms": 413.7487999978475,
+        "latency_ms": 1200.6149999797344,
         "error": null
       },
       {
@@ -862,7 +862,7 @@
         "text": "how much is falafel pita?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 988.2488000148442,
+        "latency_ms": 3132.7684999851044,
         "error": null
       },
       {
@@ -872,7 +872,7 @@
         "text": "is the baklava available?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 987.4400999979116,
+        "latency_ms": 2185.3350999881513,
         "error": null
       },
       {
@@ -882,7 +882,7 @@
         "text": "do you deliver?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 988.116299995454,
+        "latency_ms": 3216.200500028208,
         "error": null
       },
       {
@@ -892,7 +892,7 @@
         "text": "latte please",
         "expected": null,
         "predicted": null,
-        "latency_ms": 970.8963000157382,
+        "latency_ms": 2618.3639999944717,
         "error": null
       }
     ]

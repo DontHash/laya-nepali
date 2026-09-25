@@ -7,8 +7,23 @@ from pathlib import Path
 
 import pytest
 
-from layanep.questions import NE_QUESTION_IDS, assert_full_vocabulary, ne_questions
-from layanep.schema import Case, Question, SchemaError, validate_case, validate_question
+from layanep.questions import (
+    COMMAND_CRITERIA,
+    COMMAND_LABEL_TO_KIND,
+    NE_QUESTION_IDS,
+    assert_full_vocabulary,
+    ne_questions,
+)
+from layanep.schema import (
+    ABSTAIN_KEY,
+    LU_COMMAND_KINDS,
+    MAX_CHOICE_OPTIONS,
+    Case,
+    Question,
+    SchemaError,
+    validate_case,
+    validate_question,
+)
 
 FIXTURE = Path(__file__).parent / "fixtures" / "ne_case_golden.json"
 
@@ -34,6 +49,18 @@ def test_question_template_matches_fixture_shape() -> None:
     for question in template.values():
         validate_question("template", question)
     assert_full_vocabulary()
+
+
+def test_command_vocabulary_is_shared_and_maps_to_kinds() -> None:
+    assert set(COMMAND_CRITERIA) == set(COMMAND_LABEL_TO_KIND) | {ABSTAIN_KEY}
+    assert set(COMMAND_LABEL_TO_KIND.values()) == set(LU_COMMAND_KINDS)
+    assert len(COMMAND_CRITERIA) <= MAX_CHOICE_OPTIONS
+
+
+def test_fixture_uses_shared_command_criteria() -> None:
+    case = golden_case()
+    assert case.questions["command"].criteria == COMMAND_CRITERIA
+    assert case.gold["command"].label in COMMAND_LABEL_TO_KIND
 
 
 def test_row_round_trip() -> None:

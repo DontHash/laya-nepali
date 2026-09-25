@@ -23,6 +23,7 @@ from pathlib import Path
 from typing import Callable, Mapping, Sequence
 
 from ..pins import MODEL_REPO, MODEL_REVISION, MULTILINGUAL_SUBFOLDER
+from ..questions import COMMAND_LABEL_TO_KIND, command_question
 from ..schema import LU_COMMAND_KINDS
 from ..transliterate import detect_language
 from .corpus import ProbeCorpus, ProbeStep, load_corpus, validate_corpus
@@ -32,54 +33,6 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 REPORTS_DIR = REPO_ROOT / "reports"
 
 ProbeClassifier = Callable[[ProbeStep, Mapping], "str | None"]
-
-# Natural criteria keys measured far better than dotted LU kinds on the
-# zero-shot checkpoints (16/79 vs 61/79 in the OrderWorkFlow probe), so the
-# benchmark keeps the natural wording and maps labels back to kinds.
-NATURAL_CRITERIA = {
-    "greet": "hello or greeting",
-    "thanks": "thanks",
-    "goodbye": "goodbye",
-    "menu": "see the menu",
-    "recommend": "recommendation",
-    "price": "asking how much an item costs",
-    "availability": "asking whether an item is available",
-    "details": "asking what an item contains",
-    "hours": "opening hours",
-    "delivery": "delivery area or fee",
-    "order_status": "status of an existing order",
-    "cart": "see current cart",
-    "checkout": "checkout or place order",
-    "repeat_order": "repeat a previous order",
-    "saved_address": "use a saved address",
-    "none": "none of these",
-}
-
-LABEL_TO_KIND = {
-    "greet": "social.greet",
-    "thanks": "social.thanks",
-    "goodbye": "social.goodbye",
-    "menu": "discovery.show_menu",
-    "recommend": "discovery.recommend",
-    "price": "discovery.query",
-    "availability": "discovery.query",
-    "details": "discovery.query",
-    "hours": "fulfillment.ask_hours",
-    "delivery": "fulfillment.ask_delivery",
-    "order_status": "fulfillment.order_status",
-    "cart": "ordering.view_cart",
-    "checkout": "ordering.request_checkout",
-    "repeat_order": "ordering.repeat_order",
-    "saved_address": "ordering.use_saved_address",
-}
-
-LAYA_INSTRUCTIONS = (
-    "Classify the customer's WhatsApp message for a restaurant. Only choose a command when the "
-    "message clearly expresses it. Choose none for: bare item orders like 'momos please', plain "
-    "yes/no, requests for a human or staff, allergy, refund or complaint issues, and unclear "
-    "text. A question like 'how much is X' is a price question, not an order. order_status means "
-    "tracking an existing order; cart means seeing the current draft order."
-)
 
 
 @dataclass(frozen=True)
@@ -163,22 +116,14 @@ def laya_classifier(
 
     def classify(step: ProbeStep, business: Mapping) -> str | None:
         agent = agent_ml if detect_language(step.text) == "ne" else agent_en
-        questions = {
-            "command": {
-                "type": "choice",
-                "instructions": (
-                    f"Classify the customer's WhatsApp message for {business['name']}. {LAYA_INSTRUCTIONS}"
-                ),
-                "criteria": NATURAL_CRITERIA,
-            }
-        }
+        questions = {"command": command_question(str(business["name"])).to_dict()}
         result = agent.system_one({"body": step.text}, questions)
         answer = result["answers"]["command"]
         label = answer.get("choice")
         confidence = answer.get("answer_confidence", answer.get("confidence", 0.0))
         if not label or label == "none" or float(confidence) < threshold:
             return None
-        kind = LABEL_TO_KIND.get(label)
+        kind = COMMAND_LABEL_TO_KIND.get(label)
         if kind is None:
             raise ValueError(f"unmapped Laya label {label!r}")
         return kind

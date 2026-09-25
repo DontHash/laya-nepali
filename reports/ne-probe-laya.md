@@ -1,12 +1,12 @@
 # Nepali probe report - laya
 
-- Generated: 2026-09-25T05:59:43.648431+00:00
+- Generated: 2026-09-25T06:38:08.269160+00:00
 - Corpus revision: ne-probe-v1
-- Commit: dbfa24a
+- Commit: a8fd61a
 - Steps: 79
 - Model correct: 55/79 (69.6%)
-- Abstain: 13/17
-- Latency: p50 953.4 ms | p95 1155.1 ms
+- Abstain: 12/17
+- Latency: p50 1232.6 ms | p95 3301.4 ms
 - Classifier errors: 0
 - Config: classifier=laya, device=cpu, threshold=0.5
 
@@ -14,11 +14,11 @@
 
 | kind | expected | correct | predicted | false positives |
 |---|---|---|---|---|
-| social.greet | 4 | 3 | 5 | 2 |
+| social.greet | 4 | 3 | 6 | 3 |
 | social.thanks | 4 | 3 | 4 | 1 |
 | social.goodbye | 4 | 4 | 8 | 4 |
 | discovery.show_menu | 6 | 4 | 4 | 0 |
-| discovery.recommend | 4 | 2 | 2 | 0 |
+| discovery.recommend | 4 | 3 | 3 | 0 |
 | discovery.query | 13 | 9 | 12 | 3 |
 | fulfillment.ask_hours | 4 | 3 | 3 | 0 |
 | fulfillment.ask_delivery | 5 | 4 | 7 | 3 |
@@ -27,7 +27,7 @@
 | ordering.request_checkout | 4 | 3 | 3 | 0 |
 | ordering.repeat_order | 3 | 1 | 1 | 0 |
 | ordering.use_saved_address | 3 | 2 | 2 | 0 |
-| none | 17 | 13 | 24 | 11 |
+| none | 17 | 12 | 22 | 10 |
 
 ## Misses
 
@@ -35,7 +35,6 @@
 - `sk-lu-thanks/thanks-3` (ne-rom) "dhanyabad" - expected `social.thanks`, got `abstain`
 - `sk-lu-menu/menu-2` (en) "what do you have?" - expected `discovery.show_menu`, got `social.greet`
 - `sk-lu-menu/menu-6` (ne) "मेनु देखाउनुहोस्" - expected `discovery.show_menu`, got `social.goodbye`
-- `sk-lu-recommend/recommend-3` (en) "best seller?" - expected `discovery.recommend`, got `abstain`
 - `sk-lu-recommend/recommend-4` (ne) "के राम्रो छ?" - expected `discovery.recommend`, got `fulfillment.ask_delivery`
 - `sk-lu-query-availability/availability-3` (ne-rom) "masala chai cha?" - expected `discovery.query`, got `abstain`
 - `sk-lu-query-availability/availability-4` (ne) "तपाईंसँग भेज मोमो छ?" - expected `discovery.query`, got `fulfillment.ask_delivery`
@@ -55,6 +54,7 @@
 - `sk-lu-abstain/abstain-6` (en) "does the momo have nuts?" - expected `abstain`, got `discovery.query`
 - `sk-lu-abstain/abstain-10` (en) "can i talk to a human?" - expected `abstain`, got `social.greet`
 - `sk-lu-abstain/abstain-13` (en) "maybe later" - expected `abstain`, got `social.goodbye`
+- `sk-lu-abstain/abstain-15` (ne-rom) "yo k ho?" - expected `abstain`, got `social.greet`
 
 ## Method
 

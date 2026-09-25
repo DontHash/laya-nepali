@@ -13,8 +13,10 @@ command understanding (the 13-kind LU vocabulary used by OrderWorkFlow).
 
 - 400 cases × 5 typed questions ≈ 2,000 decisions.
 - Each case: a business/menu state plus one customer message.
-- Questions per case: `command` (14-option choice), `query_field` (4-option
-  choice), `order_intent` / `needs_staff` / `abstain` (noul).
+- Questions per case: `command` (16-option choice: natural command keys, the 13
+  LU kinds with price/availability/details split out, plus abstain),
+  `query_field` (4-option choice), `order_intent` / `needs_staff` / `abstain`
+  (noul).
 - Languages: Devanagari Nepali and Romanized Nepali, with English code-switch
   where natural.
 - Splits: train / calibration / frozen benchmark, grouped by template family;

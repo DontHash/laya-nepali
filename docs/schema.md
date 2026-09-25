@@ -35,9 +35,13 @@ gate enforces the lanes defined in `src/layanep/provenance.py` and documented in
 {"type": "choice", "instructions": "...", "criteria": {"key": "description"}}
 ```
 
-- `choice` criteria is a `{key: description}` map. The keys are part of the
-  model input, so they are machine-stable dotted LU kinds while the descriptions
-  carry the natural-language wording.
+- `choice` criteria is a `{key: description}` map. The command question uses
+  natural-language keys (`greet`, `price`, `order_status`, ...) because the
+  zero-shot probe measured them at 55/79 against 16/79 for dotted keys.
+  `COMMAND_LABEL_TO_KIND` in `src/layanep/questions.py` maps each key onto its
+  dotted LU kind (`price`/`availability`/`details` -> `discovery.query`), and
+  the same module is the single source of truth for both the training dataset
+  and the `ne-probe-v1` benchmark.
 - `score` criteria is an ordered list of level descriptions.
 - `noul` carries no criteria.
 - Hard limit: **at most 20 choice options** (Laya's option budget); the
@@ -46,7 +50,7 @@ gate enforces the lanes defined in `src/layanep/provenance.py` and documented in
 ## Gold
 
 ```json
-{"label": "discovery.query", "probabilities": {"discovery.query": 0.96, "none": 0.02, ...}}
+{"label": "price", "probabilities": {"price": 0.96, "none": 0.02, ...}}
 ```
 
 - `choice`: probabilities keyed by criteria keys; missing keys are read as 0.0
@@ -63,7 +67,7 @@ Defined in `src/layanep/questions.py`:
 
 | id | type | what it asks |
 |---|---|---|
-| `command` | choice (14) | the 13 LU command kinds plus `none` |
+| `command` | choice (16) | the 15 natural command keys (13 LU kinds; price/availability/details split out) plus `none` |
 | `query_field` | choice (4) | price / availability / details / none |
 | `order_intent` | noul | does the message attempt an order mutation? |
 | `needs_staff` | noul | allergy / ingredient / refund / complaint / human handoff? |
