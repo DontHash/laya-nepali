@@ -18,6 +18,7 @@ Typical flow::
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -29,7 +30,7 @@ from typing import Sequence
 from .generate import validate_message
 from .normalize import normalize_text
 from .provenance import provenance_failures
-from .schema import Case, SchemaError, validate_case
+from .schema import ABSTAIN_KEY, Case, SchemaError, validate_case
 from .templates import FAMILY_BY_ID
 from .validate import load_rows
 
@@ -69,6 +70,8 @@ class ReviewRecord:
     note: str = ""
     reviewed_by: str | None = None
     reviewed_at: str | None = None
+    needs_human: bool = True
+    review_mode: str = "human"
     case: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
@@ -84,6 +87,8 @@ class ReviewRecord:
             note=str(data.get("note", "")),
             reviewed_by=data.get("reviewed_by"),
             reviewed_at=data.get("reviewed_at"),
+            needs_human=bool(data.get("needs_human", True)),
+            review_mode=str(data.get("review_mode", "human")),
             case=dict(data.get("case") or {}),
         )
 
@@ -137,7 +142,20 @@ def _expected_summary(case_row: dict) -> str:
     )
 
 
-def build_sheet(input_path: Path, sheet_path: Path) -> list[ReviewRecord]:
+def _needs_human(case_row: dict, record_id: str, sample_rate: float) -> bool:
+    provenance = case_row.get("provenance") or {}
+    family = FAMILY_BY_ID.get(str(provenance.get("family", "")))
+    if family is None or family.command == ABSTAIN_KEY:
+        return True
+    if sample_rate >= 1.0:
+        return True
+    if sample_rate <= 0.0:
+        return False
+    digest = hashlib.sha1(record_id.encode("utf-8")).hexdigest()
+    return int(digest, 16) % 100 < int(round(sample_rate * 100))
+
+
+def build_sheet(input_path: Path, sheet_path: Path, *, sample_rate: float = 1.0) -> list[ReviewRecord]:
     existing = {record.id: record for record in load_sheet(sheet_path)}
     records: list[ReviewRecord] = []
     for row in load_rows(input_path):
@@ -145,7 +163,12 @@ def build_sheet(input_path: Path, sheet_path: Path) -> list[ReviewRecord]:
         message = case_message(row)
         record = existing.get(case.id)
         if record is None:
-            record = ReviewRecord(id=case.id, text=message, original_text=message)
+            record = ReviewRecord(
+                id=case.id,
+                text=message,
+                original_text=message,
+                needs_human=_needs_human(row, case.id, sample_rate),
+            )
         record.case = row
         records.append(record)
     save_sheet(sheet_path, records)
@@ -168,6 +191,7 @@ def format_record(record: ReviewRecord, index: int | None = None, total: int | N
     if family:
         lines.append(f"  should express: {family.instruction}")
     lines.append(f"  expected: {_expected_summary(record.case)}")
+    lines.append(f"  review: {'human' if record.needs_human else 'judge auto'}")
     lines.append(f"  generator: {provenance.get('generator', '?')}")
     if record.note:
         lines.append(f"  note: {record.note}")
@@ -201,6 +225,15 @@ def set_decision(
 
 def apply_sheet(records: Sequence[ReviewRecord], out_path: Path) -> ApplyReport:
     report = ApplyReport()
+    auto_timestamp = datetime.now(timezone.utc).isoformat()
+    for record in records:
+        if record.status == "pending" and not record.needs_human:
+            record.status = "accepted"
+            record.reviewed_by = "llm-judge"
+            record.reviewed_at = auto_timestamp
+            record.review_mode = "judge-auto"
+            record.note = record.note or "auto-accepted: judge pass + sampled human review"
+
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as sink:
         for record in records:
@@ -220,6 +253,7 @@ def apply_sheet(records: Sequence[ReviewRecord], out_path: Path) -> ApplyReport:
                 case.provenance["reviewed_by"] = record.reviewed_by
                 case.provenance["reviewed_at"] = record.reviewed_at
                 case.provenance["review"] = record.status
+                case.provenance["review_mode"] = record.review_mode
                 failures = provenance_failures(case.provenance, require_reviewed=True)
             if not failures:
                 try:
@@ -253,12 +287,23 @@ def filter_records(
     return [record for record in records if keep(record)]
 
 
-def run_review(records: list[ReviewRecord], sheet_path: Path, reviewer: str, limit: int | None) -> int:
-    pending = [record for record in records if record.status == "pending"]
+def run_review(
+    records: list[ReviewRecord],
+    sheet_path: Path,
+    reviewer: str,
+    limit: int | None,
+    *,
+    include_all: bool = False,
+) -> int:
+    pending = [
+        record
+        for record in records
+        if record.status == "pending" and (include_all or record.needs_human)
+    ]
     if limit:
         pending = pending[:limit]
     if not pending:
-        print("nothing pending")
+        print("nothing pending for human review (judge-passed rows are auto-accepted at apply)")
         return 0
     print("Accept when the message is natural and expresses exactly the intent above.")
     print("Edit to fix the wording; reject when it is wrong, unnatural or unsafe.")
@@ -319,6 +364,12 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     build = subparsers.add_parser("build", help="create or refresh the review sheet")
     build.add_argument("--input", type=Path, default=DEFAULT_INPUT)
+    build.add_argument(
+        "--sample-rate",
+        type=float,
+        default=0.25,
+        help="share of judge-passed command-kind rows that still need human review (safety rows are always human)",
+    )
     _add_common(build)
 
     listing = subparsers.add_parser("list", help="list review records")
@@ -338,6 +389,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     run.add_argument("--status", choices=STATUSES, default="pending")
     run.add_argument("--family", default=None)
     run.add_argument("--language", default=None)
+    run.add_argument("--all", action="store_true", help="also review judge-auto rows")
     _add_common(run)
 
     setter = subparsers.add_parser("set", help="record one decision")
@@ -356,9 +408,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     reviewer = getattr(args, "reviewer", None) or default_reviewer()
 
     if args.command == "build":
-        records = build_sheet(args.input, args.sheet)
+        records = build_sheet(args.input, args.sheet, sample_rate=args.sample_rate)
         pending = sum(1 for record in records if record.status == "pending")
-        print(f"sheet {args.sheet}: {len(records)} records ({pending} pending)")
+        human = sum(1 for record in records if record.status == "pending" and record.needs_human)
+        print(f"sheet {args.sheet}: {len(records)} records ({pending} pending, {human} need human review)")
         return 0
 
     records = load_sheet(args.sheet)
@@ -392,7 +445,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "run":
         print(f"reviewer: {reviewer}")
         selected = filter_records(records, status=args.status, family=args.family, language=args.language)
-        return run_review(selected, args.sheet, reviewer, args.limit or None)
+        return run_review(selected, args.sheet, reviewer, args.limit or None, include_all=args.all)
 
     if args.command == "set":
         for record in records:
@@ -410,6 +463,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "apply":
         report = apply_sheet(records, args.out)
+        save_sheet(args.sheet, records)
         print(report.summary())
         for record_id, failures in report.failures[:10]:
             print(f"  invalid {record_id}: {', '.join(failures)}")

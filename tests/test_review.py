@@ -155,12 +155,73 @@ def test_filter_and_format(tmp_path: Path) -> None:
     assert "fake@unit" in rendered
 
 
+def make_tiered(tmp_path: Path) -> tuple[Path, list[str]]:
+    tasks = [task_for("greet", "ne"), task_for("allergy", "ne")]
+    messages = {"greet": "नमस्ते हजुर", "allergy": "छोइलामा बदाम छ?"}
+    rng = random.Random(2)
+    rows = [build_case(task, messages[task.family.id], rng, generator="fake@unit").to_row() for task in tasks]
+    path = tmp_path / "tiered.jsonl"
+    path.write_text("\n".join(json.dumps(row, ensure_ascii=False) for row in rows) + "\n", encoding="utf-8")
+    return path, [row["id"] for row in rows]
+
+
+def test_build_marks_sampling(tmp_path: Path) -> None:
+    path, ids = make_tiered(tmp_path)
+    records = build_sheet(path, tmp_path / "sheet.jsonl", sample_rate=0.0)
+    by_id = {record.id: record for record in records}
+    assert by_id[ids[0]].needs_human is False  # command kind: judge-passed, sampled in
+    assert by_id[ids[1]].needs_human is True  # safety: always human
+
+    full = build_sheet(path, tmp_path / "sheet-full.jsonl", sample_rate=1.0)
+    assert all(record.needs_human for record in full)
+
+
+def test_apply_auto_accepts_judged_rows(tmp_path: Path) -> None:
+    path, ids = make_tiered(tmp_path)
+    records = build_sheet(path, tmp_path / "sheet.jsonl", sample_rate=0.0)
+    set_decision(records[1], "accept", reviewer="tester")
+
+    out = tmp_path / "applied.jsonl"
+    report = apply_sheet(records, out)
+    assert report.written == 2
+    assert report.skipped_pending == 0
+
+    rows = {json.loads(line)["id"]: json.loads(line) for line in out.read_text(encoding="utf-8").splitlines()}
+    assert rows[ids[0]]["provenance"]["reviewed_by"] == "llm-judge"
+    assert rows[ids[0]]["provenance"]["review_mode"] == "judge-auto"
+    assert rows[ids[1]]["provenance"]["reviewed_by"] == "tester"
+    assert rows[ids[1]]["provenance"]["review_mode"] == "human"
+    for row in rows.values():
+        validate_case(Case.from_row(row))
+
+
+def test_apply_skips_pending_human_rows(tmp_path: Path) -> None:
+    path, ids = make_tiered(tmp_path)
+    records = build_sheet(path, tmp_path / "sheet.jsonl", sample_rate=0.0)
+    report = apply_sheet(records, tmp_path / "applied.jsonl")
+    assert report.written == 1
+    assert report.skipped_pending == 1
+
+
+def test_run_review_skips_judge_rows(tmp_path: Path, monkeypatch) -> None:
+    path, ids = make_tiered(tmp_path)
+    sheet = tmp_path / "sheet.jsonl"
+    records = build_sheet(path, sheet, sample_rate=0.0)
+    answers = iter(["a"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(answers))
+    assert run_review(records, sheet, "tester", None) == 0
+
+    persisted = {record.id: record for record in load_sheet(sheet)}
+    assert persisted[ids[0]].status == "pending"
+    assert persisted[ids[1]].status == "accepted"
+
+
 def test_cli_build_list_show_apply(tmp_path: Path, capsys) -> None:
     candidates, ids = make_candidates(tmp_path)
     sheet = tmp_path / "sheet.jsonl"
 
-    assert main(["build", "--input", str(candidates), "--sheet", str(sheet)]) == 0
-    assert "3 records (3 pending)" in capsys.readouterr().out
+    assert main(["build", "--input", str(candidates), "--sheet", str(sheet), "--sample-rate", "1"]) == 0
+    assert "3 records (3 pending, 3 need human review)" in capsys.readouterr().out
 
     assert main(["list", "--sheet", str(sheet)]) == 0
     assert ids[0] in capsys.readouterr().out
