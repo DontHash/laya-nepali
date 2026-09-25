@@ -3,9 +3,10 @@
 Nepali typed-decision dataset, fine-tune, and benchmark for the
 [Laya](https://github.com/NandhaKishorM/laya) System 1 decision model.
 
-**Status: P0 scaffold.** Private until v1 (P3). Nothing Laya-specific leaves
-this repo except through the upstream PRs (P4) and the optional OrderWorkFlow
-adapter (P5).
+**Status: P0 scaffold + P1 prep.** Private until v1 (P3). The current handoff
+and next steps live in [HANDOFF.md](HANDOFF.md). Nothing Laya-specific leaves
+this repo except through the P3 publication, the upstream PRs (P4), and the
+optional OrderWorkFlow adapter (P5).
 
 ## What this is
 
