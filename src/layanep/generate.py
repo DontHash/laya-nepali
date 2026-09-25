@@ -9,7 +9,8 @@ Rows are candidates only: ``provenance.reviewed_by`` stays null until the review
 pass (``review.py``) accepts or edits them into ``data/reviewed/``.
 
 The Gemini client is stdlib-only (urllib) with key rotation and paced retries;
-tests inject a fake generator, so CI stays offline.
+the Vertex backend reuses the gcloud CLI access token. Tests inject a fake
+generator, so CI stays offline.
 """
 
 from __future__ import annotations
@@ -19,6 +20,7 @@ import json
 import os
 import random
 import re
+import subprocess
 import time
 import urllib.error
 import urllib.request
@@ -40,6 +42,15 @@ DEFAULT_MODEL = "gemini-3.5-flash-lite"
 DEFAULT_SEED = 20260925
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 KEY_ENV_NAMES = ("GEMINI_API_KEY", "GEMINI_API_KEY_ALT2", "GEMINI_API_KEY_ALT3", "GEMINI_API_KEY_ALT4")
+DEFAULT_VERTEX_MODEL = "gemini-2.5-flash-lite"
+DEFAULT_VERTEX_REGION = "us-central1"
+VERTEX_ENDPOINT = (
+    "https://{region}-aiplatform.googleapis.com/v1/projects/{project}"
+    "/locations/{region}/publishers/google/models/{model}:generateContent"
+)
+GCLOUD_TOKEN_COMMAND = "gcloud auth print-access-token"
+GCLOUD_PROJECT_COMMAND = "gcloud config get-value project"
+TOKEN_TTL_SECONDS = 2400.0
 MAX_MESSAGE_CHARS = 200
 RETRYABLE_STATUS = {429, 500, 502, 503, 504}
 MIXED_SCRIPT_TOKEN = re.compile(r"[A-Za-z][\u0900-\u097F]|[\u0900-\u097F][A-Za-z]")
@@ -88,6 +99,43 @@ def load_env_file(path: Path) -> dict[str, str]:
 
 def gemini_keys() -> list[str]:
     return [os.environ.get(name, "").strip() for name in KEY_ENV_NAMES if os.environ.get(name, "").strip()]
+
+
+def extract_response_text(data: dict) -> str:
+    feedback = data.get("promptFeedback") or {}
+    if feedback.get("blockReason"):
+        raise GenerationError(f"the provider blocked the prompt: {feedback['blockReason']}")
+    candidates = data.get("candidates") or []
+    if not candidates:
+        raise GenerationError("the provider returned no candidates")
+    parts = (candidates[0].get("content") or {}).get("parts") or []
+    text = " ".join(str(part.get("text", "")) for part in parts).strip()
+    if not text:
+        raise GenerationError("the provider returned an empty message")
+    return text
+
+
+def _run_gcloud(command: str, timeout: float = 60.0) -> str:
+    try:
+        proc = subprocess.run(command, capture_output=True, text=True, shell=True, timeout=timeout)
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise GenerationError(f"could not run `{command}`: {exc}") from exc
+    if proc.returncode != 0:
+        lines = [line.strip() for line in (proc.stderr or proc.stdout or "").splitlines() if line.strip()]
+        detail = lines[-1] if lines else f"exit {proc.returncode}"
+        raise GenerationError(f"`{command}` failed: {detail[:200]}")
+    return proc.stdout.strip()
+
+
+def vertex_project() -> str:
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "").strip() or os.environ.get("GCLOUD_PROJECT", "").strip()
+    if project:
+        return project
+    try:
+        value = _run_gcloud(GCLOUD_PROJECT_COMMAND, timeout=30.0)
+    except GenerationError:
+        return ""
+    return "" if value in ("", "(unset)") else value
 
 
 class GeminiGenerator:
@@ -155,17 +203,95 @@ class GeminiGenerator:
 
     @staticmethod
     def _extract_text(data: dict) -> str:
-        feedback = data.get("promptFeedback") or {}
-        if feedback.get("blockReason"):
-            raise GenerationError(f"Gemini blocked the prompt: {feedback['blockReason']}")
-        candidates = data.get("candidates") or []
-        if not candidates:
-            raise GenerationError("Gemini returned no candidates")
-        parts = (candidates[0].get("content") or {}).get("parts") or []
-        text = " ".join(str(part.get("text", "")) for part in parts).strip()
-        if not text:
-            raise GenerationError("Gemini returned an empty message")
-        return text
+        return extract_response_text(data)
+
+
+class VertexGenerator:
+    """Minimal REST client for Vertex AI ``generateContent``.
+
+    Auth rides on the gcloud CLI access token (no API keys): the token is
+    cached for ``token_ttl`` seconds and refreshed on expiry or HTTP 401.
+    """
+
+    def __init__(
+        self,
+        *,
+        project: str,
+        region: str = DEFAULT_VERTEX_REGION,
+        model: str = DEFAULT_VERTEX_MODEL,
+        timeout: float = 60.0,
+        retries: int = 3,
+        temperature: float = 1.0,
+        max_output_tokens: int = 256,
+        backoff_seconds: float = 2.0,
+        token_ttl: float = TOKEN_TTL_SECONDS,
+    ) -> None:
+        if not project:
+            raise GenerationError("no GCP project for Vertex: set GOOGLE_CLOUD_PROJECT or `gcloud config set project`")
+        self._project = project
+        self._region = region
+        self._model = model
+        self._timeout = timeout
+        self._retries = max(1, retries)
+        self._temperature = temperature
+        self._max_output_tokens = max_output_tokens
+        self._backoff_seconds = backoff_seconds
+        self._token_ttl = token_ttl
+        self._token = ""
+        self._token_expires = 0.0
+
+    def generate(self, prompt: str) -> str:
+        last_error: Exception | None = None
+        for attempt in range(self._retries):
+            try:
+                return extract_response_text(self._call(prompt))
+            except _Retryable as exc:
+                last_error = exc
+                if attempt + 1 < self._retries:
+                    time.sleep(min(30.0, self._backoff_seconds * (2 ** attempt)))
+        raise GenerationError(f"Vertex request failed after {self._retries} attempts: {last_error}")
+
+    def _access_token(self, *, refresh: bool = False) -> str:
+        now = time.time()
+        if refresh or not self._token or now >= self._token_expires:
+            token = _run_gcloud(GCLOUD_TOKEN_COMMAND)
+            if not token:
+                raise GenerationError("gcloud returned an empty access token")
+            self._token = token
+            self._token_expires = now + self._token_ttl
+        return self._token
+
+    def _call(self, prompt: str) -> dict:
+        payload = {
+            "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+            "generationConfig": {
+                "temperature": self._temperature,
+                "maxOutputTokens": self._max_output_tokens,
+                "thinkingConfig": {"thinkingBudget": 0},
+            },
+        }
+        request = urllib.request.Request(
+            VERTEX_ENDPOINT.format(project=self._project, region=self._region, model=self._model),
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json", "Authorization": f"Bearer {self._access_token()}"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=self._timeout) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            if exc.code == 401:
+                self._access_token(refresh=True)
+                raise _Retryable("HTTP 401 (access token refreshed)") from exc
+            if exc.code in RETRYABLE_STATUS:
+                raise _Retryable(f"HTTP {exc.code}") from exc
+            if exc.code == 404:
+                raise GenerationError(
+                    f"Vertex model {self._model!r} not found in {self._region}; check --model and --vertex-region"
+                ) from exc
+            raise GenerationError(f"Vertex HTTP {exc.code}: {exc.reason}") from exc
+        except (urllib.error.URLError, TimeoutError) as exc:
+            raise _Retryable(str(exc)) from exc
 
 
 def normalize_message(raw: str) -> str:
@@ -388,7 +514,7 @@ def generate_candidates(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Generate Nepali typed-decision candidates with Gemini.")
+    parser = argparse.ArgumentParser(description="Generate Nepali typed-decision candidates with Gemini or Vertex AI.")
     parser.add_argument("--cases", type=int, default=0, help="max candidates to plan (0 = all)")
     parser.add_argument("--kind-cases", type=int, default=100, help="cases per command-kind family")
     parser.add_argument("--safety-cases", type=int, default=40, help="cases per safety/abstain family")
@@ -396,7 +522,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--languages", default="ne", help="comma-separated language mix")
     parser.add_argument("--id-prefix", default="ne-gen", help="task id prefix; change it for a new batch")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
-    parser.add_argument("--model", default=None, help=f"Gemini model (default {DEFAULT_MODEL} or $GEMINI_MODEL)")
+    parser.add_argument("--model", default=None, help=f"model name (default {DEFAULT_MODEL} or $GEMINI_MODEL; vertex: {DEFAULT_VERTEX_MODEL} or $VERTEX_MODEL)")
+    parser.add_argument("--backend", choices=("gemini", "vertex"), default="gemini", help="text generation backend")
+    parser.add_argument("--vertex-project", default="", help="GCP project for the vertex backend (default $GOOGLE_CLOUD_PROJECT or gcloud config)")
+    parser.add_argument("--vertex-region", default=DEFAULT_VERTEX_REGION, help="Vertex region for the vertex backend")
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
     parser.add_argument("--delay-ms", type=int, default=4500, help="pause between API calls for the free tier")
     parser.add_argument("--retries", type=int, default=3, help="attempts per API key")
@@ -421,7 +550,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         families = {task.family.id for task in tasks}
         print(
             f"plan: {len(tasks)} tasks | {len(families)} families | {len(languages)} languages | "
-            f"{len(businesses)} businesses | judge={'off' if args.no_judge else 'on'} | "
+            f"{len(businesses)} businesses | backend={args.backend} | judge={'off' if args.no_judge else 'on'} | "
             f"spelling share {args.spelling_share}"
         )
         for task in tasks[:3]:
@@ -430,18 +559,35 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     load_env_file(REPO_ROOT / ".env")
-    model = args.model or os.environ.get("GEMINI_MODEL") or DEFAULT_MODEL
-    model_name = model if model.startswith("gemini-") else f"gemini-{model}"
-    generator = GeminiGenerator(gemini_keys(), model=model, retries=args.retries)
-    judge = None
-    if not args.no_judge:
-        judge = GeminiGenerator(gemini_keys(), model=model, retries=args.retries, temperature=0.0, max_output_tokens=128)
+    if args.backend == "vertex":
+        model = (args.model or os.environ.get("VERTEX_MODEL") or DEFAULT_VERTEX_MODEL).strip()
+        project = args.vertex_project.strip() or vertex_project()
+        generator = VertexGenerator(project=project, region=args.vertex_region, model=model, retries=args.retries)
+        judge = None
+        if not args.no_judge:
+            judge = VertexGenerator(
+                project=project,
+                region=args.vertex_region,
+                model=model,
+                retries=args.retries,
+                temperature=0.0,
+                max_output_tokens=128,
+            )
+        generator_name = f"vertex:{model}@{date.today().isoformat()}"
+    else:
+        model = args.model or os.environ.get("GEMINI_MODEL") or DEFAULT_MODEL
+        model_name = model if model.startswith("gemini-") else f"gemini-{model}"
+        generator = GeminiGenerator(gemini_keys(), model=model, retries=args.retries)
+        judge = None
+        if not args.no_judge:
+            judge = GeminiGenerator(gemini_keys(), model=model, retries=args.retries, temperature=0.0, max_output_tokens=128)
+        generator_name = f"{model_name}@{date.today().isoformat()}"
     from .export import benchmark_texts
 
     report = generate_candidates(
         tasks,
         generator,
-        generator_name=f"{model_name}@{date.today().isoformat()}",
+        generator_name=generator_name,
         out_path=args.out,
         seed=args.seed,
         delay_ms=args.delay_ms,

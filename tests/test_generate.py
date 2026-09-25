@@ -14,10 +14,12 @@ import pytest
 from layanep.generate import (
     GeminiGenerator,
     GenerationError,
+    VertexGenerator,
     generate_candidates,
     load_env_file,
     normalize_message,
     validate_message,
+    vertex_project,
 )
 from layanep.schema import ABSTAIN_KEY, Case, validate_case
 from layanep.templates import FAMILIES, LANGUAGES, TRAINING_BUSINESSES, build_case, build_plan, derive_gold
@@ -355,3 +357,75 @@ def test_gemini_extraction_guards() -> None:
         GeminiGenerator._extract_text({})
     with pytest.raises(GenerationError, match="empty"):
         GeminiGenerator._extract_text({"candidates": [{"content": {"parts": [{"text": " "}]}}]})
+
+
+def test_vertex_builds_request_and_caches_token(monkeypatch) -> None:
+    calls: list[str] = []
+    bodies: list[dict] = []
+    gcloud_calls: list[str] = []
+
+    def fake_urlopen(request, timeout=0):
+        calls.append(request.full_url)
+        bodies.append(json.loads(request.data.decode("utf-8")))
+        return FakeResponse({"candidates": [{"content": {"parts": [{"text": "नमस्ते"}]}}]})
+
+    def fake_gcloud(command, timeout=60.0):
+        gcloud_calls.append(command)
+        return "tok-1"
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr("layanep.generate._run_gcloud", fake_gcloud)
+    generator = VertexGenerator(project="my-proj", backoff_seconds=0)
+
+    assert generator.generate("hi") == "नमस्ते"
+    assert generator.generate("hi") == "नमस्ते"
+    assert len(gcloud_calls) == 1
+    assert calls[0] == calls[1]
+    assert "my-proj" in calls[0] and "us-central1" in calls[0] and "gemini-2.5-flash-lite" in calls[0]
+    payload = bodies[0]
+    assert payload["contents"][0]["role"] == "user"
+    assert payload["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 0}
+
+
+def test_vertex_refreshes_token_on_401(monkeypatch) -> None:
+    attempts = {"count": 0}
+    gcloud_calls: list[str] = []
+
+    def fake_urlopen(request, timeout=0):
+        attempts["count"] += 1
+        if attempts["count"] == 1:
+            raise urllib.error.HTTPError(request.full_url, 401, "unauthorized", None, None)
+        return FakeResponse({"candidates": [{"content": {"parts": [{"text": "नमस्ते"}]}}]})
+
+    def fake_gcloud(command, timeout=60.0):
+        gcloud_calls.append(command)
+        return f"tok-{len(gcloud_calls)}"
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr("layanep.generate._run_gcloud", fake_gcloud)
+    generator = VertexGenerator(project="my-proj", backoff_seconds=0)
+
+    assert generator.generate("hi") == "नमस्ते"
+    assert len(gcloud_calls) == 2
+
+
+def test_vertex_missing_model_is_fatal(monkeypatch) -> None:
+    def fail(request, timeout=0):
+        raise urllib.error.HTTPError(request.full_url, 404, "not found", None, None)
+
+    monkeypatch.setattr(urllib.request, "urlopen", fail)
+    monkeypatch.setattr("layanep.generate._run_gcloud", lambda command, timeout=60.0: "tok")
+    with pytest.raises(GenerationError, match="not found"):
+        VertexGenerator(project="my-proj", backoff_seconds=0).generate("hi")
+
+
+def test_vertex_project_resolution_guards(monkeypatch) -> None:
+    monkeypatch.delenv("GOOGLE_CLOUD_PROJECT", raising=False)
+    monkeypatch.delenv("GCLOUD_PROJECT", raising=False)
+    monkeypatch.setattr("layanep.generate._run_gcloud", lambda command, timeout=60.0: "(unset)")
+    assert vertex_project() == ""
+    with pytest.raises(GenerationError, match="no GCP project"):
+        VertexGenerator(project="")
+
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "env-proj")
+    assert vertex_project() == "env-proj"
