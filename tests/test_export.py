@@ -40,7 +40,12 @@ def test_write_export_writes_splits_and_manifest(tmp_path: Path) -> None:
 
     manifest = json.loads(report.manifest.read_text(encoding="utf-8"))
     assert manifest["splits"]["train"] == report.train
-    assert manifest["review_modes"].get("human") == len(cases)
+    expected_modes: dict[str, int] = {}
+    for case in cases:
+        mode = str(case.provenance.get("review_mode", "human"))
+        expected_modes[mode] = expected_modes.get(mode, 0) + 1
+    assert manifest["review_modes"] == expected_modes
+    assert sum(manifest["review_modes"].values()) == len(cases)
     assert manifest["sources"]["synthetic"] == len(cases)
 
 
