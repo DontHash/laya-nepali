@@ -32,10 +32,16 @@ def test_blocked_source_fails() -> None:
     assert any("blocked lane" in failure for failure in validate_dataset([case]))
 
 
-def test_pending_source_fails() -> None:
+def test_attested_source_passes() -> None:
     case = golden_case()
     case.provenance["source"] = "kshitizgajurel/customer-care"
-    assert any("pending license verification" in failure for failure in validate_dataset([case]))
+    case.provenance["license"] = "owner-attested"
+    assert validate_dataset([case]) == []
+
+    case = golden_case()
+    case.provenance["source"] = "foodmandu/menu-pricing"
+    case.provenance["license"] = "owner-attested"
+    assert validate_dataset([case]) == []
 
 
 def test_disallowed_license_fails() -> None:

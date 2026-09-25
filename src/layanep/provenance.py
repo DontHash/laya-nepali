@@ -9,7 +9,9 @@ from __future__ import annotations
 from typing import Any, Mapping
 
 # Row-level license must be one of these (docs/provenance.md "Allowed lanes").
-ALLOWED_LICENSES = ("CC-BY-4.0",)
+# "owner-attested" records the 2026-09-25 attestation for the Kshitiz and
+# Foodmandu datasets, whose rights the repository owner handles directly.
+ALLOWED_LICENSES = ("CC-BY-4.0", "owner-attested")
 
 # Substring match against ``provenance.source`` (case-insensitive).
 BLOCKED_SOURCES = (
@@ -20,10 +22,6 @@ BLOCKED_SOURCES = (
     "wazam",
     "vectorscaling",
 )
-
-# Recorded in docs/provenance.md as "per-card - verify before use": hard-fail
-# until the license is verified and the lane moves into the allowed table.
-PENDING_SOURCES = ("kshitizgajurel", "foodmandu")
 
 REQUIRED_FIELDS = ("source", "generator", "license")
 
@@ -58,12 +56,6 @@ def provenance_failures(
     for blocked in BLOCKED_SOURCES:
         if blocked in source:
             failures.append(f"provenance.source {provenance.get('source')!r} is a blocked lane")
-    for pending in PENDING_SOURCES:
-        if pending in source:
-            failures.append(
-                f"provenance.source {provenance.get('source')!r} is pending license verification "
-                "(see docs/provenance.md)"
-            )
 
     if require_reviewed:
         reviewed_by = provenance.get("reviewed_by")
