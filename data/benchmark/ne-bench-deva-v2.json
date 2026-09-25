@@ -1,0 +1,803 @@
+{
+  "revision": "ne-bench-deva-v2",
+  "source": "hand-authored for laya-nepali; held-out businesses; 100% human review pending",
+  "languages": [
+    "ne"
+  ],
+  "businesses": {
+    "boudha-bowl": {
+      "id": "boudha-bowl",
+      "name": "Boudha Bowl",
+      "currencyCode": "NPR",
+      "deliveryFeeCents": 10000,
+      "minOrderCents": 15000,
+      "deliveryMode": "both",
+      "hoursText": "10 AM - 9 PM daily",
+      "serviceArea": [
+        "Boudha",
+        "Jorpati",
+        "Chabahil"
+      ],
+      "menu": [
+        {
+          "id": "bb-sekuwa",
+          "name": "Chicken Sekuwa",
+          "description": "Grilled chicken with timur and spices",
+          "price_cents": 32000,
+          "available": true,
+          "category": "Grill",
+          "aliases": [
+            "sekuwa",
+            "सेकुवा"
+          ]
+        },
+        {
+          "id": "bb-choila",
+          "name": "Buff Choila",
+          "description": "Spicy grilled buff with mustard oil",
+          "price_cents": 28000,
+          "available": true,
+          "category": "Grill",
+          "aliases": [
+            "choila",
+            "छोइला"
+          ]
+        },
+        {
+          "id": "bb-alootama",
+          "name": "Aloo Tama",
+          "description": "Potato and bamboo shoot curry",
+          "price_cents": 22000,
+          "available": true,
+          "category": "Mains",
+          "aliases": [
+            "tama",
+            "आलु तामा"
+          ]
+        },
+        {
+          "id": "bb-chiura",
+          "name": "Chiura",
+          "description": "Beaten rice",
+          "price_cents": 15000,
+          "available": true,
+          "category": "Sides",
+          "aliases": [
+            "chiura",
+            "चिउरा"
+          ]
+        },
+        {
+          "id": "bb-chiya",
+          "name": "Masala Tea",
+          "description": "Spiced milk tea",
+          "price_cents": 8000,
+          "available": true,
+          "category": "Drinks",
+          "aliases": [
+            "chiya",
+            "चिया"
+          ]
+        }
+      ]
+    },
+    "patan-breakfast": {
+      "id": "patan-breakfast",
+      "name": "Patan Breakfast Shed",
+      "currencyCode": "NPR",
+      "deliveryFeeCents": 6000,
+      "minOrderCents": 0,
+      "deliveryMode": "both",
+      "hoursText": "7 AM - 11 AM daily",
+      "serviceArea": [
+        "Patan",
+        "Lagankhel",
+        "Jhamsikhel"
+      ],
+      "menu": [
+        {
+          "id": "pb-selroti",
+          "name": "Sel Roti",
+          "description": "Sweet rice-flour ring",
+          "price_cents": 6000,
+          "available": true,
+          "category": "Breakfast",
+          "aliases": [
+            "sel",
+            "सेल रोटी"
+          ]
+        },
+        {
+          "id": "pb-puri",
+          "name": "Puri Tarkari",
+          "description": "Fried puri with potato curry",
+          "price_cents": 18000,
+          "available": true,
+          "category": "Breakfast",
+          "aliases": [
+            "puri",
+            "पुरी"
+          ]
+        },
+        {
+          "id": "pb-paratha",
+          "name": "Aloo Paratha",
+          "description": "Stuffed potato flatbread with butter",
+          "price_cents": 15000,
+          "available": true,
+          "category": "Breakfast",
+          "aliases": [
+            "paratha",
+            "पराठा"
+          ]
+        },
+        {
+          "id": "pb-dahi",
+          "name": "Curd",
+          "description": "Fresh curd",
+          "price_cents": 10000,
+          "available": true,
+          "category": "Sides",
+          "aliases": [
+            "dahi",
+            "दही"
+          ]
+        },
+        {
+          "id": "pb-lemontea",
+          "name": "Lemon Tea",
+          "description": "Hot lemon tea",
+          "price_cents": 9000,
+          "available": true,
+          "category": "Drinks",
+          "aliases": [
+            "lemon tea",
+            "लेमन टी"
+          ]
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "bb-greet",
+      "category": "social",
+      "description": "Devanagari greetings, social only.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-greet-1", "language": "ne", "text": "नमस्ते हजुर", "expected": "social.greet", "note": "social only, no second intent"},
+        {"id": "bb-greet-2", "language": "ne", "text": "नमस्कार दाइ", "expected": "social.greet"},
+        {"id": "bb-greet-3", "language": "ne", "text": "हेलो, कस्तो छ?", "expected": "social.greet"},
+        {"id": "bb-greet-4", "language": "ne", "text": "नमस्ते है", "expected": "social.greet"},
+        {"id": "bb-greet-5", "language": "ne", "text": "नमस्कार हजुरहरू", "expected": "social.greet"},
+        {"id": "bb-greet-6", "language": "ne", "text": "हेल्लो दाइ", "expected": "social.greet"}
+      ]
+    },
+    {
+      "id": "pb-greet",
+      "category": "social",
+      "description": "Devanagari greetings, social only.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-greet-1", "language": "ne", "text": "नमस्ते", "expected": "social.greet"},
+        {"id": "pb-greet-2", "language": "ne", "text": "नमस्कार दिदी", "expected": "social.greet"},
+        {"id": "pb-greet-3", "language": "ne", "text": "हेलो", "expected": "social.greet"},
+        {"id": "pb-greet-4", "language": "ne", "text": "नमस्ते हजुरहरू", "expected": "social.greet"},
+        {"id": "pb-greet-5", "language": "ne", "text": "नमस्कार", "expected": "social.greet"},
+        {"id": "pb-greet-6", "language": "ne", "text": "हेलो दिदी, कस्तो छ?", "expected": "social.greet"}
+      ]
+    },
+    {
+      "id": "bb-thanks",
+      "category": "social",
+      "description": "Thanks about a served order.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-thanks-1", "language": "ne", "text": "छोइला एकदम मीठो थियो, धन्यवाद!", "expected": "social.thanks"},
+        {"id": "bb-thanks-2", "language": "ne", "text": "धेरै धन्यवाद हजुर", "expected": "social.thanks"},
+        {"id": "bb-thanks-3", "language": "ne", "text": "सेकुवा राम्रो थियो, थ्याङ्क यु", "expected": "social.thanks"},
+        {"id": "bb-thanks-4", "language": "ne", "text": "धन्यवाद!", "expected": "social.thanks"},
+        {"id": "bb-thanks-5", "language": "ne", "text": "खाना मीठो थियो, धन्यवाद", "expected": "social.thanks"},
+        {"id": "bb-thanks-6", "language": "ne", "text": "थ्याङ्क्यु हजुर", "expected": "social.thanks"}
+      ]
+    },
+    {
+      "id": "pb-thanks",
+      "category": "social",
+      "description": "Thanks about a served order.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-thanks-1", "language": "ne", "text": "सेल रोटी मीठो थियो, धन्यवाद", "expected": "social.thanks"},
+        {"id": "pb-thanks-2", "language": "ne", "text": "धन्यवाद दिदी", "expected": "social.thanks"},
+        {"id": "pb-thanks-3", "language": "ne", "text": "पुरी तरकारी राम्रो, थ्याङ्क्यु", "expected": "social.thanks"},
+        {"id": "pb-thanks-4", "language": "ne", "text": "धेरै धन्यवाद", "expected": "social.thanks"},
+        {"id": "pb-thanks-5", "language": "ne", "text": "दही ताजा थियो, धन्यवाद", "expected": "social.thanks"},
+        {"id": "pb-thanks-6", "language": "ne", "text": "थ्याङ्क यु दिदी", "expected": "social.thanks"}
+      ]
+    },
+    {
+      "id": "bb-goodbye",
+      "category": "social",
+      "description": "Farewell wording.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-goodbye-1", "language": "ne", "text": "ल, बिदा हजुर", "expected": "social.goodbye"},
+        {"id": "bb-goodbye-2", "language": "ne", "text": "पछि भेटौंला", "expected": "social.goodbye"},
+        {"id": "bb-goodbye-3", "language": "ne", "text": "बाई दाइ", "expected": "social.goodbye"},
+        {"id": "bb-goodbye-4", "language": "ne", "text": "हुन्छ, फेरि भेटौंला", "expected": "social.goodbye", "note": "has yes-word but the intent is farewell"},
+        {"id": "bb-goodbye-5", "language": "ne", "text": "गुड बाई", "expected": "social.goodbye"},
+        {"id": "bb-goodbye-6", "language": "ne", "text": "ल त, बिदा", "expected": "social.goodbye"}
+      ]
+    },
+    {
+      "id": "pb-goodbye",
+      "category": "social",
+      "description": "Farewell wording.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-goodbye-1", "language": "ne", "text": "बिदा दिदी", "expected": "social.goodbye"},
+        {"id": "pb-goodbye-2", "language": "ne", "text": "पछि भेटौंला है", "expected": "social.goodbye"},
+        {"id": "pb-goodbye-3", "language": "ne", "text": "बाई", "expected": "social.goodbye"},
+        {"id": "pb-goodbye-4", "language": "ne", "text": "हुन्छ, बिदा हजुर", "expected": "social.goodbye"},
+        {"id": "pb-goodbye-5", "language": "ne", "text": "फेरि भेटौंला है", "expected": "social.goodbye"},
+        {"id": "pb-goodbye-6", "language": "ne", "text": "बाई बाई", "expected": "social.goodbye"}
+      ]
+    },
+    {
+      "id": "bb-menu",
+      "category": "discovery",
+      "description": "Requests to see the menu.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-menu-1", "language": "ne", "text": "मेनु पठाइदिनु न", "expected": "discovery.show_menu"},
+        {"id": "bb-menu-2", "language": "ne", "text": "के के पाइन्छ त?", "expected": "discovery.show_menu"},
+        {"id": "bb-menu-3", "language": "ne", "text": "मेनु देखाउनुहोस्", "expected": "discovery.show_menu"},
+        {"id": "bb-menu-4", "language": "ne", "text": "तपाईंहरूको मेनु कहाँ छ?", "expected": "discovery.show_menu"},
+        {"id": "bb-menu-5", "language": "ne", "text": "के के खाना छ हजुर?", "expected": "discovery.show_menu"},
+        {"id": "bb-menu-6", "language": "ne", "text": "मेनु पो पठाउनु न", "expected": "discovery.show_menu"}
+      ]
+    },
+    {
+      "id": "pb-menu",
+      "category": "discovery",
+      "description": "Requests to see the menu.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-menu-1", "language": "ne", "text": "मेनु हेर्न पाइन्छ?", "expected": "discovery.show_menu"},
+        {"id": "pb-menu-2", "language": "ne", "text": "बिहानको मेनु पठाइदिनु", "expected": "discovery.show_menu"},
+        {"id": "pb-menu-3", "language": "ne", "text": "मेनु पठाइदिनु दिदी", "expected": "discovery.show_menu"},
+        {"id": "pb-menu-4", "language": "ne", "text": "तपाईंको मेनु देखाउनु", "expected": "discovery.show_menu"},
+        {"id": "pb-menu-5", "language": "ne", "text": "के के पाइन्छ नि?", "expected": "discovery.show_menu"},
+        {"id": "pb-menu-6", "language": "ne", "text": "मेनु छ कि छैन?", "expected": "discovery.show_menu"}
+      ]
+    },
+    {
+      "id": "bb-recommend",
+      "category": "discovery",
+      "description": "Recommendation requests.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-recommend-1", "language": "ne", "text": "कुन राम्रो छ नि?", "expected": "discovery.recommend"},
+        {"id": "bb-recommend-2", "language": "ne", "text": "तपाईंको बेस्ट सेलर कुन हो?", "expected": "discovery.recommend"},
+        {"id": "bb-recommend-3", "language": "ne", "text": "के खान सिफारिस गर्नुहुन्छ?", "expected": "discovery.recommend"},
+        {"id": "bb-recommend-4", "language": "ne", "text": "चिकन सेकुवा र छोइला कुन राम्रो?", "expected": "discovery.recommend"},
+        {"id": "bb-recommend-5", "language": "ne", "text": "कुन चाहिँ खान हुन्छ?", "expected": "discovery.recommend"},
+        {"id": "bb-recommend-6", "language": "ne", "text": "तपाईंलाई कुन मन पर्छ?", "expected": "discovery.recommend"}
+      ]
+    },
+    {
+      "id": "pb-recommend",
+      "category": "discovery",
+      "description": "Recommendation requests.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-recommend-1", "language": "ne", "text": "बिहानको लागि के राम्रो हुन्छ?", "expected": "discovery.recommend"},
+        {"id": "pb-recommend-2", "language": "ne", "text": "कुन खान चाहिँ मीठो छ?", "expected": "discovery.recommend"},
+        {"id": "pb-recommend-3", "language": "ne", "text": "के सिफारिस गर्नुहुन्छ दिदी?", "expected": "discovery.recommend"},
+        {"id": "pb-recommend-4", "language": "ne", "text": "सेल रोटी कि पराठा कुन राम्रो?", "expected": "discovery.recommend"},
+        {"id": "pb-recommend-5", "language": "ne", "text": "सबैभन्दा राम्रो बिहानको खाना कुन हो?", "expected": "discovery.recommend"},
+        {"id": "pb-recommend-6", "language": "ne", "text": "के खानु राम्रो होला?", "expected": "discovery.recommend"}
+      ]
+    },
+    {
+      "id": "bb-price",
+      "category": "query",
+      "description": "Price questions (discovery.query, price).",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-price-1", "language": "ne", "text": "चिकन सेकुवाको मूल्य कति हो?", "expected": "discovery.query"},
+        {"id": "bb-price-2", "language": "ne", "text": "छोइला कतिमा पर्छ?", "expected": "discovery.query"},
+        {"id": "bb-price-3", "language": "ne", "text": "आलु तामाको दाम कति?", "expected": "discovery.query"},
+        {"id": "bb-price-4", "language": "ne", "text": "चिउराको रेट कति हो?", "expected": "discovery.query"},
+        {"id": "bb-price-5", "language": "ne", "text": "मसला चिया कतिको हो?", "expected": "discovery.query"},
+        {"id": "bb-price-6", "language": "ne", "text": "सेकुवा कतिमा आउँछ?", "expected": "discovery.query"}
+      ]
+    },
+    {
+      "id": "pb-price",
+      "category": "query",
+      "description": "Price questions (discovery.query, price).",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-price-1", "language": "ne", "text": "सेल रोटीको भाउ कति?", "expected": "discovery.query"},
+        {"id": "pb-price-2", "language": "ne", "text": "पुरी तरकारी कति पर्छ?", "expected": "discovery.query"},
+        {"id": "pb-price-3", "language": "ne", "text": "आलु पराठाको मूल्य कति?", "expected": "discovery.query"},
+        {"id": "pb-price-4", "language": "ne", "text": "दही कतिको?", "expected": "discovery.query"},
+        {"id": "pb-price-5", "language": "ne", "text": "लेमन टी कति हो?", "expected": "discovery.query"},
+        {"id": "pb-price-6", "language": "ne", "text": "सेल रोटी र दही कति पर्छ?", "expected": "discovery.query"}
+      ]
+    },
+    {
+      "id": "bb-availability",
+      "category": "query",
+      "description": "Availability questions (discovery.query, availability).",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-availability-1", "language": "ne", "text": "आज छोइला पाइन्छ?", "expected": "discovery.query"},
+        {"id": "bb-availability-2", "language": "ne", "text": "चिकन सेकुवा उपलब्ध छ?", "expected": "discovery.query"},
+        {"id": "bb-availability-3", "language": "ne", "text": "आलु तामा अहिले पाइन्छ?", "expected": "discovery.query"},
+        {"id": "bb-availability-4", "language": "ne", "text": "चिउरा छ हजुर?", "expected": "discovery.query"},
+        {"id": "bb-availability-5", "language": "ne", "text": "मसला चिया पाइन्छ नि?", "expected": "discovery.query"},
+        {"id": "bb-availability-6", "language": "ne", "text": "सेकुवा सकियो कि छ?", "expected": "discovery.query"}
+      ]
+    },
+    {
+      "id": "pb-availability",
+      "category": "query",
+      "description": "Availability questions (discovery.query, availability).",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-availability-1", "language": "ne", "text": "सेल रोटी अझै छ?", "expected": "discovery.query"},
+        {"id": "pb-availability-2", "language": "ne", "text": "पुरी तरकारी पाइन्छ?", "expected": "discovery.query"},
+        {"id": "pb-availability-3", "language": "ne", "text": "आलु पराठा उपलब्ध छ?", "expected": "discovery.query"},
+        {"id": "pb-availability-4", "language": "ne", "text": "दही छ दिदी?", "expected": "discovery.query"},
+        {"id": "pb-availability-5", "language": "ne", "text": "लेमन टी पाइन्छ?", "expected": "discovery.query"},
+        {"id": "pb-availability-6", "language": "ne", "text": "बिहानको खाना अहिले पाइन्छ?", "expected": "discovery.query"}
+      ]
+    },
+    {
+      "id": "bb-details",
+      "category": "query",
+      "description": "Item detail questions (discovery.query, details).",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-details-1", "language": "ne", "text": "छोइलामा के के हुन्छ?", "expected": "discovery.query"},
+        {"id": "bb-details-2", "language": "ne", "text": "चिकन सेकुवा कसरी बनाइन्छ?", "expected": "discovery.query"},
+        {"id": "bb-details-3", "language": "ne", "text": "आलु तामामा तामा छ?", "expected": "discovery.query"},
+        {"id": "bb-details-4", "language": "ne", "text": "मसला चियामा दूध हुन्छ?", "expected": "discovery.query", "note": "ingredient question, not allergy worded"},
+        {"id": "bb-details-5", "language": "ne", "text": "चिउरा भुटेको हो कि कच्चा?", "expected": "discovery.query"},
+        {"id": "bb-details-6", "language": "ne", "text": "सेकुवामा पिरो हुन्छ?", "expected": "discovery.query"}
+      ]
+    },
+    {
+      "id": "pb-details",
+      "category": "query",
+      "description": "Item detail questions (discovery.query, details).",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-details-1", "language": "ne", "text": "सेल रोटीमा चिनी हुन्छ?", "expected": "discovery.query"},
+        {"id": "pb-details-2", "language": "ne", "text": "पुरी तरकारीमा के के हुन्छ?", "expected": "discovery.query"},
+        {"id": "pb-details-3", "language": "ne", "text": "आलु पराठामा मक्खन लाग्छ?", "expected": "discovery.query"},
+        {"id": "pb-details-4", "language": "ne", "text": "दही घरको हो?", "expected": "discovery.query"},
+        {"id": "pb-details-5", "language": "ne", "text": "लेमन टीमा चिनी हुन्छ?", "expected": "discovery.query"},
+        {"id": "pb-details-6", "language": "ne", "text": "पराठामा अण्डा हुन्छ?", "expected": "discovery.query"}
+      ]
+    },
+    {
+      "id": "bb-hours",
+      "category": "fulfillment",
+      "description": "Opening-hours questions.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-hours-1", "language": "ne", "text": "कति बजे खुल्नुहुन्छ?", "expected": "fulfillment.ask_hours"},
+        {"id": "bb-hours-2", "language": "ne", "text": "आज कति बजेसम्म खुल्छ?", "expected": "fulfillment.ask_hours"},
+        {"id": "bb-hours-3", "language": "ne", "text": "बिहान कति बजे खोल्नुहुन्छ?", "expected": "fulfillment.ask_hours"},
+        {"id": "bb-hours-4", "language": "ne", "text": "तपाईंहरूको समय कति हो?", "expected": "fulfillment.ask_hours"},
+        {"id": "bb-hours-5", "language": "ne", "text": "अहिले खुला छ?", "expected": "fulfillment.ask_hours"},
+        {"id": "bb-hours-6", "language": "ne", "text": "आइतबार खुल्छ कि बन्द?", "expected": "fulfillment.ask_hours"}
+      ]
+    },
+    {
+      "id": "pb-hours",
+      "category": "fulfillment",
+      "description": "Opening-hours questions.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-hours-1", "language": "ne", "text": "कति बजेसम्म पाइन्छ?", "expected": "fulfillment.ask_hours"},
+        {"id": "pb-hours-2", "language": "ne", "text": "बिहान कति बजेदेखि खुल्छ?", "expected": "fulfillment.ask_hours"},
+        {"id": "pb-hours-3", "language": "ne", "text": "अहिले खुला छ दिदी?", "expected": "fulfillment.ask_hours"},
+        {"id": "pb-hours-4", "language": "ne", "text": "आज कति बजे बन्द हुन्छ?", "expected": "fulfillment.ask_hours"},
+        {"id": "pb-hours-5", "language": "ne", "text": "तपाईंको समय कति बजेको हो?", "expected": "fulfillment.ask_hours"},
+        {"id": "pb-hours-6", "language": "ne", "text": "आइतबार पनि खुल्छ?", "expected": "fulfillment.ask_hours"}
+      ]
+    },
+    {
+      "id": "bb-delivery",
+      "category": "fulfillment",
+      "description": "Delivery area, fee and time questions.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-delivery-1", "language": "ne", "text": "यहाँ डेलिभरी हुन्छ?", "expected": "fulfillment.ask_delivery"},
+        {"id": "bb-delivery-2", "language": "ne", "text": "जोरपाटीमा पुर्याउनुहुन्छ?", "expected": "fulfillment.ask_delivery"},
+        {"id": "bb-delivery-3", "language": "ne", "text": "डेलिभरी चार्ज कति लाग्छ?", "expected": "fulfillment.ask_delivery"},
+        {"id": "bb-delivery-4", "language": "ne", "text": "कति बेरमा आउँछ डेलिभरी?", "expected": "fulfillment.ask_delivery"},
+        {"id": "bb-delivery-5", "language": "ne", "text": "बौद्ध बाहिर पठाउनुहुन्छ?", "expected": "fulfillment.ask_delivery"},
+        {"id": "bb-delivery-6", "language": "ne", "text": "डेलिभरी कहाँसम्म गर्नुहुन्छ?", "expected": "fulfillment.ask_delivery"}
+      ]
+    },
+    {
+      "id": "pb-delivery",
+      "category": "fulfillment",
+      "description": "Delivery area, fee and time questions.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-delivery-1", "language": "ne", "text": "लगनखेल पुर्याउनुहुन्छ?", "expected": "fulfillment.ask_delivery"},
+        {"id": "pb-delivery-2", "language": "ne", "text": "डेलिभरी शुल्क कति?", "expected": "fulfillment.ask_delivery"},
+        {"id": "pb-delivery-3", "language": "ne", "text": "घरमा पठाउनुहुन्छ?", "expected": "fulfillment.ask_delivery"},
+        {"id": "pb-delivery-4", "language": "ne", "text": "कति समयमा डेलिभरी हुन्छ?", "expected": "fulfillment.ask_delivery"},
+        {"id": "pb-delivery-5", "language": "ne", "text": "पाटन बाहिर पठाउनुहुन्छ?", "expected": "fulfillment.ask_delivery"},
+        {"id": "pb-delivery-6", "language": "ne", "text": "डेलिभरीको दायरा कति छ?", "expected": "fulfillment.ask_delivery"}
+      ]
+    },
+    {
+      "id": "bb-order-status",
+      "category": "fulfillment",
+      "description": "Status of an existing order.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-status-1", "language": "ne", "text": "मेरो अर्डर कहाँ पुग्यो?", "expected": "fulfillment.order_status"},
+        {"id": "bb-status-2", "language": "ne", "text": "अर्डर अझै आएको छैन, कहाँ छ?", "expected": "fulfillment.order_status"},
+        {"id": "bb-status-3", "language": "ne", "text": "मेरो अर्डर अहिले कहाँ छ हजुर?", "expected": "fulfillment.order_status"},
+        {"id": "bb-status-4", "language": "ne", "text": "मेरो अर्डर पुग्यो कि पुगेन?", "expected": "fulfillment.order_status"},
+        {"id": "bb-status-5", "language": "ne", "text": "मेरो अर्डर पठाइयो कि?", "expected": "fulfillment.order_status"},
+        {"id": "bb-status-6", "language": "ne", "text": "अर्डर स्टेटस कस्तो छ?", "expected": "fulfillment.order_status"}
+      ]
+    },
+    {
+      "id": "pb-order-status",
+      "category": "fulfillment",
+      "description": "Status of an existing order.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-status-1", "language": "ne", "text": "मेरो अर्डर कहाँ छ दिदी?", "expected": "fulfillment.order_status"},
+        {"id": "pb-status-2", "language": "ne", "text": "अर्डर आउने बेला भयो, कहाँ पुग्यो?", "expected": "fulfillment.order_status"},
+        {"id": "pb-status-3", "language": "ne", "text": "मेरो अर्डर पठाउनुभयो?", "expected": "fulfillment.order_status"},
+        {"id": "pb-status-4", "language": "ne", "text": "अर्डर कसले ल्याउँदै छ?", "expected": "fulfillment.order_status"},
+        {"id": "pb-status-5", "language": "ne", "text": "अर्डर अझै किन आएन?", "expected": "fulfillment.order_status"},
+        {"id": "pb-status-6", "language": "ne", "text": "मेरो अर्डरको अवस्था के छ?", "expected": "fulfillment.order_status"}
+      ]
+    },
+    {
+      "id": "bb-cart",
+      "category": "ordering",
+      "description": "View the current cart or draft order.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-cart-1", "language": "ne", "text": "मेरो कार्ट देखाउनु न", "expected": "ordering.view_cart"},
+        {"id": "bb-cart-2", "language": "ne", "text": "के के अर्डर गरेको छु?", "expected": "ordering.view_cart"},
+        {"id": "bb-cart-3", "language": "ne", "text": "अहिलेसम्मको अर्डर देखाउनुहोस्", "expected": "ordering.view_cart"},
+        {"id": "bb-cart-4", "language": "ne", "text": "मेरो कार्ट खोल्नु न", "expected": "ordering.view_cart"},
+        {"id": "bb-cart-5", "language": "ne", "text": "अर्डरको लिस्ट पठाइदिनु", "expected": "ordering.view_cart"},
+        {"id": "bb-cart-6", "language": "ne", "text": "मैले के के थपेको छु?", "expected": "ordering.view_cart"}
+      ]
+    },
+    {
+      "id": "pb-cart",
+      "category": "ordering",
+      "description": "View the current cart or draft order.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-cart-1", "language": "ne", "text": "मेरो अर्डर लिस्ट देखाउनु दिदी", "expected": "ordering.view_cart"},
+        {"id": "pb-cart-2", "language": "ne", "text": "कार्टमा के छ?", "expected": "ordering.view_cart"},
+        {"id": "pb-cart-3", "language": "ne", "text": "अहिलेसम्म के के राखेको छु?", "expected": "ordering.view_cart"},
+        {"id": "pb-cart-4", "language": "ne", "text": "मेरो कार्ट हेर्न पाइन्छ?", "expected": "ordering.view_cart"},
+        {"id": "pb-cart-5", "language": "ne", "text": "अर्डरको विवरण पठाइदिनु", "expected": "ordering.view_cart"},
+        {"id": "pb-cart-6", "language": "ne", "text": "मैले के के अर्डर गरें?", "expected": "ordering.view_cart"}
+      ]
+    },
+    {
+      "id": "bb-checkout",
+      "category": "ordering",
+      "description": "Requests to place or confirm the order.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-checkout-1", "language": "ne", "text": "अर्डर गर्नुहोस् त", "expected": "ordering.request_checkout", "note": "requires a draft order"},
+        {"id": "bb-checkout-2", "language": "ne", "text": "मेरो अर्डर पक्का गर्नुहोस्", "expected": "ordering.request_checkout"},
+        {"id": "bb-checkout-3", "language": "ne", "text": "अर्डर कन्फर्म गर्नु", "expected": "ordering.request_checkout"},
+        {"id": "bb-checkout-4", "language": "ne", "text": "ल, अर्डर गरौं", "expected": "ordering.request_checkout"},
+        {"id": "bb-checkout-5", "language": "ne", "text": "यही अर्डर पठाइदिनु", "expected": "ordering.request_checkout"},
+        {"id": "bb-checkout-6", "language": "ne", "text": "अहिलेकै अर्डर पक्का गर्नुहोस्", "expected": "ordering.request_checkout"}
+      ]
+    },
+    {
+      "id": "pb-checkout",
+      "category": "ordering",
+      "description": "Requests to place or confirm the order.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-checkout-1", "language": "ne", "text": "मेरो अर्डर फाइनल गर्नुहोस्", "expected": "ordering.request_checkout"},
+        {"id": "pb-checkout-2", "language": "ne", "text": "अर्डर प्लेस गर्नुहोस् त", "expected": "ordering.request_checkout"},
+        {"id": "pb-checkout-3", "language": "ne", "text": "ल, कन्फर्म गर्नुहोस्", "expected": "ordering.request_checkout"},
+        {"id": "pb-checkout-4", "language": "ne", "text": "यही अर्डर अगाडि बढाउनुहोस्", "expected": "ordering.request_checkout"},
+        {"id": "pb-checkout-5", "language": "ne", "text": "अर्डर गरिदिनु दिदी", "expected": "ordering.request_checkout"},
+        {"id": "pb-checkout-6", "language": "ne", "text": "अब अर्डर गर्नुहोस्", "expected": "ordering.request_checkout"}
+      ]
+    },
+    {
+      "id": "bb-repeat",
+      "category": "ordering",
+      "description": "Repeat a previous order.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-repeat-1", "language": "ne", "text": "फेरि उही अर्डर गर्नुहोस्", "expected": "ordering.repeat_order"},
+        {"id": "bb-repeat-2", "language": "ne", "text": "अघिल्लो पटकको जस्तै पठाइदिनु", "expected": "ordering.repeat_order"},
+        {"id": "bb-repeat-3", "language": "ne", "text": "पहिलेको अर्डर फेरि दोहोर्याउनु", "expected": "ordering.repeat_order"},
+        {"id": "bb-repeat-4", "language": "ne", "text": "मैले अघि खाएको सेकुवा फेरि मगाउनु", "expected": "ordering.repeat_order"},
+        {"id": "bb-repeat-5", "language": "ne", "text": "उही अर्डर फेरि गर्नु", "expected": "ordering.repeat_order"},
+        {"id": "bb-repeat-6", "language": "ne", "text": "हिजोको अर्डर जस्तै दिनु", "expected": "ordering.repeat_order"}
+      ]
+    },
+    {
+      "id": "pb-repeat",
+      "category": "ordering",
+      "description": "Repeat a previous order.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-repeat-1", "language": "ne", "text": "अघिल्लो जस्तै फेरि ल्याइदिनु", "expected": "ordering.repeat_order"},
+        {"id": "pb-repeat-2", "language": "ne", "text": "मेरो पुरानो अर्डर दोहोर्याउनु", "expected": "ordering.repeat_order"},
+        {"id": "pb-repeat-3", "language": "ne", "text": "फेरि त्यही अर्डर गर्नु दिदी", "expected": "ordering.repeat_order"},
+        {"id": "pb-repeat-4", "language": "ne", "text": "पहिलेको जस्तै सेल रोटी मगाउनु", "expected": "ordering.repeat_order"},
+        {"id": "pb-repeat-5", "language": "ne", "text": "उही अर्डर फेरि पठाइदिनु", "expected": "ordering.repeat_order"},
+        {"id": "pb-repeat-6", "language": "ne", "text": "हिजोको अर्डर फेरि गर्नु", "expected": "ordering.repeat_order"}
+      ]
+    },
+    {
+      "id": "bb-saved-address",
+      "category": "ordering",
+      "description": "Use a saved delivery address.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-saved-1", "language": "ne", "text": "सेभ गरेको ठेगानामा पठाइदिनु", "expected": "ordering.use_saved_address"},
+        {"id": "bb-saved-2", "language": "ne", "text": "पुरानै ठेगाना प्रयोग गर्नुहोस्", "expected": "ordering.use_saved_address"},
+        {"id": "bb-saved-3", "language": "ne", "text": "सेव गरेको ठेगाना प्रयोग गर्नु", "expected": "ordering.use_saved_address"},
+        {"id": "bb-saved-4", "language": "ne", "text": "मेरो पहिलेको ठेगानामै पठाउनुहोस्", "expected": "ordering.use_saved_address"},
+        {"id": "bb-saved-5", "language": "ne", "text": "सेव ठेगाना नै राख्नु", "expected": "ordering.use_saved_address"},
+        {"id": "bb-saved-6", "language": "ne", "text": "अघिको ठेगाना लिनुहोस्", "expected": "ordering.use_saved_address"}
+      ]
+    },
+    {
+      "id": "pb-saved-address",
+      "category": "ordering",
+      "description": "Use a saved delivery address.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-saved-1", "language": "ne", "text": "सेव गरेको ठेगानामा पुर्याउनु", "expected": "ordering.use_saved_address"},
+        {"id": "pb-saved-2", "language": "ne", "text": "पहिलेको ठेगाना नै प्रयोग गर्नु", "expected": "ordering.use_saved_address"},
+        {"id": "pb-saved-3", "language": "ne", "text": "पुरानो ठेगानामै पठाइदिनु दिदी", "expected": "ordering.use_saved_address"},
+        {"id": "pb-saved-4", "language": "ne", "text": "पहिले दिएको ठेगाना राख्नु", "expected": "ordering.use_saved_address"},
+        {"id": "pb-saved-5", "language": "ne", "text": "उही ठेगाना राख्नु", "expected": "ordering.use_saved_address"},
+        {"id": "pb-saved-6", "language": "ne", "text": "सेव गरेको ठेगाना नै हाल्नु", "expected": "ordering.use_saved_address"}
+      ]
+    },
+    {
+      "id": "bb-bare-order",
+      "category": "abstain",
+      "description": "Bare order wording must abstain (order mutation).",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-bare-1", "language": "ne", "text": "एक प्लेट चिकन सेकुवा", "expected": null, "note": "bare order wording"},
+        {"id": "bb-bare-2", "language": "ne", "text": "२ वटा छोइला", "expected": null, "note": "bare order wording"},
+        {"id": "bb-bare-3", "language": "ne", "text": "आलु तामा दिनु", "expected": null, "note": "bare order wording"},
+        {"id": "bb-bare-4", "language": "ne", "text": "चिउरा र चिया", "expected": null, "note": "bare order wording"},
+        {"id": "bb-bare-5", "language": "ne", "text": "सेकुवा हाल्नु न", "expected": null, "note": "bare order wording"},
+        {"id": "bb-bare-6", "language": "ne", "text": "एक कप चिया", "expected": null, "note": "bare order wording"}
+      ]
+    },
+    {
+      "id": "pb-bare-order",
+      "category": "abstain",
+      "description": "Bare order wording must abstain (order mutation).",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-bare-1", "language": "ne", "text": "दुई सेल रोटी", "expected": null, "note": "bare order wording"},
+        {"id": "pb-bare-2", "language": "ne", "text": "पुरी तरकारी एक प्लेट", "expected": null, "note": "bare order wording"},
+        {"id": "pb-bare-3", "language": "ne", "text": "आलु पराठा दिनु", "expected": null, "note": "bare order wording"},
+        {"id": "pb-bare-4", "language": "ne", "text": "दही र लेमन टी", "expected": null, "note": "bare order wording"},
+        {"id": "pb-bare-5", "language": "ne", "text": "तीन सेल रोटी", "expected": null, "note": "bare order wording"},
+        {"id": "pb-bare-6", "language": "ne", "text": "पराठा हाल्नु न", "expected": null, "note": "bare order wording"}
+      ]
+    },
+    {
+      "id": "bb-yes-no",
+      "category": "abstain",
+      "description": "Plain yes/no answers must abstain.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-yesno-1", "language": "ne", "text": "हुन्छ", "expected": null, "note": "plain yes/no"},
+        {"id": "bb-yesno-2", "language": "ne", "text": "हो", "expected": null, "note": "plain yes/no"},
+        {"id": "bb-yesno-3", "language": "ne", "text": "ल हुन्छ", "expected": null, "note": "plain yes/no"},
+        {"id": "bb-yesno-4", "language": "ne", "text": "हुन्न", "expected": null, "note": "plain yes/no"},
+        {"id": "bb-yesno-5", "language": "ne", "text": "अहँ, पर्दैन", "expected": null, "note": "plain yes/no"},
+        {"id": "bb-yesno-6", "language": "ne", "text": "हो त", "expected": null, "note": "plain yes/no"}
+      ]
+    },
+    {
+      "id": "pb-yes-no",
+      "category": "abstain",
+      "description": "Plain yes/no answers must abstain.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-yesno-1", "language": "ne", "text": "हुन्छ दिदी", "expected": null, "note": "plain yes/no"},
+        {"id": "pb-yesno-2", "language": "ne", "text": "हो हजुर", "expected": null, "note": "plain yes/no"},
+        {"id": "pb-yesno-3", "language": "ne", "text": "ल, ठीक छ", "expected": null, "note": "plain yes/no"},
+        {"id": "pb-yesno-4", "language": "ne", "text": "हुन्न", "expected": null, "note": "plain yes/no"},
+        {"id": "pb-yesno-5", "language": "ne", "text": "पर्दैन", "expected": null, "note": "plain yes/no"},
+        {"id": "pb-yesno-6", "language": "ne", "text": "अहँ", "expected": null, "note": "plain yes/no"}
+      ]
+    },
+    {
+      "id": "bb-allergy",
+      "category": "safety",
+      "description": "Allergen and ingredient-safety questions must abstain and hand off.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-allergy-1", "language": "ne", "text": "छोइलामा बदाम छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "bb-allergy-2", "language": "ne", "text": "मलाई बदामले एलर्जी छ, के खान मिल्छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "bb-allergy-3", "language": "ne", "text": "सेकुवामा ग्लुटेन हुन्छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "bb-allergy-4", "language": "ne", "text": "चियामा ल्याक्टोज हुन्छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "bb-allergy-5", "language": "ne", "text": "मलाई दूधले एलर्जी छ, के खान मिल्छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "bb-allergy-6", "language": "ne", "text": "कुन खानामा बदाम छैन?", "expected": null, "note": "allergy -> handoff"}
+      ]
+    },
+    {
+      "id": "pb-allergy",
+      "category": "safety",
+      "description": "Allergen and ingredient-safety questions must abstain and hand off.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-allergy-1", "language": "ne", "text": "पुरी तरकारीमा ग्लुटेन छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "pb-allergy-2", "language": "ne", "text": "मलाई अण्डाले एलर्जी छ, सेल रोटी खान मिल्छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "pb-allergy-3", "language": "ne", "text": "दहीमा ल्याक्टोज हुन्छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "pb-allergy-4", "language": "ne", "text": "कुन खानामा दूध छैन?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "pb-allergy-5", "language": "ne", "text": "पराठामा बदाम हुन्छ?", "expected": null, "note": "allergy -> handoff"},
+        {"id": "pb-allergy-6", "language": "ne", "text": "मलाई एलर्जी छ, के सुरक्षित छ?", "expected": null, "note": "allergy -> handoff"}
+      ]
+    },
+    {
+      "id": "bb-refund",
+      "category": "safety",
+      "description": "Refund and payment complaints must abstain and hand off.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-refund-1", "language": "ne", "text": "मेरो पैसा फिर्ता गर्नुहोस्", "expected": null, "note": "refund -> handoff"},
+        {"id": "bb-refund-2", "language": "ne", "text": "अर्डर रद्द भयो तर पैसा काटियो", "expected": null, "note": "refund -> handoff"},
+        {"id": "bb-refund-3", "language": "ne", "text": "रिफन्ड कहिले आउँछ?", "expected": null, "note": "refund -> handoff"},
+        {"id": "bb-refund-4", "language": "ne", "text": "डबल चार्ज भयो, फिर्ता चाहियो", "expected": null, "note": "refund -> handoff"},
+        {"id": "bb-refund-5", "language": "ne", "text": "पैसा फिर्ता नगरे गुनासो गर्छु", "expected": null, "note": "refund -> handoff"},
+        {"id": "bb-refund-6", "language": "ne", "text": "मेरो भुक्तानी फिर्ता गर्नु", "expected": null, "note": "refund -> handoff"}
+      ]
+    },
+    {
+      "id": "pb-refund",
+      "category": "safety",
+      "description": "Refund and payment complaints must abstain and hand off.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-refund-1", "language": "ne", "text": "पैसा फिर्ता गरिदिनु", "expected": null, "note": "refund -> handoff"},
+        {"id": "pb-refund-2", "language": "ne", "text": "नमगाएको खानाको पैसा काटियो", "expected": null, "note": "refund -> handoff"},
+        {"id": "pb-refund-3", "language": "ne", "text": "रिफन्ड गरिदिनु दिदी", "expected": null, "note": "refund -> handoff"},
+        {"id": "pb-refund-4", "language": "ne", "text": "पैसा तिरें तर अर्डर आएन", "expected": null, "note": "refund -> handoff"},
+        {"id": "pb-refund-5", "language": "ne", "text": "डबल पैसा कटेको छ, हेर्नुहोस्", "expected": null, "note": "refund -> handoff"},
+        {"id": "pb-refund-6", "language": "ne", "text": "रकम फिर्ता गर्नु", "expected": null, "note": "refund -> handoff"}
+      ]
+    },
+    {
+      "id": "bb-complaint",
+      "category": "safety",
+      "description": "Food and service complaints must abstain and hand off.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-complaint-1", "language": "ne", "text": "खाना चिसो आयो", "expected": null, "note": "complaint -> handoff"},
+        {"id": "bb-complaint-2", "language": "ne", "text": "सेकुवा काँचो थियो, कस्तो खाना हो यो?", "expected": null, "note": "complaint -> handoff"},
+        {"id": "bb-complaint-3", "language": "ne", "text": "अर्डर एक घण्टापछि आयो", "expected": null, "note": "complaint -> handoff"},
+        {"id": "bb-complaint-4", "language": "ne", "text": "छोइला नुनिलो थियो, खान सकिन", "expected": null, "note": "complaint -> handoff"},
+        {"id": "bb-complaint-5", "language": "ne", "text": "गलत अर्डर आयो", "expected": null, "note": "complaint -> handoff"},
+        {"id": "bb-complaint-6", "language": "ne", "text": "यो सेवा ठीक भएन, गुनासो गर्न चाहन्छु", "expected": null, "note": "complaint -> handoff"}
+      ]
+    },
+    {
+      "id": "pb-complaint",
+      "category": "safety",
+      "description": "Food and service complaints must abstain and hand off.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-complaint-1", "language": "ne", "text": "पराठा जलेको आयो", "expected": null, "note": "complaint -> handoff"},
+        {"id": "pb-complaint-2", "language": "ne", "text": "दही बिग्रिएको थियो", "expected": null, "note": "complaint -> handoff"},
+        {"id": "pb-complaint-3", "language": "ne", "text": "अर्डर ढिलो आयो दिदी", "expected": null, "note": "complaint -> handoff"},
+        {"id": "pb-complaint-4", "language": "ne", "text": "सेल रोटी कडा थियो", "expected": null, "note": "complaint -> handoff"},
+        {"id": "pb-complaint-5", "language": "ne", "text": "खानामा फोहोर भेटियो", "expected": null, "note": "complaint -> handoff"},
+        {"id": "pb-complaint-6", "language": "ne", "text": "गुनासो गर्नु छ", "expected": null, "note": "complaint -> handoff"}
+      ]
+    },
+    {
+      "id": "bb-human",
+      "category": "safety",
+      "description": "Requests for staff must abstain and hand off.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-human-1", "language": "ne", "text": "स्टाफसँग कुरा गर्न मिल्छ?", "expected": null, "note": "handoff -> staff phrasing"},
+        {"id": "bb-human-2", "language": "ne", "text": "म्यानेजरसँग बोल्न सक्छु?", "expected": null, "note": "handoff -> staff"},
+        {"id": "bb-human-3", "language": "ne", "text": "कसैलाई बोलाउनु न", "expected": null, "note": "handoff -> staff"},
+        {"id": "bb-human-4", "language": "ne", "text": "स्टाफसँग कुरा गराइदिनुहोस्", "expected": null, "note": "handoff -> staff"}
+      ]
+    },
+    {
+      "id": "pb-human",
+      "category": "safety",
+      "description": "Requests for staff must abstain and hand off.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-human-1", "language": "ne", "text": "स्टाफसँग कुरा गर्न सकिन्छ?", "expected": null, "note": "handoff -> staff phrasing"},
+        {"id": "pb-human-2", "language": "ne", "text": "म्यानेजर छ?", "expected": null, "note": "handoff -> staff"},
+        {"id": "pb-human-3", "language": "ne", "text": "दिदी, कसैलाई बोलाउनु न", "expected": null, "note": "handoff -> staff"},
+        {"id": "pb-human-4", "language": "ne", "text": "स्टाफसँग कुरा गराउनुहोस्", "expected": null, "note": "handoff -> staff"}
+      ]
+    },
+    {
+      "id": "bb-gibberish",
+      "category": "abstain",
+      "description": "Gibberish and symbols must abstain.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-gibberish-1", "language": "ne", "text": "asdkjh", "expected": null, "note": "gibberish"},
+        {"id": "bb-gibberish-2", "language": "ne", "text": "???!", "expected": null, "note": "gibberish"},
+        {"id": "bb-gibberish-3", "language": "ne", "text": "ह ह ह", "expected": null, "note": "gibberish"},
+        {"id": "bb-gibberish-4", "language": "ne", "text": "....", "expected": null, "note": "gibberish"},
+        {"id": "bb-gibberish-5", "language": "ne", "text": "xxx", "expected": null, "note": "gibberish"},
+        {"id": "bb-gibberish-6", "language": "ne", "text": "jjjj", "expected": null, "note": "gibberish"}
+      ]
+    },
+    {
+      "id": "pb-gibberish",
+      "category": "abstain",
+      "description": "Gibberish and symbols must abstain.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-gibberish-1", "language": "ne", "text": "djfk", "expected": null, "note": "gibberish"},
+        {"id": "pb-gibberish-2", "language": "ne", "text": "?????", "expected": null, "note": "gibberish"},
+        {"id": "pb-gibberish-3", "language": "ne", "text": "हहहह", "expected": null, "note": "gibberish"},
+        {"id": "pb-gibberish-4", "language": "ne", "text": "...", "expected": null, "note": "gibberish"},
+        {"id": "pb-gibberish-5", "language": "ne", "text": "lolol", "expected": null, "note": "gibberish"},
+        {"id": "pb-gibberish-6", "language": "ne", "text": "ययय", "expected": null, "note": "gibberish"}
+      ]
+    },
+    {
+      "id": "bb-unclear",
+      "category": "abstain",
+      "description": "Unclear or off-topic text must abstain.",
+      "menuId": "boudha-bowl",
+      "steps": [
+        {"id": "bb-unclear-1", "language": "ne", "text": "यो कस्तो हो?", "expected": null, "note": "unclear"},
+        {"id": "bb-unclear-2", "language": "ne", "text": "तपाईंहरू को हौ?", "expected": null, "note": "unclear"},
+        {"id": "bb-unclear-3", "language": "ne", "text": "अनि त्यो?", "expected": null, "note": "unclear"},
+        {"id": "bb-unclear-4", "language": "ne", "text": "कहाँ जान्छ?", "expected": null, "note": "unclear"},
+        {"id": "bb-unclear-5", "language": "ne", "text": "मलाई थाहा भएन", "expected": null, "note": "unclear"},
+        {"id": "bb-unclear-6", "language": "ne", "text": "के हो यो?", "expected": null, "note": "unclear"}
+      ]
+    },
+    {
+      "id": "pb-unclear",
+      "category": "abstain",
+      "description": "Unclear or off-topic text must abstain.",
+      "menuId": "patan-breakfast",
+      "steps": [
+        {"id": "pb-unclear-1", "language": "ne", "text": "अनि?", "expected": null, "note": "unclear"},
+        {"id": "pb-unclear-2", "language": "ne", "text": "मलाई बुझिएन", "expected": null, "note": "unclear"},
+        {"id": "pb-unclear-3", "language": "ne", "text": "फेरि भन्नु न", "expected": null, "note": "unclear"},
+        {"id": "pb-unclear-4", "language": "ne", "text": "त्यो कुरा मिलेन", "expected": null, "note": "unclear"},
+        {"id": "pb-unclear-5", "language": "ne", "text": "कहिले?", "expected": null, "note": "unclear"},
+        {"id": "pb-unclear-6", "language": "ne", "text": "हो कि होइन?", "expected": null, "note": "unclear"}
+      ]
+    }
+  ]
+}

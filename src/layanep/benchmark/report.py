@@ -57,7 +57,7 @@ def build_report_markdown(meta: Mapping[str, Any], score: "ProbeScore") -> str:
             "",
             "## Method",
             "",
-            "- Corpus: `data/benchmark/ne-probe-v1.json` (ported from OrderWorkFlow `lu-probe-v1`).",
+            f"- Corpus: `{meta.get('corpus', 'data/benchmark/ne-probe-v1.json')}`.",
             "- The Laya classifier runs in-process (`Agent.system_one`) with a single 16-option `choice` "
             "question; Devanagari routes to `multilingual`, Latin text to `english`.",
             "- Metrics are model-only; composite/gap metrics from OrderWorkFlow need the deterministic "

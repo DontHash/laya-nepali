@@ -2,19 +2,36 @@
 
 from __future__ import annotations
 
-from layanep.benchmark.corpus import BENCHMARK_REVISION, load_corpus, validate_corpus
+from pathlib import Path
+
+from layanep.benchmark.corpus import BENCHMARK_REVISIONS, load_corpus, validate_corpus
 from layanep.benchmark.report import build_report_json, build_report_markdown
 from layanep.benchmark.runner import oracle_classifier, run_probe, score_probe, stub_classifier
 from layanep.glossary import ORDERING_DICT
 from layanep.schema import LU_COMMAND_KINDS
 from layanep.transliterate import detect_language, transliterate_to_devanagari
 
+DEVA_V2_PATH = Path(__file__).resolve().parents[1] / "data" / "benchmark" / "ne-bench-deva-v2.json"
+
 
 def test_corpus_is_valid() -> None:
     corpus = load_corpus()
     assert validate_corpus(corpus) == []
-    assert corpus.revision == BENCHMARK_REVISION
+    assert corpus.revision in BENCHMARK_REVISIONS
     assert len(corpus.steps) >= 60
+
+
+def test_deva_v2_corpus_is_valid() -> None:
+    corpus = load_corpus(DEVA_V2_PATH)
+    assert validate_corpus(corpus) == []
+    assert corpus.revision == "ne-bench-deva-v2"
+    assert {step.language for step in corpus.steps} == {"ne"}
+    assert len(corpus.steps) >= 220
+    abstain = [step for step in corpus.steps if step.expected is None]
+    assert len(abstain) >= 60
+    assert len({case.menu_id for case in corpus.cases}) == 2
+    covered = {step.expected for step in corpus.steps if step.expected}
+    assert set(LU_COMMAND_KINDS) <= covered
 
 
 def test_corpus_covers_the_vocabulary() -> None:

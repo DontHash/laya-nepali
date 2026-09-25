@@ -26,7 +26,14 @@ from ..pins import MODEL_REPO, MODEL_REVISION, MULTILINGUAL_SUBFOLDER
 from ..questions import COMMAND_LABEL_TO_KIND, command_question
 from ..schema import LU_COMMAND_KINDS
 from ..transliterate import detect_language
-from .corpus import ProbeCorpus, ProbeStep, load_corpus, validate_corpus
+from .corpus import (
+    BENCHMARK_REVISION,
+    DEFAULT_CORPUS_PATH,
+    ProbeCorpus,
+    ProbeStep,
+    load_corpus,
+    validate_corpus,
+)
 from .report import build_report_json, build_report_markdown
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -247,7 +254,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--no-write", action="store_true", help="print without writing reports/")
     args = parser.parse_args(argv)
 
-    corpus = load_corpus(args.corpus)
+    corpus_path = args.corpus or DEFAULT_CORPUS_PATH
+    corpus = load_corpus(corpus_path)
     failures = validate_corpus(corpus)
     if failures:
         print("corpus INVALID:")
@@ -265,9 +273,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     _print_summary(score)
 
     if not args.no_write:
+        stem = (
+            f"ne-probe-{args.classifier}"
+            if corpus.revision == BENCHMARK_REVISION
+            else f"{corpus.revision}-{args.classifier}"
+        )
         meta = {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "classifier": args.classifier,
+            "corpus": str(corpus_path),
             "corpus_revision": corpus.revision,
             "commit": _current_commit(),
             "device": args.device or "auto",
@@ -275,13 +289,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             "threads": args.threads,
         }
         REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-        (REPORTS_DIR / f"ne-probe-{args.classifier}.md").write_text(
-            build_report_markdown(meta, score), encoding="utf-8"
-        )
-        (REPORTS_DIR / f"ne-probe-{args.classifier}.json").write_text(
-            build_report_json(meta, score), encoding="utf-8"
-        )
-        print(f"report: reports/ne-probe-{args.classifier}.{{md,json}}")
+        (REPORTS_DIR / f"{stem}.md").write_text(build_report_markdown(meta, score), encoding="utf-8")
+        (REPORTS_DIR / f"{stem}.json").write_text(build_report_json(meta, score), encoding="utf-8")
+        print(f"report: reports/{stem}.{{md,json}}")
     return 1 if score.errors else 0
 
 

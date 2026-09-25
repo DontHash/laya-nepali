@@ -16,6 +16,7 @@ from typing import Any, Mapping
 from ..schema import LU_COMMAND_KINDS
 
 BENCHMARK_REVISION = "ne-probe-v1"
+BENCHMARK_REVISIONS = ("ne-probe-v1", "ne-bench-deva-v2")
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CORPUS_PATH = REPO_ROOT / "data" / "benchmark" / "ne-probe-v1.json"
 LANGUAGES = ("en", "ne-rom", "ne")
@@ -86,8 +87,10 @@ def load_corpus(path: Path | None = None) -> ProbeCorpus:
 
 def validate_corpus(corpus: ProbeCorpus) -> list[str]:
     failures: list[str] = []
-    if corpus.revision != BENCHMARK_REVISION:
-        failures.append(f"revision {corpus.revision!r} != {BENCHMARK_REVISION!r}")
+    if corpus.revision not in BENCHMARK_REVISIONS:
+        failures.append(
+            f"unknown revision {corpus.revision!r} (known: {', '.join(BENCHMARK_REVISIONS)})"
+        )
 
     step_ids: set[str] = set()
     for case in corpus.cases:

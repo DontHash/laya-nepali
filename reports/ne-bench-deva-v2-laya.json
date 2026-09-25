@@ -1,0 +1,2831 @@
+{
+  "meta": {
+    "generated_at": "2026-09-25T08:25:52.615216+00:00",
+    "classifier": "laya",
+    "corpus": "D:\\Code\\LayaNEp\\data\\benchmark\\ne-bench-deva-v2.json",
+    "corpus_revision": "ne-bench-deva-v2",
+    "commit": "78113ca",
+    "device": "cpu",
+    "threshold": 0.5,
+    "threads": 6
+  },
+  "score": {
+    "classifier": "laya",
+    "revision": "ne-bench-deva-v2",
+    "total": 272,
+    "correct": 113,
+    "abstain_total": 92,
+    "abstain_correct": 53,
+    "per_kind": {
+      "social.greet": {
+        "expected": 12,
+        "correct": 2,
+        "predicted": 2,
+        "false_positive": 0
+      },
+      "social.thanks": {
+        "expected": 12,
+        "correct": 8,
+        "predicted": 8,
+        "false_positive": 0
+      },
+      "social.goodbye": {
+        "expected": 12,
+        "correct": 11,
+        "predicted": 50,
+        "false_positive": 39
+      },
+      "discovery.show_menu": {
+        "expected": 12,
+        "correct": 0,
+        "predicted": 0,
+        "false_positive": 0
+      },
+      "discovery.recommend": {
+        "expected": 12,
+        "correct": 7,
+        "predicted": 11,
+        "false_positive": 4
+      },
+      "discovery.query": {
+        "expected": 36,
+        "correct": 9,
+        "predicted": 14,
+        "false_positive": 5
+      },
+      "fulfillment.ask_hours": {
+        "expected": 12,
+        "correct": 9,
+        "predicted": 9,
+        "false_positive": 0
+      },
+      "fulfillment.ask_delivery": {
+        "expected": 12,
+        "correct": 5,
+        "predicted": 43,
+        "false_positive": 38
+      },
+      "fulfillment.order_status": {
+        "expected": 12,
+        "correct": 4,
+        "predicted": 9,
+        "false_positive": 5
+      },
+      "ordering.view_cart": {
+        "expected": 12,
+        "correct": 0,
+        "predicted": 0,
+        "false_positive": 0
+      },
+      "ordering.request_checkout": {
+        "expected": 12,
+        "correct": 3,
+        "predicted": 4,
+        "false_positive": 1
+      },
+      "ordering.repeat_order": {
+        "expected": 12,
+        "correct": 2,
+        "predicted": 2,
+        "false_positive": 0
+      },
+      "ordering.use_saved_address": {
+        "expected": 12,
+        "correct": 0,
+        "predicted": 0,
+        "false_positive": 0
+      },
+      "none": {
+        "expected": 92,
+        "correct": 53,
+        "predicted": 120,
+        "false_positive": 67
+      }
+    },
+    "latency_p50": 406.3726000022143,
+    "latency_p95": 520.0431999983266,
+    "errors": 0,
+    "results": [
+      {
+        "case_id": "bb-greet",
+        "step_id": "bb-greet-1",
+        "language": "ne",
+        "text": "नमस्ते हजुर",
+        "expected": "social.greet",
+        "predicted": "social.goodbye",
+        "latency_ms": 605.6148000061512,
+        "error": null
+      },
+      {
+        "case_id": "bb-greet",
+        "step_id": "bb-greet-2",
+        "language": "ne",
+        "text": "नमस्कार दाइ",
+        "expected": "social.greet",
+        "predicted": "social.goodbye",
+        "latency_ms": 377.1534000115935,
+        "error": null
+      },
+      {
+        "case_id": "bb-greet",
+        "step_id": "bb-greet-3",
+        "language": "ne",
+        "text": "हेलो, कस्तो छ?",
+        "expected": "social.greet",
+        "predicted": "social.greet",
+        "latency_ms": 407.04779999214225,
+        "error": null
+      },
+      {
+        "case_id": "bb-greet",
+        "step_id": "bb-greet-4",
+        "language": "ne",
+        "text": "नमस्ते है",
+        "expected": "social.greet",
+        "predicted": null,
+        "latency_ms": 348.3991999819409,
+        "error": null
+      },
+      {
+        "case_id": "bb-greet",
+        "step_id": "bb-greet-5",
+        "language": "ne",
+        "text": "नमस्कार हजुरहरू",
+        "expected": "social.greet",
+        "predicted": "social.goodbye",
+        "latency_ms": 382.2643000166863,
+        "error": null
+      },
+      {
+        "case_id": "bb-greet",
+        "step_id": "bb-greet-6",
+        "language": "ne",
+        "text": "हेल्लो दाइ",
+        "expected": "social.greet",
+        "predicted": "social.goodbye",
+        "latency_ms": 371.8541999987792,
+        "error": null
+      },
+      {
+        "case_id": "pb-greet",
+        "step_id": "pb-greet-1",
+        "language": "ne",
+        "text": "नमस्ते",
+        "expected": "social.greet",
+        "predicted": null,
+        "latency_ms": 449.64299999992363,
+        "error": null
+      },
+      {
+        "case_id": "pb-greet",
+        "step_id": "pb-greet-2",
+        "language": "ne",
+        "text": "नमस्कार दिदी",
+        "expected": "social.greet",
+        "predicted": "social.goodbye",
+        "latency_ms": 379.8160000005737,
+        "error": null
+      },
+      {
+        "case_id": "pb-greet",
+        "step_id": "pb-greet-3",
+        "language": "ne",
+        "text": "हेलो",
+        "expected": "social.greet",
+        "predicted": "social.greet",
+        "latency_ms": 348.48250000504777,
+        "error": null
+      },
+      {
+        "case_id": "pb-greet",
+        "step_id": "pb-greet-4",
+        "language": "ne",
+        "text": "नमस्ते हजुरहरू",
+        "expected": "social.greet",
+        "predicted": "social.goodbye",
+        "latency_ms": 356.90319997956976,
+        "error": null
+      },
+      {
+        "case_id": "pb-greet",
+        "step_id": "pb-greet-5",
+        "language": "ne",
+        "text": "नमस्कार",
+        "expected": "social.greet",
+        "predicted": "social.goodbye",
+        "latency_ms": 363.0096999986563,
+        "error": null
+      },
+      {
+        "case_id": "pb-greet",
+        "step_id": "pb-greet-6",
+        "language": "ne",
+        "text": "हेलो दिदी, कस्तो छ?",
+        "expected": "social.greet",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 330.9941999905277,
+        "error": null
+      },
+      {
+        "case_id": "bb-thanks",
+        "step_id": "bb-thanks-1",
+        "language": "ne",
+        "text": "छोइला एकदम मीठो थियो, धन्यवाद!",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 336.6399999940768,
+        "error": null
+      },
+      {
+        "case_id": "bb-thanks",
+        "step_id": "bb-thanks-2",
+        "language": "ne",
+        "text": "धेरै धन्यवाद हजुर",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 341.3386000029277,
+        "error": null
+      },
+      {
+        "case_id": "bb-thanks",
+        "step_id": "bb-thanks-3",
+        "language": "ne",
+        "text": "सेकुवा राम्रो थियो, थ्याङ्क यु",
+        "expected": "social.thanks",
+        "predicted": null,
+        "latency_ms": 379.41500000306405,
+        "error": null
+      },
+      {
+        "case_id": "bb-thanks",
+        "step_id": "bb-thanks-4",
+        "language": "ne",
+        "text": "धन्यवाद!",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 413.95340001326986,
+        "error": null
+      },
+      {
+        "case_id": "bb-thanks",
+        "step_id": "bb-thanks-5",
+        "language": "ne",
+        "text": "खाना मीठो थियो, धन्यवाद",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 420.1850000245031,
+        "error": null
+      },
+      {
+        "case_id": "bb-thanks",
+        "step_id": "bb-thanks-6",
+        "language": "ne",
+        "text": "थ्याङ्क्यु हजुर",
+        "expected": "social.thanks",
+        "predicted": null,
+        "latency_ms": 345.3651999880094,
+        "error": null
+      },
+      {
+        "case_id": "pb-thanks",
+        "step_id": "pb-thanks-1",
+        "language": "ne",
+        "text": "सेल रोटी मीठो थियो, धन्यवाद",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 333.50479998625815,
+        "error": null
+      },
+      {
+        "case_id": "pb-thanks",
+        "step_id": "pb-thanks-2",
+        "language": "ne",
+        "text": "धन्यवाद दिदी",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 329.6949999930803,
+        "error": null
+      },
+      {
+        "case_id": "pb-thanks",
+        "step_id": "pb-thanks-3",
+        "language": "ne",
+        "text": "पुरी तरकारी राम्रो, थ्याङ्क्यु",
+        "expected": "social.thanks",
+        "predicted": null,
+        "latency_ms": 321.01780001539737,
+        "error": null
+      },
+      {
+        "case_id": "pb-thanks",
+        "step_id": "pb-thanks-4",
+        "language": "ne",
+        "text": "धेरै धन्यवाद",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 354.62810000171885,
+        "error": null
+      },
+      {
+        "case_id": "pb-thanks",
+        "step_id": "pb-thanks-5",
+        "language": "ne",
+        "text": "दही ताजा थियो, धन्यवाद",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 321.1501000041608,
+        "error": null
+      },
+      {
+        "case_id": "pb-thanks",
+        "step_id": "pb-thanks-6",
+        "language": "ne",
+        "text": "थ्याङ्क यु दिदी",
+        "expected": "social.thanks",
+        "predicted": null,
+        "latency_ms": 313.0300999910105,
+        "error": null
+      },
+      {
+        "case_id": "bb-goodbye",
+        "step_id": "bb-goodbye-1",
+        "language": "ne",
+        "text": "ल, बिदा हजुर",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 320.2543000224978,
+        "error": null
+      },
+      {
+        "case_id": "bb-goodbye",
+        "step_id": "bb-goodbye-2",
+        "language": "ne",
+        "text": "पछि भेटौंला",
+        "expected": "social.goodbye",
+        "predicted": null,
+        "latency_ms": 325.765700021293,
+        "error": null
+      },
+      {
+        "case_id": "bb-goodbye",
+        "step_id": "bb-goodbye-3",
+        "language": "ne",
+        "text": "बाई दाइ",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 305.10789999971166,
+        "error": null
+      },
+      {
+        "case_id": "bb-goodbye",
+        "step_id": "bb-goodbye-4",
+        "language": "ne",
+        "text": "हुन्छ, फेरि भेटौंला",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 331.4931000059005,
+        "error": null
+      },
+      {
+        "case_id": "bb-goodbye",
+        "step_id": "bb-goodbye-5",
+        "language": "ne",
+        "text": "गुड बाई",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 333.6890999926254,
+        "error": null
+      },
+      {
+        "case_id": "bb-goodbye",
+        "step_id": "bb-goodbye-6",
+        "language": "ne",
+        "text": "ल त, बिदा",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 321.8467000115197,
+        "error": null
+      },
+      {
+        "case_id": "pb-goodbye",
+        "step_id": "pb-goodbye-1",
+        "language": "ne",
+        "text": "बिदा दिदी",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 317.6132999942638,
+        "error": null
+      },
+      {
+        "case_id": "pb-goodbye",
+        "step_id": "pb-goodbye-2",
+        "language": "ne",
+        "text": "पछि भेटौंला है",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 334.3635000055656,
+        "error": null
+      },
+      {
+        "case_id": "pb-goodbye",
+        "step_id": "pb-goodbye-3",
+        "language": "ne",
+        "text": "बाई",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 312.2264000121504,
+        "error": null
+      },
+      {
+        "case_id": "pb-goodbye",
+        "step_id": "pb-goodbye-4",
+        "language": "ne",
+        "text": "हुन्छ, बिदा हजुर",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 354.95999999693595,
+        "error": null
+      },
+      {
+        "case_id": "pb-goodbye",
+        "step_id": "pb-goodbye-5",
+        "language": "ne",
+        "text": "फेरि भेटौंला है",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 348.9997000142466,
+        "error": null
+      },
+      {
+        "case_id": "pb-goodbye",
+        "step_id": "pb-goodbye-6",
+        "language": "ne",
+        "text": "बाई बाई",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 326.0065999929793,
+        "error": null
+      },
+      {
+        "case_id": "bb-menu",
+        "step_id": "bb-menu-1",
+        "language": "ne",
+        "text": "मेनु पठाइदिनु न",
+        "expected": "discovery.show_menu",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 345.9681000094861,
+        "error": null
+      },
+      {
+        "case_id": "bb-menu",
+        "step_id": "bb-menu-2",
+        "language": "ne",
+        "text": "के के पाइन्छ त?",
+        "expected": "discovery.show_menu",
+        "predicted": null,
+        "latency_ms": 338.1433000031393,
+        "error": null
+      },
+      {
+        "case_id": "bb-menu",
+        "step_id": "bb-menu-3",
+        "language": "ne",
+        "text": "मेनु देखाउनुहोस्",
+        "expected": "discovery.show_menu",
+        "predicted": "social.goodbye",
+        "latency_ms": 342.4841999949422,
+        "error": null
+      },
+      {
+        "case_id": "bb-menu",
+        "step_id": "bb-menu-4",
+        "language": "ne",
+        "text": "तपाईंहरूको मेनु कहाँ छ?",
+        "expected": "discovery.show_menu",
+        "predicted": null,
+        "latency_ms": 383.9025000052061,
+        "error": null
+      },
+      {
+        "case_id": "bb-menu",
+        "step_id": "bb-menu-5",
+        "language": "ne",
+        "text": "के के खाना छ हजुर?",
+        "expected": "discovery.show_menu",
+        "predicted": null,
+        "latency_ms": 377.75580000015907,
+        "error": null
+      },
+      {
+        "case_id": "bb-menu",
+        "step_id": "bb-menu-6",
+        "language": "ne",
+        "text": "मेनु पो पठाउनु न",
+        "expected": "discovery.show_menu",
+        "predicted": "social.goodbye",
+        "latency_ms": 334.928399999626,
+        "error": null
+      },
+      {
+        "case_id": "pb-menu",
+        "step_id": "pb-menu-1",
+        "language": "ne",
+        "text": "मेनु हेर्न पाइन्छ?",
+        "expected": "discovery.show_menu",
+        "predicted": null,
+        "latency_ms": 357.2909999929834,
+        "error": null
+      },
+      {
+        "case_id": "pb-menu",
+        "step_id": "pb-menu-2",
+        "language": "ne",
+        "text": "बिहानको मेनु पठाइदिनु",
+        "expected": "discovery.show_menu",
+        "predicted": null,
+        "latency_ms": 365.1104999880772,
+        "error": null
+      },
+      {
+        "case_id": "pb-menu",
+        "step_id": "pb-menu-3",
+        "language": "ne",
+        "text": "मेनु पठाइदिनु दिदी",
+        "expected": "discovery.show_menu",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 357.77189998771064,
+        "error": null
+      },
+      {
+        "case_id": "pb-menu",
+        "step_id": "pb-menu-4",
+        "language": "ne",
+        "text": "तपाईंको मेनु देखाउनु",
+        "expected": "discovery.show_menu",
+        "predicted": "social.goodbye",
+        "latency_ms": 355.17319999053143,
+        "error": null
+      },
+      {
+        "case_id": "pb-menu",
+        "step_id": "pb-menu-5",
+        "language": "ne",
+        "text": "के के पाइन्छ नि?",
+        "expected": "discovery.show_menu",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 342.29790000244975,
+        "error": null
+      },
+      {
+        "case_id": "pb-menu",
+        "step_id": "pb-menu-6",
+        "language": "ne",
+        "text": "मेनु छ कि छैन?",
+        "expected": "discovery.show_menu",
+        "predicted": null,
+        "latency_ms": 355.4473999829497,
+        "error": null
+      },
+      {
+        "case_id": "bb-recommend",
+        "step_id": "bb-recommend-1",
+        "language": "ne",
+        "text": "कुन राम्रो छ नि?",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 342.049999977462,
+        "error": null
+      },
+      {
+        "case_id": "bb-recommend",
+        "step_id": "bb-recommend-2",
+        "language": "ne",
+        "text": "तपाईंको बेस्ट सेलर कुन हो?",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 339.5158000057563,
+        "error": null
+      },
+      {
+        "case_id": "bb-recommend",
+        "step_id": "bb-recommend-3",
+        "language": "ne",
+        "text": "के खान सिफारिस गर्नुहुन्छ?",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 354.7653000277933,
+        "error": null
+      },
+      {
+        "case_id": "bb-recommend",
+        "step_id": "bb-recommend-4",
+        "language": "ne",
+        "text": "चिकन सेकुवा र छोइला कुन राम्रो?",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 363.2137000095099,
+        "error": null
+      },
+      {
+        "case_id": "bb-recommend",
+        "step_id": "bb-recommend-5",
+        "language": "ne",
+        "text": "कुन चाहिँ खान हुन्छ?",
+        "expected": "discovery.recommend",
+        "predicted": null,
+        "latency_ms": 408.32529999897815,
+        "error": null
+      },
+      {
+        "case_id": "bb-recommend",
+        "step_id": "bb-recommend-6",
+        "language": "ne",
+        "text": "तपाईंलाई कुन मन पर्छ?",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 334.1777000168804,
+        "error": null
+      },
+      {
+        "case_id": "pb-recommend",
+        "step_id": "pb-recommend-1",
+        "language": "ne",
+        "text": "बिहानको लागि के राम्रो हुन्छ?",
+        "expected": "discovery.recommend",
+        "predicted": null,
+        "latency_ms": 350.0945999985561,
+        "error": null
+      },
+      {
+        "case_id": "pb-recommend",
+        "step_id": "pb-recommend-2",
+        "language": "ne",
+        "text": "कुन खान चाहिँ मीठो छ?",
+        "expected": "discovery.recommend",
+        "predicted": null,
+        "latency_ms": 345.83430000930093,
+        "error": null
+      },
+      {
+        "case_id": "pb-recommend",
+        "step_id": "pb-recommend-3",
+        "language": "ne",
+        "text": "के सिफारिस गर्नुहुन्छ दिदी?",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 340.56450001662597,
+        "error": null
+      },
+      {
+        "case_id": "pb-recommend",
+        "step_id": "pb-recommend-4",
+        "language": "ne",
+        "text": "सेल रोटी कि पराठा कुन राम्रो?",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 346.1641000176314,
+        "error": null
+      },
+      {
+        "case_id": "pb-recommend",
+        "step_id": "pb-recommend-5",
+        "language": "ne",
+        "text": "सबैभन्दा राम्रो बिहानको खाना कुन हो?",
+        "expected": "discovery.recommend",
+        "predicted": null,
+        "latency_ms": 352.82469997764565,
+        "error": null
+      },
+      {
+        "case_id": "pb-recommend",
+        "step_id": "pb-recommend-6",
+        "language": "ne",
+        "text": "के खानु राम्रो होला?",
+        "expected": "discovery.recommend",
+        "predicted": null,
+        "latency_ms": 336.12510000239126,
+        "error": null
+      },
+      {
+        "case_id": "bb-price",
+        "step_id": "bb-price-1",
+        "language": "ne",
+        "text": "चिकन सेकुवाको मूल्य कति हो?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 332.54599999054335,
+        "error": null
+      },
+      {
+        "case_id": "bb-price",
+        "step_id": "bb-price-2",
+        "language": "ne",
+        "text": "छोइला कतिमा पर्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 341.1692999943625,
+        "error": null
+      },
+      {
+        "case_id": "bb-price",
+        "step_id": "bb-price-3",
+        "language": "ne",
+        "text": "आलु तामाको दाम कति?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 368.60789998900145,
+        "error": null
+      },
+      {
+        "case_id": "bb-price",
+        "step_id": "bb-price-4",
+        "language": "ne",
+        "text": "चिउराको रेट कति हो?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 333.3839999977499,
+        "error": null
+      },
+      {
+        "case_id": "bb-price",
+        "step_id": "bb-price-5",
+        "language": "ne",
+        "text": "मसला चिया कतिको हो?",
+        "expected": "discovery.query",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 335.3073000034783,
+        "error": null
+      },
+      {
+        "case_id": "bb-price",
+        "step_id": "bb-price-6",
+        "language": "ne",
+        "text": "सेकुवा कतिमा आउँछ?",
+        "expected": "discovery.query",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 337.05440000630915,
+        "error": null
+      },
+      {
+        "case_id": "pb-price",
+        "step_id": "pb-price-1",
+        "language": "ne",
+        "text": "सेल रोटीको भाउ कति?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 346.1634999839589,
+        "error": null
+      },
+      {
+        "case_id": "pb-price",
+        "step_id": "pb-price-2",
+        "language": "ne",
+        "text": "पुरी तरकारी कति पर्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 320.93339998391457,
+        "error": null
+      },
+      {
+        "case_id": "pb-price",
+        "step_id": "pb-price-3",
+        "language": "ne",
+        "text": "आलु पराठाको मूल्य कति?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 340.40340001229197,
+        "error": null
+      },
+      {
+        "case_id": "pb-price",
+        "step_id": "pb-price-4",
+        "language": "ne",
+        "text": "दही कतिको?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 339.66239998699166,
+        "error": null
+      },
+      {
+        "case_id": "pb-price",
+        "step_id": "pb-price-5",
+        "language": "ne",
+        "text": "लेमन टी कति हो?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 321.7743000132032,
+        "error": null
+      },
+      {
+        "case_id": "pb-price",
+        "step_id": "pb-price-6",
+        "language": "ne",
+        "text": "सेल रोटी र दही कति पर्छ?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 344.53999999095686,
+        "error": null
+      },
+      {
+        "case_id": "bb-availability",
+        "step_id": "bb-availability-1",
+        "language": "ne",
+        "text": "आज छोइला पाइन्छ?",
+        "expected": "discovery.query",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 334.85189999919385,
+        "error": null
+      },
+      {
+        "case_id": "bb-availability",
+        "step_id": "bb-availability-2",
+        "language": "ne",
+        "text": "चिकन सेकुवा उपलब्ध छ?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 352.2430000011809,
+        "error": null
+      },
+      {
+        "case_id": "bb-availability",
+        "step_id": "bb-availability-3",
+        "language": "ne",
+        "text": "आलु तामा अहिले पाइन्छ?",
+        "expected": "discovery.query",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 359.60990001331083,
+        "error": null
+      },
+      {
+        "case_id": "bb-availability",
+        "step_id": "bb-availability-4",
+        "language": "ne",
+        "text": "चिउरा छ हजुर?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 447.4867999961134,
+        "error": null
+      },
+      {
+        "case_id": "bb-availability",
+        "step_id": "bb-availability-5",
+        "language": "ne",
+        "text": "मसला चिया पाइन्छ नि?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 366.60539999138564,
+        "error": null
+      },
+      {
+        "case_id": "bb-availability",
+        "step_id": "bb-availability-6",
+        "language": "ne",
+        "text": "सेकुवा सकियो कि छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 343.515100015793,
+        "error": null
+      },
+      {
+        "case_id": "pb-availability",
+        "step_id": "pb-availability-1",
+        "language": "ne",
+        "text": "सेल रोटी अझै छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 360.9508000081405,
+        "error": null
+      },
+      {
+        "case_id": "pb-availability",
+        "step_id": "pb-availability-2",
+        "language": "ne",
+        "text": "पुरी तरकारी पाइन्छ?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 382.87890001083724,
+        "error": null
+      },
+      {
+        "case_id": "pb-availability",
+        "step_id": "pb-availability-3",
+        "language": "ne",
+        "text": "आलु पराठा उपलब्ध छ?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 364.97090000193566,
+        "error": null
+      },
+      {
+        "case_id": "pb-availability",
+        "step_id": "pb-availability-4",
+        "language": "ne",
+        "text": "दही छ दिदी?",
+        "expected": "discovery.query",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 370.33490001340397,
+        "error": null
+      },
+      {
+        "case_id": "pb-availability",
+        "step_id": "pb-availability-5",
+        "language": "ne",
+        "text": "लेमन टी पाइन्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 343.4654999873601,
+        "error": null
+      },
+      {
+        "case_id": "pb-availability",
+        "step_id": "pb-availability-6",
+        "language": "ne",
+        "text": "बिहानको खाना अहिले पाइन्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 366.7979000019841,
+        "error": null
+      },
+      {
+        "case_id": "bb-details",
+        "step_id": "bb-details-1",
+        "language": "ne",
+        "text": "छोइलामा के के हुन्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 343.6578999971971,
+        "error": null
+      },
+      {
+        "case_id": "bb-details",
+        "step_id": "bb-details-2",
+        "language": "ne",
+        "text": "चिकन सेकुवा कसरी बनाइन्छ?",
+        "expected": "discovery.query",
+        "predicted": "discovery.recommend",
+        "latency_ms": 520.9620999812614,
+        "error": null
+      },
+      {
+        "case_id": "bb-details",
+        "step_id": "bb-details-3",
+        "language": "ne",
+        "text": "आलु तामामा तामा छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 456.3860000052955,
+        "error": null
+      },
+      {
+        "case_id": "bb-details",
+        "step_id": "bb-details-4",
+        "language": "ne",
+        "text": "मसला चियामा दूध हुन्छ?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 440.92790002468973,
+        "error": null
+      },
+      {
+        "case_id": "bb-details",
+        "step_id": "bb-details-5",
+        "language": "ne",
+        "text": "चिउरा भुटेको हो कि कच्चा?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 417.670700000599,
+        "error": null
+      },
+      {
+        "case_id": "bb-details",
+        "step_id": "bb-details-6",
+        "language": "ne",
+        "text": "सेकुवामा पिरो हुन्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 459.43490002537146,
+        "error": null
+      },
+      {
+        "case_id": "pb-details",
+        "step_id": "pb-details-1",
+        "language": "ne",
+        "text": "सेल रोटीमा चिनी हुन्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 404.14030000101775,
+        "error": null
+      },
+      {
+        "case_id": "pb-details",
+        "step_id": "pb-details-2",
+        "language": "ne",
+        "text": "पुरी तरकारीमा के के हुन्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 424.4310999929439,
+        "error": null
+      },
+      {
+        "case_id": "pb-details",
+        "step_id": "pb-details-3",
+        "language": "ne",
+        "text": "आलु पराठामा मक्खन लाग्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 460.6289000075776,
+        "error": null
+      },
+      {
+        "case_id": "pb-details",
+        "step_id": "pb-details-4",
+        "language": "ne",
+        "text": "दही घरको हो?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 434.4927999773063,
+        "error": null
+      },
+      {
+        "case_id": "pb-details",
+        "step_id": "pb-details-5",
+        "language": "ne",
+        "text": "लेमन टीमा चिनी हुन्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 447.01470001018606,
+        "error": null
+      },
+      {
+        "case_id": "pb-details",
+        "step_id": "pb-details-6",
+        "language": "ne",
+        "text": "पराठामा अण्डा हुन्छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 411.26260001328774,
+        "error": null
+      },
+      {
+        "case_id": "bb-hours",
+        "step_id": "bb-hours-1",
+        "language": "ne",
+        "text": "कति बजे खुल्नुहुन्छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 468.68640001048334,
+        "error": null
+      },
+      {
+        "case_id": "bb-hours",
+        "step_id": "bb-hours-2",
+        "language": "ne",
+        "text": "आज कति बजेसम्म खुल्छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 429.9614000192378,
+        "error": null
+      },
+      {
+        "case_id": "bb-hours",
+        "step_id": "bb-hours-3",
+        "language": "ne",
+        "text": "बिहान कति बजे खोल्नुहुन्छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 445.57979999808595,
+        "error": null
+      },
+      {
+        "case_id": "bb-hours",
+        "step_id": "bb-hours-4",
+        "language": "ne",
+        "text": "तपाईंहरूको समय कति हो?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 432.2405999992043,
+        "error": null
+      },
+      {
+        "case_id": "bb-hours",
+        "step_id": "bb-hours-5",
+        "language": "ne",
+        "text": "अहिले खुला छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "discovery.query",
+        "latency_ms": 395.64360000076704,
+        "error": null
+      },
+      {
+        "case_id": "bb-hours",
+        "step_id": "bb-hours-6",
+        "language": "ne",
+        "text": "आइतबार खुल्छ कि बन्द?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": null,
+        "latency_ms": 409.9317000072915,
+        "error": null
+      },
+      {
+        "case_id": "pb-hours",
+        "step_id": "pb-hours-1",
+        "language": "ne",
+        "text": "कति बजेसम्म पाइन्छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 384.51240002177656,
+        "error": null
+      },
+      {
+        "case_id": "pb-hours",
+        "step_id": "pb-hours-2",
+        "language": "ne",
+        "text": "बिहान कति बजेदेखि खुल्छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 387.8610000247136,
+        "error": null
+      },
+      {
+        "case_id": "pb-hours",
+        "step_id": "pb-hours-3",
+        "language": "ne",
+        "text": "अहिले खुला छ दिदी?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 385.22359999478795,
+        "error": null
+      },
+      {
+        "case_id": "pb-hours",
+        "step_id": "pb-hours-4",
+        "language": "ne",
+        "text": "आज कति बजे बन्द हुन्छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 392.27979999850504,
+        "error": null
+      },
+      {
+        "case_id": "pb-hours",
+        "step_id": "pb-hours-5",
+        "language": "ne",
+        "text": "तपाईंको समय कति बजेको हो?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 411.8007000070065,
+        "error": null
+      },
+      {
+        "case_id": "pb-hours",
+        "step_id": "pb-hours-6",
+        "language": "ne",
+        "text": "आइतबार पनि खुल्छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 378.72730000526644,
+        "error": null
+      },
+      {
+        "case_id": "bb-delivery",
+        "step_id": "bb-delivery-1",
+        "language": "ne",
+        "text": "यहाँ डेलिभरी हुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": null,
+        "latency_ms": 400.14670000527985,
+        "error": null
+      },
+      {
+        "case_id": "bb-delivery",
+        "step_id": "bb-delivery-2",
+        "language": "ne",
+        "text": "जोरपाटीमा पुर्याउनुहुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": null,
+        "latency_ms": 432.0692000037525,
+        "error": null
+      },
+      {
+        "case_id": "bb-delivery",
+        "step_id": "bb-delivery-3",
+        "language": "ne",
+        "text": "डेलिभरी चार्ज कति लाग्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "discovery.query",
+        "latency_ms": 425.59650001931004,
+        "error": null
+      },
+      {
+        "case_id": "bb-delivery",
+        "step_id": "bb-delivery-4",
+        "language": "ne",
+        "text": "कति बेरमा आउँछ डेलिभरी?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 410.01560000586323,
+        "error": null
+      },
+      {
+        "case_id": "bb-delivery",
+        "step_id": "bb-delivery-5",
+        "language": "ne",
+        "text": "बौद्ध बाहिर पठाउनुहुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 443.41620002523996,
+        "error": null
+      },
+      {
+        "case_id": "bb-delivery",
+        "step_id": "bb-delivery-6",
+        "language": "ne",
+        "text": "डेलिभरी कहाँसम्म गर्नुहुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 466.3009000068996,
+        "error": null
+      },
+      {
+        "case_id": "pb-delivery",
+        "step_id": "pb-delivery-1",
+        "language": "ne",
+        "text": "लगनखेल पुर्याउनुहुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 498.3524999988731,
+        "error": null
+      },
+      {
+        "case_id": "pb-delivery",
+        "step_id": "pb-delivery-2",
+        "language": "ne",
+        "text": "डेलिभरी शुल्क कति?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "discovery.query",
+        "latency_ms": 463.39620000799187,
+        "error": null
+      },
+      {
+        "case_id": "pb-delivery",
+        "step_id": "pb-delivery-3",
+        "language": "ne",
+        "text": "घरमा पठाउनुहुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 471.09120001550764,
+        "error": null
+      },
+      {
+        "case_id": "pb-delivery",
+        "step_id": "pb-delivery-4",
+        "language": "ne",
+        "text": "कति समयमा डेलिभरी हुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": null,
+        "latency_ms": 477.8496000217274,
+        "error": null
+      },
+      {
+        "case_id": "pb-delivery",
+        "step_id": "pb-delivery-5",
+        "language": "ne",
+        "text": "पाटन बाहिर पठाउनुहुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": null,
+        "latency_ms": 490.12910001329146,
+        "error": null
+      },
+      {
+        "case_id": "pb-delivery",
+        "step_id": "pb-delivery-6",
+        "language": "ne",
+        "text": "डेलिभरीको दायरा कति छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": null,
+        "latency_ms": 481.1898000189103,
+        "error": null
+      },
+      {
+        "case_id": "bb-order-status",
+        "step_id": "bb-status-1",
+        "language": "ne",
+        "text": "मेरो अर्डर कहाँ पुग्यो?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 470.14869999838993,
+        "error": null
+      },
+      {
+        "case_id": "bb-order-status",
+        "step_id": "bb-status-2",
+        "language": "ne",
+        "text": "अर्डर अझै आएको छैन, कहाँ छ?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 503.7733000062872,
+        "error": null
+      },
+      {
+        "case_id": "bb-order-status",
+        "step_id": "bb-status-3",
+        "language": "ne",
+        "text": "मेरो अर्डर अहिले कहाँ छ हजुर?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 520.0431999983266,
+        "error": null
+      },
+      {
+        "case_id": "bb-order-status",
+        "step_id": "bb-status-4",
+        "language": "ne",
+        "text": "मेरो अर्डर पुग्यो कि पुगेन?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 501.3429999817163,
+        "error": null
+      },
+      {
+        "case_id": "bb-order-status",
+        "step_id": "bb-status-5",
+        "language": "ne",
+        "text": "मेरो अर्डर पठाइयो कि?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 521.3896000059322,
+        "error": null
+      },
+      {
+        "case_id": "bb-order-status",
+        "step_id": "bb-status-6",
+        "language": "ne",
+        "text": "अर्डर स्टेटस कस्तो छ?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 436.33719999343157,
+        "error": null
+      },
+      {
+        "case_id": "pb-order-status",
+        "step_id": "pb-status-1",
+        "language": "ne",
+        "text": "मेरो अर्डर कहाँ छ दिदी?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 419.864299998153,
+        "error": null
+      },
+      {
+        "case_id": "pb-order-status",
+        "step_id": "pb-status-2",
+        "language": "ne",
+        "text": "अर्डर आउने बेला भयो, कहाँ पुग्यो?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 440.84149997797795,
+        "error": null
+      },
+      {
+        "case_id": "pb-order-status",
+        "step_id": "pb-status-3",
+        "language": "ne",
+        "text": "मेरो अर्डर पठाउनुभयो?",
+        "expected": "fulfillment.order_status",
+        "predicted": null,
+        "latency_ms": 861.8371999764349,
+        "error": null
+      },
+      {
+        "case_id": "pb-order-status",
+        "step_id": "pb-status-4",
+        "language": "ne",
+        "text": "अर्डर कसले ल्याउँदै छ?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 493.9543000073172,
+        "error": null
+      },
+      {
+        "case_id": "pb-order-status",
+        "step_id": "pb-status-5",
+        "language": "ne",
+        "text": "अर्डर अझै किन आएन?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 400.4867000039667,
+        "error": null
+      },
+      {
+        "case_id": "pb-order-status",
+        "step_id": "pb-status-6",
+        "language": "ne",
+        "text": "मेरो अर्डरको अवस्था के छ?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 396.7784999986179,
+        "error": null
+      },
+      {
+        "case_id": "bb-cart",
+        "step_id": "bb-cart-1",
+        "language": "ne",
+        "text": "मेरो कार्ट देखाउनु न",
+        "expected": "ordering.view_cart",
+        "predicted": "social.goodbye",
+        "latency_ms": 382.6350999879651,
+        "error": null
+      },
+      {
+        "case_id": "bb-cart",
+        "step_id": "bb-cart-2",
+        "language": "ne",
+        "text": "के के अर्डर गरेको छु?",
+        "expected": "ordering.view_cart",
+        "predicted": null,
+        "latency_ms": 377.37899998319335,
+        "error": null
+      },
+      {
+        "case_id": "bb-cart",
+        "step_id": "bb-cart-3",
+        "language": "ne",
+        "text": "अहिलेसम्मको अर्डर देखाउनुहोस्",
+        "expected": "ordering.view_cart",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 399.99689999967813,
+        "error": null
+      },
+      {
+        "case_id": "bb-cart",
+        "step_id": "bb-cart-4",
+        "language": "ne",
+        "text": "मेरो कार्ट खोल्नु न",
+        "expected": "ordering.view_cart",
+        "predicted": "social.goodbye",
+        "latency_ms": 402.31340000173077,
+        "error": null
+      },
+      {
+        "case_id": "bb-cart",
+        "step_id": "bb-cart-5",
+        "language": "ne",
+        "text": "अर्डरको लिस्ट पठाइदिनु",
+        "expected": "ordering.view_cart",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 397.27340001263656,
+        "error": null
+      },
+      {
+        "case_id": "bb-cart",
+        "step_id": "bb-cart-6",
+        "language": "ne",
+        "text": "मैले के के थपेको छु?",
+        "expected": "ordering.view_cart",
+        "predicted": null,
+        "latency_ms": 396.9304999918677,
+        "error": null
+      },
+      {
+        "case_id": "pb-cart",
+        "step_id": "pb-cart-1",
+        "language": "ne",
+        "text": "मेरो अर्डर लिस्ट देखाउनु दिदी",
+        "expected": "ordering.view_cart",
+        "predicted": null,
+        "latency_ms": 391.05340000241995,
+        "error": null
+      },
+      {
+        "case_id": "pb-cart",
+        "step_id": "pb-cart-2",
+        "language": "ne",
+        "text": "कार्टमा के छ?",
+        "expected": "ordering.view_cart",
+        "predicted": null,
+        "latency_ms": 368.7433000013698,
+        "error": null
+      },
+      {
+        "case_id": "pb-cart",
+        "step_id": "pb-cart-3",
+        "language": "ne",
+        "text": "अहिलेसम्म के के राखेको छु?",
+        "expected": "ordering.view_cart",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 384.5224999822676,
+        "error": null
+      },
+      {
+        "case_id": "pb-cart",
+        "step_id": "pb-cart-4",
+        "language": "ne",
+        "text": "मेरो कार्ट हेर्न पाइन्छ?",
+        "expected": "ordering.view_cart",
+        "predicted": null,
+        "latency_ms": 375.8275999862235,
+        "error": null
+      },
+      {
+        "case_id": "pb-cart",
+        "step_id": "pb-cart-5",
+        "language": "ne",
+        "text": "अर्डरको विवरण पठाइदिनु",
+        "expected": "ordering.view_cart",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 394.16630001505837,
+        "error": null
+      },
+      {
+        "case_id": "pb-cart",
+        "step_id": "pb-cart-6",
+        "language": "ne",
+        "text": "मैले के के अर्डर गरें?",
+        "expected": "ordering.view_cart",
+        "predicted": null,
+        "latency_ms": 383.8901999988593,
+        "error": null
+      },
+      {
+        "case_id": "bb-checkout",
+        "step_id": "bb-checkout-1",
+        "language": "ne",
+        "text": "अर्डर गर्नुहोस् त",
+        "expected": "ordering.request_checkout",
+        "predicted": "ordering.request_checkout",
+        "latency_ms": 367.40269997972064,
+        "error": null
+      },
+      {
+        "case_id": "bb-checkout",
+        "step_id": "bb-checkout-2",
+        "language": "ne",
+        "text": "मेरो अर्डर पक्का गर्नुहोस्",
+        "expected": "ordering.request_checkout",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 378.25889998930506,
+        "error": null
+      },
+      {
+        "case_id": "bb-checkout",
+        "step_id": "bb-checkout-3",
+        "language": "ne",
+        "text": "अर्डर कन्फर्म गर्नु",
+        "expected": "ordering.request_checkout",
+        "predicted": "ordering.request_checkout",
+        "latency_ms": 409.1162000258919,
+        "error": null
+      },
+      {
+        "case_id": "bb-checkout",
+        "step_id": "bb-checkout-4",
+        "language": "ne",
+        "text": "ल, अर्डर गरौं",
+        "expected": "ordering.request_checkout",
+        "predicted": null,
+        "latency_ms": 401.8875999900047,
+        "error": null
+      },
+      {
+        "case_id": "bb-checkout",
+        "step_id": "bb-checkout-5",
+        "language": "ne",
+        "text": "यही अर्डर पठाइदिनु",
+        "expected": "ordering.request_checkout",
+        "predicted": null,
+        "latency_ms": 421.8570000084583,
+        "error": null
+      },
+      {
+        "case_id": "bb-checkout",
+        "step_id": "bb-checkout-6",
+        "language": "ne",
+        "text": "अहिलेकै अर्डर पक्का गर्नुहोस्",
+        "expected": "ordering.request_checkout",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 414.53049998381175,
+        "error": null
+      },
+      {
+        "case_id": "pb-checkout",
+        "step_id": "pb-checkout-1",
+        "language": "ne",
+        "text": "मेरो अर्डर फाइनल गर्नुहोस्",
+        "expected": "ordering.request_checkout",
+        "predicted": "social.goodbye",
+        "latency_ms": 394.10659999703057,
+        "error": null
+      },
+      {
+        "case_id": "pb-checkout",
+        "step_id": "pb-checkout-2",
+        "language": "ne",
+        "text": "अर्डर प्लेस गर्नुहोस् त",
+        "expected": "ordering.request_checkout",
+        "predicted": null,
+        "latency_ms": 389.56330000655726,
+        "error": null
+      },
+      {
+        "case_id": "pb-checkout",
+        "step_id": "pb-checkout-3",
+        "language": "ne",
+        "text": "ल, कन्फर्म गर्नुहोस्",
+        "expected": "ordering.request_checkout",
+        "predicted": null,
+        "latency_ms": 401.86469999025576,
+        "error": null
+      },
+      {
+        "case_id": "pb-checkout",
+        "step_id": "pb-checkout-4",
+        "language": "ne",
+        "text": "यही अर्डर अगाडि बढाउनुहोस्",
+        "expected": "ordering.request_checkout",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 411.06509999372065,
+        "error": null
+      },
+      {
+        "case_id": "pb-checkout",
+        "step_id": "pb-checkout-5",
+        "language": "ne",
+        "text": "अर्डर गरिदिनु दिदी",
+        "expected": "ordering.request_checkout",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 394.4236999959685,
+        "error": null
+      },
+      {
+        "case_id": "pb-checkout",
+        "step_id": "pb-checkout-6",
+        "language": "ne",
+        "text": "अब अर्डर गर्नुहोस्",
+        "expected": "ordering.request_checkout",
+        "predicted": "ordering.request_checkout",
+        "latency_ms": 398.17410000250675,
+        "error": null
+      },
+      {
+        "case_id": "bb-repeat",
+        "step_id": "bb-repeat-1",
+        "language": "ne",
+        "text": "फेरि उही अर्डर गर्नुहोस्",
+        "expected": "ordering.repeat_order",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 406.0427999938838,
+        "error": null
+      },
+      {
+        "case_id": "bb-repeat",
+        "step_id": "bb-repeat-2",
+        "language": "ne",
+        "text": "अघिल्लो पटकको जस्तै पठाइदिनु",
+        "expected": "ordering.repeat_order",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 487.1228000265546,
+        "error": null
+      },
+      {
+        "case_id": "bb-repeat",
+        "step_id": "bb-repeat-3",
+        "language": "ne",
+        "text": "पहिलेको अर्डर फेरि दोहोर्याउनु",
+        "expected": "ordering.repeat_order",
+        "predicted": null,
+        "latency_ms": 425.4073000047356,
+        "error": null
+      },
+      {
+        "case_id": "bb-repeat",
+        "step_id": "bb-repeat-4",
+        "language": "ne",
+        "text": "मैले अघि खाएको सेकुवा फेरि मगाउनु",
+        "expected": "ordering.repeat_order",
+        "predicted": "ordering.repeat_order",
+        "latency_ms": 431.23479999485426,
+        "error": null
+      },
+      {
+        "case_id": "bb-repeat",
+        "step_id": "bb-repeat-5",
+        "language": "ne",
+        "text": "उही अर्डर फेरि गर्नु",
+        "expected": "ordering.repeat_order",
+        "predicted": null,
+        "latency_ms": 424.65460000676103,
+        "error": null
+      },
+      {
+        "case_id": "bb-repeat",
+        "step_id": "bb-repeat-6",
+        "language": "ne",
+        "text": "हिजोको अर्डर जस्तै दिनु",
+        "expected": "ordering.repeat_order",
+        "predicted": null,
+        "latency_ms": 403.100399998948,
+        "error": null
+      },
+      {
+        "case_id": "pb-repeat",
+        "step_id": "pb-repeat-1",
+        "language": "ne",
+        "text": "अघिल्लो जस्तै फेरि ल्याइदिनु",
+        "expected": "ordering.repeat_order",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 451.93459998699836,
+        "error": null
+      },
+      {
+        "case_id": "pb-repeat",
+        "step_id": "pb-repeat-2",
+        "language": "ne",
+        "text": "मेरो पुरानो अर्डर दोहोर्याउनु",
+        "expected": "ordering.repeat_order",
+        "predicted": null,
+        "latency_ms": 418.64970000460744,
+        "error": null
+      },
+      {
+        "case_id": "pb-repeat",
+        "step_id": "pb-repeat-3",
+        "language": "ne",
+        "text": "फेरि त्यही अर्डर गर्नु दिदी",
+        "expected": "ordering.repeat_order",
+        "predicted": "ordering.repeat_order",
+        "latency_ms": 417.7309999940917,
+        "error": null
+      },
+      {
+        "case_id": "pb-repeat",
+        "step_id": "pb-repeat-4",
+        "language": "ne",
+        "text": "पहिलेको जस्तै सेल रोटी मगाउनु",
+        "expected": "ordering.repeat_order",
+        "predicted": null,
+        "latency_ms": 404.2516000044998,
+        "error": null
+      },
+      {
+        "case_id": "pb-repeat",
+        "step_id": "pb-repeat-5",
+        "language": "ne",
+        "text": "उही अर्डर फेरि पठाइदिनु",
+        "expected": "ordering.repeat_order",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 392.46600001933984,
+        "error": null
+      },
+      {
+        "case_id": "pb-repeat",
+        "step_id": "pb-repeat-6",
+        "language": "ne",
+        "text": "हिजोको अर्डर फेरि गर्नु",
+        "expected": "ordering.repeat_order",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 396.6401999932714,
+        "error": null
+      },
+      {
+        "case_id": "bb-saved-address",
+        "step_id": "bb-saved-1",
+        "language": "ne",
+        "text": "सेभ गरेको ठेगानामा पठाइदिनु",
+        "expected": "ordering.use_saved_address",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 395.40380000835285,
+        "error": null
+      },
+      {
+        "case_id": "bb-saved-address",
+        "step_id": "bb-saved-2",
+        "language": "ne",
+        "text": "पुरानै ठेगाना प्रयोग गर्नुहोस्",
+        "expected": "ordering.use_saved_address",
+        "predicted": null,
+        "latency_ms": 395.3173999907449,
+        "error": null
+      },
+      {
+        "case_id": "bb-saved-address",
+        "step_id": "bb-saved-3",
+        "language": "ne",
+        "text": "सेव गरेको ठेगाना प्रयोग गर्नु",
+        "expected": "ordering.use_saved_address",
+        "predicted": null,
+        "latency_ms": 391.85620000353083,
+        "error": null
+      },
+      {
+        "case_id": "bb-saved-address",
+        "step_id": "bb-saved-4",
+        "language": "ne",
+        "text": "मेरो पहिलेको ठेगानामै पठाउनुहोस्",
+        "expected": "ordering.use_saved_address",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 423.8446999806911,
+        "error": null
+      },
+      {
+        "case_id": "bb-saved-address",
+        "step_id": "bb-saved-5",
+        "language": "ne",
+        "text": "सेव ठेगाना नै राख्नु",
+        "expected": "ordering.use_saved_address",
+        "predicted": null,
+        "latency_ms": 414.66419998323545,
+        "error": null
+      },
+      {
+        "case_id": "bb-saved-address",
+        "step_id": "bb-saved-6",
+        "language": "ne",
+        "text": "अघिको ठेगाना लिनुहोस्",
+        "expected": "ordering.use_saved_address",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 416.2097999942489,
+        "error": null
+      },
+      {
+        "case_id": "pb-saved-address",
+        "step_id": "pb-saved-1",
+        "language": "ne",
+        "text": "सेव गरेको ठेगानामा पुर्याउनु",
+        "expected": "ordering.use_saved_address",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 407.92999998666346,
+        "error": null
+      },
+      {
+        "case_id": "pb-saved-address",
+        "step_id": "pb-saved-2",
+        "language": "ne",
+        "text": "पहिलेको ठेगाना नै प्रयोग गर्नु",
+        "expected": "ordering.use_saved_address",
+        "predicted": null,
+        "latency_ms": 406.3726000022143,
+        "error": null
+      },
+      {
+        "case_id": "pb-saved-address",
+        "step_id": "pb-saved-3",
+        "language": "ne",
+        "text": "पुरानो ठेगानामै पठाइदिनु दिदी",
+        "expected": "ordering.use_saved_address",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 436.99210000340827,
+        "error": null
+      },
+      {
+        "case_id": "pb-saved-address",
+        "step_id": "pb-saved-4",
+        "language": "ne",
+        "text": "पहिले दिएको ठेगाना राख्नु",
+        "expected": "ordering.use_saved_address",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 410.6895999866538,
+        "error": null
+      },
+      {
+        "case_id": "pb-saved-address",
+        "step_id": "pb-saved-5",
+        "language": "ne",
+        "text": "उही ठेगाना राख्नु",
+        "expected": "ordering.use_saved_address",
+        "predicted": null,
+        "latency_ms": 444.10470000002533,
+        "error": null
+      },
+      {
+        "case_id": "pb-saved-address",
+        "step_id": "pb-saved-6",
+        "language": "ne",
+        "text": "सेव गरेको ठेगाना नै हाल्नु",
+        "expected": "ordering.use_saved_address",
+        "predicted": null,
+        "latency_ms": 473.8577999814879,
+        "error": null
+      },
+      {
+        "case_id": "bb-bare-order",
+        "step_id": "bb-bare-1",
+        "language": "ne",
+        "text": "एक प्लेट चिकन सेकुवा",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 483.81430000881664,
+        "error": null
+      },
+      {
+        "case_id": "bb-bare-order",
+        "step_id": "bb-bare-2",
+        "language": "ne",
+        "text": "२ वटा छोइला",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 479.9357999872882,
+        "error": null
+      },
+      {
+        "case_id": "bb-bare-order",
+        "step_id": "bb-bare-3",
+        "language": "ne",
+        "text": "आलु तामा दिनु",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 430.77089998405427,
+        "error": null
+      },
+      {
+        "case_id": "bb-bare-order",
+        "step_id": "bb-bare-4",
+        "language": "ne",
+        "text": "चिउरा र चिया",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 432.92309998651035,
+        "error": null
+      },
+      {
+        "case_id": "bb-bare-order",
+        "step_id": "bb-bare-5",
+        "language": "ne",
+        "text": "सेकुवा हाल्नु न",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 444.24089998938143,
+        "error": null
+      },
+      {
+        "case_id": "bb-bare-order",
+        "step_id": "bb-bare-6",
+        "language": "ne",
+        "text": "एक कप चिया",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 422.55060002207756,
+        "error": null
+      },
+      {
+        "case_id": "pb-bare-order",
+        "step_id": "pb-bare-1",
+        "language": "ne",
+        "text": "दुई सेल रोटी",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 434.176100010518,
+        "error": null
+      },
+      {
+        "case_id": "pb-bare-order",
+        "step_id": "pb-bare-2",
+        "language": "ne",
+        "text": "पुरी तरकारी एक प्लेट",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 432.9794999794103,
+        "error": null
+      },
+      {
+        "case_id": "pb-bare-order",
+        "step_id": "pb-bare-3",
+        "language": "ne",
+        "text": "आलु पराठा दिनु",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 403.23260001605377,
+        "error": null
+      },
+      {
+        "case_id": "pb-bare-order",
+        "step_id": "pb-bare-4",
+        "language": "ne",
+        "text": "दही र लेमन टी",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 398.95820000674576,
+        "error": null
+      },
+      {
+        "case_id": "pb-bare-order",
+        "step_id": "pb-bare-5",
+        "language": "ne",
+        "text": "तीन सेल रोटी",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 423.6754000012297,
+        "error": null
+      },
+      {
+        "case_id": "pb-bare-order",
+        "step_id": "pb-bare-6",
+        "language": "ne",
+        "text": "पराठा हाल्नु न",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 453.41190000181086,
+        "error": null
+      },
+      {
+        "case_id": "bb-yes-no",
+        "step_id": "bb-yesno-1",
+        "language": "ne",
+        "text": "हुन्छ",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 444.6091999998316,
+        "error": null
+      },
+      {
+        "case_id": "bb-yes-no",
+        "step_id": "bb-yesno-2",
+        "language": "ne",
+        "text": "हो",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 478.8284999958705,
+        "error": null
+      },
+      {
+        "case_id": "bb-yes-no",
+        "step_id": "bb-yesno-3",
+        "language": "ne",
+        "text": "ल हुन्छ",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 448.54620000114664,
+        "error": null
+      },
+      {
+        "case_id": "bb-yes-no",
+        "step_id": "bb-yesno-4",
+        "language": "ne",
+        "text": "हुन्न",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 393.069599987939,
+        "error": null
+      },
+      {
+        "case_id": "bb-yes-no",
+        "step_id": "bb-yesno-5",
+        "language": "ne",
+        "text": "अहँ, पर्दैन",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 401.7292999778874,
+        "error": null
+      },
+      {
+        "case_id": "bb-yes-no",
+        "step_id": "bb-yesno-6",
+        "language": "ne",
+        "text": "हो त",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 397.14839999214746,
+        "error": null
+      },
+      {
+        "case_id": "pb-yes-no",
+        "step_id": "pb-yesno-1",
+        "language": "ne",
+        "text": "हुन्छ दिदी",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 419.4887000194285,
+        "error": null
+      },
+      {
+        "case_id": "pb-yes-no",
+        "step_id": "pb-yesno-2",
+        "language": "ne",
+        "text": "हो हजुर",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 411.8009000085294,
+        "error": null
+      },
+      {
+        "case_id": "pb-yes-no",
+        "step_id": "pb-yesno-3",
+        "language": "ne",
+        "text": "ल, ठीक छ",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 371.680699987337,
+        "error": null
+      },
+      {
+        "case_id": "pb-yes-no",
+        "step_id": "pb-yesno-4",
+        "language": "ne",
+        "text": "हुन्न",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 418.40359999332577,
+        "error": null
+      },
+      {
+        "case_id": "pb-yes-no",
+        "step_id": "pb-yesno-5",
+        "language": "ne",
+        "text": "पर्दैन",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 449.93160001467913,
+        "error": null
+      },
+      {
+        "case_id": "pb-yes-no",
+        "step_id": "pb-yesno-6",
+        "language": "ne",
+        "text": "अहँ",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 432.1414000005461,
+        "error": null
+      },
+      {
+        "case_id": "bb-allergy",
+        "step_id": "bb-allergy-1",
+        "language": "ne",
+        "text": "छोइलामा बदाम छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 454.1294999944512,
+        "error": null
+      },
+      {
+        "case_id": "bb-allergy",
+        "step_id": "bb-allergy-2",
+        "language": "ne",
+        "text": "मलाई बदामले एलर्जी छ, के खान मिल्छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 436.92980002379045,
+        "error": null
+      },
+      {
+        "case_id": "bb-allergy",
+        "step_id": "bb-allergy-3",
+        "language": "ne",
+        "text": "सेकुवामा ग्लुटेन हुन्छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 416.6588999796659,
+        "error": null
+      },
+      {
+        "case_id": "bb-allergy",
+        "step_id": "bb-allergy-4",
+        "language": "ne",
+        "text": "चियामा ल्याक्टोज हुन्छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 409.534700011136,
+        "error": null
+      },
+      {
+        "case_id": "bb-allergy",
+        "step_id": "bb-allergy-5",
+        "language": "ne",
+        "text": "मलाई दूधले एलर्जी छ, के खान मिल्छ?",
+        "expected": null,
+        "predicted": "discovery.recommend",
+        "latency_ms": 422.32879999210127,
+        "error": null
+      },
+      {
+        "case_id": "bb-allergy",
+        "step_id": "bb-allergy-6",
+        "language": "ne",
+        "text": "कुन खानामा बदाम छैन?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 422.99049999564886,
+        "error": null
+      },
+      {
+        "case_id": "pb-allergy",
+        "step_id": "pb-allergy-1",
+        "language": "ne",
+        "text": "पुरी तरकारीमा ग्लुटेन छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 443.72750000911765,
+        "error": null
+      },
+      {
+        "case_id": "pb-allergy",
+        "step_id": "pb-allergy-2",
+        "language": "ne",
+        "text": "मलाई अण्डाले एलर्जी छ, सेल रोटी खान मिल्छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 449.3551999912597,
+        "error": null
+      },
+      {
+        "case_id": "pb-allergy",
+        "step_id": "pb-allergy-3",
+        "language": "ne",
+        "text": "दहीमा ल्याक्टोज हुन्छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 407.44909999193624,
+        "error": null
+      },
+      {
+        "case_id": "pb-allergy",
+        "step_id": "pb-allergy-4",
+        "language": "ne",
+        "text": "कुन खानामा दूध छैन?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 410.65960002015345,
+        "error": null
+      },
+      {
+        "case_id": "pb-allergy",
+        "step_id": "pb-allergy-5",
+        "language": "ne",
+        "text": "पराठामा बदाम हुन्छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 415.4396999801975,
+        "error": null
+      },
+      {
+        "case_id": "pb-allergy",
+        "step_id": "pb-allergy-6",
+        "language": "ne",
+        "text": "मलाई एलर्जी छ, के सुरक्षित छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 443.36200001998805,
+        "error": null
+      },
+      {
+        "case_id": "bb-refund",
+        "step_id": "bb-refund-1",
+        "language": "ne",
+        "text": "मेरो पैसा फिर्ता गर्नुहोस्",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 415.48539997893386,
+        "error": null
+      },
+      {
+        "case_id": "bb-refund",
+        "step_id": "bb-refund-2",
+        "language": "ne",
+        "text": "अर्डर रद्द भयो तर पैसा काटियो",
+        "expected": null,
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 435.7374999963213,
+        "error": null
+      },
+      {
+        "case_id": "bb-refund",
+        "step_id": "bb-refund-3",
+        "language": "ne",
+        "text": "रिफन्ड कहिले आउँछ?",
+        "expected": null,
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 447.9797000240069,
+        "error": null
+      },
+      {
+        "case_id": "bb-refund",
+        "step_id": "bb-refund-4",
+        "language": "ne",
+        "text": "डबल चार्ज भयो, फिर्ता चाहियो",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 433.96260001463816,
+        "error": null
+      },
+      {
+        "case_id": "bb-refund",
+        "step_id": "bb-refund-5",
+        "language": "ne",
+        "text": "पैसा फिर्ता नगरे गुनासो गर्छु",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 432.7112000028137,
+        "error": null
+      },
+      {
+        "case_id": "bb-refund",
+        "step_id": "bb-refund-6",
+        "language": "ne",
+        "text": "मेरो भुक्तानी फिर्ता गर्नु",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 418.772099976195,
+        "error": null
+      },
+      {
+        "case_id": "pb-refund",
+        "step_id": "pb-refund-1",
+        "language": "ne",
+        "text": "पैसा फिर्ता गरिदिनु",
+        "expected": null,
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 428.15359999076463,
+        "error": null
+      },
+      {
+        "case_id": "pb-refund",
+        "step_id": "pb-refund-2",
+        "language": "ne",
+        "text": "नमगाएको खानाको पैसा काटियो",
+        "expected": null,
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 420.17379999742843,
+        "error": null
+      },
+      {
+        "case_id": "pb-refund",
+        "step_id": "pb-refund-3",
+        "language": "ne",
+        "text": "रिफन्ड गरिदिनु दिदी",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 421.0056999872904,
+        "error": null
+      },
+      {
+        "case_id": "pb-refund",
+        "step_id": "pb-refund-4",
+        "language": "ne",
+        "text": "पैसा तिरें तर अर्डर आएन",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 426.5564999950584,
+        "error": null
+      },
+      {
+        "case_id": "pb-refund",
+        "step_id": "pb-refund-5",
+        "language": "ne",
+        "text": "डबल पैसा कटेको छ, हेर्नुहोस्",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 415.6684000045061,
+        "error": null
+      },
+      {
+        "case_id": "pb-refund",
+        "step_id": "pb-refund-6",
+        "language": "ne",
+        "text": "रकम फिर्ता गर्नु",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 412.3896000091918,
+        "error": null
+      },
+      {
+        "case_id": "bb-complaint",
+        "step_id": "bb-complaint-1",
+        "language": "ne",
+        "text": "खाना चिसो आयो",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 392.1686999965459,
+        "error": null
+      },
+      {
+        "case_id": "bb-complaint",
+        "step_id": "bb-complaint-2",
+        "language": "ne",
+        "text": "सेकुवा काँचो थियो, कस्तो खाना हो यो?",
+        "expected": null,
+        "predicted": "discovery.recommend",
+        "latency_ms": 420.442800008459,
+        "error": null
+      },
+      {
+        "case_id": "bb-complaint",
+        "step_id": "bb-complaint-3",
+        "language": "ne",
+        "text": "अर्डर एक घण्टापछि आयो",
+        "expected": null,
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 396.4540000015404,
+        "error": null
+      },
+      {
+        "case_id": "bb-complaint",
+        "step_id": "bb-complaint-4",
+        "language": "ne",
+        "text": "छोइला नुनिलो थियो, खान सकिन",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 387.5127999926917,
+        "error": null
+      },
+      {
+        "case_id": "bb-complaint",
+        "step_id": "bb-complaint-5",
+        "language": "ne",
+        "text": "गलत अर्डर आयो",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 377.05340000684373,
+        "error": null
+      },
+      {
+        "case_id": "bb-complaint",
+        "step_id": "bb-complaint-6",
+        "language": "ne",
+        "text": "यो सेवा ठीक भएन, गुनासो गर्न चाहन्छु",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 394.4608000165317,
+        "error": null
+      },
+      {
+        "case_id": "pb-complaint",
+        "step_id": "pb-complaint-1",
+        "language": "ne",
+        "text": "पराठा जलेको आयो",
+        "expected": null,
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 412.2694999969099,
+        "error": null
+      },
+      {
+        "case_id": "pb-complaint",
+        "step_id": "pb-complaint-2",
+        "language": "ne",
+        "text": "दही बिग्रिएको थियो",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 397.56840001791716,
+        "error": null
+      },
+      {
+        "case_id": "pb-complaint",
+        "step_id": "pb-complaint-3",
+        "language": "ne",
+        "text": "अर्डर ढिलो आयो दिदी",
+        "expected": null,
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 372.84440000075847,
+        "error": null
+      },
+      {
+        "case_id": "pb-complaint",
+        "step_id": "pb-complaint-4",
+        "language": "ne",
+        "text": "सेल रोटी कडा थियो",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 400.4651000141166,
+        "error": null
+      },
+      {
+        "case_id": "pb-complaint",
+        "step_id": "pb-complaint-5",
+        "language": "ne",
+        "text": "खानामा फोहोर भेटियो",
+        "expected": null,
+        "predicted": "ordering.request_checkout",
+        "latency_ms": 426.6164999862667,
+        "error": null
+      },
+      {
+        "case_id": "pb-complaint",
+        "step_id": "pb-complaint-6",
+        "language": "ne",
+        "text": "गुनासो गर्नु छ",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 412.7133000001777,
+        "error": null
+      },
+      {
+        "case_id": "bb-human",
+        "step_id": "bb-human-1",
+        "language": "ne",
+        "text": "स्टाफसँग कुरा गर्न मिल्छ?",
+        "expected": null,
+        "predicted": "discovery.recommend",
+        "latency_ms": 431.4187999989372,
+        "error": null
+      },
+      {
+        "case_id": "bb-human",
+        "step_id": "bb-human-2",
+        "language": "ne",
+        "text": "म्यानेजरसँग बोल्न सक्छु?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 461.97010000469163,
+        "error": null
+      },
+      {
+        "case_id": "bb-human",
+        "step_id": "bb-human-3",
+        "language": "ne",
+        "text": "कसैलाई बोलाउनु न",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 421.88660000101663,
+        "error": null
+      },
+      {
+        "case_id": "bb-human",
+        "step_id": "bb-human-4",
+        "language": "ne",
+        "text": "स्टाफसँग कुरा गराइदिनुहोस्",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 434.67519999830984,
+        "error": null
+      },
+      {
+        "case_id": "pb-human",
+        "step_id": "pb-human-1",
+        "language": "ne",
+        "text": "स्टाफसँग कुरा गर्न सकिन्छ?",
+        "expected": null,
+        "predicted": "discovery.query",
+        "latency_ms": 426.28859999240376,
+        "error": null
+      },
+      {
+        "case_id": "pb-human",
+        "step_id": "pb-human-2",
+        "language": "ne",
+        "text": "म्यानेजर छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 406.0698999965098,
+        "error": null
+      },
+      {
+        "case_id": "pb-human",
+        "step_id": "pb-human-3",
+        "language": "ne",
+        "text": "दिदी, कसैलाई बोलाउनु न",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 409.7281000285875,
+        "error": null
+      },
+      {
+        "case_id": "pb-human",
+        "step_id": "pb-human-4",
+        "language": "ne",
+        "text": "स्टाफसँग कुरा गराउनुहोस्",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 422.02610001550056,
+        "error": null
+      },
+      {
+        "case_id": "bb-gibberish",
+        "step_id": "bb-gibberish-1",
+        "language": "ne",
+        "text": "asdkjh",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 2108.950800000457,
+        "error": null
+      },
+      {
+        "case_id": "bb-gibberish",
+        "step_id": "bb-gibberish-2",
+        "language": "ne",
+        "text": "???!",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 1031.7766000225674,
+        "error": null
+      },
+      {
+        "case_id": "bb-gibberish",
+        "step_id": "bb-gibberish-3",
+        "language": "ne",
+        "text": "ह ह ह",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 405.720900016604,
+        "error": null
+      },
+      {
+        "case_id": "bb-gibberish",
+        "step_id": "bb-gibberish-4",
+        "language": "ne",
+        "text": "....",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 1024.5418999984395,
+        "error": null
+      },
+      {
+        "case_id": "bb-gibberish",
+        "step_id": "bb-gibberish-5",
+        "language": "ne",
+        "text": "xxx",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 1011.3572000118438,
+        "error": null
+      },
+      {
+        "case_id": "bb-gibberish",
+        "step_id": "bb-gibberish-6",
+        "language": "ne",
+        "text": "jjjj",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 1051.620100013679,
+        "error": null
+      },
+      {
+        "case_id": "pb-gibberish",
+        "step_id": "pb-gibberish-1",
+        "language": "ne",
+        "text": "djfk",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 1051.2445000058506,
+        "error": null
+      },
+      {
+        "case_id": "pb-gibberish",
+        "step_id": "pb-gibberish-2",
+        "language": "ne",
+        "text": "?????",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 1051.3381999917328,
+        "error": null
+      },
+      {
+        "case_id": "pb-gibberish",
+        "step_id": "pb-gibberish-3",
+        "language": "ne",
+        "text": "हहहह",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 417.4180999980308,
+        "error": null
+      },
+      {
+        "case_id": "pb-gibberish",
+        "step_id": "pb-gibberish-4",
+        "language": "ne",
+        "text": "...",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 992.9285999969579,
+        "error": null
+      },
+      {
+        "case_id": "pb-gibberish",
+        "step_id": "pb-gibberish-5",
+        "language": "ne",
+        "text": "lolol",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 1033.6282000062056,
+        "error": null
+      },
+      {
+        "case_id": "pb-gibberish",
+        "step_id": "pb-gibberish-6",
+        "language": "ne",
+        "text": "ययय",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 444.2453999945428,
+        "error": null
+      },
+      {
+        "case_id": "bb-unclear",
+        "step_id": "bb-unclear-1",
+        "language": "ne",
+        "text": "यो कस्तो हो?",
+        "expected": null,
+        "predicted": "discovery.query",
+        "latency_ms": 430.16659998102114,
+        "error": null
+      },
+      {
+        "case_id": "bb-unclear",
+        "step_id": "bb-unclear-2",
+        "language": "ne",
+        "text": "तपाईंहरू को हौ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 433.4763000078965,
+        "error": null
+      },
+      {
+        "case_id": "bb-unclear",
+        "step_id": "bb-unclear-3",
+        "language": "ne",
+        "text": "अनि त्यो?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 421.17779998807237,
+        "error": null
+      },
+      {
+        "case_id": "bb-unclear",
+        "step_id": "bb-unclear-4",
+        "language": "ne",
+        "text": "कहाँ जान्छ?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 404.1136000014376,
+        "error": null
+      },
+      {
+        "case_id": "bb-unclear",
+        "step_id": "bb-unclear-5",
+        "language": "ne",
+        "text": "मलाई थाहा भएन",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 402.98620000248775,
+        "error": null
+      },
+      {
+        "case_id": "bb-unclear",
+        "step_id": "bb-unclear-6",
+        "language": "ne",
+        "text": "के हो यो?",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 415.0321999914013,
+        "error": null
+      },
+      {
+        "case_id": "pb-unclear",
+        "step_id": "pb-unclear-1",
+        "language": "ne",
+        "text": "अनि?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 413.2192000106443,
+        "error": null
+      },
+      {
+        "case_id": "pb-unclear",
+        "step_id": "pb-unclear-2",
+        "language": "ne",
+        "text": "मलाई बुझिएन",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 428.67609998211265,
+        "error": null
+      },
+      {
+        "case_id": "pb-unclear",
+        "step_id": "pb-unclear-3",
+        "language": "ne",
+        "text": "फेरि भन्नु न",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 410.48290001344867,
+        "error": null
+      },
+      {
+        "case_id": "pb-unclear",
+        "step_id": "pb-unclear-4",
+        "language": "ne",
+        "text": "त्यो कुरा मिलेन",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 416.7466000071727,
+        "error": null
+      },
+      {
+        "case_id": "pb-unclear",
+        "step_id": "pb-unclear-5",
+        "language": "ne",
+        "text": "कहिले?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 421.2575000128709,
+        "error": null
+      },
+      {
+        "case_id": "pb-unclear",
+        "step_id": "pb-unclear-6",
+        "language": "ne",
+        "text": "हो कि होइन?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 405.39459997671656,
+        "error": null
+      }
+    ]
+  }
+}
