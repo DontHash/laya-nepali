@@ -1,11 +1,11 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-26 (early morning). State: **batch 2+3 generation
-complete** (1,838 rows = 1,736 cases + 102 variants; ids remapped `ne-v2-`/`ne-v3-`)
-and the tiered review sheet is built: **694 rows need human review** (all 306
-safety rows + 25.3% of kind rows) in `data/reviewed/ne-decisions-v1.review.jsonl`.
-Next: run the human review, `apply`, `export`. Benchmark v2 frozen at 113/272;
-the Kaggle fine-tune notebook is ready for P2.
+Last updated: 2026-09-26 (morning). State: **dataset v1 reviewed and exported** —
+1,835 cases / 9,175 decisions applied (692 human + 1,143 judge-auto; reviewer
+DontHash), splits train 1,666 / calibration 169, deterministic gate PASS, all 106
+tests green. Two human rows stayed pending and were excluded (`ne-v2-1292`
+view_cart, `ne-v3-0248` allergy); review them to add the last 2. Benchmark v2
+frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook + gates.
 
 ## Commit map (main)
 
@@ -36,6 +36,8 @@ the Kaggle fine-tune notebook is ready for P2.
 | `97ff62b` | Vertex AI backend (`VertexGenerator`, gcloud access token) after free-tier quotas emptied |
 | `61bb42c` | Handoff: Vertex state and resume command |
 | `94654c1` | Batch-2/3 tiered review sheet (1,838 records, 694 human) |
+| `d86fb8b` | Handoff: batch 2+3 complete, review sheet state |
+| `45c8198` | Review applied (692 human + 1,143 judge-auto); export 1,835 cases / 9,175 decisions |
 
 ## Verified
 
@@ -45,9 +47,10 @@ the Kaggle fine-tune notebook is ready for P2.
 - **Devanagari benchmark v2** (`data/benchmark/ne-bench-deva-v2.json`): 46 cases /
   272 steps, frozen after review (272 accepted, 0 edits). Baseline:
   `reports/ne-bench-deva-v2-laya.{md,json}` = 113/272 (41.5%), abstain 53/92.
-- **Dataset export**: `data/export/ne-decisions-v1-{train,calibration}.jsonl` +
-  manifest = 50 cases / 250 decisions (44 train / 6 calibration);
-  `python -m layanep.eval --check` passes with `reviewed_by` required.
+- **Dataset export v1**: `data/export/ne-decisions-v1-{train,calibration}.jsonl` +
+  manifest = **1,835 cases / 9,175 decisions** (train 1,666 / calibration 169);
+  `python -m layanep.eval --check` passes with `reviewed_by` required. Review
+  modes: 692 human (all safety + sampled kinds) + 1,143 judge-auto.
 - **Leakage gate worked**: 3 batch-1 messages coincided with benchmark steps
   (`नमस्ते हजुर`, `मेरो अर्डर कहाँ पुग्यो?`, `स्टाफसँग कुरा गर्न मिल्छ?`); they are
   recorded as rejected with the `leakage-gate` note and dropped from the export.
@@ -141,21 +144,12 @@ the Kaggle fine-tune notebook is ready for P2.
 
 ## Next: finish batch 2, tiered review, top-up export, then P2
 
-1. **Batch-2 generation is DONE** (2026-09-26 01:10): 1,838 rows = 1,736 task
-   cases + 102 spelling variants. Batch 2 finished on the Vertex backend
-   (`vertex:gemini-2.5-flash-lite`: 542 rows; earlier rows carry
-   `gemini-3.5/3.1-flash-lite`, 4 rows `gemini-3.6-flash`). A 280-task fresh-seed
-   top-up added `ne-v3-` rows (151 accepted + 9 variants). All `ne-gen-` ids and
-   `provenance.variant_of` references were remapped to `ne-v2-`.
-2. **Tiered review is ready** (694 human rows: 306 safety at 100%, 388 kind rows
-   at 25.3%):
-   ```bash
-   python -m layanep.review run --reviewer <name>   # interactive accept/edit/reject
-   python -m layanep.review apply
-   python -m layanep.export
-   ```
-   Re-run `review build --input data/generated/ne-candidates-v2.jsonl
-   --sample-rate 0.25` only if the candidate file changes; decisions persist.
+1. **Dataset v1 is reviewed and exported** (2026-09-26 morning): 1,835 cases /
+   9,175 decisions, train 1,666 / calibration 169, gate PASS. Two human rows
+   stayed pending and are excluded; to include them, re-open
+   `python -m layanep.review run --reviewer DontHash`, then `python -m
+   layanep.review apply` and `python -m layanep.export` (sheet decisions persist;
+   ids `ne-v2-1292` view_cart and `ne-v3-0248` allergy).
 3. **P2**: `notebooks/laya_finetune_nepali_2xT4_kaggle.ipynb` is ready (loads the
    `multilingual` subfolder, trains with RLCD, fits temperatures on the
    calibration split, evaluates on `ne-bench-deva-v2`); run the scaling
