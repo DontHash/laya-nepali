@@ -394,6 +394,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--safety-cases", type=int, default=40, help="cases per safety/abstain family")
     parser.add_argument("--businesses", type=int, default=0, help="max training businesses (0 = all)")
     parser.add_argument("--languages", default="ne", help="comma-separated language mix")
+    parser.add_argument("--id-prefix", default="ne-gen", help="task id prefix; change it for a new batch")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--model", default=None, help=f"Gemini model (default {DEFAULT_MODEL} or $GEMINI_MODEL)")
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
@@ -413,6 +414,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         kind_cases=max(0, args.kind_cases),
         safety_cases=max(0, args.safety_cases),
         limit=args.cases or None,
+        id_prefix=args.id_prefix,
     )
 
     if args.dry_run:

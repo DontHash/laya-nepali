@@ -171,6 +171,14 @@ def test_budget_plan_prefix_covers_different_families() -> None:
     assert [task.family.id for task in plan] == ["greet", "thanks", "goodbye", "show_menu"]
 
 
+def test_plan_id_prefix_keeps_batches_unique() -> None:
+    plan = build_plan(kind_cases=2, safety_cases=1, id_prefix="ne-v2")
+    assert plan[0].id == "ne-v2-0001"
+    assert plan[-1].id == "ne-v2-0038"
+    legacy = build_plan(businesses=TRAINING_BUSINESSES[:1], id_prefix="ne-v2")
+    assert legacy[0].id == "ne-v2-0001"
+
+
 def test_budget_plan_respects_limit_and_businesses() -> None:
     limited = build_plan(kind_cases=5, safety_cases=5, businesses=TRAINING_BUSINESSES[:2], limit=4)
     assert len(limited) == 4

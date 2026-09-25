@@ -348,17 +348,19 @@ def build_plan(
     limit: int | None = None,
     kind_cases: int | None = None,
     safety_cases: int | None = None,
+    id_prefix: str = "ne-gen",
 ) -> list[GenerationTask]:
     """Plan generation tasks.
 
     Budget mode (``kind_cases``/``safety_cases``) gives every command-kind
     family the same number of cases and every safety/abstain family another,
     cycling businesses and languages; legacy mode multiplies families by
-    languages, businesses and ``variants``.
+    languages, businesses and ``variants``. ``id_prefix`` keeps ids unique
+    across batches so dataset revisions never collide.
     """
     if kind_cases is not None or safety_cases is not None:
         return _build_budget_plan(
-            businesses, families, languages, kind_cases or 0, safety_cases or 0, limit
+            businesses, families, languages, kind_cases or 0, safety_cases or 0, limit, id_prefix
         )
 
     tasks: list[GenerationTask] = []
@@ -368,7 +370,7 @@ def build_plan(
                 for business in businesses:
                     tasks.append(
                         GenerationTask(
-                            id=f"ne-gen-{len(tasks) + 1:04d}",
+                            id=f"{id_prefix}-{len(tasks) + 1:04d}",
                             family=family,
                             language=language,
                             business=business,
@@ -388,6 +390,7 @@ def _build_budget_plan(
     kind_cases: int,
     safety_cases: int,
     limit: int | None,
+    id_prefix: str,
 ) -> list[GenerationTask]:
     combos = [(business, language) for language in languages for business in businesses]
     tasks: list[GenerationTask] = []
@@ -404,7 +407,7 @@ def _build_budget_plan(
             variant = combo_index // len(combos)
             tasks.append(
                 GenerationTask(
-                    id=f"ne-gen-{len(tasks) + 1:04d}",
+                    id=f"{id_prefix}-{len(tasks) + 1:04d}",
                     family=family,
                     language=language,
                     business=business,
