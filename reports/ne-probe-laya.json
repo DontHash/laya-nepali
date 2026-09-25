@@ -1,0 +1,900 @@
+{
+  "meta": {
+    "generated_at": "2026-09-25T05:59:43.648431+00:00",
+    "classifier": "laya",
+    "corpus_revision": "ne-probe-v1",
+    "commit": "dbfa24a",
+    "device": "cpu",
+    "threshold": 0.5,
+    "threads": 6
+  },
+  "score": {
+    "classifier": "laya",
+    "revision": "ne-probe-v1",
+    "total": 79,
+    "correct": 55,
+    "abstain_total": 17,
+    "abstain_correct": 13,
+    "per_kind": {
+      "social.greet": {
+        "expected": 4,
+        "correct": 3,
+        "predicted": 5,
+        "false_positive": 2
+      },
+      "social.thanks": {
+        "expected": 4,
+        "correct": 3,
+        "predicted": 4,
+        "false_positive": 1
+      },
+      "social.goodbye": {
+        "expected": 4,
+        "correct": 4,
+        "predicted": 8,
+        "false_positive": 4
+      },
+      "discovery.show_menu": {
+        "expected": 6,
+        "correct": 4,
+        "predicted": 4,
+        "false_positive": 0
+      },
+      "discovery.recommend": {
+        "expected": 4,
+        "correct": 2,
+        "predicted": 2,
+        "false_positive": 0
+      },
+      "discovery.query": {
+        "expected": 13,
+        "correct": 9,
+        "predicted": 12,
+        "false_positive": 3
+      },
+      "fulfillment.ask_hours": {
+        "expected": 4,
+        "correct": 3,
+        "predicted": 3,
+        "false_positive": 0
+      },
+      "fulfillment.ask_delivery": {
+        "expected": 5,
+        "correct": 4,
+        "predicted": 7,
+        "false_positive": 3
+      },
+      "fulfillment.order_status": {
+        "expected": 4,
+        "correct": 3,
+        "predicted": 3,
+        "false_positive": 0
+      },
+      "ordering.view_cart": {
+        "expected": 4,
+        "correct": 1,
+        "predicted": 1,
+        "false_positive": 0
+      },
+      "ordering.request_checkout": {
+        "expected": 4,
+        "correct": 3,
+        "predicted": 3,
+        "false_positive": 0
+      },
+      "ordering.repeat_order": {
+        "expected": 3,
+        "correct": 1,
+        "predicted": 1,
+        "false_positive": 0
+      },
+      "ordering.use_saved_address": {
+        "expected": 3,
+        "correct": 2,
+        "predicted": 2,
+        "false_positive": 0
+      },
+      "none": {
+        "expected": 17,
+        "correct": 13,
+        "predicted": 24,
+        "false_positive": 11
+      }
+    },
+    "latency_p50": 953.4094000118785,
+    "latency_p95": 1155.0994999997783,
+    "errors": 0,
+    "results": [
+      {
+        "case_id": "sk-lu-greet",
+        "step_id": "greet-1",
+        "language": "en",
+        "text": "hi there",
+        "expected": "social.greet",
+        "predicted": null,
+        "latency_ms": 1149.9083999951836,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-greet",
+        "step_id": "greet-2",
+        "language": "en",
+        "text": "good morning",
+        "expected": "social.greet",
+        "predicted": "social.greet",
+        "latency_ms": 894.092600006843,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-greet",
+        "step_id": "greet-3",
+        "language": "en",
+        "text": "hello!",
+        "expected": "social.greet",
+        "predicted": "social.greet",
+        "latency_ms": 990.8815000089817,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-greet",
+        "step_id": "greet-4",
+        "language": "en",
+        "text": "hey, good evening",
+        "expected": "social.greet",
+        "predicted": "social.greet",
+        "latency_ms": 937.0617000095081,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-thanks",
+        "step_id": "thanks-1",
+        "language": "en",
+        "text": "thanks a lot",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 892.0333000132814,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-thanks",
+        "step_id": "thanks-2",
+        "language": "en",
+        "text": "thank you so much",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 927.887700003339,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-thanks",
+        "step_id": "thanks-3",
+        "language": "ne-rom",
+        "text": "dhanyabad",
+        "expected": "social.thanks",
+        "predicted": null,
+        "latency_ms": 933.8866000180133,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-thanks",
+        "step_id": "thanks-4",
+        "language": "ne",
+        "text": "धन्यवाद",
+        "expected": "social.thanks",
+        "predicted": "social.thanks",
+        "latency_ms": 423.3142999873962,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-goodbye",
+        "step_id": "goodbye-1",
+        "language": "en",
+        "text": "bye",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 911.755200009793,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-goodbye",
+        "step_id": "goodbye-2",
+        "language": "en",
+        "text": "see you tomorrow",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 907.493099977728,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-goodbye",
+        "step_id": "goodbye-3",
+        "language": "en",
+        "text": "talk to you later",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 885.6568000046536,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-goodbye",
+        "step_id": "goodbye-4",
+        "language": "ne",
+        "text": "फेरि भेटौंला",
+        "expected": "social.goodbye",
+        "predicted": "social.goodbye",
+        "latency_ms": 423.7515999993775,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-menu",
+        "step_id": "menu-1",
+        "language": "en",
+        "text": "menu please",
+        "expected": "discovery.show_menu",
+        "predicted": "discovery.show_menu",
+        "latency_ms": 928.3275000052527,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-menu",
+        "step_id": "menu-2",
+        "language": "en",
+        "text": "what do you have?",
+        "expected": "discovery.show_menu",
+        "predicted": "social.greet",
+        "latency_ms": 929.3332000088412,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-menu",
+        "step_id": "menu-3",
+        "language": "en",
+        "text": "show me what you serve",
+        "expected": "discovery.show_menu",
+        "predicted": "discovery.show_menu",
+        "latency_ms": 950.2991999906953,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-menu",
+        "step_id": "menu-4",
+        "language": "ne-rom",
+        "text": "menu pathaunus",
+        "expected": "discovery.show_menu",
+        "predicted": "discovery.show_menu",
+        "latency_ms": 1093.6284000054002,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-menu",
+        "step_id": "menu-5",
+        "language": "ne-rom",
+        "text": "menu ma k k cha?",
+        "expected": "discovery.show_menu",
+        "predicted": "discovery.show_menu",
+        "latency_ms": 931.6326999978628,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-menu",
+        "step_id": "menu-6",
+        "language": "ne",
+        "text": "मेनु देखाउनुहोस्",
+        "expected": "discovery.show_menu",
+        "predicted": "social.goodbye",
+        "latency_ms": 440.1161000132561,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-recommend",
+        "step_id": "recommend-1",
+        "language": "en",
+        "text": "what do you recommend?",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 912.99079998862,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-recommend",
+        "step_id": "recommend-2",
+        "language": "en",
+        "text": "suggest something nice",
+        "expected": "discovery.recommend",
+        "predicted": "discovery.recommend",
+        "latency_ms": 937.1866000001319,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-recommend",
+        "step_id": "recommend-3",
+        "language": "en",
+        "text": "best seller?",
+        "expected": "discovery.recommend",
+        "predicted": null,
+        "latency_ms": 953.5371999954805,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-recommend",
+        "step_id": "recommend-4",
+        "language": "ne",
+        "text": "के राम्रो छ?",
+        "expected": "discovery.recommend",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 463.1144999875687,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-price",
+        "step_id": "price-1",
+        "language": "en",
+        "text": "how much is chicken momo?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 946.1224999977276,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-price",
+        "step_id": "price-2",
+        "language": "en",
+        "text": "what's the price of masala chai",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 950.4770000057761,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-price",
+        "step_id": "price-3",
+        "language": "ne-rom",
+        "text": "momo ko price kati ho?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 978.1697999860626,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-price",
+        "step_id": "price-4",
+        "language": "ne",
+        "text": "मोमोको मूल्य कति हो?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 400.0948000175413,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-availability",
+        "step_id": "availability-1",
+        "language": "en",
+        "text": "do you have veg momo?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 981.5865000127815,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-availability",
+        "step_id": "availability-2",
+        "language": "en",
+        "text": "is there any chai?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 967.4370000138879,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-availability",
+        "step_id": "availability-3",
+        "language": "ne-rom",
+        "text": "masala chai cha?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 956.0910000000149,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-availability",
+        "step_id": "availability-4",
+        "language": "ne",
+        "text": "तपाईंसँग भेज मोमो छ?",
+        "expected": "discovery.query",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 470.9813999943435,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-details",
+        "step_id": "details-1",
+        "language": "en",
+        "text": "tell me about the thali",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 1077.5837999826763,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-details",
+        "step_id": "details-2",
+        "language": "en",
+        "text": "what's in the veg thali?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 989.5219000172801,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-query-details",
+        "step_id": "details-3",
+        "language": "ne",
+        "text": "मोमोमा के छ?",
+        "expected": "discovery.query",
+        "predicted": null,
+        "latency_ms": 397.3979000002146,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-hours",
+        "step_id": "hours-1",
+        "language": "en",
+        "text": "what time do you open?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 962.6780000107829,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-hours",
+        "step_id": "hours-2",
+        "language": "en",
+        "text": "are you open now?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 1076.6988999966998,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-hours",
+        "step_id": "hours-3",
+        "language": "ne-rom",
+        "text": "kati baje khulcha?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": null,
+        "latency_ms": 1188.6674000124913,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-hours",
+        "step_id": "hours-4",
+        "language": "ne",
+        "text": "कति बजे खुल्छ?",
+        "expected": "fulfillment.ask_hours",
+        "predicted": "fulfillment.ask_hours",
+        "latency_ms": 517.9908999998588,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-delivery",
+        "step_id": "delivery-1",
+        "language": "en",
+        "text": "do you deliver to Lazimpat?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "discovery.query",
+        "latency_ms": 1118.8190000248142,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-delivery",
+        "step_id": "delivery-2",
+        "language": "en",
+        "text": "what's the delivery fee?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 1037.951600010274,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-delivery",
+        "step_id": "delivery-3",
+        "language": "ne-rom",
+        "text": "delivery area kaha samma?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 1071.1747000168543,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-delivery",
+        "step_id": "delivery-4",
+        "language": "ne",
+        "text": "डेलिभरी कहाँसम्म हुन्छ?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 440.08309999480844,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-status",
+        "step_id": "status-1",
+        "language": "en",
+        "text": "where is my order?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 1029.3635000125505,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-status",
+        "step_id": "status-2",
+        "language": "en",
+        "text": "any update on my order?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 1138.3863000082783,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-status",
+        "step_id": "status-3",
+        "language": "ne-rom",
+        "text": "mero order kaha cha?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.order_status",
+        "latency_ms": 1155.0994999997783,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-status",
+        "step_id": "status-4",
+        "language": "ne",
+        "text": "मेरो अर्डर कहाँ छ?",
+        "expected": "fulfillment.order_status",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 435.2352000132669,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-cart",
+        "step_id": "cart-1",
+        "language": "en",
+        "text": "show me my cart",
+        "expected": "ordering.view_cart",
+        "predicted": "ordering.view_cart",
+        "latency_ms": 1134.5692000177223,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-cart",
+        "step_id": "cart-2",
+        "language": "en",
+        "text": "what's in my order?",
+        "expected": "ordering.view_cart",
+        "predicted": "discovery.query",
+        "latency_ms": 1419.4300000090152,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-cart",
+        "step_id": "cart-3",
+        "language": "ne-rom",
+        "text": "mero cart dekhaunus",
+        "expected": "ordering.view_cart",
+        "predicted": null,
+        "latency_ms": 1001.1434000043664,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-cart",
+        "step_id": "cart-4",
+        "language": "ne",
+        "text": "मेरो कार्ट देखाउनुहोस्",
+        "expected": "ordering.view_cart",
+        "predicted": "social.goodbye",
+        "latency_ms": 409.63700000429526,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-checkout",
+        "step_id": "checkout-1",
+        "language": "en",
+        "text": "checkout please",
+        "expected": "ordering.request_checkout",
+        "predicted": "ordering.request_checkout",
+        "latency_ms": 967.9140000080224,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-checkout",
+        "step_id": "checkout-2",
+        "language": "en",
+        "text": "i'm done, place my order",
+        "expected": "ordering.request_checkout",
+        "predicted": "social.goodbye",
+        "latency_ms": 953.4094000118785,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-checkout",
+        "step_id": "checkout-3",
+        "language": "ne-rom",
+        "text": "checkout garna chahanchhu",
+        "expected": "ordering.request_checkout",
+        "predicted": "ordering.request_checkout",
+        "latency_ms": 1246.377500006929,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-checkout",
+        "step_id": "checkout-4",
+        "language": "ne",
+        "text": "अर्डर गर्नुहोस्",
+        "expected": "ordering.request_checkout",
+        "predicted": "ordering.request_checkout",
+        "latency_ms": 635.4571999981999,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-repeat",
+        "step_id": "repeat-1",
+        "language": "en",
+        "text": "repeat my last order",
+        "expected": "ordering.repeat_order",
+        "predicted": "ordering.repeat_order",
+        "latency_ms": 1038.730200001737,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-repeat",
+        "step_id": "repeat-2",
+        "language": "ne-rom",
+        "text": "feri tyahi order garna man cha",
+        "expected": "ordering.repeat_order",
+        "predicted": null,
+        "latency_ms": 1013.3609999902546,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-repeat",
+        "step_id": "repeat-3",
+        "language": "ne",
+        "text": "फेरि उही अर्डर गर्नुहोस्",
+        "expected": "ordering.repeat_order",
+        "predicted": null,
+        "latency_ms": 457.680799998343,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-saved-address",
+        "step_id": "saved-1",
+        "language": "en",
+        "text": "use my saved address",
+        "expected": "ordering.use_saved_address",
+        "predicted": "ordering.use_saved_address",
+        "latency_ms": 952.9580000089481,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-saved-address",
+        "step_id": "saved-2",
+        "language": "ne-rom",
+        "text": "saved address use garnus",
+        "expected": "ordering.use_saved_address",
+        "predicted": "ordering.use_saved_address",
+        "latency_ms": 974.3878000008408,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-saved-address",
+        "step_id": "saved-3",
+        "language": "ne",
+        "text": "सेभ गरेको ठेगाना प्रयोग गर्नुहोस्",
+        "expected": "ordering.use_saved_address",
+        "predicted": null,
+        "latency_ms": 447.68240000121295,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-1",
+        "language": "en",
+        "text": "momos please",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 960.6883000233211,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-2",
+        "language": "en",
+        "text": "2 chicken momo",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 931.6689999832306,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-3",
+        "language": "en",
+        "text": "one veg thali and a chai",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 913.3336000086274,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-4",
+        "language": "en",
+        "text": "yes",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 907.9642999859061,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-5",
+        "language": "en",
+        "text": "no thanks",
+        "expected": null,
+        "predicted": "social.thanks",
+        "latency_ms": 934.7323999973014,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-6",
+        "language": "en",
+        "text": "does the momo have nuts?",
+        "expected": null,
+        "predicted": "discovery.query",
+        "latency_ms": 962.3546999937389,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-7",
+        "language": "en",
+        "text": "i'm allergic to peanuts",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 948.8163999922108,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-8",
+        "language": "en",
+        "text": "i want a refund",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 953.9042999967933,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-9",
+        "language": "en",
+        "text": "the food was cold, i want to complain",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 993.9600999932736,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-10",
+        "language": "en",
+        "text": "can i talk to a human?",
+        "expected": null,
+        "predicted": "social.greet",
+        "latency_ms": 966.8143999879248,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-11",
+        "language": "en",
+        "text": "asdfgh",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 992.9857999959495,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-12",
+        "language": "en",
+        "text": "???",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 930.1629999827128,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-13",
+        "language": "en",
+        "text": "maybe later",
+        "expected": null,
+        "predicted": "social.goodbye",
+        "latency_ms": 933.956599998055,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-14",
+        "language": "en",
+        "text": "i'll think about it",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 962.293899996439,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-15",
+        "language": "ne-rom",
+        "text": "yo k ho?",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 956.9838000170421,
+        "error": null
+      },
+      {
+        "case_id": "sk-lu-abstain",
+        "step_id": "abstain-16",
+        "language": "ne",
+        "text": "अहिले पछि",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 413.7487999978475,
+        "error": null
+      },
+      {
+        "case_id": "ob-lu-mixed",
+        "step_id": "ob-1",
+        "language": "en",
+        "text": "how much is falafel pita?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 988.2488000148442,
+        "error": null
+      },
+      {
+        "case_id": "ob-lu-mixed",
+        "step_id": "ob-2",
+        "language": "en",
+        "text": "is the baklava available?",
+        "expected": "discovery.query",
+        "predicted": "discovery.query",
+        "latency_ms": 987.4400999979116,
+        "error": null
+      },
+      {
+        "case_id": "ob-lu-mixed",
+        "step_id": "ob-3",
+        "language": "en",
+        "text": "do you deliver?",
+        "expected": "fulfillment.ask_delivery",
+        "predicted": "fulfillment.ask_delivery",
+        "latency_ms": 988.116299995454,
+        "error": null
+      },
+      {
+        "case_id": "ob-lu-mixed",
+        "step_id": "ob-4",
+        "language": "en",
+        "text": "latte please",
+        "expected": null,
+        "predicted": null,
+        "latency_ms": 970.8963000157382,
+        "error": null
+      }
+    ]
+  }
+}
