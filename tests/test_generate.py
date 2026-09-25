@@ -19,7 +19,7 @@ from layanep.generate import (
     normalize_message,
     validate_message,
 )
-from layanep.schema import Case, validate_case
+from layanep.schema import ABSTAIN_KEY, Case, validate_case
 from layanep.templates import FAMILIES, LANGUAGES, TRAINING_BUSINESSES, build_case, build_plan, derive_gold
 
 
@@ -138,6 +138,117 @@ def test_failed_calls_are_recorded_not_raised(tmp_path: Path) -> None:
     report = generate_candidates([task], generator, generator_name="fake@unit", out_path=tmp_path / "x.jsonl")
     assert report.accepted == 0
     assert report.failed == [(task.id, "quota exhausted")]
+
+
+class FakeJudge:
+    def __init__(self, replies: list) -> None:
+        self._replies = list(replies)
+        self.prompts: list[str] = []
+
+    def generate(self, prompt: str) -> str:
+        self.prompts.append(prompt)
+        value = self._replies.pop(0) if self._replies else "YES ok"
+        if isinstance(value, Exception):
+            raise value
+        return value
+
+
+def test_budget_plan_balances_families() -> None:
+    plan = build_plan(kind_cases=2, safety_cases=1)
+    counts: dict[str, int] = {}
+    for task in plan:
+        counts[task.family.id] = counts.get(task.family.id, 0) + 1
+    for family in FAMILIES:
+        expected = 1 if family.command == ABSTAIN_KEY else 2
+        assert counts[family.id] == expected
+    assert len(plan) == 15 * 2 + 8 * 1
+    assert [task.id for task in plan[:2]] == ["ne-gen-0001", "ne-gen-0002"]
+    assert plan[0].language == "ne"
+
+
+def test_budget_plan_prefix_covers_different_families() -> None:
+    plan = build_plan(kind_cases=3, safety_cases=2, limit=4)
+    assert [task.family.id for task in plan] == ["greet", "thanks", "goodbye", "show_menu"]
+
+
+def test_budget_plan_respects_limit_and_businesses() -> None:
+    limited = build_plan(kind_cases=5, safety_cases=5, businesses=TRAINING_BUSINESSES[:2], limit=4)
+    assert len(limited) == 4
+    assert {task.business.id for task in limited} == {"thamel-thali", "lakeside-momo"}
+    assert len({task.id for task in limited}) == 4
+
+
+def test_judge_filters_candidates(tmp_path: Path) -> None:
+    task = task_for("greet", "ne")
+    generator = FakeGenerator(["नमस्ते हजुर"])
+    judge = FakeJudge(["NO that is a farewell"])
+    report = generate_candidates(
+        [task], generator, generator_name="fake@unit", out_path=tmp_path / "x.jsonl", judge=judge
+    )
+    assert report.accepted == 0
+    assert report.rejected and report.rejected[0][1][0].startswith("judge:")
+
+
+def test_judge_accepts_and_sees_the_intent(tmp_path: Path) -> None:
+    task = task_for("greet", "ne")
+    generator = FakeGenerator(["नमस्ते हजुर"])
+    judge = FakeJudge(["YES it is a greeting"])
+    report = generate_candidates(
+        [task], generator, generator_name="fake@unit", out_path=tmp_path / "x.jsonl", judge=judge
+    )
+    assert report.accepted == 1
+    assert judge.prompts and "a greeting" in judge.prompts[0]
+
+
+def test_judge_errors_are_failures(tmp_path: Path) -> None:
+    task = task_for("greet", "ne")
+    generator = FakeGenerator(["नमस्ते हजुर"])
+    judge = FakeJudge([GenerationError("quota")])
+    report = generate_candidates(
+        [task], generator, generator_name="fake@unit", out_path=tmp_path / "x.jsonl", judge=judge
+    )
+    assert report.accepted == 0
+    assert report.failed and report.failed[0][1].startswith("judge:")
+
+
+def test_duplicates_are_dropped(tmp_path: Path) -> None:
+    tasks = [task for task in build_plan() if task.family.id == "greet"][:2]
+    generator = FakeGenerator(["नमस्ते हजुर", "नमस्ते हजुर"])
+    report = generate_candidates(tasks, generator, generator_name="fake@unit", out_path=tmp_path / "x.jsonl")
+    assert report.accepted == 1
+    assert report.rejected and report.rejected[0][1] == ["duplicate"]
+
+
+def test_spelling_variants_are_written(tmp_path: Path) -> None:
+    task = task_for("query_price", "ne")
+    generator = FakeGenerator(["मलाई मूल्य कति हो?"])
+    out = tmp_path / "x.jsonl"
+    report = generate_candidates(
+        [task], generator, generator_name="fake@unit", out_path=out, spelling_share=1.0, seed=1
+    )
+    assert report.accepted == 1 and report.variants == 1
+    rows = [json.loads(line) for line in out.read_text(encoding="utf-8").splitlines()]
+    assert len(rows) == 2
+    variant = rows[1]
+    assert variant["id"].endswith("-v1")
+    assert variant["provenance"]["augmentation"] == "spelling-v1"
+    assert variant["provenance"]["variant_of"] == rows[0]["id"]
+    validate_case(Case.from_row(variant))
+
+
+def test_resume_skips_existing_ids(tmp_path: Path) -> None:
+    plan = [task for task in build_plan() if task.family.id in {"greet", "thanks"}][:2]
+    out = tmp_path / "x.jsonl"
+    generator = FakeGenerator(["नमस्ते हजुर", "धन्यवाद हजुर"])
+    first = generate_candidates(plan, generator, generator_name="fake@unit", out_path=out)
+    assert first.accepted == 2
+
+    resumed = generate_candidates(
+        plan, FakeGenerator(["never used", "never used"]), generator_name="fake@unit", out_path=out, resume=True
+    )
+    assert resumed.accepted == 0
+    assert resumed.skipped == 2
+    assert len(out.read_text(encoding="utf-8").splitlines()) == 2
 
 
 def test_normalize_message_strips_noise() -> None:

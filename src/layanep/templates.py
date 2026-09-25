@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from typing import Sequence
 
 from .questions import COMMAND_CRITERIA, QUERY_FIELD_DESCRIPTIONS, ne_questions
+from .reference import REGISTER_RULES
 from .schema import ABSTAIN_KEY, QUERY_FIELDS, Case, Gold
 
 GENERATOR_WORKFLOW = "restaurant_command_lu"
@@ -104,6 +105,66 @@ TRAINING_BUSINESSES: tuple[TrainingBusiness, ...] = (
             MenuItem("Veg Sandwich", 250, contains="bread, cheese, tomato"),
             MenuItem("Chocolate Cake", 300, contains="flour, egg, milk, chocolate"),
             MenuItem("Lemon Tea", 100),
+        ),
+    ),
+    TrainingBusiness(
+        id="mithila-kitchen",
+        name="Mithila Kitchen",
+        area="Janakpur",
+        hours="7 AM - 9 PM daily",
+        delivery_area="Janakpur and Ramanand Chowk",
+        delivery_fee_npr=60,
+        menu=(
+            MenuItem("Fish Curry", 320, contains="fish, mustard oil, spices"),
+            MenuItem("Dhikri", 120, contains="rice flour"),
+            MenuItem("Bagiya", 100, contains="rice flour, lentils"),
+            MenuItem("Malpua", 90, contains="flour, milk, sugar"),
+            MenuItem("Chai", 60, contains="milk"),
+        ),
+    ),
+    TrainingBusiness(
+        id="pokhara-grill",
+        name="Pokhara Grill",
+        area="Lakeside, Pokhara",
+        hours="11 AM - 10 PM daily",
+        delivery_area="Lakeside and Baidam",
+        delivery_fee_npr=90,
+        menu=(
+            MenuItem("Grilled Fish", 550, contains="fish, lemon, herbs"),
+            MenuItem("Chicken Chilli", 380, contains="chicken, pepper, onion"),
+            MenuItem("Buff Sukuti", 300, contains="buff, spices"),
+            MenuItem("French Fries", 180, contains="potato"),
+            MenuItem("Lemon Tea", 90),
+        ),
+    ),
+    TrainingBusiness(
+        id="lalitpur-pizza",
+        name="Lalitpur Pizza",
+        area="Jhamsikhel, Lalitpur",
+        hours="11 AM - 9 PM daily",
+        delivery_area="Jhamsikhel and Sanepa",
+        delivery_fee_npr=150,
+        menu=(
+            MenuItem("Margherita Pizza", 550, contains="flour, cheese, tomato"),
+            MenuItem("Chicken Pizza", 750, contains="flour, cheese, chicken"),
+            MenuItem("Garlic Bread", 250, contains="bread, butter, garlic"),
+            MenuItem("Cola", 120),
+            MenuItem("Brownie", 300, contains="flour, cocoa, egg"),
+        ),
+    ),
+    TrainingBusiness(
+        id="newa-lahana",
+        name="Newa Lahana",
+        area="Patan",
+        hours="10 AM - 8 PM daily",
+        delivery_area="Patan and Mangal Bazaar",
+        delivery_fee_npr=80,
+        menu=(
+            MenuItem("Samay Baji", 350, contains="beaten rice, buff, egg"),
+            MenuItem("Chatamari", 150, contains="rice flour, egg, buff"),
+            MenuItem("Bara", 80, contains="lentils"),
+            MenuItem("Yomari", 120, contains="rice flour, sesame"),
+            MenuItem("Chiya", 70, contains="milk"),
         ),
     ),
 )
@@ -246,7 +307,7 @@ class GenerationTask:
     prompt: str
 
 
-def build_prompt(business: TrainingBusiness, family: Family, language: str) -> str:
+def build_prompt(business: TrainingBusiness, family: Family, language: str, variant: int = 0) -> str:
     menu_lines = "\n".join(
         f"- {item.name} (NPR {item.price_npr})" + (f", contains {item.contains}" if item.contains else "")
         for item in business.menu
@@ -258,8 +319,11 @@ def build_prompt(business: TrainingBusiness, family: Family, language: str) -> s
     ]
     if family.mentions_item:
         rules.append("- Name one specific item from the menu.")
+    if variant:
+        rules.append(f"- Variation {variant + 1}: use a clearly different wording, length and tone.")
     rules.extend(
-        [
+        ["- " + rule for rule in REGISTER_RULES[:-1]]
+        + [
             "- Natural, the way real customers type; 2 to 15 words.",
             "- No names, phone numbers, addresses, emails, URLs, emojis or line breaks.",
             "- Return only the message text, with no quotes and no explanation.",
@@ -282,7 +346,21 @@ def build_plan(
     languages: Sequence[str] = LANGUAGES,
     variants: int = 1,
     limit: int | None = None,
+    kind_cases: int | None = None,
+    safety_cases: int | None = None,
 ) -> list[GenerationTask]:
+    """Plan generation tasks.
+
+    Budget mode (``kind_cases``/``safety_cases``) gives every command-kind
+    family the same number of cases and every safety/abstain family another,
+    cycling businesses and languages; legacy mode multiplies families by
+    languages, businesses and ``variants``.
+    """
+    if kind_cases is not None or safety_cases is not None:
+        return _build_budget_plan(
+            businesses, families, languages, kind_cases or 0, safety_cases or 0, limit
+        )
+
     tasks: list[GenerationTask] = []
     for variant in range(variants):
         for family in families:
@@ -295,11 +373,47 @@ def build_plan(
                             language=language,
                             business=business,
                             variant=variant,
-                            prompt=build_prompt(business, family, language),
+                            prompt=build_prompt(business, family, language, variant),
                         )
                     )
                     if limit is not None and len(tasks) >= limit:
                         return tasks
+    return tasks
+
+
+def _build_budget_plan(
+    businesses: Sequence[TrainingBusiness],
+    families: Sequence[Family],
+    languages: Sequence[str],
+    kind_cases: int,
+    safety_cases: int,
+    limit: int | None,
+) -> list[GenerationTask]:
+    combos = [(business, language) for language in languages for business in businesses]
+    tasks: list[GenerationTask] = []
+    if not combos:
+        return tasks
+    max_budget = max(kind_cases, safety_cases)
+    for index in range(max_budget):
+        for position, family in enumerate(families):
+            budget = kind_cases if family.command != ABSTAIN_KEY else safety_cases
+            if index >= budget:
+                continue
+            combo_index = index + position
+            business, language = combos[combo_index % len(combos)]
+            variant = combo_index // len(combos)
+            tasks.append(
+                GenerationTask(
+                    id=f"ne-gen-{len(tasks) + 1:04d}",
+                    family=family,
+                    language=language,
+                    business=business,
+                    variant=variant,
+                    prompt=build_prompt(business, family, language, variant),
+                )
+            )
+            if limit is not None and len(tasks) >= limit:
+                return tasks
     return tasks
 
 
