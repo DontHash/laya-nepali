@@ -50,6 +50,8 @@ def load_rows(path: Path) -> list[dict[str, Any]]:
     data = _read_json(path)
     if isinstance(data, list):
         return data
+    if path.name.endswith(".manifest.json"):
+        return []
     raise SchemaError(f"{path}: expected a JSON array or JSONL rows")
 
 

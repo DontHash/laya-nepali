@@ -155,7 +155,13 @@ def _needs_human(case_row: dict, record_id: str, sample_rate: float) -> bool:
     return int(digest, 16) % 100 < int(round(sample_rate * 100))
 
 
-def build_sheet(input_path: Path, sheet_path: Path, *, sample_rate: float = 1.0) -> list[ReviewRecord]:
+def build_sheet(
+    input_path: Path,
+    sheet_path: Path,
+    *,
+    sample_rate: float = 1.0,
+    forbidden: set[str] | None = None,
+) -> list[ReviewRecord]:
     existing = {record.id: record for record in load_sheet(sheet_path)}
     records: list[ReviewRecord] = []
     for row in load_rows(input_path):
@@ -169,6 +175,13 @@ def build_sheet(input_path: Path, sheet_path: Path, *, sample_rate: float = 1.0)
                 original_text=message,
                 needs_human=_needs_human(row, case.id, sample_rate),
             )
+            if forbidden and normalize_text(message).lower() in forbidden:
+                record.status = "rejected"
+                record.reviewed_by = "leakage-gate"
+                record.reviewed_at = datetime.now(timezone.utc).isoformat()
+                record.review_mode = "leakage-gate"
+                record.needs_human = False
+                record.note = "leakage gate: message matches a benchmark step"
         record.case = row
         records.append(record)
     save_sheet(sheet_path, records)
@@ -408,7 +421,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     reviewer = getattr(args, "reviewer", None) or default_reviewer()
 
     if args.command == "build":
-        records = build_sheet(args.input, args.sheet, sample_rate=args.sample_rate)
+        from .export import benchmark_texts
+
+        records = build_sheet(
+            args.input,
+            args.sheet,
+            sample_rate=args.sample_rate,
+            forbidden=benchmark_texts(),
+        )
         pending = sum(1 for record in records if record.status == "pending")
         human = sum(1 for record in records if record.status == "pending" and record.needs_human)
         print(f"sheet {args.sheet}: {len(records)} records ({pending} pending, {human} need human review)")

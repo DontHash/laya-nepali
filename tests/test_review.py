@@ -23,7 +23,7 @@ from layanep.review import (
 from layanep.schema import Case, validate_case
 from layanep.templates import build_case, build_plan
 
-MESSAGES = {"ne": "नमस्ते", "ne-rom": "dhanyabad", "en": "how much is the momo?"}
+MESSAGES = {"ne": "नमस्कार, सन्चै छ?", "ne-rom": "dhanyabad hajur", "en": "how much is the momo?"}
 
 
 def task_for(family_id: str, language: str):
@@ -201,6 +201,15 @@ def test_apply_skips_pending_human_rows(tmp_path: Path) -> None:
     report = apply_sheet(records, tmp_path / "applied.jsonl")
     assert report.written == 1
     assert report.skipped_pending == 1
+
+
+def test_build_rejects_leakage(tmp_path: Path) -> None:
+    candidates, ids = make_candidates(tmp_path)
+    records = build_sheet(candidates, tmp_path / "sheet.jsonl", forbidden={"नमस्कार, सन्चै छ?"})
+    by_id = {record.id: record for record in records}
+    assert by_id[ids[0]].status == "rejected"
+    assert "benchmark" in by_id[ids[0]].note
+    assert by_id[ids[1]].status == "pending"
 
 
 def test_run_review_skips_judge_rows(tmp_path: Path, monkeypatch) -> None:

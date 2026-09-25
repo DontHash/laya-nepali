@@ -236,6 +236,20 @@ def test_spelling_variants_are_written(tmp_path: Path) -> None:
     validate_case(Case.from_row(variant))
 
 
+def test_benchmark_collision_is_rejected(tmp_path: Path) -> None:
+    task = task_for("greet", "ne")
+    generator = FakeGenerator(["नमस्ते हजुर"])
+    report = generate_candidates(
+        [task],
+        generator,
+        generator_name="fake@unit",
+        out_path=tmp_path / "x.jsonl",
+        forbidden_texts={"नमस्ते हजुर"},
+    )
+    assert report.accepted == 0
+    assert report.rejected and report.rejected[0][1] == ["benchmark collision"]
+
+
 def test_resume_skips_existing_ids(tmp_path: Path) -> None:
     plan = [task for task in build_plan() if task.family.id in {"greet", "thanks"}][:2]
     out = tmp_path / "x.jsonl"

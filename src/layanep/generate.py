@@ -301,6 +301,7 @@ def generate_candidates(
     judge: TextGenerator | None = None,
     spelling_share: float = 0.0,
     resume: bool = False,
+    forbidden_texts: set[str] | None = None,
 ) -> GenerationReport:
     report = GenerationReport(planned=len(tasks), output=out_path)
     rng = random.Random(seed)
@@ -333,6 +334,8 @@ def generate_candidates(
                 continue
             message = normalize_message(raw)
             reasons = validate_message(message, task.language, task.business.name)
+            if not reasons and forbidden_texts and normalize_text(message).lower() in forbidden_texts:
+                reasons = ["benchmark collision"]
             if reasons:
                 report.rejected.append((task.id, reasons))
                 continue
@@ -431,6 +434,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     judge = None
     if not args.no_judge:
         judge = GeminiGenerator(gemini_keys(), model=model, retries=args.retries, temperature=0.0, max_output_tokens=128)
+    from .export import benchmark_texts
+
     report = generate_candidates(
         tasks,
         generator,
@@ -442,6 +447,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         judge=judge,
         spelling_share=max(0.0, min(1.0, args.spelling_share)),
         resume=args.resume,
+        forbidden_texts=benchmark_texts(),
     )
     print(report.summary())
     for task_id, reasons in report.rejected[:10]:

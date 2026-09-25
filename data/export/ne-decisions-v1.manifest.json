@@ -1,0 +1,15 @@
+{
+  "revision": "ne-decisions-v1",
+  "generated_from": "D:\\Code\\LayaNEp\\data\\reviewed\\ne-decisions-v1.jsonl",
+  "calibration_share": 0.1,
+  "splits": {
+    "train": 44,
+    "calibration": 6
+  },
+  "review_modes": {
+    "human": 50
+  },
+  "sources": {
+    "synthetic": 50
+  }
+}
