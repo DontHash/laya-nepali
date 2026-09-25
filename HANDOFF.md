@@ -1,10 +1,12 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-25 (evening). State: benchmark v2 frozen; the restaurant
-batch-2 generation (1,820 tasks, judge + spelling variants) is running in the
-background on `gemini-3.1-flash-lite` after the 3.5 quota ran out; the export
-pipeline, tiered review and the Kaggle fine-tune notebook are ready. Next:
-finish the run, review the sampled safety/kind set, top up the export, then P2.
+Last updated: 2026-09-25 (night). State: benchmark v2 frozen; the restaurant
+batch-2 generation (1,820 tasks, judge + spelling variants) is grinding in the
+background on `gemini-3.6-flash`, throttled until the free-tier daily reset
+(~12:45 local), then it resumes at full speed on `gemini-3.5-flash-lite`; the
+export pipeline, tiered review and the Kaggle fine-tune notebook are ready.
+Next: finish the run, review the sampled safety/kind set, top up the export,
+then P2.
 
 ## Commit map (main)
 
@@ -71,8 +73,21 @@ finish the run, review the sampled safety/kind set, top up the export, then P2.
   (`generate.py:327`), so a prefix change would regenerate every task under new
   ids. Remap `ne-gen-` -> `ne-v2-` only after the run completes.
 - Batch-2 provenance is mixed by model: rows up to ~`ne-gen-0994` from
-  `gemini-3.5-flash-lite`, the rest from `gemini-3.1-flash-lite`; each row records
-  this in `provenance.generator`.
+  `gemini-3.5-flash-lite`, then `gemini-3.1-flash-lite` until its bucket
+  emptied, then `gemini-3.6-flash`; each row records this in
+  `provenance.generator`.
+- Late evening: `gemini-3.1-flash-lite` returned 429 on all four keys, so the
+  run moved to `gemini-3.6-flash`. Realistic payloads (1,630-char task prompt)
+  then 429'd there too while tiny probes passed — free-tier limits are
+  token-based, so smoke tests understate throttling. `gemini-3-flash-preview`
+  was flaky (503, 503, 4.2s). The run is left grinding overnight (~0.5
+  rows/min, zero-risk) and resumes at full speed after the daily reset
+  (~12:45 local) on the fast default `gemini-3.5-flash-lite`:
+  `python -u -m layanep.generate --kind-cases 100 --safety-cases 40
+  --delay-ms 1200 --out data/generated/ne-candidates-v2.jsonl --resume`
+- Monitoring caveat: the venv `python.exe` is a launcher stub (12 MB, no
+  python frames); the real worker is its `python3.11.exe` child. Target the
+  child for CPU, py-spy and kill operations.
 
 ## Environment (this machine)
 
@@ -108,14 +123,16 @@ finish the run, review the sampled safety/kind set, top up the export, then P2.
 
 ## Next: finish batch 2, tiered review, top-up export, then P2
 
-1. **Batch-2 generation is running** (background, restarted 2026-09-25 evening
-   on `gemini-3.1-flash-lite` after the 3.5-flash-lite quota ran out):
-   `python -u -m layanep.generate --model gemini-3.1-flash-lite --kind-cases 100
-   --safety-cases 40 --delay-ms 1200 --out data/generated/ne-candidates-v2.jsonl
-   --resume` (~4-10 rows/min; it re-chews the rejected gaps of the first attempt
-   before reaching fresh plan slots). It predates `--id-prefix`, so once it
-   finishes remap its ids from `ne-gen-` to `ne-v2-` (a small script; variant
-   `-v1` suffixes follow automatically) before building the review sheet.
+1. **Batch-2 generation is running** (background, currently on
+   `gemini-3.6-flash` and throttled to ~0.5 rows/min until the free-tier daily
+   reset; resume after the reset with the same command minus `--model` to use
+   the fast default `gemini-3.5-flash-lite`):
+   `python -u -m layanep.generate --kind-cases 100 --safety-cases 40
+   --delay-ms 1200 --out data/generated/ne-candidates-v2.jsonl --resume`
+   (~1,136 rows at 2026-09-25 22:30; ~290 plan indices pending). It predates
+   `--id-prefix`, so once it finishes remap its ids from `ne-gen-` to `ne-v2-`
+   (a small script; variant `-v1` suffixes follow automatically) before
+   building the review sheet.
    If it 429s again, swap `--model` (fallbacks above) and relaunch with the same
    `--resume` command.
 2. **Tiered review of batch 2**:
