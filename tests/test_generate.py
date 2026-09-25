@@ -153,6 +153,7 @@ def test_validate_message_language_rules() -> None:
 
 def test_validate_message_rejects_mixed_script_and_business_names() -> None:
     assert "mixed-script token" in validate_message("हts त, पछि भेटौला", "ne")
+    assert any("unexpected script" in reason for reason in validate_message("हс, भोलि भेटौला", "ne"))
     reasons = validate_message("namaste Thamel, chicken momo cha?", "ne-rom", "Thamel Thali House")
     assert "mentions the restaurant name" in reasons
 

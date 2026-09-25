@@ -27,6 +27,7 @@ from datetime import date
 from pathlib import Path
 from typing import Protocol, Sequence
 
+from .normalize import normalize_text
 from .schema import SchemaError, validate_case
 from .templates import TRAINING_BUSINESSES, GenerationTask, build_case, build_plan
 from .transliterate import DEVANAGARI_RE
@@ -40,7 +41,6 @@ GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{mode
 KEY_ENV_NAMES = ("GEMINI_API_KEY", "GEMINI_API_KEY_ALT2", "GEMINI_API_KEY_ALT3", "GEMINI_API_KEY_ALT4")
 MAX_MESSAGE_CHARS = 200
 RETRYABLE_STATUS = {429, 500, 502, 503, 504}
-QUOTE_CHARS = "\"'\u2018\u2019\u201c\u201d"
 MIXED_SCRIPT_TOKEN = re.compile(r"[A-Za-z][\u0900-\u097F]|[\u0900-\u097F][A-Za-z]")
 
 
@@ -158,8 +158,15 @@ class GeminiGenerator:
 
 
 def normalize_message(raw: str) -> str:
-    text = " ".join(raw.split())
-    return text.strip(QUOTE_CHARS).strip()
+    return normalize_text(raw)
+
+
+def _stray_script_letter(message: str) -> str | None:
+    """First non-ASCII, non-Devanagari letter (catches Cyrillic lookalikes)."""
+    for char in message:
+        if char.isalpha() and not char.isascii() and not DEVANAGARI_RE.match(char):
+            return char
+    return None
 
 
 def validate_message(message: str, language: str, business_name: str | None = None) -> list[str]:
@@ -173,6 +180,9 @@ def validate_message(message: str, language: str, business_name: str | None = No
         reasons.append("pii:" + ",".join(pii))
     if MIXED_SCRIPT_TOKEN.search(message):
         reasons.append("mixed-script token")
+    stray = _stray_script_letter(message)
+    if stray is not None:
+        reasons.append(f"unexpected script character {stray!r}")
     if business_name:
         lowered = message.lower()
         for token in business_name.lower().split():
