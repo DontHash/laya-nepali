@@ -1,11 +1,11 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-25 (late night). State: benchmark v2 frozen; the
-restaurant batch-2 generation (1,820 tasks, judge + spelling variants) now runs
-on the **Vertex AI backend** (`vertex:gemini-2.5-flash-lite`) using the
-authenticated gcloud CLI, after the free-tier Gemini quota ran out; the export
-pipeline, tiered review and the Kaggle fine-tune notebook are ready. Next:
-finish the run, review the sampled safety/kind set, top up the export, then P2.
+Last updated: 2026-09-26 (early morning). State: **batch 2+3 generation
+complete** (1,838 rows = 1,736 cases + 102 variants; ids remapped `ne-v2-`/`ne-v3-`)
+and the tiered review sheet is built: **694 rows need human review** (all 306
+safety rows + 25.3% of kind rows) in `data/reviewed/ne-decisions-v1.review.jsonl`.
+Next: run the human review, `apply`, `export`. Benchmark v2 frozen at 113/272;
+the Kaggle fine-tune notebook is ready for P2.
 
 ## Commit map (main)
 
@@ -34,6 +34,8 @@ finish the run, review the sampled safety/kind set, top up the export, then P2.
 | `c1b22e5` | Handoff: batch-2 run, export and leakage-gate status |
 | `17d685b` | Kaggle 2xT4 fine-tune notebook (multilingual subfolder, calibration fit, v2 eval) |
 | `97ff62b` | Vertex AI backend (`VertexGenerator`, gcloud access token) after free-tier quotas emptied |
+| `61bb42c` | Handoff: Vertex state and resume command |
+| `94654c1` | Batch-2/3 tiered review sheet (1,838 records, 694 human) |
 
 ## Verified
 
@@ -53,6 +55,12 @@ finish the run, review the sampled safety/kind set, top up the export, then P2.
 - Register profile from reference-only sources: reviewed commands p50 6 words,
   pure Devanagari; NepTrans podcasts (52,896 lines, 640k tokens) at 17% Latin
   tokens; rules in `docs/register.md`.
+- **Batch 2+3 dataset**: `data/generated/ne-candidates-v2.jsonl` = 1,838 rows
+  (1,736 cases + 102 variants, 23 families, 306 safety cases); review sheet
+  1,838 records with 694 needing humans (306 safety + 388 sampled kinds, one
+  benchmark collision rejected). With batch 1 that is **1,786 cases /
+  ~8,930 decisions**. Model mix: 3.5-flash-lite 671, 3.1-flash-lite 461,
+  3.6-flash 4, vertex:2.5-flash-lite 702 (`ne-v2-` + `ne-v3-`).
 - `.env` is gitignored (it holds the Gemini keys); `.env.example` is tracked.
 
 ## Batch-2 run: quota incident and resume mechanics (2026-09-25)
@@ -133,23 +141,21 @@ finish the run, review the sampled safety/kind set, top up the export, then P2.
 
 ## Next: finish batch 2, tiered review, top-up export, then P2
 
-1. **Batch-2 generation is running** (background, Vertex backend, ~2.4
-   rows/min; ~1,150 rows at 2026-09-25 23:10, ~290 plan indices pending):
-   `python -u -m layanep.generate --backend vertex --model gemini-2.5-flash-lite
-   --kind-cases 100 --safety-cases 40 --delay-ms 300
-   --out data/generated/ne-candidates-v2.jsonl --resume`
-   It predates `--id-prefix`, so once it finishes remap its ids from `ne-gen-`
-   to `ne-v2-` (a small script; variant `-v1` suffixes follow automatically)
-   before building the review sheet.
-   If it 429s again, swap `--model` (fallbacks above) and relaunch with the same
-   `--resume` command; Vertex is now the preferred path when free tiers are dry.
-2. **Tiered review of batch 2**:
+1. **Batch-2 generation is DONE** (2026-09-26 01:10): 1,838 rows = 1,736 task
+   cases + 102 spelling variants. Batch 2 finished on the Vertex backend
+   (`vertex:gemini-2.5-flash-lite`: 542 rows; earlier rows carry
+   `gemini-3.5/3.1-flash-lite`, 4 rows `gemini-3.6-flash`). A 280-task fresh-seed
+   top-up added `ne-v3-` rows (151 accepted + 9 variants). All `ne-gen-` ids and
+   `provenance.variant_of` references were remapped to `ne-v2-`.
+2. **Tiered review is ready** (694 human rows: 306 safety at 100%, 388 kind rows
+   at 25.3%):
    ```bash
-   python -m layanep.review build --input data/generated/ne-candidates-v2.jsonl
-   python -m layanep.review run --reviewer <name>   # safety + 25% sampled kinds
+   python -m layanep.review run --reviewer <name>   # interactive accept/edit/reject
    python -m layanep.review apply
+   python -m layanep.export
    ```
-   then re-run `python -m layanep.export` to top up train/calibration.
+   Re-run `review build --input data/generated/ne-candidates-v2.jsonl
+   --sample-rate 0.25` only if the candidate file changes; decisions persist.
 3. **P2**: `notebooks/laya_finetune_nepali_2xT4_kaggle.ipynb` is ready (loads the
    `multilingual` subfolder, trains with RLCD, fits temperatures on the
    calibration split, evaluates on `ne-bench-deva-v2`); run the scaling
@@ -165,9 +171,10 @@ finish the run, review the sampled safety/kind set, top up the export, then P2.
 - Dataset criteria keys: **resolved 2026-09-25** - natural keys shared by
   training and benchmark (`a44dac1`).
 - Target volume: 400 cases x 5 questions (~2,000 decisions) per the dataset
-  card. Generation quota measured 2026-09-25: free-tier limits are **per model
-  and per key** (~1,400 calls exhausted `gemini-3.5-flash-lite` today); the
-  Vertex backend (`--backend vertex`, gcloud token) is the unbilled-quota exit.
+  card; the working tier is met for restaurant v1 at 1,786 cases / ~8,930
+  decisions. Generation quota: free tiers are **per model and per key** (~1,400
+  calls exhausted `gemini-3.5-flash-lite` on 2026-09-25); the Vertex backend
+  (`--backend vertex`, gcloud token) is the unbilled-quota exit.
 - CI runs only the deterministic gates (no weights); the benchmark is a manual
   local run by design.
 - The OrderWorkFlow Laya probe path (`npm run lu:probe -- --laya-url=...`) has
