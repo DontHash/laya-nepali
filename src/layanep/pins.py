@@ -1,7 +1,10 @@
 """Pinned upstream versions for reproducibility.
 
 ``MODEL_REVISION`` is the Hugging Face snapshot commit downloaded for the seed
-probe; every benchmark run pins it so numbers stay comparable across time.
+probe. ``laya.load`` does not accept a ``revision`` argument, so the pin is
+enforced by loading the cached snapshot directory when it exists (see
+``benchmark.runner._pinned_model_path``); otherwise the loader falls back to
+the hub's current main.
 """
 
 from __future__ import annotations
