@@ -1,0 +1,752 @@
+{
+  "revision": "ne-probe-v1",
+  "upstream_revision": "lu-probe-v1",
+  "source": "OrderWorkFlow lu-probe-v1 (src/dialogue-eval/lu-probe.ts)",
+  "businesses": {
+    "sherpa-kitchen": {
+      "id": "sherpa-kitchen",
+      "name": "Sherpa Kitchen",
+      "currencyCode": "NPR",
+      "deliveryFeeCents": 5000,
+      "minOrderCents": 10000,
+      "deliveryMode": "both",
+      "hoursText": "10 AM - 10 PM daily",
+      "serviceArea": [
+        "Thamel",
+        "Lazimpat",
+        "Durbar Marg"
+      ],
+      "menu": [
+        {
+          "id": "sk-momo",
+          "name": "Chicken Momo",
+          "description": "Steamed Himalayan dumplings with tomato chutney",
+          "price_cents": 25000,
+          "available": true,
+          "category": "Momos",
+          "aliases": [
+            "momos",
+            "मोमो"
+          ]
+        },
+        {
+          "id": "sk-thali",
+          "name": "Veg Thali Set",
+          "description": "Rice, dal, curry, pickle, and a side salad",
+          "price_cents": 35000,
+          "available": true,
+          "category": "Thali",
+          "aliases": [
+            "dal bhat",
+            "थाली"
+          ]
+        },
+        {
+          "id": "sk-masalachai",
+          "name": "Masala Chai",
+          "description": "Spiced milk tea",
+          "price_cents": 8000,
+          "available": true,
+          "category": "Drinks",
+          "aliases": [
+            "chai",
+            "चिया"
+          ]
+        },
+        {
+          "id": "sk-veg-momo",
+          "name": "Veg Momo",
+          "description": "Steamed vegetable dumplings",
+          "price_cents": 20000,
+          "available": true,
+          "category": "Momos",
+          "aliases": [
+            "मोमो"
+          ]
+        },
+        {
+          "id": "sk-kfc-burger",
+          "name": "Burger",
+          "description": "Chicken burger with fries",
+          "price_cents": 40000,
+          "available": false,
+          "category": "Snacks"
+        }
+      ]
+    },
+    "olive-branch": {
+      "id": "olive-branch",
+      "name": "Olive Branch Cafe",
+      "currencyCode": "USD",
+      "deliveryFeeCents": 199,
+      "minOrderCents": 0,
+      "deliveryMode": "pickup",
+      "hoursText": "8 AM - 6 PM weekdays, 9 AM - 4 PM weekends",
+      "serviceArea": [],
+      "menu": [
+        {
+          "id": "ob-falafel",
+          "name": "Falafel Pita",
+          "description": "Falafel, tahini, pickles in a warm pita",
+          "price_cents": 899,
+          "available": true,
+          "category": "Mains"
+        },
+        {
+          "id": "ob-hummus",
+          "name": "Hummus Plate",
+          "description": "Served with warm pita",
+          "price_cents": 599,
+          "available": true,
+          "category": "Starters"
+        },
+        {
+          "id": "ob-latte",
+          "name": "Latte",
+          "description": "Espresso with steamed milk",
+          "price_cents": 399,
+          "available": true,
+          "category": "Drinks"
+        },
+        {
+          "id": "ob-baklava",
+          "name": "Baklava",
+          "description": "Honey and pistachio pastry",
+          "price_cents": 499,
+          "available": false,
+          "category": "Desserts"
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "sk-lu-greet",
+      "category": "social",
+      "description": "Plain English greetings the dialogue layer recognizes.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "greet-1",
+          "language": "en",
+          "text": "hi there",
+          "expected": "social.greet"
+        },
+        {
+          "id": "greet-2",
+          "language": "en",
+          "text": "good morning",
+          "expected": "social.greet"
+        },
+        {
+          "id": "greet-3",
+          "language": "en",
+          "text": "hello!",
+          "expected": "social.greet"
+        },
+        {
+          "id": "greet-4",
+          "language": "en",
+          "text": "hey, good evening",
+          "expected": "social.greet"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-thanks",
+      "category": "social",
+      "description": "Thanks with intensifiers and Nepali variants.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "thanks-1",
+          "language": "en",
+          "text": "thanks a lot",
+          "expected": "social.thanks",
+          "note": "deterministic regex only matches bare forms"
+        },
+        {
+          "id": "thanks-2",
+          "language": "en",
+          "text": "thank you so much",
+          "expected": "social.thanks"
+        },
+        {
+          "id": "thanks-3",
+          "language": "ne-rom",
+          "text": "dhanyabad",
+          "expected": "social.thanks"
+        },
+        {
+          "id": "thanks-4",
+          "language": "ne",
+          "text": "धन्यवाद",
+          "expected": "social.thanks"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-goodbye",
+      "category": "social",
+      "description": "Goodbye variants including Nepali.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "goodbye-1",
+          "language": "en",
+          "text": "bye",
+          "expected": "social.goodbye"
+        },
+        {
+          "id": "goodbye-2",
+          "language": "en",
+          "text": "see you tomorrow",
+          "expected": "social.goodbye"
+        },
+        {
+          "id": "goodbye-3",
+          "language": "en",
+          "text": "talk to you later",
+          "expected": "social.goodbye"
+        },
+        {
+          "id": "goodbye-4",
+          "language": "ne",
+          "text": "फेरि भेटौंला",
+          "expected": "social.goodbye"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-menu",
+      "category": "discovery",
+      "description": "Menu requests in English, Romanized Nepali, and Devanagari.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "menu-1",
+          "language": "en",
+          "text": "menu please",
+          "expected": "discovery.show_menu"
+        },
+        {
+          "id": "menu-2",
+          "language": "en",
+          "text": "what do you have?",
+          "expected": "discovery.show_menu"
+        },
+        {
+          "id": "menu-3",
+          "language": "en",
+          "text": "show me what you serve",
+          "expected": "discovery.show_menu"
+        },
+        {
+          "id": "menu-4",
+          "language": "ne-rom",
+          "text": "menu pathaunus",
+          "expected": "discovery.show_menu"
+        },
+        {
+          "id": "menu-5",
+          "language": "ne-rom",
+          "text": "menu ma k k cha?",
+          "expected": "discovery.show_menu"
+        },
+        {
+          "id": "menu-6",
+          "language": "ne",
+          "text": "मेनु देखाउनुहोस्",
+          "expected": "discovery.show_menu"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-recommend",
+      "category": "discovery",
+      "description": "Recommendation requests.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "recommend-1",
+          "language": "en",
+          "text": "what do you recommend?",
+          "expected": "discovery.recommend"
+        },
+        {
+          "id": "recommend-2",
+          "language": "en",
+          "text": "suggest something nice",
+          "expected": "discovery.recommend"
+        },
+        {
+          "id": "recommend-3",
+          "language": "en",
+          "text": "best seller?",
+          "expected": "discovery.recommend"
+        },
+        {
+          "id": "recommend-4",
+          "language": "ne",
+          "text": "के राम्रो छ?",
+          "expected": "discovery.recommend"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-query-price",
+      "category": "discovery",
+      "description": "Price questions.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "price-1",
+          "language": "en",
+          "text": "how much is chicken momo?",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "price-2",
+          "language": "en",
+          "text": "what's the price of masala chai",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "price-3",
+          "language": "ne-rom",
+          "text": "momo ko price kati ho?",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "price-4",
+          "language": "ne",
+          "text": "मोमोको मूल्य कति हो?",
+          "expected": "discovery.query"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-query-availability",
+      "category": "discovery",
+      "description": "Availability questions.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "availability-1",
+          "language": "en",
+          "text": "do you have veg momo?",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "availability-2",
+          "language": "en",
+          "text": "is there any chai?",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "availability-3",
+          "language": "ne-rom",
+          "text": "masala chai cha?",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "availability-4",
+          "language": "ne",
+          "text": "तपाईंसँग भेज मोमो छ?",
+          "expected": "discovery.query"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-query-details",
+      "category": "discovery",
+      "description": "Item detail questions.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "details-1",
+          "language": "en",
+          "text": "tell me about the thali",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "details-2",
+          "language": "en",
+          "text": "what's in the veg thali?",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "details-3",
+          "language": "ne",
+          "text": "मोमोमा के छ?",
+          "expected": "discovery.query"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-hours",
+      "category": "fulfillment",
+      "description": "Opening-hours questions.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "hours-1",
+          "language": "en",
+          "text": "what time do you open?",
+          "expected": "fulfillment.ask_hours"
+        },
+        {
+          "id": "hours-2",
+          "language": "en",
+          "text": "are you open now?",
+          "expected": "fulfillment.ask_hours"
+        },
+        {
+          "id": "hours-3",
+          "language": "ne-rom",
+          "text": "kati baje khulcha?",
+          "expected": "fulfillment.ask_hours"
+        },
+        {
+          "id": "hours-4",
+          "language": "ne",
+          "text": "कति बजे खुल्छ?",
+          "expected": "fulfillment.ask_hours"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-delivery",
+      "category": "fulfillment",
+      "description": "Delivery-area and fee questions.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "delivery-1",
+          "language": "en",
+          "text": "do you deliver to Lazimpat?",
+          "expected": "fulfillment.ask_delivery"
+        },
+        {
+          "id": "delivery-2",
+          "language": "en",
+          "text": "what's the delivery fee?",
+          "expected": "fulfillment.ask_delivery"
+        },
+        {
+          "id": "delivery-3",
+          "language": "ne-rom",
+          "text": "delivery area kaha samma?",
+          "expected": "fulfillment.ask_delivery"
+        },
+        {
+          "id": "delivery-4",
+          "language": "ne",
+          "text": "डेलिभरी कहाँसम्म हुन्छ?",
+          "expected": "fulfillment.ask_delivery"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-status",
+      "category": "fulfillment",
+      "description": "Order-status questions.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "status-1",
+          "language": "en",
+          "text": "where is my order?",
+          "expected": "fulfillment.order_status"
+        },
+        {
+          "id": "status-2",
+          "language": "en",
+          "text": "any update on my order?",
+          "expected": "fulfillment.order_status"
+        },
+        {
+          "id": "status-3",
+          "language": "ne-rom",
+          "text": "mero order kaha cha?",
+          "expected": "fulfillment.order_status"
+        },
+        {
+          "id": "status-4",
+          "language": "ne",
+          "text": "मेरो अर्डर कहाँ छ?",
+          "expected": "fulfillment.order_status"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-cart",
+      "category": "ordering",
+      "description": "Cart review requests.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "cart-1",
+          "language": "en",
+          "text": "show me my cart",
+          "expected": "ordering.view_cart"
+        },
+        {
+          "id": "cart-2",
+          "language": "en",
+          "text": "what's in my order?",
+          "expected": "ordering.view_cart"
+        },
+        {
+          "id": "cart-3",
+          "language": "ne-rom",
+          "text": "mero cart dekhaunus",
+          "expected": "ordering.view_cart"
+        },
+        {
+          "id": "cart-4",
+          "language": "ne",
+          "text": "मेरो कार्ट देखाउनुहोस्",
+          "expected": "ordering.view_cart"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-checkout",
+      "category": "ordering",
+      "description": "Checkout requests.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "checkout-1",
+          "language": "en",
+          "text": "checkout please",
+          "expected": "ordering.request_checkout"
+        },
+        {
+          "id": "checkout-2",
+          "language": "en",
+          "text": "i'm done, place my order",
+          "expected": "ordering.request_checkout"
+        },
+        {
+          "id": "checkout-3",
+          "language": "ne-rom",
+          "text": "checkout garna chahanchhu",
+          "expected": "ordering.request_checkout"
+        },
+        {
+          "id": "checkout-4",
+          "language": "ne",
+          "text": "अर्डर गर्नुहोस्",
+          "expected": "ordering.request_checkout"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-repeat",
+      "category": "ordering",
+      "description": "Repeat-order requests.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "repeat-1",
+          "language": "en",
+          "text": "repeat my last order",
+          "expected": "ordering.repeat_order"
+        },
+        {
+          "id": "repeat-2",
+          "language": "ne-rom",
+          "text": "feri tyahi order garna man cha",
+          "expected": "ordering.repeat_order"
+        },
+        {
+          "id": "repeat-3",
+          "language": "ne",
+          "text": "फेरि उही अर्डर गर्नुहोस्",
+          "expected": "ordering.repeat_order"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-saved-address",
+      "category": "ordering",
+      "description": "Saved-address requests (button-only in the deterministic classifier).",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "saved-1",
+          "language": "en",
+          "text": "use my saved address",
+          "expected": "ordering.use_saved_address"
+        },
+        {
+          "id": "saved-2",
+          "language": "ne-rom",
+          "text": "saved address use garnus",
+          "expected": "ordering.use_saved_address"
+        },
+        {
+          "id": "saved-3",
+          "language": "ne",
+          "text": "सेभ गरेको ठेगाना प्रयोग गर्नुहोस्",
+          "expected": "ordering.use_saved_address"
+        }
+      ]
+    },
+    {
+      "id": "sk-lu-abstain",
+      "category": "abstain",
+      "description": "Bare orders, plain yes/no, safety/handoff, and unclear text must abstain.",
+      "menuId": "sherpa-kitchen",
+      "steps": [
+        {
+          "id": "abstain-1",
+          "language": "en",
+          "text": "momos please",
+          "expected": null,
+          "note": "bare order wording"
+        },
+        {
+          "id": "abstain-2",
+          "language": "en",
+          "text": "2 chicken momo",
+          "expected": null,
+          "note": "bare order wording"
+        },
+        {
+          "id": "abstain-3",
+          "language": "en",
+          "text": "one veg thali and a chai",
+          "expected": null,
+          "note": "bare order wording"
+        },
+        {
+          "id": "abstain-4",
+          "language": "en",
+          "text": "yes",
+          "expected": null,
+          "note": "plain yes without a pending question"
+        },
+        {
+          "id": "abstain-5",
+          "language": "en",
+          "text": "no thanks",
+          "expected": null,
+          "note": "plain no"
+        },
+        {
+          "id": "abstain-6",
+          "language": "en",
+          "text": "does the momo have nuts?",
+          "expected": null,
+          "note": "allergy question -> handoff"
+        },
+        {
+          "id": "abstain-7",
+          "language": "en",
+          "text": "i'm allergic to peanuts",
+          "expected": null,
+          "note": "allergy -> handoff"
+        },
+        {
+          "id": "abstain-8",
+          "language": "en",
+          "text": "i want a refund",
+          "expected": null,
+          "note": "refund -> handoff"
+        },
+        {
+          "id": "abstain-9",
+          "language": "en",
+          "text": "the food was cold, i want to complain",
+          "expected": null,
+          "note": "complaint -> handoff"
+        },
+        {
+          "id": "abstain-10",
+          "language": "en",
+          "text": "can i talk to a human?",
+          "expected": null,
+          "note": "staff -> handoff"
+        },
+        {
+          "id": "abstain-11",
+          "language": "en",
+          "text": "asdfgh",
+          "expected": null,
+          "note": "gibberish"
+        },
+        {
+          "id": "abstain-12",
+          "language": "en",
+          "text": "???",
+          "expected": null,
+          "note": "gibberish"
+        },
+        {
+          "id": "abstain-13",
+          "language": "en",
+          "text": "maybe later",
+          "expected": null,
+          "note": "unclear"
+        },
+        {
+          "id": "abstain-14",
+          "language": "en",
+          "text": "i'll think about it",
+          "expected": null,
+          "note": "unclear"
+        },
+        {
+          "id": "abstain-15",
+          "language": "ne-rom",
+          "text": "yo k ho?",
+          "expected": null,
+          "note": "unclear"
+        },
+        {
+          "id": "abstain-16",
+          "language": "ne",
+          "text": "अहिले पछि",
+          "expected": null,
+          "note": "unclear"
+        }
+      ]
+    },
+    {
+      "id": "ob-lu-mixed",
+      "category": "cross-menu",
+      "description": "Same commands against the second held-out menu (Olive Branch Cafe).",
+      "menuId": "olive-branch",
+      "steps": [
+        {
+          "id": "ob-1",
+          "language": "en",
+          "text": "how much is falafel pita?",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "ob-2",
+          "language": "en",
+          "text": "is the baklava available?",
+          "expected": "discovery.query"
+        },
+        {
+          "id": "ob-3",
+          "language": "en",
+          "text": "do you deliver?",
+          "expected": "fulfillment.ask_delivery"
+        },
+        {
+          "id": "ob-4",
+          "language": "en",
+          "text": "latte please",
+          "expected": null,
+          "note": "bare order wording"
+        }
+      ]
+    }
+  ]
+}
