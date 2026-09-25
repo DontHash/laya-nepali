@@ -1,12 +1,11 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-25 (night). State: benchmark v2 frozen; the restaurant
-batch-2 generation (1,820 tasks, judge + spelling variants) is grinding in the
-background on `gemini-3.6-flash`, throttled until the free-tier daily reset
-(~12:45 local), then it resumes at full speed on `gemini-3.5-flash-lite`; the
-export pipeline, tiered review and the Kaggle fine-tune notebook are ready.
-Next: finish the run, review the sampled safety/kind set, top up the export,
-then P2.
+Last updated: 2026-09-25 (late night). State: benchmark v2 frozen; the
+restaurant batch-2 generation (1,820 tasks, judge + spelling variants) now runs
+on the **Vertex AI backend** (`vertex:gemini-2.5-flash-lite`) using the
+authenticated gcloud CLI, after the free-tier Gemini quota ran out; the export
+pipeline, tiered review and the Kaggle fine-tune notebook are ready. Next:
+finish the run, review the sampled safety/kind set, top up the export, then P2.
 
 ## Commit map (main)
 
@@ -34,10 +33,11 @@ then P2.
 | `fe4e906` | Task id prefixes keep batch ids unique |
 | `c1b22e5` | Handoff: batch-2 run, export and leakage-gate status |
 | `17d685b` | Kaggle 2xT4 fine-tune notebook (multilingual subfolder, calibration fit, v2 eval) |
+| `97ff62b` | Vertex AI backend (`VertexGenerator`, gcloud access token) after free-tier quotas emptied |
 
 ## Verified
 
-- `python -m pytest -q` -> 102 passed.
+- `python -m pytest -q` -> 106 passed.
 - `ruff check src/ tests/ --select=E9,F63,F7,F82,F401,F811 --line-length=120` -> clean;
   `python -m compileall -q src/ tests/` -> clean.
 - **Devanagari benchmark v2** (`data/benchmark/ne-bench-deva-v2.json`): 46 cases /
@@ -88,6 +88,16 @@ then P2.
 - Monitoring caveat: the venv `python.exe` is a launcher stub (12 MB, no
   python frames); the real worker is its `python3.11.exe` child. Target the
   child for CPU, py-spy and kill operations.
+- **Vertex backend** (2026-09-25 late night): `generate.py` gained a
+  `VertexGenerator` + `--backend vertex` using the authenticated gcloud CLI
+  (`gcloud auth print-access-token`, cached/refreshed; project from
+  `$GOOGLE_CLOUD_PROJECT` or `gcloud config`; region `us-central1`). Vertex
+  publishes the 2.5 family (the 3.x names are AI-Studio-only), so the run uses
+  `gemini-2.5-flash-lite` with `thinkingBudget: 0`. Live prompt tests: 2.2 s per
+  call; a 3-case smoke run accepted 3/3 with `provenance.generator =
+  vertex:gemini-2.5-flash-lite@2026-09-25`. Cost for the remainder is cents.
+  Fatal cases: missing project, model 404 (clear message), 401 (token refresh),
+  429/5xx (backoff).
 
 ## Environment (this machine)
 
@@ -123,18 +133,16 @@ then P2.
 
 ## Next: finish batch 2, tiered review, top-up export, then P2
 
-1. **Batch-2 generation is running** (background, currently on
-   `gemini-3.6-flash` and throttled to ~0.5 rows/min until the free-tier daily
-   reset; resume after the reset with the same command minus `--model` to use
-   the fast default `gemini-3.5-flash-lite`):
-   `python -u -m layanep.generate --kind-cases 100 --safety-cases 40
-   --delay-ms 1200 --out data/generated/ne-candidates-v2.jsonl --resume`
-   (~1,136 rows at 2026-09-25 22:30; ~290 plan indices pending). It predates
-   `--id-prefix`, so once it finishes remap its ids from `ne-gen-` to `ne-v2-`
-   (a small script; variant `-v1` suffixes follow automatically) before
-   building the review sheet.
+1. **Batch-2 generation is running** (background, Vertex backend, ~2.4
+   rows/min; ~1,150 rows at 2026-09-25 23:10, ~290 plan indices pending):
+   `python -u -m layanep.generate --backend vertex --model gemini-2.5-flash-lite
+   --kind-cases 100 --safety-cases 40 --delay-ms 300
+   --out data/generated/ne-candidates-v2.jsonl --resume`
+   It predates `--id-prefix`, so once it finishes remap its ids from `ne-gen-`
+   to `ne-v2-` (a small script; variant `-v1` suffixes follow automatically)
+   before building the review sheet.
    If it 429s again, swap `--model` (fallbacks above) and relaunch with the same
-   `--resume` command.
+   `--resume` command; Vertex is now the preferred path when free tiers are dry.
 2. **Tiered review of batch 2**:
    ```bash
    python -m layanep.review build --input data/generated/ne-candidates-v2.jsonl
@@ -158,8 +166,8 @@ then P2.
   training and benchmark (`a44dac1`).
 - Target volume: 400 cases x 5 questions (~2,000 decisions) per the dataset
   card. Generation quota measured 2026-09-25: free-tier limits are **per model
-  and per key** (~1,400 calls exhausted `gemini-3.5-flash-lite` today); rotate
-  `--model` when a bucket empties.
+  and per key** (~1,400 calls exhausted `gemini-3.5-flash-lite` today); the
+  Vertex backend (`--backend vertex`, gcloud token) is the unbilled-quota exit.
 - CI runs only the deterministic gates (no weights); the benchmark is a manual
   local run by design.
 - The OrderWorkFlow Laya probe path (`npm run lu:probe -- --laya-url=...`) has
