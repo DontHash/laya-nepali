@@ -1,11 +1,11 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-25. State: P0, vocabulary unification and the P1
-generation + review pipeline are done and pushed to the private
-`DontHash/laya-nepali` repo. First candidate batch (53 rows, all 23 families,
-3 languages) is in `data/reviewed/ne-decisions-v1.review.jsonl` waiting for the
-human review pass (critical path). Next after review: `export.py` splits and
-the `ne-decisions-v1` freeze.
+Last updated: 2026-09-25. State: P0, vocabulary unification, the P1 generation
+and review pipeline, and **batch 1 reviewed + applied** are done and pushed to
+the private `DontHash/laya-nepali` repo. Ground truth now lives in
+`data/reviewed/ne-decisions-v1.jsonl` (53 cases / 265 decisions; gate passes).
+Next: top up generation to the 400-case / 2,000-decision target and build
+`export.py` (splits + freeze).
 
 ## Commit map (main)
 
@@ -20,19 +20,24 @@ the `ne-decisions-v1` freeze.
 | `a44dac1` | Unified command vocabulary on natural keys across dataset + benchmark; baseline re-run |
 | `5471aa6` | `templates.py` + `generate.py`: 23 intent families, prompts, soft gold, Gemini client |
 | `4a2053e` | `normalize.py` + `review.py`: script filters, review sheet CLI, apply with `reviewed_by` |
+| `052ee20` | Review UX: show the intent under review; fix double `gemini-` prefix |
+| `cbab57e` | Apply-time script guard; `staff sanga kura` phrasing; batch 1 applied (53 cases) |
 
 ## Verified
 
-- `python -m pytest -q` -> 61 passed.
+- `python -m pytest -q` -> 62 passed.
 - `python -m layanep.eval --check` -> `ne-decisions-v1 gate: 1 cases, 5 decisions, PASS`.
 - `ruff check src/ tests/ --select=E9,F63,F7,F82,F401,F811 --line-length=120` -> clean;
   `python -m compileall -q src/ tests/` -> clean.
 - Baseline benchmark (`--classifier=laya --device=cpu --threads 6`): **55/79 (69.6%)**,
   abstain 12/17, p50 1232 ms (busy box), 0 errors. Report in `reports/ne-probe-laya.{md,json}`.
-- First generation batch (Gemini `gemini-3.5-flash-lite`, 4.5 s pacing, `--cases 69
+- Generation batch 1 (Gemini `gemini-3.5-flash-lite`, 4.5 s pacing, `--cases 69
   --businesses 1`): 69 planned, 55 accepted, 14 rejected (12 restaurant-name leakage,
   2 mixed-script); 2 more dropped on re-validation for stray Cyrillic letters.
-  **53 review records, all 23 families, ne 20 / ne-rom 19 / en 14.**
+- **Batch 1 review applied**: `data/reviewed/ne-decisions-v1.jsonl` = 53 cases /
+  265 decisions, 50 accepted + 3 edited, 0 rejected (ne 18 / ne-rom 21 / en 14);
+  `python -m layanep.validate --check` with `--require-reviewed` passes.
+  Review fixes include gender-neutral greetings and the `staff sanga kura` handoff phrasing.
 - `.env` is gitignored (it holds the Gemini keys); `.env.example` is tracked.
 
 ## Environment (this machine)
@@ -67,24 +72,19 @@ the `ne-decisions-v1` freeze.
 - `docs/provenance.md` lanes marked "per-card - verify before use"
   (`kshitizgajurel/*`, Kaggle Foodmandu) hard-fail in code until verified.
 
-## Next: review batch 1, then export
+## Next: top up to target volume, then export
 
-1. Done: `templates.py` + `generate.py` (23 families, prompts, soft gold, Gemini
-   client), `normalize.py` (NFC/whitespace/quotes), `review.py` (sheet CLI).
-2. **Review batch 1 (critical path, 53 rows pending):**
-   ```bash
-   python -m layanep.review list --status pending
-   python -m layanep.review run --reviewer <name>   # accept/edit/reject, saves as you go
-   python -m layanep.review apply                   # writes data/reviewed/ne-decisions-v1.jsonl
-   ```
-   Reviewer defaults to `$REVIEWER` or `git config user.name`.
-3. Top up the batch with `python -m layanep.generate --cases N --businesses 1`
-   (add `--variants` for more phrasings) until the 400-case / 2,000-decision
-   target is reached; rejected candidates can be regenerated.
-4. `export.py` - template-family splits (train / calibration / frozen benchmark
+1. Top up generation until 400 cases / 2,000 decisions: `python -m layanep.generate
+   --cases N --businesses 1` (add `--variants` for more phrasings; more training
+   businesses in `templates.py` add fresh contexts). Rejected candidates can be
+   regenerated; every new batch needs its own review pass:
+   `python -m layanep.review build` -> `run` -> `apply` (apply appends nothing;
+   it rewrites `data/reviewed/ne-decisions-v1.jsonl` from the sheet, so rebuild
+   the sheet from all candidate files before applying).
+2. `export.py` - template-family splits (train / calibration / frozen benchmark
    + never-trained safety/abstain subset), freeze `ne-decisions-v1`, emit JSONL
-   to `data/export/`; the gate then requires provenance + `reviewed_by`.
-5. P2: Kaggle 2xT4 fine-tune of `convaiinnovations/laya-multilingual` +
+   to `data/export/`; the gate requires provenance + `reviewed_by` there.
+3. P2: Kaggle 2xT4 fine-tune of `convaiinnovations/laya-multilingual` +
    temperature fitting; P3 publish; P4 upstream; P5 optional OrderWorkFlow
    adapter (shadow only).
 
