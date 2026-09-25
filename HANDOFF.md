@@ -1,9 +1,10 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-25. State: benchmark v2 frozen; the restaurant batch-2
-generation (1,820 tasks, judge + spelling variants) is running in the
-background; the export pipeline and tiered review are ready. Next: finish the
-run, review the sampled safety/kind set, top up the export, then P2.
+Last updated: 2026-09-25 (evening). State: benchmark v2 frozen; the restaurant
+batch-2 generation (1,820 tasks, judge + spelling variants) is running in the
+background on `gemini-3.1-flash-lite` after the 3.5 quota ran out; the export
+pipeline, tiered review and the Kaggle fine-tune notebook are ready. Next:
+finish the run, review the sampled safety/kind set, top up the export, then P2.
 
 ## Commit map (main)
 
@@ -29,6 +30,8 @@ run, review the sampled safety/kind set, top up the export, then P2.
 | `03e6346` | Tiered review: judge auto-accept + 25% sampled human pass |
 | `1951570` | Export splits + manifest + benchmark leakage gate (3 batch-1 collisions found and dropped) |
 | `fe4e906` | Task id prefixes keep batch ids unique |
+| `c1b22e5` | Handoff: batch-2 run, export and leakage-gate status |
+| `17d685b` | Kaggle 2xT4 fine-tune notebook (multilingual subfolder, calibration fit, v2 eval) |
 
 ## Verified
 
@@ -49,6 +52,27 @@ run, review the sampled safety/kind set, top up the export, then P2.
   pure Devanagari; NepTrans podcasts (52,896 lines, 640k tokens) at 17% Latin
   tokens; rules in `docs/register.md`.
 - `.env` is gitignored (it holds the Gemini keys); `.env.example` is tracked.
+
+## Batch-2 run: quota incident and resume mechanics (2026-09-25)
+
+- The first batch-2 run (671 rows = 641 tasks + 30 spelling variants) stalled for
+  93 minutes during an internet outage: a failed task burns `retries x keys`
+  attempts with backoff and writes nothing, so the row count froze. The process
+  was alive and looping, not hung.
+- On restore, every key returned **HTTP 429** for `gemini-3.5-flash-lite` — the
+  free-tier daily quota is **per model**. Verified with all four keys at
+  `--model` swap time: `gemini-3.1-flash-lite` 200 (restart target), fallbacks
+  `gemini-3.1-flash-lite-preview` and `gemini-3.6-flash` 200;
+  `gemini-flash-lite-latest` 429, `gemini-3.7/3.8-flash` 400, `gemini-2.5-*` 404.
+- Background launches must be detached with WMI (`Invoke-CimMethod Win32_Process
+  Create` on `C:\...\Temp\opencode\run-gen-v2.cmd`); children of `Start-Process`
+  get killed with the calling shell and end up frozen.
+- **Resume must not change `--id-prefix`**: skip matching is exact-id
+  (`generate.py:327`), so a prefix change would regenerate every task under new
+  ids. Remap `ne-gen-` -> `ne-v2-` only after the run completes.
+- Batch-2 provenance is mixed by model: rows up to ~`ne-gen-0994` from
+  `gemini-3.5-flash-lite`, the rest from `gemini-3.1-flash-lite`; each row records
+  this in `provenance.generator`.
 
 ## Environment (this machine)
 
@@ -84,12 +108,16 @@ run, review the sampled safety/kind set, top up the export, then P2.
 
 ## Next: finish batch 2, tiered review, top-up export, then P2
 
-1. **Batch-2 generation is running** (background, started 2026-09-25):
-   `python -m layanep.generate --kind-cases 100 --safety-cases 40 --delay-ms 1200
-   --out data/generated/ne-candidates-v2.jsonl` (~10 rows/min, ~2,090 rows total).
-   It predates `--id-prefix`, so once it finishes remap its ids from `ne-gen-`
-   to `ne-v2-` (a small script; variant `-v1` suffixes follow automatically)
-   before building the review sheet.
+1. **Batch-2 generation is running** (background, restarted 2026-09-25 evening
+   on `gemini-3.1-flash-lite` after the 3.5-flash-lite quota ran out):
+   `python -u -m layanep.generate --model gemini-3.1-flash-lite --kind-cases 100
+   --safety-cases 40 --delay-ms 1200 --out data/generated/ne-candidates-v2.jsonl
+   --resume` (~4-10 rows/min; it re-chews the rejected gaps of the first attempt
+   before reaching fresh plan slots). It predates `--id-prefix`, so once it
+   finishes remap its ids from `ne-gen-` to `ne-v2-` (a small script; variant
+   `-v1` suffixes follow automatically) before building the review sheet.
+   If it 429s again, swap `--model` (fallbacks above) and relaunch with the same
+   `--resume` command.
 2. **Tiered review of batch 2**:
    ```bash
    python -m layanep.review build --input data/generated/ne-candidates-v2.jsonl
@@ -97,10 +125,12 @@ run, review the sampled safety/kind set, top up the export, then P2.
    python -m layanep.review apply
    ```
    then re-run `python -m layanep.export` to top up train/calibration.
-3. **P2**: adapt the Kaggle 2xT4 notebook for `laya-multilingual` (subfolder
-   encoder/config/tokenizer), run the scaling experiment at 400 / 900 / 1,800
-   cases, pick the tier, then the final fine-tune + temperature fit; gates:
-   beat 113/272 on v2, abstain target, zero safety false commands, ECE <= 0.10.
+3. **P2**: `notebooks/laya_finetune_nepali_2xT4_kaggle.ipynb` is ready (loads the
+   `multilingual` subfolder, trains with RLCD, fits temperatures on the
+   calibration split, evaluates on `ne-bench-deva-v2`); run the scaling
+   experiment at 400 / 900 / 1,800 cases via `TRAIN_LIMIT`, pick the tier, then
+   the final fine-tune; gates: beat 113/272 on v2, abstain target, zero safety
+   false commands, ECE <= 0.10.
 4. **Stage 2 (cross-domain)**: e-commerce (Kshitiz), banking (NepGlish after
    transliteration), delivery (Titung); own question schemas; cross-domain
    benchmark `ne-bench-cross-v1`; publish as `laya-nepali-v1`.
@@ -110,7 +140,9 @@ run, review the sampled safety/kind set, top up the export, then P2.
 - Dataset criteria keys: **resolved 2026-09-25** - natural keys shared by
   training and benchmark (`a44dac1`).
 - Target volume: 400 cases x 5 questions (~2,000 decisions) per the dataset
-  card; generation cost/quota with the free-tier keys is unmeasured.
+  card. Generation quota measured 2026-09-25: free-tier limits are **per model
+  and per key** (~1,400 calls exhausted `gemini-3.5-flash-lite` today); rotate
+  `--model` when a bucket empties.
 - CI runs only the deterministic gates (no weights); the benchmark is a manual
   local run by design.
 - The OrderWorkFlow Laya probe path (`npm run lu:probe -- --laya-url=...`) has
