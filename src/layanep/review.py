@@ -26,6 +26,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Sequence
 
+from .generate import validate_message
 from .normalize import normalize_text
 from .provenance import provenance_failures
 from .schema import Case, SchemaError, validate_case
@@ -210,11 +211,16 @@ def apply_sheet(records: Sequence[ReviewRecord], out_path: Path) -> ApplyReport:
                 report.skipped_rejected += 1
                 continue
             case = Case.from_row(record.case)
-            case.state["customer_message"] = normalize_text(record.text)
-            case.provenance["reviewed_by"] = record.reviewed_by
-            case.provenance["reviewed_at"] = record.reviewed_at
-            case.provenance["review"] = record.status
-            failures = provenance_failures(case.provenance, require_reviewed=True)
+            message = normalize_text(record.text)
+            language = str(case.provenance.get("language", ""))
+            business_name = str((case.state.get("business") or {}).get("name", "")) or None
+            failures = validate_message(message, language, business_name) if language else []
+            if not failures:
+                case.state["customer_message"] = message
+                case.provenance["reviewed_by"] = record.reviewed_by
+                case.provenance["reviewed_at"] = record.reviewed_at
+                case.provenance["review"] = record.status
+                failures = provenance_failures(case.provenance, require_reviewed=True)
             if not failures:
                 try:
                     validate_case(case)

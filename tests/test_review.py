@@ -81,7 +81,7 @@ def test_apply_writes_only_reviewed_rows(tmp_path: Path) -> None:
     sheet = tmp_path / "sheet.jsonl"
     records = build_sheet(candidates, sheet)
     set_decision(records[0], "accept", reviewer="tester")
-    set_decision(records[1], "edit", reviewer="tester", text="धेरै धन्यवाद है")
+    set_decision(records[1], "edit", reviewer="tester", text="dhanyabad hajur")
     set_decision(records[2], "reject", reviewer="tester", note="bad")
 
     out = tmp_path / "applied.jsonl"
@@ -95,9 +95,20 @@ def test_apply_writes_only_reviewed_rows(tmp_path: Path) -> None:
     edited = rows[1]
     assert edited["provenance"]["reviewed_by"] == "tester"
     assert edited["provenance"]["review"] == "edited"
-    assert json.loads(edited["state"])["customer_message"] == "धेरै धन्यवाद है"
+    assert json.loads(edited["state"])["customer_message"] == "dhanyabad hajur"
     for row in rows:
         validate_case(Case.from_row(row))
+
+
+def test_apply_rejects_an_edit_that_breaks_the_script(tmp_path: Path) -> None:
+    candidates, ids = make_candidates(tmp_path)
+    records = build_sheet(candidates, tmp_path / "sheet.jsonl")
+    set_decision(records[0], "edit", reviewer="tester", text="hello there")
+
+    report = apply_sheet(records, tmp_path / "applied.jsonl")
+    assert report.written == 0
+    failures = dict(report.failures)
+    assert any("Devanagari" in reason for reason in failures[ids[0]])
 
 
 def test_apply_reports_unreviewed_rows(tmp_path: Path) -> None:

@@ -70,9 +70,11 @@ def test_prompt_item_rule_is_conditional() -> None:
     plan = build_plan()
     greet = next(task for task in plan if task.family.id == "greet")
     price = next(task for task in plan if task.family.id == "query_price")
+    human = next(task for task in plan if task.family.id == "human")
     assert "Name one specific item" not in greet.prompt
     assert "Name one specific item" in price.prompt
     assert "Express exactly one intent" in greet.prompt
+    assert "staff sanga kura" in human.prompt
 
 
 def test_gold_is_valid_for_every_family() -> None:

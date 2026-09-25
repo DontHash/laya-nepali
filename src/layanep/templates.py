@@ -211,7 +211,8 @@ FAMILIES: tuple[Family, ...] = (
     Family(
         "human",
         "none",
-        "asking to talk to a human staff member",
+        "asking to talk to a staff member (people say 'staff sanga kura' / 'स्टाफसँग कुरा', "
+        "not 'manche' or 'human' sanga kura)",
         needs_staff=True,
         abstain=True,
         confusable="greet",
