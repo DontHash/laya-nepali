@@ -1,10 +1,10 @@
 {
   "meta": {
-    "generated_at": "2026-09-25T08:25:52.615216+00:00",
+    "generated_at": "2026-09-25T08:53:36.821133+00:00",
     "classifier": "laya",
     "corpus": "D:\\Code\\LayaNEp\\data\\benchmark\\ne-bench-deva-v2.json",
     "corpus_revision": "ne-bench-deva-v2",
-    "commit": "78113ca",
+    "commit": "a8352d1",
     "device": "cpu",
     "threshold": 0.5,
     "threads": 6
@@ -102,8 +102,8 @@
         "false_positive": 67
       }
     },
-    "latency_p50": 406.3726000022143,
-    "latency_p95": 520.0431999983266,
+    "latency_p50": 521.5630000166129,
+    "latency_p95": 1160.864000004949,
     "errors": 0,
     "results": [
       {
@@ -113,7 +113,7 @@
         "text": "नमस्ते हजुर",
         "expected": "social.greet",
         "predicted": "social.goodbye",
-        "latency_ms": 605.6148000061512,
+        "latency_ms": 1160.864000004949,
         "error": null
       },
       {
@@ -123,7 +123,7 @@
         "text": "नमस्कार दाइ",
         "expected": "social.greet",
         "predicted": "social.goodbye",
-        "latency_ms": 377.1534000115935,
+        "latency_ms": 352.23190000397153,
         "error": null
       },
       {
@@ -133,7 +133,7 @@
         "text": "हेलो, कस्तो छ?",
         "expected": "social.greet",
         "predicted": "social.greet",
-        "latency_ms": 407.04779999214225,
+        "latency_ms": 360.5567000049632,
         "error": null
       },
       {
@@ -143,7 +143,7 @@
         "text": "नमस्ते है",
         "expected": "social.greet",
         "predicted": null,
-        "latency_ms": 348.3991999819409,
+        "latency_ms": 567.0867000008002,
         "error": null
       },
       {
@@ -153,7 +153,7 @@
         "text": "नमस्कार हजुरहरू",
         "expected": "social.greet",
         "predicted": "social.goodbye",
-        "latency_ms": 382.2643000166863,
+        "latency_ms": 461.3975000102073,
         "error": null
       },
       {
@@ -163,7 +163,7 @@
         "text": "हेल्लो दाइ",
         "expected": "social.greet",
         "predicted": "social.goodbye",
-        "latency_ms": 371.8541999987792,
+        "latency_ms": 417.92729997541755,
         "error": null
       },
       {
@@ -173,7 +173,7 @@
         "text": "नमस्ते",
         "expected": "social.greet",
         "predicted": null,
-        "latency_ms": 449.64299999992363,
+        "latency_ms": 395.06040001288056,
         "error": null
       },
       {
@@ -183,7 +183,7 @@
         "text": "नमस्कार दिदी",
         "expected": "social.greet",
         "predicted": "social.goodbye",
-        "latency_ms": 379.8160000005737,
+        "latency_ms": 420.35470000701025,
         "error": null
       },
       {
@@ -193,7 +193,7 @@
         "text": "हेलो",
         "expected": "social.greet",
         "predicted": "social.greet",
-        "latency_ms": 348.48250000504777,
+        "latency_ms": 432.4383999919519,
         "error": null
       },
       {
@@ -203,7 +203,7 @@
         "text": "नमस्ते हजुरहरू",
         "expected": "social.greet",
         "predicted": "social.goodbye",
-        "latency_ms": 356.90319997956976,
+        "latency_ms": 420.087299979059,
         "error": null
       },
       {
@@ -213,7 +213,7 @@
         "text": "नमस्कार",
         "expected": "social.greet",
         "predicted": "social.goodbye",
-        "latency_ms": 363.0096999986563,
+        "latency_ms": 365.70389999542385,
         "error": null
       },
       {
@@ -223,7 +223,7 @@
         "text": "हेलो दिदी, कस्तो छ?",
         "expected": "social.greet",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 330.9941999905277,
+        "latency_ms": 397.31339999707416,
         "error": null
       },
       {
@@ -233,7 +233,7 @@
         "text": "छोइला एकदम मीठो थियो, धन्यवाद!",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 336.6399999940768,
+        "latency_ms": 450.9161000023596,
         "error": null
       },
       {
@@ -243,7 +243,7 @@
         "text": "धेरै धन्यवाद हजुर",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 341.3386000029277,
+        "latency_ms": 287.4006000056397,
         "error": null
       },
       {
@@ -253,7 +253,7 @@
         "text": "सेकुवा राम्रो थियो, थ्याङ्क यु",
         "expected": "social.thanks",
         "predicted": null,
-        "latency_ms": 379.41500000306405,
+        "latency_ms": 301.6477999917697,
         "error": null
       },
       {
@@ -263,7 +263,7 @@
         "text": "धन्यवाद!",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 413.95340001326986,
+        "latency_ms": 300.1788999827113,
         "error": null
       },
       {
@@ -273,7 +273,7 @@
         "text": "खाना मीठो थियो, धन्यवाद",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 420.1850000245031,
+        "latency_ms": 495.25330000324175,
         "error": null
       },
       {
@@ -283,7 +283,7 @@
         "text": "थ्याङ्क्यु हजुर",
         "expected": "social.thanks",
         "predicted": null,
-        "latency_ms": 345.3651999880094,
+        "latency_ms": 479.3632999935653,
         "error": null
       },
       {
@@ -293,7 +293,7 @@
         "text": "सेल रोटी मीठो थियो, धन्यवाद",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 333.50479998625815,
+        "latency_ms": 622.0504000084475,
         "error": null
       },
       {
@@ -303,7 +303,7 @@
         "text": "धन्यवाद दिदी",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 329.6949999930803,
+        "latency_ms": 481.7336999985855,
         "error": null
       },
       {
@@ -313,7 +313,7 @@
         "text": "पुरी तरकारी राम्रो, थ्याङ्क्यु",
         "expected": "social.thanks",
         "predicted": null,
-        "latency_ms": 321.01780001539737,
+        "latency_ms": 511.2852999882307,
         "error": null
       },
       {
@@ -323,7 +323,7 @@
         "text": "धेरै धन्यवाद",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 354.62810000171885,
+        "latency_ms": 448.87669998570345,
         "error": null
       },
       {
@@ -333,7 +333,7 @@
         "text": "दही ताजा थियो, धन्यवाद",
         "expected": "social.thanks",
         "predicted": "social.thanks",
-        "latency_ms": 321.1501000041608,
+        "latency_ms": 436.9118000031449,
         "error": null
       },
       {
@@ -343,7 +343,7 @@
         "text": "थ्याङ्क यु दिदी",
         "expected": "social.thanks",
         "predicted": null,
-        "latency_ms": 313.0300999910105,
+        "latency_ms": 409.70069999457337,
         "error": null
       },
       {
@@ -353,7 +353,7 @@
         "text": "ल, बिदा हजुर",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 320.2543000224978,
+        "latency_ms": 436.259300011443,
         "error": null
       },
       {
@@ -363,7 +363,7 @@
         "text": "पछि भेटौंला",
         "expected": "social.goodbye",
         "predicted": null,
-        "latency_ms": 325.765700021293,
+        "latency_ms": 385.13540002168156,
         "error": null
       },
       {
@@ -373,7 +373,7 @@
         "text": "बाई दाइ",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 305.10789999971166,
+        "latency_ms": 370.00319999060594,
         "error": null
       },
       {
@@ -383,7 +383,7 @@
         "text": "हुन्छ, फेरि भेटौंला",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 331.4931000059005,
+        "latency_ms": 853.1660000153352,
         "error": null
       },
       {
@@ -393,7 +393,7 @@
         "text": "गुड बाई",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 333.6890999926254,
+        "latency_ms": 931.4023000188172,
         "error": null
       },
       {
@@ -403,7 +403,7 @@
         "text": "ल त, बिदा",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 321.8467000115197,
+        "latency_ms": 907.7615999849513,
         "error": null
       },
       {
@@ -413,7 +413,7 @@
         "text": "बिदा दिदी",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 317.6132999942638,
+        "latency_ms": 975.1440999971237,
         "error": null
       },
       {
@@ -423,7 +423,7 @@
         "text": "पछि भेटौंला है",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 334.3635000055656,
+        "latency_ms": 1162.586199992802,
         "error": null
       },
       {
@@ -433,7 +433,7 @@
         "text": "बाई",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 312.2264000121504,
+        "latency_ms": 952.8295999916736,
         "error": null
       },
       {
@@ -443,7 +443,7 @@
         "text": "हुन्छ, बिदा हजुर",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 354.95999999693595,
+        "latency_ms": 973.0917999986559,
         "error": null
       },
       {
@@ -453,7 +453,7 @@
         "text": "फेरि भेटौंला है",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 348.9997000142466,
+        "latency_ms": 942.4056000134442,
         "error": null
       },
       {
@@ -463,7 +463,7 @@
         "text": "बाई बाई",
         "expected": "social.goodbye",
         "predicted": "social.goodbye",
-        "latency_ms": 326.0065999929793,
+        "latency_ms": 923.9864000119269,
         "error": null
       },
       {
@@ -473,7 +473,7 @@
         "text": "मेनु पठाइदिनु न",
         "expected": "discovery.show_menu",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 345.9681000094861,
+        "latency_ms": 906.633900012821,
         "error": null
       },
       {
@@ -483,7 +483,7 @@
         "text": "के के पाइन्छ त?",
         "expected": "discovery.show_menu",
         "predicted": null,
-        "latency_ms": 338.1433000031393,
+        "latency_ms": 917.1809999970719,
         "error": null
       },
       {
@@ -493,7 +493,7 @@
         "text": "मेनु देखाउनुहोस्",
         "expected": "discovery.show_menu",
         "predicted": "social.goodbye",
-        "latency_ms": 342.4841999949422,
+        "latency_ms": 909.9744999839459,
         "error": null
       },
       {
@@ -503,7 +503,7 @@
         "text": "तपाईंहरूको मेनु कहाँ छ?",
         "expected": "discovery.show_menu",
         "predicted": null,
-        "latency_ms": 383.9025000052061,
+        "latency_ms": 963.386100018397,
         "error": null
       },
       {
@@ -513,7 +513,7 @@
         "text": "के के खाना छ हजुर?",
         "expected": "discovery.show_menu",
         "predicted": null,
-        "latency_ms": 377.75580000015907,
+        "latency_ms": 917.6389999920502,
         "error": null
       },
       {
@@ -523,7 +523,7 @@
         "text": "मेनु पो पठाउनु न",
         "expected": "discovery.show_menu",
         "predicted": "social.goodbye",
-        "latency_ms": 334.928399999626,
+        "latency_ms": 898.1672000081744,
         "error": null
       },
       {
@@ -533,7 +533,7 @@
         "text": "मेनु हेर्न पाइन्छ?",
         "expected": "discovery.show_menu",
         "predicted": null,
-        "latency_ms": 357.2909999929834,
+        "latency_ms": 935.2969999890774,
         "error": null
       },
       {
@@ -543,7 +543,7 @@
         "text": "बिहानको मेनु पठाइदिनु",
         "expected": "discovery.show_menu",
         "predicted": null,
-        "latency_ms": 365.1104999880772,
+        "latency_ms": 965.1058000163175,
         "error": null
       },
       {
@@ -553,7 +553,7 @@
         "text": "मेनु पठाइदिनु दिदी",
         "expected": "discovery.show_menu",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 357.77189998771064,
+        "latency_ms": 936.5332000015769,
         "error": null
       },
       {
@@ -563,7 +563,7 @@
         "text": "तपाईंको मेनु देखाउनु",
         "expected": "discovery.show_menu",
         "predicted": "social.goodbye",
-        "latency_ms": 355.17319999053143,
+        "latency_ms": 914.7435000049882,
         "error": null
       },
       {
@@ -573,7 +573,7 @@
         "text": "के के पाइन्छ नि?",
         "expected": "discovery.show_menu",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 342.29790000244975,
+        "latency_ms": 896.0762999777216,
         "error": null
       },
       {
@@ -583,7 +583,7 @@
         "text": "मेनु छ कि छैन?",
         "expected": "discovery.show_menu",
         "predicted": null,
-        "latency_ms": 355.4473999829497,
+        "latency_ms": 910.9157000202686,
         "error": null
       },
       {
@@ -593,7 +593,7 @@
         "text": "कुन राम्रो छ नि?",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 342.049999977462,
+        "latency_ms": 947.5527000031434,
         "error": null
       },
       {
@@ -603,7 +603,7 @@
         "text": "तपाईंको बेस्ट सेलर कुन हो?",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 339.5158000057563,
+        "latency_ms": 962.0350000041071,
         "error": null
       },
       {
@@ -613,7 +613,7 @@
         "text": "के खान सिफारिस गर्नुहुन्छ?",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 354.7653000277933,
+        "latency_ms": 957.8879000036977,
         "error": null
       },
       {
@@ -623,7 +623,7 @@
         "text": "चिकन सेकुवा र छोइला कुन राम्रो?",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 363.2137000095099,
+        "latency_ms": 947.6577999885194,
         "error": null
       },
       {
@@ -633,7 +633,7 @@
         "text": "कुन चाहिँ खान हुन्छ?",
         "expected": "discovery.recommend",
         "predicted": null,
-        "latency_ms": 408.32529999897815,
+        "latency_ms": 1002.3898999788798,
         "error": null
       },
       {
@@ -643,7 +643,7 @@
         "text": "तपाईंलाई कुन मन पर्छ?",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 334.1777000168804,
+        "latency_ms": 1071.7794999945909,
         "error": null
       },
       {
@@ -653,7 +653,7 @@
         "text": "बिहानको लागि के राम्रो हुन्छ?",
         "expected": "discovery.recommend",
         "predicted": null,
-        "latency_ms": 350.0945999985561,
+        "latency_ms": 1032.6894000172615,
         "error": null
       },
       {
@@ -663,7 +663,7 @@
         "text": "कुन खान चाहिँ मीठो छ?",
         "expected": "discovery.recommend",
         "predicted": null,
-        "latency_ms": 345.83430000930093,
+        "latency_ms": 1013.280199986184,
         "error": null
       },
       {
@@ -673,7 +673,7 @@
         "text": "के सिफारिस गर्नुहुन्छ दिदी?",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 340.56450001662597,
+        "latency_ms": 1051.4589000085834,
         "error": null
       },
       {
@@ -683,7 +683,7 @@
         "text": "सेल रोटी कि पराठा कुन राम्रो?",
         "expected": "discovery.recommend",
         "predicted": "discovery.recommend",
-        "latency_ms": 346.1641000176314,
+        "latency_ms": 1031.6645000129938,
         "error": null
       },
       {
@@ -693,7 +693,7 @@
         "text": "सबैभन्दा राम्रो बिहानको खाना कुन हो?",
         "expected": "discovery.recommend",
         "predicted": null,
-        "latency_ms": 352.82469997764565,
+        "latency_ms": 1046.7850999848451,
         "error": null
       },
       {
@@ -703,7 +703,7 @@
         "text": "के खानु राम्रो होला?",
         "expected": "discovery.recommend",
         "predicted": null,
-        "latency_ms": 336.12510000239126,
+        "latency_ms": 1024.6881999773905,
         "error": null
       },
       {
@@ -713,7 +713,7 @@
         "text": "चिकन सेकुवाको मूल्य कति हो?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 332.54599999054335,
+        "latency_ms": 1053.449200000614,
         "error": null
       },
       {
@@ -723,7 +723,7 @@
         "text": "छोइला कतिमा पर्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 341.1692999943625,
+        "latency_ms": 1009.1864999849349,
         "error": null
       },
       {
@@ -733,7 +733,7 @@
         "text": "आलु तामाको दाम कति?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 368.60789998900145,
+        "latency_ms": 991.2813999981154,
         "error": null
       },
       {
@@ -743,7 +743,7 @@
         "text": "चिउराको रेट कति हो?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 333.3839999977499,
+        "latency_ms": 1007.8544999996666,
         "error": null
       },
       {
@@ -753,7 +753,7 @@
         "text": "मसला चिया कतिको हो?",
         "expected": "discovery.query",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 335.3073000034783,
+        "latency_ms": 1145.9011000115424,
         "error": null
       },
       {
@@ -763,7 +763,7 @@
         "text": "सेकुवा कतिमा आउँछ?",
         "expected": "discovery.query",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 337.05440000630915,
+        "latency_ms": 1144.2102000000887,
         "error": null
       },
       {
@@ -773,7 +773,7 @@
         "text": "सेल रोटीको भाउ कति?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 346.1634999839589,
+        "latency_ms": 1020.6583999970462,
         "error": null
       },
       {
@@ -783,7 +783,7 @@
         "text": "पुरी तरकारी कति पर्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 320.93339998391457,
+        "latency_ms": 1009.7798999922816,
         "error": null
       },
       {
@@ -793,7 +793,7 @@
         "text": "आलु पराठाको मूल्य कति?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 340.40340001229197,
+        "latency_ms": 659.1524999821559,
         "error": null
       },
       {
@@ -803,7 +803,7 @@
         "text": "दही कतिको?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 339.66239998699166,
+        "latency_ms": 929.9601000093389,
         "error": null
       },
       {
@@ -813,7 +813,7 @@
         "text": "लेमन टी कति हो?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 321.7743000132032,
+        "latency_ms": 1023.9894000114873,
         "error": null
       },
       {
@@ -823,7 +823,7 @@
         "text": "सेल रोटी र दही कति पर्छ?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 344.53999999095686,
+        "latency_ms": 1188.562399998773,
         "error": null
       },
       {
@@ -833,7 +833,7 @@
         "text": "आज छोइला पाइन्छ?",
         "expected": "discovery.query",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 334.85189999919385,
+        "latency_ms": 909.2639999871608,
         "error": null
       },
       {
@@ -843,7 +843,7 @@
         "text": "चिकन सेकुवा उपलब्ध छ?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 352.2430000011809,
+        "latency_ms": 922.645199985709,
         "error": null
       },
       {
@@ -853,7 +853,7 @@
         "text": "आलु तामा अहिले पाइन्छ?",
         "expected": "discovery.query",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 359.60990001331083,
+        "latency_ms": 928.0828999762889,
         "error": null
       },
       {
@@ -863,7 +863,7 @@
         "text": "चिउरा छ हजुर?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 447.4867999961134,
+        "latency_ms": 894.0311000042129,
         "error": null
       },
       {
@@ -873,7 +873,7 @@
         "text": "मसला चिया पाइन्छ नि?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 366.60539999138564,
+        "latency_ms": 898.5264000075404,
         "error": null
       },
       {
@@ -883,7 +883,7 @@
         "text": "सेकुवा सकियो कि छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 343.515100015793,
+        "latency_ms": 872.4955999932718,
         "error": null
       },
       {
@@ -893,7 +893,7 @@
         "text": "सेल रोटी अझै छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 360.9508000081405,
+        "latency_ms": 910.9125999966636,
         "error": null
       },
       {
@@ -903,7 +903,7 @@
         "text": "पुरी तरकारी पाइन्छ?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 382.87890001083724,
+        "latency_ms": 908.3187000069302,
         "error": null
       },
       {
@@ -913,7 +913,7 @@
         "text": "आलु पराठा उपलब्ध छ?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 364.97090000193566,
+        "latency_ms": 922.0777000009548,
         "error": null
       },
       {
@@ -923,7 +923,7 @@
         "text": "दही छ दिदी?",
         "expected": "discovery.query",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 370.33490001340397,
+        "latency_ms": 897.5291000097059,
         "error": null
       },
       {
@@ -933,7 +933,7 @@
         "text": "लेमन टी पाइन्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 343.4654999873601,
+        "latency_ms": 886.982199997874,
         "error": null
       },
       {
@@ -943,7 +943,7 @@
         "text": "बिहानको खाना अहिले पाइन्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 366.7979000019841,
+        "latency_ms": 945.7381000102032,
         "error": null
       },
       {
@@ -953,7 +953,7 @@
         "text": "छोइलामा के के हुन्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 343.6578999971971,
+        "latency_ms": 902.398499980336,
         "error": null
       },
       {
@@ -963,7 +963,7 @@
         "text": "चिकन सेकुवा कसरी बनाइन्छ?",
         "expected": "discovery.query",
         "predicted": "discovery.recommend",
-        "latency_ms": 520.9620999812614,
+        "latency_ms": 986.0373999981675,
         "error": null
       },
       {
@@ -973,7 +973,7 @@
         "text": "आलु तामामा तामा छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 456.3860000052955,
+        "latency_ms": 967.4709999817424,
         "error": null
       },
       {
@@ -983,7 +983,7 @@
         "text": "मसला चियामा दूध हुन्छ?",
         "expected": "discovery.query",
         "predicted": "discovery.query",
-        "latency_ms": 440.92790002468973,
+        "latency_ms": 917.690100002801,
         "error": null
       },
       {
@@ -993,7 +993,7 @@
         "text": "चिउरा भुटेको हो कि कच्चा?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 417.670700000599,
+        "latency_ms": 747.1427000127733,
         "error": null
       },
       {
@@ -1003,7 +1003,7 @@
         "text": "सेकुवामा पिरो हुन्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 459.43490002537146,
+        "latency_ms": 648.4119000087958,
         "error": null
       },
       {
@@ -1013,7 +1013,7 @@
         "text": "सेल रोटीमा चिनी हुन्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 404.14030000101775,
+        "latency_ms": 546.1423000087962,
         "error": null
       },
       {
@@ -1023,7 +1023,7 @@
         "text": "पुरी तरकारीमा के के हुन्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 424.4310999929439,
+        "latency_ms": 488.9049000048544,
         "error": null
       },
       {
@@ -1033,7 +1033,7 @@
         "text": "आलु पराठामा मक्खन लाग्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 460.6289000075776,
+        "latency_ms": 439.26890002330765,
         "error": null
       },
       {
@@ -1043,7 +1043,7 @@
         "text": "दही घरको हो?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 434.4927999773063,
+        "latency_ms": 490.61059998348355,
         "error": null
       },
       {
@@ -1053,7 +1053,7 @@
         "text": "लेमन टीमा चिनी हुन्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 447.01470001018606,
+        "latency_ms": 382.50859998515807,
         "error": null
       },
       {
@@ -1063,7 +1063,7 @@
         "text": "पराठामा अण्डा हुन्छ?",
         "expected": "discovery.query",
         "predicted": null,
-        "latency_ms": 411.26260001328774,
+        "latency_ms": 485.06669999915175,
         "error": null
       },
       {
@@ -1073,7 +1073,7 @@
         "text": "कति बजे खुल्नुहुन्छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 468.68640001048334,
+        "latency_ms": 458.53119998355396,
         "error": null
       },
       {
@@ -1083,7 +1083,7 @@
         "text": "आज कति बजेसम्म खुल्छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 429.9614000192378,
+        "latency_ms": 403.2535000005737,
         "error": null
       },
       {
@@ -1093,7 +1093,7 @@
         "text": "बिहान कति बजे खोल्नुहुन्छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 445.57979999808595,
+        "latency_ms": 450.58929998776875,
         "error": null
       },
       {
@@ -1103,7 +1103,7 @@
         "text": "तपाईंहरूको समय कति हो?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 432.2405999992043,
+        "latency_ms": 419.4120999891311,
         "error": null
       },
       {
@@ -1113,7 +1113,7 @@
         "text": "अहिले खुला छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "discovery.query",
-        "latency_ms": 395.64360000076704,
+        "latency_ms": 416.0101000161376,
         "error": null
       },
       {
@@ -1123,7 +1123,7 @@
         "text": "आइतबार खुल्छ कि बन्द?",
         "expected": "fulfillment.ask_hours",
         "predicted": null,
-        "latency_ms": 409.9317000072915,
+        "latency_ms": 410.5762999970466,
         "error": null
       },
       {
@@ -1133,7 +1133,7 @@
         "text": "कति बजेसम्म पाइन्छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 384.51240002177656,
+        "latency_ms": 441.034799994668,
         "error": null
       },
       {
@@ -1143,7 +1143,7 @@
         "text": "बिहान कति बजेदेखि खुल्छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 387.8610000247136,
+        "latency_ms": 479.1562000173144,
         "error": null
       },
       {
@@ -1153,7 +1153,7 @@
         "text": "अहिले खुला छ दिदी?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 385.22359999478795,
+        "latency_ms": 460.91240001260303,
         "error": null
       },
       {
@@ -1163,7 +1163,7 @@
         "text": "आज कति बजे बन्द हुन्छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 392.27979999850504,
+        "latency_ms": 516.0633000195958,
         "error": null
       },
       {
@@ -1173,7 +1173,7 @@
         "text": "तपाईंको समय कति बजेको हो?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 411.8007000070065,
+        "latency_ms": 432.5081999995746,
         "error": null
       },
       {
@@ -1183,7 +1183,7 @@
         "text": "आइतबार पनि खुल्छ?",
         "expected": "fulfillment.ask_hours",
         "predicted": "fulfillment.ask_hours",
-        "latency_ms": 378.72730000526644,
+        "latency_ms": 454.1675999935251,
         "error": null
       },
       {
@@ -1193,7 +1193,7 @@
         "text": "यहाँ डेलिभरी हुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": null,
-        "latency_ms": 400.14670000527985,
+        "latency_ms": 454.96589998947456,
         "error": null
       },
       {
@@ -1203,7 +1203,7 @@
         "text": "जोरपाटीमा पुर्याउनुहुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": null,
-        "latency_ms": 432.0692000037525,
+        "latency_ms": 493.12679999275133,
         "error": null
       },
       {
@@ -1213,7 +1213,7 @@
         "text": "डेलिभरी चार्ज कति लाग्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "discovery.query",
-        "latency_ms": 425.59650001931004,
+        "latency_ms": 583.7479999754578,
         "error": null
       },
       {
@@ -1223,7 +1223,7 @@
         "text": "कति बेरमा आउँछ डेलिभरी?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 410.01560000586323,
+        "latency_ms": 445.8215999766253,
         "error": null
       },
       {
@@ -1233,7 +1233,7 @@
         "text": "बौद्ध बाहिर पठाउनुहुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 443.41620002523996,
+        "latency_ms": 423.13609999837354,
         "error": null
       },
       {
@@ -1243,7 +1243,7 @@
         "text": "डेलिभरी कहाँसम्म गर्नुहुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 466.3009000068996,
+        "latency_ms": 426.1920000135433,
         "error": null
       },
       {
@@ -1253,7 +1253,7 @@
         "text": "लगनखेल पुर्याउनुहुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 498.3524999988731,
+        "latency_ms": 433.9891000126954,
         "error": null
       },
       {
@@ -1263,7 +1263,7 @@
         "text": "डेलिभरी शुल्क कति?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "discovery.query",
-        "latency_ms": 463.39620000799187,
+        "latency_ms": 430.0676000129897,
         "error": null
       },
       {
@@ -1273,7 +1273,7 @@
         "text": "घरमा पठाउनुहुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 471.09120001550764,
+        "latency_ms": 480.4040000017267,
         "error": null
       },
       {
@@ -1283,7 +1283,7 @@
         "text": "कति समयमा डेलिभरी हुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": null,
-        "latency_ms": 477.8496000217274,
+        "latency_ms": 486.8350999895483,
         "error": null
       },
       {
@@ -1293,7 +1293,7 @@
         "text": "पाटन बाहिर पठाउनुहुन्छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": null,
-        "latency_ms": 490.12910001329146,
+        "latency_ms": 462.8669999947306,
         "error": null
       },
       {
@@ -1303,7 +1303,7 @@
         "text": "डेलिभरीको दायरा कति छ?",
         "expected": "fulfillment.ask_delivery",
         "predicted": null,
-        "latency_ms": 481.1898000189103,
+        "latency_ms": 492.97399999340996,
         "error": null
       },
       {
@@ -1313,7 +1313,7 @@
         "text": "मेरो अर्डर कहाँ पुग्यो?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 470.14869999838993,
+        "latency_ms": 472.80099999625236,
         "error": null
       },
       {
@@ -1323,7 +1323,7 @@
         "text": "अर्डर अझै आएको छैन, कहाँ छ?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 503.7733000062872,
+        "latency_ms": 469.40709999762475,
         "error": null
       },
       {
@@ -1333,7 +1333,7 @@
         "text": "मेरो अर्डर अहिले कहाँ छ हजुर?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 520.0431999983266,
+        "latency_ms": 469.17570001096465,
         "error": null
       },
       {
@@ -1343,7 +1343,7 @@
         "text": "मेरो अर्डर पुग्यो कि पुगेन?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 501.3429999817163,
+        "latency_ms": 459.48350001708604,
         "error": null
       },
       {
@@ -1353,7 +1353,7 @@
         "text": "मेरो अर्डर पठाइयो कि?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 521.3896000059322,
+        "latency_ms": 450.1456000143662,
         "error": null
       },
       {
@@ -1363,7 +1363,7 @@
         "text": "अर्डर स्टेटस कस्तो छ?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 436.33719999343157,
+        "latency_ms": 432.1485999971628,
         "error": null
       },
       {
@@ -1373,7 +1373,7 @@
         "text": "मेरो अर्डर कहाँ छ दिदी?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 419.864299998153,
+        "latency_ms": 458.3023000159301,
         "error": null
       },
       {
@@ -1383,7 +1383,7 @@
         "text": "अर्डर आउने बेला भयो, कहाँ पुग्यो?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 440.84149997797795,
+        "latency_ms": 475.97379999933764,
         "error": null
       },
       {
@@ -1393,7 +1393,7 @@
         "text": "मेरो अर्डर पठाउनुभयो?",
         "expected": "fulfillment.order_status",
         "predicted": null,
-        "latency_ms": 861.8371999764349,
+        "latency_ms": 440.3500000189524,
         "error": null
       },
       {
@@ -1403,7 +1403,7 @@
         "text": "अर्डर कसले ल्याउँदै छ?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 493.9543000073172,
+        "latency_ms": 427.6065000158269,
         "error": null
       },
       {
@@ -1413,7 +1413,7 @@
         "text": "अर्डर अझै किन आएन?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 400.4867000039667,
+        "latency_ms": 407.5091000122484,
         "error": null
       },
       {
@@ -1423,7 +1423,7 @@
         "text": "मेरो अर्डरको अवस्था के छ?",
         "expected": "fulfillment.order_status",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 396.7784999986179,
+        "latency_ms": 446.56800001394004,
         "error": null
       },
       {
@@ -1433,7 +1433,7 @@
         "text": "मेरो कार्ट देखाउनु न",
         "expected": "ordering.view_cart",
         "predicted": "social.goodbye",
-        "latency_ms": 382.6350999879651,
+        "latency_ms": 502.52899999031797,
         "error": null
       },
       {
@@ -1443,7 +1443,7 @@
         "text": "के के अर्डर गरेको छु?",
         "expected": "ordering.view_cart",
         "predicted": null,
-        "latency_ms": 377.37899998319335,
+        "latency_ms": 440.60760000138544,
         "error": null
       },
       {
@@ -1453,7 +1453,7 @@
         "text": "अहिलेसम्मको अर्डर देखाउनुहोस्",
         "expected": "ordering.view_cart",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 399.99689999967813,
+        "latency_ms": 422.18020002474077,
         "error": null
       },
       {
@@ -1463,7 +1463,7 @@
         "text": "मेरो कार्ट खोल्नु न",
         "expected": "ordering.view_cart",
         "predicted": "social.goodbye",
-        "latency_ms": 402.31340000173077,
+        "latency_ms": 406.75709999050014,
         "error": null
       },
       {
@@ -1473,7 +1473,7 @@
         "text": "अर्डरको लिस्ट पठाइदिनु",
         "expected": "ordering.view_cart",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 397.27340001263656,
+        "latency_ms": 429.2616999882739,
         "error": null
       },
       {
@@ -1483,7 +1483,7 @@
         "text": "मैले के के थपेको छु?",
         "expected": "ordering.view_cart",
         "predicted": null,
-        "latency_ms": 396.9304999918677,
+        "latency_ms": 428.37500001769513,
         "error": null
       },
       {
@@ -1493,7 +1493,7 @@
         "text": "मेरो अर्डर लिस्ट देखाउनु दिदी",
         "expected": "ordering.view_cart",
         "predicted": null,
-        "latency_ms": 391.05340000241995,
+        "latency_ms": 426.0702000174206,
         "error": null
       },
       {
@@ -1503,7 +1503,7 @@
         "text": "कार्टमा के छ?",
         "expected": "ordering.view_cart",
         "predicted": null,
-        "latency_ms": 368.7433000013698,
+        "latency_ms": 408.7862999876961,
         "error": null
       },
       {
@@ -1513,7 +1513,7 @@
         "text": "अहिलेसम्म के के राखेको छु?",
         "expected": "ordering.view_cart",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 384.5224999822676,
+        "latency_ms": 415.53189998376183,
         "error": null
       },
       {
@@ -1523,7 +1523,7 @@
         "text": "मेरो कार्ट हेर्न पाइन्छ?",
         "expected": "ordering.view_cart",
         "predicted": null,
-        "latency_ms": 375.8275999862235,
+        "latency_ms": 432.3714000056498,
         "error": null
       },
       {
@@ -1533,7 +1533,7 @@
         "text": "अर्डरको विवरण पठाइदिनु",
         "expected": "ordering.view_cart",
         "predicted": "fulfillment.order_status",
-        "latency_ms": 394.16630001505837,
+        "latency_ms": 521.5630000166129,
         "error": null
       },
       {
@@ -1543,7 +1543,7 @@
         "text": "मैले के के अर्डर गरें?",
         "expected": "ordering.view_cart",
         "predicted": null,
-        "latency_ms": 383.8901999988593,
+        "latency_ms": 520.61340000364,
         "error": null
       },
       {
@@ -1553,7 +1553,7 @@
         "text": "अर्डर गर्नुहोस् त",
         "expected": "ordering.request_checkout",
         "predicted": "ordering.request_checkout",
-        "latency_ms": 367.40269997972064,
+        "latency_ms": 534.873399999924,
         "error": null
       },
       {
@@ -1563,7 +1563,7 @@
         "text": "मेरो अर्डर पक्का गर्नुहोस्",
         "expected": "ordering.request_checkout",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 378.25889998930506,
+        "latency_ms": 521.4552000106778,
         "error": null
       },
       {
@@ -1573,7 +1573,7 @@
         "text": "अर्डर कन्फर्म गर्नु",
         "expected": "ordering.request_checkout",
         "predicted": "ordering.request_checkout",
-        "latency_ms": 409.1162000258919,
+        "latency_ms": 399.86239999416284,
         "error": null
       },
       {
@@ -1583,7 +1583,7 @@
         "text": "ल, अर्डर गरौं",
         "expected": "ordering.request_checkout",
         "predicted": null,
-        "latency_ms": 401.8875999900047,
+        "latency_ms": 396.48680001846515,
         "error": null
       },
       {
@@ -1593,7 +1593,7 @@
         "text": "यही अर्डर पठाइदिनु",
         "expected": "ordering.request_checkout",
         "predicted": null,
-        "latency_ms": 421.8570000084583,
+        "latency_ms": 420.47169999568723,
         "error": null
       },
       {
@@ -1603,7 +1603,7 @@
         "text": "अहिलेकै अर्डर पक्का गर्नुहोस्",
         "expected": "ordering.request_checkout",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 414.53049998381175,
+        "latency_ms": 466.51150000980124,
         "error": null
       },
       {
@@ -1613,7 +1613,7 @@
         "text": "मेरो अर्डर फाइनल गर्नुहोस्",
         "expected": "ordering.request_checkout",
         "predicted": "social.goodbye",
-        "latency_ms": 394.10659999703057,
+        "latency_ms": 425.1753999851644,
         "error": null
       },
       {
@@ -1623,7 +1623,7 @@
         "text": "अर्डर प्लेस गर्नुहोस् त",
         "expected": "ordering.request_checkout",
         "predicted": null,
-        "latency_ms": 389.56330000655726,
+        "latency_ms": 427.78489997726865,
         "error": null
       },
       {
@@ -1633,7 +1633,7 @@
         "text": "ल, कन्फर्म गर्नुहोस्",
         "expected": "ordering.request_checkout",
         "predicted": null,
-        "latency_ms": 401.86469999025576,
+        "latency_ms": 402.70250002504326,
         "error": null
       },
       {
@@ -1643,7 +1643,7 @@
         "text": "यही अर्डर अगाडि बढाउनुहोस्",
         "expected": "ordering.request_checkout",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 411.06509999372065,
+        "latency_ms": 478.2093999965582,
         "error": null
       },
       {
@@ -1653,7 +1653,7 @@
         "text": "अर्डर गरिदिनु दिदी",
         "expected": "ordering.request_checkout",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 394.4236999959685,
+        "latency_ms": 536.2078000034671,
         "error": null
       },
       {
@@ -1663,7 +1663,7 @@
         "text": "अब अर्डर गर्नुहोस्",
         "expected": "ordering.request_checkout",
         "predicted": "ordering.request_checkout",
-        "latency_ms": 398.17410000250675,
+        "latency_ms": 540.3785000089556,
         "error": null
       },
       {
@@ -1673,7 +1673,7 @@
         "text": "फेरि उही अर्डर गर्नुहोस्",
         "expected": "ordering.repeat_order",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 406.0427999938838,
+        "latency_ms": 576.3540999905672,
         "error": null
       },
       {
@@ -1683,7 +1683,7 @@
         "text": "अघिल्लो पटकको जस्तै पठाइदिनु",
         "expected": "ordering.repeat_order",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 487.1228000265546,
+        "latency_ms": 517.2816000122111,
         "error": null
       },
       {
@@ -1693,7 +1693,7 @@
         "text": "पहिलेको अर्डर फेरि दोहोर्याउनु",
         "expected": "ordering.repeat_order",
         "predicted": null,
-        "latency_ms": 425.4073000047356,
+        "latency_ms": 514.1583000076935,
         "error": null
       },
       {
@@ -1703,7 +1703,7 @@
         "text": "मैले अघि खाएको सेकुवा फेरि मगाउनु",
         "expected": "ordering.repeat_order",
         "predicted": "ordering.repeat_order",
-        "latency_ms": 431.23479999485426,
+        "latency_ms": 561.6278999950737,
         "error": null
       },
       {
@@ -1713,7 +1713,7 @@
         "text": "उही अर्डर फेरि गर्नु",
         "expected": "ordering.repeat_order",
         "predicted": null,
-        "latency_ms": 424.65460000676103,
+        "latency_ms": 495.3846999851521,
         "error": null
       },
       {
@@ -1723,7 +1723,7 @@
         "text": "हिजोको अर्डर जस्तै दिनु",
         "expected": "ordering.repeat_order",
         "predicted": null,
-        "latency_ms": 403.100399998948,
+        "latency_ms": 461.45820000674576,
         "error": null
       },
       {
@@ -1733,7 +1733,7 @@
         "text": "अघिल्लो जस्तै फेरि ल्याइदिनु",
         "expected": "ordering.repeat_order",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 451.93459998699836,
+        "latency_ms": 507.5805000087712,
         "error": null
       },
       {
@@ -1743,7 +1743,7 @@
         "text": "मेरो पुरानो अर्डर दोहोर्याउनु",
         "expected": "ordering.repeat_order",
         "predicted": null,
-        "latency_ms": 418.64970000460744,
+        "latency_ms": 492.300800018711,
         "error": null
       },
       {
@@ -1753,7 +1753,7 @@
         "text": "फेरि त्यही अर्डर गर्नु दिदी",
         "expected": "ordering.repeat_order",
         "predicted": "ordering.repeat_order",
-        "latency_ms": 417.7309999940917,
+        "latency_ms": 463.89700000872836,
         "error": null
       },
       {
@@ -1763,7 +1763,7 @@
         "text": "पहिलेको जस्तै सेल रोटी मगाउनु",
         "expected": "ordering.repeat_order",
         "predicted": null,
-        "latency_ms": 404.2516000044998,
+        "latency_ms": 529.793099995004,
         "error": null
       },
       {
@@ -1773,7 +1773,7 @@
         "text": "उही अर्डर फेरि पठाइदिनु",
         "expected": "ordering.repeat_order",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 392.46600001933984,
+        "latency_ms": 522.4688999878708,
         "error": null
       },
       {
@@ -1783,7 +1783,7 @@
         "text": "हिजोको अर्डर फेरि गर्नु",
         "expected": "ordering.repeat_order",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 396.6401999932714,
+        "latency_ms": 490.4040999826975,
         "error": null
       },
       {
@@ -1793,7 +1793,7 @@
         "text": "सेभ गरेको ठेगानामा पठाइदिनु",
         "expected": "ordering.use_saved_address",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 395.40380000835285,
+        "latency_ms": 524.1531999781728,
         "error": null
       },
       {
@@ -1803,7 +1803,7 @@
         "text": "पुरानै ठेगाना प्रयोग गर्नुहोस्",
         "expected": "ordering.use_saved_address",
         "predicted": null,
-        "latency_ms": 395.3173999907449,
+        "latency_ms": 516.3021999760531,
         "error": null
       },
       {
@@ -1813,7 +1813,7 @@
         "text": "सेव गरेको ठेगाना प्रयोग गर्नु",
         "expected": "ordering.use_saved_address",
         "predicted": null,
-        "latency_ms": 391.85620000353083,
+        "latency_ms": 503.76069999765605,
         "error": null
       },
       {
@@ -1823,7 +1823,7 @@
         "text": "मेरो पहिलेको ठेगानामै पठाउनुहोस्",
         "expected": "ordering.use_saved_address",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 423.8446999806911,
+        "latency_ms": 477.6672000007238,
         "error": null
       },
       {
@@ -1833,7 +1833,7 @@
         "text": "सेव ठेगाना नै राख्नु",
         "expected": "ordering.use_saved_address",
         "predicted": null,
-        "latency_ms": 414.66419998323545,
+        "latency_ms": 469.9158000003081,
         "error": null
       },
       {
@@ -1843,7 +1843,7 @@
         "text": "अघिको ठेगाना लिनुहोस्",
         "expected": "ordering.use_saved_address",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 416.2097999942489,
+        "latency_ms": 475.5834999959916,
         "error": null
       },
       {
@@ -1853,7 +1853,7 @@
         "text": "सेव गरेको ठेगानामा पुर्याउनु",
         "expected": "ordering.use_saved_address",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 407.92999998666346,
+        "latency_ms": 504.47250000433996,
         "error": null
       },
       {
@@ -1863,7 +1863,7 @@
         "text": "पहिलेको ठेगाना नै प्रयोग गर्नु",
         "expected": "ordering.use_saved_address",
         "predicted": null,
-        "latency_ms": 406.3726000022143,
+        "latency_ms": 538.6133000138216,
         "error": null
       },
       {
@@ -1873,7 +1873,7 @@
         "text": "पुरानो ठेगानामै पठाइदिनु दिदी",
         "expected": "ordering.use_saved_address",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 436.99210000340827,
+        "latency_ms": 493.79880001652054,
         "error": null
       },
       {
@@ -1883,7 +1883,7 @@
         "text": "पहिले दिएको ठेगाना राख्नु",
         "expected": "ordering.use_saved_address",
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 410.6895999866538,
+        "latency_ms": 486.663400020916,
         "error": null
       },
       {
@@ -1893,7 +1893,7 @@
         "text": "उही ठेगाना राख्नु",
         "expected": "ordering.use_saved_address",
         "predicted": null,
-        "latency_ms": 444.10470000002533,
+        "latency_ms": 455.6404000031762,
         "error": null
       },
       {
@@ -1903,7 +1903,7 @@
         "text": "सेव गरेको ठेगाना नै हाल्नु",
         "expected": "ordering.use_saved_address",
         "predicted": null,
-        "latency_ms": 473.8577999814879,
+        "latency_ms": 468.0592999793589,
         "error": null
       },
       {
@@ -1913,7 +1913,7 @@
         "text": "एक प्लेट चिकन सेकुवा",
         "expected": null,
         "predicted": null,
-        "latency_ms": 483.81430000881664,
+        "latency_ms": 478.7468000140507,
         "error": null
       },
       {
@@ -1923,7 +1923,7 @@
         "text": "२ वटा छोइला",
         "expected": null,
         "predicted": null,
-        "latency_ms": 479.9357999872882,
+        "latency_ms": 477.19170001801103,
         "error": null
       },
       {
@@ -1933,7 +1933,7 @@
         "text": "आलु तामा दिनु",
         "expected": null,
         "predicted": null,
-        "latency_ms": 430.77089998405427,
+        "latency_ms": 460.720000002766,
         "error": null
       },
       {
@@ -1943,7 +1943,7 @@
         "text": "चिउरा र चिया",
         "expected": null,
         "predicted": null,
-        "latency_ms": 432.92309998651035,
+        "latency_ms": 483.0214000248816,
         "error": null
       },
       {
@@ -1953,7 +1953,7 @@
         "text": "सेकुवा हाल्नु न",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 444.24089998938143,
+        "latency_ms": 459.49589999509044,
         "error": null
       },
       {
@@ -1963,7 +1963,7 @@
         "text": "एक कप चिया",
         "expected": null,
         "predicted": null,
-        "latency_ms": 422.55060002207756,
+        "latency_ms": 461.6657999868039,
         "error": null
       },
       {
@@ -1973,7 +1973,7 @@
         "text": "दुई सेल रोटी",
         "expected": null,
         "predicted": null,
-        "latency_ms": 434.176100010518,
+        "latency_ms": 467.1749999979511,
         "error": null
       },
       {
@@ -1983,7 +1983,7 @@
         "text": "पुरी तरकारी एक प्लेट",
         "expected": null,
         "predicted": null,
-        "latency_ms": 432.9794999794103,
+        "latency_ms": 467.58400002727285,
         "error": null
       },
       {
@@ -1993,7 +1993,7 @@
         "text": "आलु पराठा दिनु",
         "expected": null,
         "predicted": null,
-        "latency_ms": 403.23260001605377,
+        "latency_ms": 554.694800026482,
         "error": null
       },
       {
@@ -2003,7 +2003,7 @@
         "text": "दही र लेमन टी",
         "expected": null,
         "predicted": null,
-        "latency_ms": 398.95820000674576,
+        "latency_ms": 455.9488999948371,
         "error": null
       },
       {
@@ -2013,7 +2013,7 @@
         "text": "तीन सेल रोटी",
         "expected": null,
         "predicted": null,
-        "latency_ms": 423.6754000012297,
+        "latency_ms": 456.2396999972407,
         "error": null
       },
       {
@@ -2023,7 +2023,7 @@
         "text": "पराठा हाल्नु न",
         "expected": null,
         "predicted": null,
-        "latency_ms": 453.41190000181086,
+        "latency_ms": 451.8413999758195,
         "error": null
       },
       {
@@ -2033,7 +2033,7 @@
         "text": "हुन्छ",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 444.6091999998316,
+        "latency_ms": 443.6308000003919,
         "error": null
       },
       {
@@ -2043,7 +2043,7 @@
         "text": "हो",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 478.8284999958705,
+        "latency_ms": 435.0454999948852,
         "error": null
       },
       {
@@ -2053,7 +2053,7 @@
         "text": "ल हुन्छ",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 448.54620000114664,
+        "latency_ms": 484.3481999996584,
         "error": null
       },
       {
@@ -2063,7 +2063,7 @@
         "text": "हुन्न",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 393.069599987939,
+        "latency_ms": 480.46429999521933,
         "error": null
       },
       {
@@ -2073,7 +2073,7 @@
         "text": "अहँ, पर्दैन",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 401.7292999778874,
+        "latency_ms": 447.4550999875646,
         "error": null
       },
       {
@@ -2083,7 +2083,7 @@
         "text": "हो त",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 397.14839999214746,
+        "latency_ms": 495.27310000848956,
         "error": null
       },
       {
@@ -2093,7 +2093,7 @@
         "text": "हुन्छ दिदी",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 419.4887000194285,
+        "latency_ms": 494.87510000471957,
         "error": null
       },
       {
@@ -2103,7 +2103,7 @@
         "text": "हो हजुर",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 411.8009000085294,
+        "latency_ms": 473.35970000131056,
         "error": null
       },
       {
@@ -2113,7 +2113,7 @@
         "text": "ल, ठीक छ",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 371.680699987337,
+        "latency_ms": 523.7493000167888,
         "error": null
       },
       {
@@ -2123,7 +2123,7 @@
         "text": "हुन्न",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 418.40359999332577,
+        "latency_ms": 512.70900000236,
         "error": null
       },
       {
@@ -2133,7 +2133,7 @@
         "text": "पर्दैन",
         "expected": null,
         "predicted": null,
-        "latency_ms": 449.93160001467913,
+        "latency_ms": 522.0272000005934,
         "error": null
       },
       {
@@ -2143,7 +2143,7 @@
         "text": "अहँ",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 432.1414000005461,
+        "latency_ms": 487.20820000744425,
         "error": null
       },
       {
@@ -2153,7 +2153,7 @@
         "text": "छोइलामा बदाम छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 454.1294999944512,
+        "latency_ms": 524.0434999868739,
         "error": null
       },
       {
@@ -2163,7 +2163,7 @@
         "text": "मलाई बदामले एलर्जी छ, के खान मिल्छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 436.92980002379045,
+        "latency_ms": 588.1468000006862,
         "error": null
       },
       {
@@ -2173,7 +2173,7 @@
         "text": "सेकुवामा ग्लुटेन हुन्छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 416.6588999796659,
+        "latency_ms": 605.1864000037313,
         "error": null
       },
       {
@@ -2183,7 +2183,7 @@
         "text": "चियामा ल्याक्टोज हुन्छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 409.534700011136,
+        "latency_ms": 545.1527999830432,
         "error": null
       },
       {
@@ -2193,7 +2193,7 @@
         "text": "मलाई दूधले एलर्जी छ, के खान मिल्छ?",
         "expected": null,
         "predicted": "discovery.recommend",
-        "latency_ms": 422.32879999210127,
+        "latency_ms": 993.4819999907631,
         "error": null
       },
       {
@@ -2203,7 +2203,7 @@
         "text": "कुन खानामा बदाम छैन?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 422.99049999564886,
+        "latency_ms": 1020.8648999978323,
         "error": null
       },
       {
@@ -2213,7 +2213,7 @@
         "text": "पुरी तरकारीमा ग्लुटेन छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 443.72750000911765,
+        "latency_ms": 1109.567799983779,
         "error": null
       },
       {
@@ -2223,7 +2223,7 @@
         "text": "मलाई अण्डाले एलर्जी छ, सेल रोटी खान मिल्छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 449.3551999912597,
+        "latency_ms": 1342.0061000215355,
         "error": null
       },
       {
@@ -2233,7 +2233,7 @@
         "text": "दहीमा ल्याक्टोज हुन्छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 407.44909999193624,
+        "latency_ms": 1029.1849999921396,
         "error": null
       },
       {
@@ -2243,7 +2243,7 @@
         "text": "कुन खानामा दूध छैन?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 410.65960002015345,
+        "latency_ms": 628.8229000056162,
         "error": null
       },
       {
@@ -2253,7 +2253,7 @@
         "text": "पराठामा बदाम हुन्छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 415.4396999801975,
+        "latency_ms": 569.382499990752,
         "error": null
       },
       {
@@ -2263,7 +2263,7 @@
         "text": "मलाई एलर्जी छ, के सुरक्षित छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 443.36200001998805,
+        "latency_ms": 587.1968999854289,
         "error": null
       },
       {
@@ -2273,7 +2273,7 @@
         "text": "मेरो पैसा फिर्ता गर्नुहोस्",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 415.48539997893386,
+        "latency_ms": 556.2200999993365,
         "error": null
       },
       {
@@ -2283,7 +2283,7 @@
         "text": "अर्डर रद्द भयो तर पैसा काटियो",
         "expected": null,
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 435.7374999963213,
+        "latency_ms": 568.754199979594,
         "error": null
       },
       {
@@ -2293,7 +2293,7 @@
         "text": "रिफन्ड कहिले आउँछ?",
         "expected": null,
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 447.9797000240069,
+        "latency_ms": 492.3179000033997,
         "error": null
       },
       {
@@ -2303,7 +2303,7 @@
         "text": "डबल चार्ज भयो, फिर्ता चाहियो",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 433.96260001463816,
+        "latency_ms": 475.09279998485,
         "error": null
       },
       {
@@ -2313,7 +2313,7 @@
         "text": "पैसा फिर्ता नगरे गुनासो गर्छु",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 432.7112000028137,
+        "latency_ms": 480.2030000137165,
         "error": null
       },
       {
@@ -2323,7 +2323,7 @@
         "text": "मेरो भुक्तानी फिर्ता गर्नु",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 418.772099976195,
+        "latency_ms": 457.8955000033602,
         "error": null
       },
       {
@@ -2333,7 +2333,7 @@
         "text": "पैसा फिर्ता गरिदिनु",
         "expected": null,
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 428.15359999076463,
+        "latency_ms": 469.7275999933481,
         "error": null
       },
       {
@@ -2343,7 +2343,7 @@
         "text": "नमगाएको खानाको पैसा काटियो",
         "expected": null,
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 420.17379999742843,
+        "latency_ms": 523.4210999915376,
         "error": null
       },
       {
@@ -2353,7 +2353,7 @@
         "text": "रिफन्ड गरिदिनु दिदी",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 421.0056999872904,
+        "latency_ms": 420.20429999683984,
         "error": null
       },
       {
@@ -2363,7 +2363,7 @@
         "text": "पैसा तिरें तर अर्डर आएन",
         "expected": null,
         "predicted": null,
-        "latency_ms": 426.5564999950584,
+        "latency_ms": 416.0459999984596,
         "error": null
       },
       {
@@ -2373,7 +2373,7 @@
         "text": "डबल पैसा कटेको छ, हेर्नुहोस्",
         "expected": null,
         "predicted": null,
-        "latency_ms": 415.6684000045061,
+        "latency_ms": 384.3178000242915,
         "error": null
       },
       {
@@ -2383,7 +2383,7 @@
         "text": "रकम फिर्ता गर्नु",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 412.3896000091918,
+        "latency_ms": 427.27210000157356,
         "error": null
       },
       {
@@ -2393,7 +2393,7 @@
         "text": "खाना चिसो आयो",
         "expected": null,
         "predicted": null,
-        "latency_ms": 392.1686999965459,
+        "latency_ms": 424.7987999988254,
         "error": null
       },
       {
@@ -2403,7 +2403,7 @@
         "text": "सेकुवा काँचो थियो, कस्तो खाना हो यो?",
         "expected": null,
         "predicted": "discovery.recommend",
-        "latency_ms": 420.442800008459,
+        "latency_ms": 533.0763999954797,
         "error": null
       },
       {
@@ -2413,7 +2413,7 @@
         "text": "अर्डर एक घण्टापछि आयो",
         "expected": null,
         "predicted": "fulfillment.order_status",
-        "latency_ms": 396.4540000015404,
+        "latency_ms": 615.4075000085868,
         "error": null
       },
       {
@@ -2423,7 +2423,7 @@
         "text": "छोइला नुनिलो थियो, खान सकिन",
         "expected": null,
         "predicted": null,
-        "latency_ms": 387.5127999926917,
+        "latency_ms": 561.9979999901261,
         "error": null
       },
       {
@@ -2433,7 +2433,7 @@
         "text": "गलत अर्डर आयो",
         "expected": null,
         "predicted": null,
-        "latency_ms": 377.05340000684373,
+        "latency_ms": 559.445599996252,
         "error": null
       },
       {
@@ -2443,7 +2443,7 @@
         "text": "यो सेवा ठीक भएन, गुनासो गर्न चाहन्छु",
         "expected": null,
         "predicted": null,
-        "latency_ms": 394.4608000165317,
+        "latency_ms": 1265.0428999913856,
         "error": null
       },
       {
@@ -2453,7 +2453,7 @@
         "text": "पराठा जलेको आयो",
         "expected": null,
         "predicted": "fulfillment.ask_delivery",
-        "latency_ms": 412.2694999969099,
+        "latency_ms": 671.8614999845158,
         "error": null
       },
       {
@@ -2463,7 +2463,7 @@
         "text": "दही बिग्रिएको थियो",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 397.56840001791716,
+        "latency_ms": 677.5815000000875,
         "error": null
       },
       {
@@ -2473,7 +2473,7 @@
         "text": "अर्डर ढिलो आयो दिदी",
         "expected": null,
         "predicted": "fulfillment.order_status",
-        "latency_ms": 372.84440000075847,
+        "latency_ms": 617.8166999889072,
         "error": null
       },
       {
@@ -2483,7 +2483,7 @@
         "text": "सेल रोटी कडा थियो",
         "expected": null,
         "predicted": null,
-        "latency_ms": 400.4651000141166,
+        "latency_ms": 565.7964000129141,
         "error": null
       },
       {
@@ -2493,7 +2493,7 @@
         "text": "खानामा फोहोर भेटियो",
         "expected": null,
         "predicted": "ordering.request_checkout",
-        "latency_ms": 426.6164999862667,
+        "latency_ms": 702.1522000140976,
         "error": null
       },
       {
@@ -2503,7 +2503,7 @@
         "text": "गुनासो गर्नु छ",
         "expected": null,
         "predicted": null,
-        "latency_ms": 412.7133000001777,
+        "latency_ms": 563.5490999848116,
         "error": null
       },
       {
@@ -2513,7 +2513,7 @@
         "text": "स्टाफसँग कुरा गर्न मिल्छ?",
         "expected": null,
         "predicted": "discovery.recommend",
-        "latency_ms": 431.4187999989372,
+        "latency_ms": 648.4240999852773,
         "error": null
       },
       {
@@ -2523,7 +2523,7 @@
         "text": "म्यानेजरसँग बोल्न सक्छु?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 461.97010000469163,
+        "latency_ms": 567.9760999919381,
         "error": null
       },
       {
@@ -2533,7 +2533,7 @@
         "text": "कसैलाई बोलाउनु न",
         "expected": null,
         "predicted": null,
-        "latency_ms": 421.88660000101663,
+        "latency_ms": 535.0967000122182,
         "error": null
       },
       {
@@ -2543,7 +2543,7 @@
         "text": "स्टाफसँग कुरा गराइदिनुहोस्",
         "expected": null,
         "predicted": null,
-        "latency_ms": 434.67519999830984,
+        "latency_ms": 581.4662000047974,
         "error": null
       },
       {
@@ -2553,7 +2553,7 @@
         "text": "स्टाफसँग कुरा गर्न सकिन्छ?",
         "expected": null,
         "predicted": "discovery.query",
-        "latency_ms": 426.28859999240376,
+        "latency_ms": 578.3339000190608,
         "error": null
       },
       {
@@ -2563,7 +2563,7 @@
         "text": "म्यानेजर छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 406.0698999965098,
+        "latency_ms": 468.2095999887679,
         "error": null
       },
       {
@@ -2573,7 +2573,7 @@
         "text": "दिदी, कसैलाई बोलाउनु न",
         "expected": null,
         "predicted": null,
-        "latency_ms": 409.7281000285875,
+        "latency_ms": 437.84970001433976,
         "error": null
       },
       {
@@ -2583,7 +2583,7 @@
         "text": "स्टाफसँग कुरा गराउनुहोस्",
         "expected": null,
         "predicted": null,
-        "latency_ms": 422.02610001550056,
+        "latency_ms": 1023.5143000027165,
         "error": null
       },
       {
@@ -2593,7 +2593,7 @@
         "text": "asdkjh",
         "expected": null,
         "predicted": null,
-        "latency_ms": 2108.950800000457,
+        "latency_ms": 7904.474500013748,
         "error": null
       },
       {
@@ -2603,7 +2603,7 @@
         "text": "???!",
         "expected": null,
         "predicted": null,
-        "latency_ms": 1031.7766000225674,
+        "latency_ms": 2817.1129999973346,
         "error": null
       },
       {
@@ -2613,7 +2613,7 @@
         "text": "ह ह ह",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 405.720900016604,
+        "latency_ms": 872.4143999861553,
         "error": null
       },
       {
@@ -2623,7 +2623,7 @@
         "text": "....",
         "expected": null,
         "predicted": null,
-        "latency_ms": 1024.5418999984395,
+        "latency_ms": 2423.5392999835312,
         "error": null
       },
       {
@@ -2633,7 +2633,7 @@
         "text": "xxx",
         "expected": null,
         "predicted": null,
-        "latency_ms": 1011.3572000118438,
+        "latency_ms": 2207.83000002848,
         "error": null
       },
       {
@@ -2643,7 +2643,7 @@
         "text": "jjjj",
         "expected": null,
         "predicted": null,
-        "latency_ms": 1051.620100013679,
+        "latency_ms": 1969.845699990401,
         "error": null
       },
       {
@@ -2653,7 +2653,7 @@
         "text": "djfk",
         "expected": null,
         "predicted": null,
-        "latency_ms": 1051.2445000058506,
+        "latency_ms": 2004.6903000038583,
         "error": null
       },
       {
@@ -2663,7 +2663,7 @@
         "text": "?????",
         "expected": null,
         "predicted": null,
-        "latency_ms": 1051.3381999917328,
+        "latency_ms": 2080.214000015985,
         "error": null
       },
       {
@@ -2673,7 +2673,7 @@
         "text": "हहहह",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 417.4180999980308,
+        "latency_ms": 964.0195000101812,
         "error": null
       },
       {
@@ -2683,7 +2683,7 @@
         "text": "...",
         "expected": null,
         "predicted": null,
-        "latency_ms": 992.9285999969579,
+        "latency_ms": 2007.1833000110928,
         "error": null
       },
       {
@@ -2693,7 +2693,7 @@
         "text": "lolol",
         "expected": null,
         "predicted": null,
-        "latency_ms": 1033.6282000062056,
+        "latency_ms": 1958.8529999891762,
         "error": null
       },
       {
@@ -2703,7 +2703,7 @@
         "text": "ययय",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 444.2453999945428,
+        "latency_ms": 845.1289999939036,
         "error": null
       },
       {
@@ -2713,7 +2713,7 @@
         "text": "यो कस्तो हो?",
         "expected": null,
         "predicted": "discovery.query",
-        "latency_ms": 430.16659998102114,
+        "latency_ms": 871.3793999922927,
         "error": null
       },
       {
@@ -2723,7 +2723,7 @@
         "text": "तपाईंहरू को हौ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 433.4763000078965,
+        "latency_ms": 899.6038000041153,
         "error": null
       },
       {
@@ -2733,7 +2733,7 @@
         "text": "अनि त्यो?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 421.17779998807237,
+        "latency_ms": 884.9245999881532,
         "error": null
       },
       {
@@ -2743,7 +2743,7 @@
         "text": "कहाँ जान्छ?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 404.1136000014376,
+        "latency_ms": 891.6605999984313,
         "error": null
       },
       {
@@ -2753,7 +2753,7 @@
         "text": "मलाई थाहा भएन",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 402.98620000248775,
+        "latency_ms": 900.2717999974266,
         "error": null
       },
       {
@@ -2763,7 +2763,7 @@
         "text": "के हो यो?",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 415.0321999914013,
+        "latency_ms": 887.1326000080444,
         "error": null
       },
       {
@@ -2773,7 +2773,7 @@
         "text": "अनि?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 413.2192000106443,
+        "latency_ms": 844.8099000088405,
         "error": null
       },
       {
@@ -2783,7 +2783,7 @@
         "text": "मलाई बुझिएन",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 428.67609998211265,
+        "latency_ms": 852.7302999864332,
         "error": null
       },
       {
@@ -2793,7 +2793,7 @@
         "text": "फेरि भन्नु न",
         "expected": null,
         "predicted": null,
-        "latency_ms": 410.48290001344867,
+        "latency_ms": 854.4147000066005,
         "error": null
       },
       {
@@ -2803,7 +2803,7 @@
         "text": "त्यो कुरा मिलेन",
         "expected": null,
         "predicted": "social.goodbye",
-        "latency_ms": 416.7466000071727,
+        "latency_ms": 842.2914999828208,
         "error": null
       },
       {
@@ -2813,7 +2813,7 @@
         "text": "कहिले?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 421.2575000128709,
+        "latency_ms": 847.0793000014964,
         "error": null
       },
       {
@@ -2823,7 +2823,7 @@
         "text": "हो कि होइन?",
         "expected": null,
         "predicted": null,
-        "latency_ms": 405.39459997671656,
+        "latency_ms": 843.1268999993335,
         "error": null
       }
     ]

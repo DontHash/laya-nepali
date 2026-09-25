@@ -1,12 +1,12 @@
 # Nepali probe report - laya
 
-- Generated: 2026-09-25T08:25:52.615216+00:00
+- Generated: 2026-09-25T08:53:36.821133+00:00
 - Corpus revision: ne-bench-deva-v2
-- Commit: 78113ca
+- Commit: a8352d1
 - Steps: 272
 - Model correct: 113/272 (41.5%)
 - Abstain: 53/92
-- Latency: p50 406.4 ms | p95 520.0 ms
+- Latency: p50 521.6 ms | p95 1160.9 ms
 - Classifier errors: 0
 - Config: classifier=laya, device=cpu, threshold=0.5
 
