@@ -1,11 +1,9 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-25. State: the Devanagari benchmark v2 is authored (272
-steps), the base-checkpoint baseline is measured, and the step review CLI is
-ready. **Next action: human review of the 272 benchmark steps**
-(`python -m layanep.benchmark.review run`) and `apply` to freeze the corpus.
-After that: P1b generation (Devanagari-only, ~1,800 cases, LLM judge + tiered
-review) and export.
+Last updated: 2026-09-25. State: benchmark v2 frozen; the restaurant batch-2
+generation (1,820 tasks, judge + spelling variants) is running in the
+background; the export pipeline and tiered review are ready. Next: finish the
+run, review the sampled safety/kind set, top up the export, then P2.
 
 ## Commit map (main)
 
@@ -24,23 +22,32 @@ review) and export.
 | `cbab57e` | Apply-time script guard; `staff sanga kura` phrasing; batch 1 applied (53 cases) |
 | `e8020f7` | Devanagari benchmark v2 (272 steps) + multi-revision support + base baseline |
 | `595ddbb` | Benchmark step review CLI + the 272-step review sheet |
+| `05a8d2a` | Frozen benchmark v2 after human review (272 accepted, baseline 113/272) |
+| `1236713` | Owner-attested provenance lanes; reference-only and augmentation lanes |
+| `2985f77` | `reference.py` register profile + `spelling.py` variant augmentation + `docs/register.md` |
+| `80f7217` | Budget plans, judge pass, dedup, spelling variants, resume; 7 training businesses |
+| `03e6346` | Tiered review: judge auto-accept + 25% sampled human pass |
+| `1951570` | Export splits + manifest + benchmark leakage gate (3 batch-1 collisions found and dropped) |
+| `fe4e906` | Task id prefixes keep batch ids unique |
 
 ## Verified
 
-- `python -m pytest -q` -> 70 passed.
-- `python -m layanep.eval --check` -> `ne-decisions-v1 gate: 1 cases, 5 decisions, PASS`.
+- `python -m pytest -q` -> 102 passed.
 - `ruff check src/ tests/ --select=E9,F63,F7,F82,F401,F811 --line-length=120` -> clean;
   `python -m compileall -q src/ tests/` -> clean.
 - **Devanagari benchmark v2** (`data/benchmark/ne-bench-deva-v2.json`): 46 cases /
-  272 steps, 12 per kind (36 for `discovery.query`), 92 safety/abstain, two
-  held-out businesses; `validate_corpus` passes.
-- **Base baseline on v2** (`reports/ne-bench-deva-v2-laya.{md,json}`):
-  113/272 (41.5%), abstain 53/92, p50 406 ms, 0 errors. Failure shape:
-  `show_menu` 0/12, `view_cart` 0/12, `use_saved_address` 0/12,
-  `discovery.query` 9/36, 19 safety false commands.
-- Baseline on `ne-probe-v1` (mixed script) unchanged: 55/79, abstain 12/17.
-- Batch 1 dataset: `data/reviewed/ne-decisions-v1.jsonl` = 53 cases / 265
-  decisions, 50 accepted + 3 edited; strict validation passes.
+  272 steps, frozen after review (272 accepted, 0 edits). Baseline:
+  `reports/ne-bench-deva-v2-laya.{md,json}` = 113/272 (41.5%), abstain 53/92.
+- **Dataset export**: `data/export/ne-decisions-v1-{train,calibration}.jsonl` +
+  manifest = 50 cases / 250 decisions (44 train / 6 calibration);
+  `python -m layanep.eval --check` passes with `reviewed_by` required.
+- **Leakage gate worked**: 3 batch-1 messages coincided with benchmark steps
+  (`नमस्ते हजुर`, `मेरो अर्डर कहाँ पुग्यो?`, `स्टाफसँग कुरा गर्न मिल्छ?`); they are
+  recorded as rejected with the `leakage-gate` note and dropped from the export.
+  Generation and review-build now reject benchmark collisions up front.
+- Register profile from reference-only sources: reviewed commands p50 6 words,
+  pure Devanagari; NepTrans podcasts (52,896 lines, 640k tokens) at 17% Latin
+  tokens; rules in `docs/register.md`.
 - `.env` is gitignored (it holds the Gemini keys); `.env.example` is tracked.
 
 ## Environment (this machine)
@@ -75,25 +82,28 @@ review) and export.
 - `docs/provenance.md` lanes marked "per-card - verify before use"
   (`kshitizgajurel/*`, Kaggle Foodmandu) hard-fail in code until verified.
 
-## Next: benchmark review, then P1b generation, then export
+## Next: finish batch 2, tiered review, top-up export, then P2
 
-1. **Review the 272 benchmark steps (critical path):**
+1. **Batch-2 generation is running** (background, started 2026-09-25):
+   `python -m layanep.generate --kind-cases 100 --safety-cases 40 --delay-ms 1200
+   --out data/generated/ne-candidates-v2.jsonl` (~10 rows/min, ~2,090 rows total).
+   It predates `--id-prefix`, so once it finishes remap its ids from `ne-gen-`
+   to `ne-v2-` (a small script; variant `-v1` suffixes follow automatically)
+   before building the review sheet.
+2. **Tiered review of batch 2**:
    ```bash
-   python -m layanep.benchmark.review run --reviewer <name>   # a/e/l/r/s/q
-   python -m layanep.benchmark.review list --status pending
-   python -m layanep.benchmark.review apply                   # freezes the corpus
+   python -m layanep.review build --input data/generated/ne-candidates-v2.jsonl
+   python -m layanep.review run --reviewer <name>   # safety + 25% sampled kinds
+   python -m layanep.review apply
    ```
-   Then re-run the baseline on the frozen corpus and record the number.
-2. **P1b generation** per the revised plan: Devanagari-only default,
-   class-balanced allocation (~100 per kind, ~320 safety/abstain), 7-8 training
-   businesses, LLM judge pass, dedup; target ~1,800 cases / ~9,000 decisions.
-   Reference stats from NepTrans/LINCE/tweets; spelling-variation augmentation
-   from nspell/Bhasha; Kshitiz rows as auxiliary (cap ~30%); Foodmandu menus.
-   Review: 100% human on safety/abstain, judge + 25% sample on kinds.
-3. `export.py` - train/calibration splits, freeze `ne-decisions-v1`, emit JSONL
-   to `data/export/`; the gate requires provenance + `reviewed_by` there.
-4. P2 scaling experiment (400/900/1,800 cases) then the final fine-tune; P3
-   publish; P4 upstream; P5 optional OrderWorkFlow adapter (shadow only).
+   then re-run `python -m layanep.export` to top up train/calibration.
+3. **P2**: adapt the Kaggle 2xT4 notebook for `laya-multilingual` (subfolder
+   encoder/config/tokenizer), run the scaling experiment at 400 / 900 / 1,800
+   cases, pick the tier, then the final fine-tune + temperature fit; gates:
+   beat 113/272 on v2, abstain target, zero safety false commands, ECE <= 0.10.
+4. **Stage 2 (cross-domain)**: e-commerce (Kshitiz), banking (NepGlish after
+   transliteration), delivery (Titung); own question schemas; cross-domain
+   benchmark `ne-bench-cross-v1`; publish as `laya-nepali-v1`.
 
 ## Open decisions / risks
 
