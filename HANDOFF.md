@@ -1,12 +1,13 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-26 (P2). State: **dataset v1 final** (1,837 cases / 9,185
-decisions; train 1,667 / calibration 170; gate PASS) and the **P2 scaling
-experiment is done** on Kaggle 2xT4: full tier is the pick at 224/272 (82.4%),
-abstain 82/92, ECE 0.0710 (see `reports/p2-scaling.md`). Remaining gate: **zero
-safety false commands (currently 10)**. Next: calibrate the abstain threshold on
-the calibration split and/or oversample safety rows, then the final run and
-publication (P3).
+Last updated: 2026-09-26 (P2, late). State: **dataset v1** at 1,994 cases /
+9,970 decisions (train 1,807 / calibration 187; gate PASS) and the **P2
+experiments are done** (`reports/p2-scaling.md`): best candidate is Kaggle
+`laya-nepali-finetune-full` version 3 - **228/272 (83.8%)**, abstain 80/92, ECE
+0.0666; **safety false commands remain 12/92** after targeted data (batch 4) and
+calibration-fitted thresholds. The residual is a documented taxonomy of
+high-confidence semantic confusions. Next: decide publish-now (P3, with the
+residual documented) vs one more targeted data pass (batch 5).
 
 ## Commit map (main)
 
@@ -43,6 +44,9 @@ publication (P3).
 | `00344e2` | Fix: filtered `review run` queue no longer truncates the saved sheet |
 | `e6b9e76` | Final two human rows applied; export 1,837 cases / 9,185 decisions |
 | `1242cc3` | Notebook: step-level category map fix + optional HF publish (first Kaggle runs) |
+| `ec9036c` | Batch-4 safety rows applied; export 1,994 cases / 9,970 decisions |
+| `ca5e1ad` | Notebook: calibration-fitted abstain rules + safety failure reporting |
+| `4403291` | Notebook: p(none) selector keeps the most permissive zero-FP value |
 
 ## Verified
 
@@ -76,9 +80,10 @@ publication (P3).
   3.6-flash 4, vertex:2.5-flash-lite 702 (`ne-v2-` + `ne-v3-`).
 - **P2 scaling** (`reports/p2-scaling.md`, raw logs in `reports/p2-logs/`):
   benchmark v2 accuracy scales with data - base 113/272, 400 -> 170, 900 -> 198,
-  full 1,667 -> **224/272 (82.4%)**; abstain 82/92; ECE 0.0710 <= 0.10; safety
-  false commands 19 -> 15 -> 12 -> 10 (gate wants zero). `view_cart` is the
-  weakest kind (6/12, 6 false positives).
+  full 1,667 -> 224. Best candidate after batch-4 data and threshold
+  experiments: full v3 at **228/272 (83.8%)**, abstain 80/92, ECE 0.0666,
+  safety false commands 12/92. `view_cart` (6/12) and the safety taxonomy are
+  the weak spots; the remaining FPs are semantic, not threshold misses.
 - `.env` is gitignored (it holds the Gemini keys); `.env.example` is tracked.
 
 ## Batch-2 run: quota incident and resume mechanics (2026-09-25)
@@ -163,13 +168,16 @@ publication (P3).
    applied and exported (train 1,667 / calibration 170; gate PASS). No rows
    pending in the sheet. The Kaggle notebook consumes `data/export` plus
    `data/benchmark/ne-bench-deva-v2.json` and `ne-probe-v1.json`.
-3. **P2 scaling is done** (Kaggle 2xT4): 400 -> 170/272, 900 -> 198/272, full
-   1,667 -> **224/272 (82.4%)**, abstain 82/92, ECE 0.0710. The full tier is the
-   pick; one gate remains: **zero safety false commands (currently 10)**. Levers
-   in order: (a) fit the abstain threshold on the calibration split under a
-   zero-safety-false-command constraint, (b) oversample the 306 safety cases in
-   training, (c) generate a targeted safety batch on Vertex and retrain. Then
-   P3 (publish dataset + checkpoint) and P4 (upstream PRs).
+3. **P2 experiments are done, publication decision pending**
+   (`reports/p2-scaling.md`): best model is Kaggle `laya-nepali-finetune-full`
+   version 3 - 228/272 (83.8%), abstain 80/92, ECE 0.0666, safety false
+   commands 12/92. Batch-4 safety data and calibration-fitted abstain rules
+   (confidence tau and p(none)) did not reach zero; the residual is
+   high-confidence semantic confusion (refund/late-delivery read as
+   `order_status`, `फेरि` read as `repeat_order`). Options: (i) publish now as
+   `laya-nepali-v1` with the residual documented and the product-side guard in
+   OrderWorkFlow, or (ii) run a batch-5 targeted contrastive set and retrain
+   before publishing. Then P4 (upstream PRs).
 4. **Stage 2 (cross-domain)**: e-commerce (Kshitiz), banking (NepGlish after
    transliteration), delivery (Titung); own question schemas; cross-domain
    benchmark `ne-bench-cross-v1`; publish as `laya-nepali-v1`.
