@@ -3,14 +3,14 @@
   "generated_from": "D:\\Code\\LayaNEp\\data\\reviewed\\ne-decisions-v1.jsonl",
   "calibration_share": 0.1,
   "splits": {
-    "train": 2402,
-    "calibration": 246
+    "train": 5499,
+    "calibration": 600
   },
   "review_modes": {
-    "human": 1369,
-    "judge-auto": 1279
+    "human": 4808,
+    "judge-auto": 1291
   },
   "sources": {
-    "synthetic": 2648
+    "synthetic": 6099
   }
 }
