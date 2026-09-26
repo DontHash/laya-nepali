@@ -124,9 +124,11 @@ def load_sheet(path: Path) -> list[ReviewRecord]:
 
 def save_sheet(path: Path, records: Sequence[ReviewRecord]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as sink:
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
+    with tmp_path.open("w", encoding="utf-8") as sink:
         for record in records:
             sink.write(json.dumps(record.to_dict(), ensure_ascii=False) + "\n")
+    os.replace(tmp_path, path)
 
 
 def case_message(case_row: dict) -> str:
@@ -182,6 +184,9 @@ def build_sheet(
                 record.review_mode = "leakage-gate"
                 record.needs_human = False
                 record.note = "leakage gate: message matches a benchmark step"
+        elif record.status == "pending" and record.text == record.original_text:
+            record.text = message
+            record.original_text = message
         record.case = row
         records.append(record)
     save_sheet(sheet_path, records)

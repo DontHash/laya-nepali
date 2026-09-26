@@ -55,6 +55,27 @@ def test_build_preserves_existing_decisions(tmp_path: Path) -> None:
     assert [record.id for record in rebuilt] == ids
 
 
+def test_build_refreshes_pending_text_from_the_case(tmp_path: Path) -> None:
+    candidates, _ = make_candidates(tmp_path)
+    sheet = tmp_path / "sheet.jsonl"
+    records = build_sheet(candidates, sheet)
+    set_decision(records[1], "edit", reviewer="tester", text="edited wording")
+    save_sheet(sheet, records)
+
+    lines = candidates.read_text(encoding="utf-8").splitlines()
+    row = json.loads(lines[0])
+    state = json.loads(row["state"])
+    state["customer_message"] = "नयाँ सन्देश आयो"
+    row["state"] = json.dumps(state, ensure_ascii=False)
+    lines[0] = json.dumps(row, ensure_ascii=False)
+    candidates.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    rebuilt = build_sheet(candidates, sheet)
+    assert rebuilt[0].text == "नयाँ सन्देश आयो"
+    assert rebuilt[0].original_text == "नयाँ सन्देश आयो"
+    assert rebuilt[1].text == "edited wording"
+
+
 def test_set_decision_actions(tmp_path: Path) -> None:
     candidates, _ = make_candidates(tmp_path)
     records = build_sheet(candidates, tmp_path / "sheet.jsonl")
