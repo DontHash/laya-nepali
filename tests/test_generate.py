@@ -163,7 +163,9 @@ def test_budget_plan_balances_families() -> None:
     for family in FAMILIES:
         expected = 1 if family.command == ABSTAIN_KEY else 2
         assert counts[family.id] == expected
-    assert len(plan) == 15 * 2 + 8 * 1
+    kind_count = sum(1 for family in FAMILIES if family.command != ABSTAIN_KEY)
+    safety_count = len(FAMILIES) - kind_count
+    assert len(plan) == kind_count * 2 + safety_count * 1
     assert [task.id for task in plan[:2]] == ["ne-gen-0001", "ne-gen-0002"]
     assert plan[0].language == "ne"
 
@@ -176,7 +178,7 @@ def test_budget_plan_prefix_covers_different_families() -> None:
 def test_plan_id_prefix_keeps_batches_unique() -> None:
     plan = build_plan(kind_cases=2, safety_cases=1, id_prefix="ne-v2")
     assert plan[0].id == "ne-v2-0001"
-    assert plan[-1].id == "ne-v2-0038"
+    assert plan[-1].id == f"ne-v2-{len(plan):04d}"
     legacy = build_plan(businesses=TRAINING_BUSINESSES[:1], id_prefix="ne-v2")
     assert legacy[0].id == "ne-v2-0001"
 

@@ -270,6 +270,30 @@ FAMILIES: tuple[Family, ...] = (
         confusable="order_status",
     ),
     Family(
+        "refund_status",
+        "none",
+        "asking when a refund will arrive or why it is still pending",
+        needs_staff=True,
+        abstain=True,
+        confusable="order_status",
+    ),
+    Family(
+        "late_delivery",
+        "none",
+        "complaining that the order arrived late or took far longer than promised",
+        needs_staff=True,
+        abstain=True,
+        confusable="order_status",
+    ),
+    Family(
+        "unclear_repeat",
+        "none",
+        "an unfinished or unclear follow-up that only hints at asking again, "
+        "without a clear repeat-order request",
+        abstain=True,
+        confusable="repeat_order",
+    ),
+    Family(
         "human",
         "none",
         "asking to talk to a staff member (people say 'staff sanga kura' / 'स्टाफसँग कुरा', "

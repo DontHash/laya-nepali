@@ -32,7 +32,7 @@ from typing import Protocol, Sequence
 from .normalize import normalize_text
 from .schema import SchemaError, validate_case
 from .spelling import apply_spelling_variant
-from .templates import TRAINING_BUSINESSES, GenerationTask, build_case, build_plan
+from .templates import FAMILIES, TRAINING_BUSINESSES, GenerationTask, build_case, build_plan
 from .transliterate import DEVANAGARI_RE
 from .validate import scan_pii
 
@@ -520,6 +520,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--safety-cases", type=int, default=40, help="cases per safety/abstain family")
     parser.add_argument("--businesses", type=int, default=0, help="max training businesses (0 = all)")
     parser.add_argument("--languages", default="ne", help="comma-separated language mix")
+    parser.add_argument("--families", default="", help="comma-separated family ids (default: all)")
     parser.add_argument("--id-prefix", default="ne-gen", help="task id prefix; change it for a new batch")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--model", default=None, help=f"model name (default {DEFAULT_MODEL} or $GEMINI_MODEL; vertex: {DEFAULT_VERTEX_MODEL} or $VERTEX_MODEL)")
@@ -537,8 +538,17 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     languages = [language.strip() for language in args.languages.split(",") if language.strip()]
     businesses = TRAINING_BUSINESSES[: args.businesses] if args.businesses else TRAINING_BUSINESSES
+    if args.families.strip():
+        wanted = {value.strip() for value in args.families.split(",") if value.strip()}
+        unknown = sorted(wanted - {family.id for family in FAMILIES})
+        if unknown:
+            parser.error(f"unknown families: {', '.join(unknown)}")
+        selected_families = [family for family in FAMILIES if family.id in wanted]
+    else:
+        selected_families = list(FAMILIES)
     tasks = build_plan(
         businesses=businesses,
+        families=selected_families,
         languages=languages,
         kind_cases=max(0, args.kind_cases),
         safety_cases=max(0, args.safety_cases),
