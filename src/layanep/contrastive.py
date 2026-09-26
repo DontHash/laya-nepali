@@ -1,0 +1,389 @@
+"""Deterministic minimal-pair rows for known intent boundaries.
+
+Kernel runs have repeatedly surfaced high-confidence confusions between
+neighbouring intents (refund_status vs order_status, allergy vs details,
+manager presence vs availability, unclear fragments vs menu). Batches 7 and 8
+were built with throwaway scripts; this module keeps the boundary banks and
+builder in the repo so every future confusion can be taught with controlled
+minimal pairs in both directions.
+
+Rows are built through ``templates.build_case`` so gold labels, probabilities
+and provenance match the generator pipeline, then reviewed like any batch.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import random
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Sequence
+
+from .templates import (
+    FAMILY_BY_ID,
+    TRAINING_BUSINESSES,
+    GenerationTask,
+    build_case,
+    build_prompt,
+)
+
+DEFAULT_OUT = Path(__file__).resolve().parents[2] / "data" / "generated" / "ne-contrastive.jsonl"
+DEFAULT_ID_PREFIX = "ne-ct"
+GENERATOR = "deterministic:contrastive"
+
+
+@dataclass(frozen=True)
+class Boundary:
+    """One confusable boundary: messages for a single family at a time."""
+
+    name: str
+    family_id: str
+    messages: tuple[str, ...]
+
+
+BOUNDARIES: tuple[Boundary, ...] = (
+    Boundary(
+        "menu_vs_recommend",
+        "show_menu",
+        (
+            "मेनु देखाउनु",
+            "मेनु हेर्नु छ",
+            "के के छ त?",
+            "मेनु हेर्न मिल्छ?",
+            "के के पाइन्छ हजुर?",
+            "तपाईंहरूको मेनु चाहियो",
+            "मेनुको फोटो पठाउनु न",
+        ),
+    ),
+    Boundary(
+        "menu_vs_recommend",
+        "recommend",
+        (
+            "के राम्रो हुन्छ?",
+            "कुन राम्रो छ?",
+            "भेस्ट सेलर कुन हो?",
+            "तपाईंको सिफारिस के हो?",
+            "के खाने सुझाव दिनुहुन्छ?",
+            "सबैभन्दा मिठो कुन हो?",
+            "नयाँ आउँदै छ, के सुझाव दिनुहुन्छ?",
+        ),
+    ),
+    Boundary(
+        "hours_vs_delivery",
+        "ask_hours",
+        (
+            "कति बेला खुल्छ?",
+            "बिहान कति बजेदेखि शुरू हुन्छ?",
+            "अहिले खुलेको छ?",
+            "बन्द कति बेला हुन्छ?",
+            "आइतबार बन्द हुन्छ कि खुल्छ?",
+            "बेलुका कति सम्म खुला हुन्छ?",
+            "आज खुला छ नि?",
+        ),
+    ),
+    Boundary(
+        "hours_vs_delivery",
+        "ask_delivery",
+        (
+            "डेलिभरी कहाँ हुन्छ?",
+            "डेलिभरी चार्ज कति?",
+            "कति टाढासम्म पठाउनुहुन्छ?",
+            "डेलिभरी कति समयमा आउँछ?",
+            "बाहिर पठाइदिनुहुन्छ?",
+            "जावलाखेल पुग्छ डेलिभरी?",
+            "डेलिभरी फ्री छ कि?",
+        ),
+    ),
+    Boundary(
+        "status_family",
+        "order_status",
+        (
+            "अर्डर कहाँ छ?",
+            "मेरो अर्डर कता सम्म पुग्यो?",
+            "अर्डर पठाइसक्नु भयो?",
+            "कति बेरमा आउँछ?",
+            "मेरो अर्डर नम्बर के हो?",
+            "ट्र्याक गर्न मिल्छ?",
+            "अर्डर बनेको छ कि?",
+        ),
+    ),
+    Boundary(
+        "status_family",
+        "refund",
+        (
+            "पैसा त फिर्ता गरिदिनु",
+            "रिफन्ड गर्नु पर्छ",
+            "रकम फिर्ता हुनुपर्छ",
+            "गलत बिल आएको छ, हेर्नु न",
+            "डबल कटेको पैसा फिर्ता गर्नु",
+        ),
+    ),
+    Boundary(
+        "status_family",
+        "refund_status",
+        (
+            "रिफन्ड कति दिनमा हुन्छ?",
+            "पैसा अझै आएको छैन",
+            "रिफन्ड प्रोसेस भयो कि?",
+            "फिर्ता कहिले हुन्छ नि?",
+            "रिफन्ड पेन्डिङ देखिन्छ किन?",
+            "पैसा फिर्ता भएको छ कि छैन?",
+        ),
+    ),
+    Boundary(
+        "status_family",
+        "late_delivery",
+        (
+            "ढिलो आयो नि अर्डर",
+            "कति ढिलो भयो त",
+            "समयमा आएन नि",
+            "अर्डर आउन धेरै ढिलो भयो",
+            "एक घण्टा भयो अझै आएको छैन",
+        ),
+    ),
+    Boundary(
+        "status_family",
+        "complaint",
+        (
+            "खाना चिसो भएर आयो",
+            "गलत परेको छ अर्डर",
+            "मःम पोलेको छ",
+            "झोल बगेको छ",
+            "पराठा काँचो छ नि",
+        ),
+    ),
+    Boundary(
+        "cart_mutations",
+        "view_cart",
+        (
+            "कार्ट देखाउनु",
+            "मेरो कार्टमा के छ?",
+            "कार्ट खोल्नु न",
+            "के के राखेको छु?",
+            "अहिलेको अर्डर हेर्नु",
+        ),
+    ),
+    Boundary(
+        "cart_mutations",
+        "request_checkout",
+        (
+            "अर्डर गरिदिनु",
+            "अहिले अर्डर गर्नु",
+            "कन्फर्म गरिदिनु",
+            "चेकआउट गर्नु",
+            "बिल गरिदिनु",
+            "अर्डर पक्का गर्नु",
+        ),
+    ),
+    Boundary(
+        "cart_mutations",
+        "repeat_order",
+        (
+            "अघिको जस्तै अर्डर गर्नु",
+            "फेरि त्यही पठाउनु",
+            "पहिलेको अर्डर दोहोर्याउनु",
+            "यही अर्डर फेरि गर्नु",
+            "हिजोको अर्डर फेरि",
+        ),
+    ),
+    Boundary(
+        "cart_mutations",
+        "use_saved_address",
+        (
+            "घरको ठेगाना प्रयोग गर्नु",
+            "सेव गरेको ठेगानामा पठाउनु",
+            "पुरानै ठेगानामा पठाउनु",
+            "घरको ठेगाना नै ठीक छ",
+        ),
+    ),
+    Boundary(
+        "social_vs_none",
+        "greet",
+        (
+            "नमस्ते दाजु",
+            "नमस्कार हजुर है",
+            "हेलो दाइ",
+            "दाइ नमस्ते",
+            "शुभ बिहानी",
+            "नमस्ते नि दाइ",
+        ),
+    ),
+    Boundary(
+        "social_vs_none",
+        "thanks",
+        (
+            "धन्यवाद हजुर",
+            "धन्यवाद दाइ",
+            "एकदमै धन्यवाद",
+            "सहयोगको लागि धन्यवाद",
+        ),
+    ),
+    Boundary(
+        "social_vs_none",
+        "goodbye",
+        (
+            "बिदा दाइ",
+            "अनि भेटौंला",
+            "ठीक छ, बिदा",
+            "ल त जाउँ है",
+        ),
+    ),
+    Boundary(
+        "social_vs_none",
+        "yes_no",
+        (
+            "हुन्छ हुन्छ",
+            "हो नि",
+            "ठीक छ",
+            "होइन",
+            "पर्दैन हजुर",
+            "ठीक छ दाइ",
+        ),
+    ),
+    Boundary(
+        "social_vs_none",
+        "gibberish",
+        (
+            "ख्ख्ख्ख",
+            "हाहाहा",
+            "नननन",
+            "ज्ज्ज",
+        ),
+    ),
+    Boundary(
+        "human_vs_availability",
+        "human",
+        (
+            "स्टाफ छ कि?",
+            "कर्मचारी हुनुहुन्छ?",
+            "साहुजी हुनुहुन्छ कि?",
+            "म्यानेजर छ कि नाई?",
+            "म्यानेजरलाई बोलाउनु",
+        ),
+    ),
+    Boundary(
+        "unclear_vs_discovery",
+        "unclear",
+        (
+            "त्यो के रैछ?",
+            "कता गयो त?",
+            "को हौ है?",
+            "के भन्न खोज्नु भएको?",
+            "होइन कि नाई?",
+            "अनि भने नि?",
+            "यो किन?",
+        ),
+    ),
+    Boundary(
+        "unclear_vs_discovery",
+        "show_menu",
+        (
+            "तपाईंहरुको मेनु छ?",
+        ),
+    ),
+    Boundary(
+        "unclear_vs_discovery",
+        "ask_delivery",
+        (
+            "कता पुग्छ डेलिभरी?",
+        ),
+    ),
+    Boundary(
+        "bare_order_vs_checkout",
+        "bare_order",
+        (
+            "मोमो",
+            "चिया",
+            "थाली प्लिज",
+            "एक मःम",
+            "पिज्जा मात्र",
+        ),
+    ),
+    Boundary(
+        "bare_order_vs_checkout",
+        "request_checkout",
+        (
+            "मोमो अर्डर गरिदिनु",
+            "चिया थपेर अर्डर गर्नु",
+            "थाली अर्डर गर्नु",
+            "पिज्जा कन्फर्म गर्नु",
+        ),
+    ),
+)
+
+ITEM_WORDS = ("मःम", "थाली", "चिया", "पिज्जा", "कोल्ड ड्रिंक", "लस्सी")
+ITEM_PHRASES: dict[str, tuple[str, ...]] = {
+    "query_price": ("{} कति पर्छ?", "{} को दाम कति?"),
+    "query_availability": ("{} छ त?", "{} पाइन्छ?"),
+    "query_details": ("{} मा के हुन्छ?", "{} भित्र के छ?"),
+}
+
+
+def _item_boundaries() -> tuple[Boundary, ...]:
+    boundaries = []
+    for family_id, phrases in ITEM_PHRASES.items():
+        messages = tuple(phrase.format(item) for item in ITEM_WORDS for phrase in phrases)
+        boundaries.append(Boundary("item_query_triangle", family_id, messages))
+    return tuple(boundaries)
+
+
+def build_rows(
+    *,
+    boundaries: Sequence[Boundary] = BOUNDARIES + _item_boundaries(),
+    businesses: Sequence = TRAINING_BUSINESSES,
+    id_prefix: str = DEFAULT_ID_PREFIX,
+    seed: int = 0,
+) -> list[dict]:
+    rows: list[dict] = []
+    for boundary in boundaries:
+        family = FAMILY_BY_ID[boundary.family_id]
+        for index, message in enumerate(boundary.messages):
+            case_id = f"{id_prefix}-{len(rows) + 1:04d}"
+            business = businesses[(len(rows) + index) % len(businesses)]
+            task = GenerationTask(
+                id=case_id,
+                family=family,
+                language="ne",
+                business=business,
+                variant=0,
+                prompt=build_prompt(business, family, "ne"),
+            )
+            rng = random.Random(f"{case_id}:{seed}")
+            rows.append(build_case(task, message, rng, generator=GENERATOR).to_row())
+    return rows
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="build deterministic minimal-pair rows")
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--id-prefix", default=DEFAULT_ID_PREFIX)
+    parser.add_argument("--boundaries", default="", help="comma-separated boundary names (default: all)")
+    parser.add_argument("--seed", type=int, default=0)
+    args = parser.parse_args(argv)
+
+    all_boundaries = BOUNDARIES + _item_boundaries()
+    selected = all_boundaries
+    if args.boundaries:
+        wanted = {name.strip() for name in args.boundaries.split(",") if name.strip()}
+        selected = tuple(boundary for boundary in all_boundaries if boundary.name in wanted)
+        missing = wanted - {boundary.name for boundary in selected}
+        if missing:
+            parser.error(f"unknown boundaries: {', '.join(sorted(missing))}")
+
+    rows = build_rows(boundaries=selected, id_prefix=args.id_prefix, seed=args.seed)
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.out.write_text(
+        "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8"
+    )
+    counts: dict[str, int] = {}
+    for boundary in selected:
+        counts[boundary.name] = counts.get(boundary.name, 0) + len(boundary.messages)
+    print(f"wrote {args.out} | {len(rows)} rows")
+    for name, count in counts.items():
+        print(f"  {name:24} {count}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
