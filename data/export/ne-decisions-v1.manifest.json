@@ -4,13 +4,13 @@
   "calibration_share": 0.1,
   "splits": {
     "train": 5499,
-    "calibration": 600
+    "calibration": 598
   },
   "review_modes": {
-    "human": 4808,
+    "human": 4806,
     "judge-auto": 1291
   },
   "sources": {
-    "synthetic": 6099
+    "synthetic": 6097
   }
 }
