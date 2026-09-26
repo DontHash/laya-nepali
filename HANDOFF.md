@@ -1,10 +1,12 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-26 (morning). State: **dataset v1 complete** — 1,837 cases /
-9,185 decisions applied (694 human + 1,143 judge-auto; reviewer DontHash), splits
-train 1,667 / calibration 170, deterministic gate PASS, all 107 tests green.
-Review-sheet truncation bug fixed (`00344e2`); sheet reconstructed and re-applied.
-Benchmark v2 frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook.
+Last updated: 2026-09-26 (P2). State: **dataset v1 final** (1,837 cases / 9,185
+decisions; train 1,667 / calibration 170; gate PASS) and the **P2 scaling
+experiment is done** on Kaggle 2xT4: full tier is the pick at 224/272 (82.4%),
+abstain 82/92, ECE 0.0710 (see `reports/p2-scaling.md`). Remaining gate: **zero
+safety false commands (currently 10)**. Next: calibrate the abstain threshold on
+the calibration split and/or oversample safety rows, then the final run and
+publication (P3).
 
 ## Commit map (main)
 
@@ -40,6 +42,7 @@ Benchmark v2 frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook.
 | `5f47f55` | Handoff: dataset v1 reviewed and exported |
 | `00344e2` | Fix: filtered `review run` queue no longer truncates the saved sheet |
 | `e6b9e76` | Final two human rows applied; export 1,837 cases / 9,185 decisions |
+| `1242cc3` | Notebook: step-level category map fix + optional HF publish (first Kaggle runs) |
 
 ## Verified
 
@@ -71,6 +74,11 @@ Benchmark v2 frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook.
   benchmark collision rejected). With batch 1 that is **1,786 cases /
   ~8,930 decisions**. Model mix: 3.5-flash-lite 671, 3.1-flash-lite 461,
   3.6-flash 4, vertex:2.5-flash-lite 702 (`ne-v2-` + `ne-v3-`).
+- **P2 scaling** (`reports/p2-scaling.md`, raw logs in `reports/p2-logs/`):
+  benchmark v2 accuracy scales with data - base 113/272, 400 -> 170, 900 -> 198,
+  full 1,667 -> **224/272 (82.4%)**; abstain 82/92; ECE 0.0710 <= 0.10; safety
+  false commands 19 -> 15 -> 12 -> 10 (gate wants zero). `view_cart` is the
+  weakest kind (6/12, 6 false positives).
 - `.env` is gitignored (it holds the Gemini keys); `.env.example` is tracked.
 
 ## Batch-2 run: quota incident and resume mechanics (2026-09-25)
@@ -155,12 +163,13 @@ Benchmark v2 frozen at 113/272. Next: P2 fine-tune on the Kaggle notebook.
    applied and exported (train 1,667 / calibration 170; gate PASS). No rows
    pending in the sheet. The Kaggle notebook consumes `data/export` plus
    `data/benchmark/ne-bench-deva-v2.json` and `ne-probe-v1.json`.
-3. **P2**: `notebooks/laya_finetune_nepali_2xT4_kaggle.ipynb` is ready (loads the
-   `multilingual` subfolder, trains with RLCD, fits temperatures on the
-   calibration split, evaluates on `ne-bench-deva-v2`); run the scaling
-   experiment at 400 / 900 / 1,800 cases via `TRAIN_LIMIT`, pick the tier, then
-   the final fine-tune; gates: beat 113/272 on v2, abstain target, zero safety
-   false commands, ECE <= 0.10.
+3. **P2 scaling is done** (Kaggle 2xT4): 400 -> 170/272, 900 -> 198/272, full
+   1,667 -> **224/272 (82.4%)**, abstain 82/92, ECE 0.0710. The full tier is the
+   pick; one gate remains: **zero safety false commands (currently 10)**. Levers
+   in order: (a) fit the abstain threshold on the calibration split under a
+   zero-safety-false-command constraint, (b) oversample the 306 safety cases in
+   training, (c) generate a targeted safety batch on Vertex and retrain. Then
+   P3 (publish dataset + checkpoint) and P4 (upstream PRs).
 4. **Stage 2 (cross-domain)**: e-commerce (Kshitiz), banking (NepGlish after
    transliteration), delivery (Titung); own question schemas; cross-domain
    benchmark `ne-bench-cross-v1`; publish as `laya-nepali-v1`.
