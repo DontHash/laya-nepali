@@ -1,0 +1,280 @@
+[{"stream_name":"stderr","time":11.318981756,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.319045307,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.319049914,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.319052524,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":12.082807503,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":12.082849653,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":12.082855981,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":12.082860371,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":13.470361388,"data":"Sun Sep 27 05:37:46 2026       \r\n"}
+,{"stream_name":"stdout","time":13.4704205,"data":"+-----------------------------------------------------------------------------------------+\r\n"}
+,{"stream_name":"stdout","time":13.470424706,"data":"| NVIDIA-SMI 580.159.04             Driver Version: 580.159.04     CUDA Version: 13.0     |\r\n"}
+,{"stream_name":"stdout","time":13.470427425,"data":"+-----------------------------------------+------------------------+----------------------+\r\n"}
+,{"stream_name":"stdout","time":13.470430026,"data":"| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\r\n"}
+,{"stream_name":"stdout","time":13.470432758,"data":"| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\r\n"}
+,{"stream_name":"stdout","time":13.470435396,"data":"|                                         |                        |               MIG M. |\r\n"}
+,{"stream_name":"stdout","time":13.470438135,"data":"|=========================================+========================+======================|\r\n"}
+,{"stream_name":"stdout","time":13.52083207,"data":"|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |\r\n"}
+,{"stream_name":"stdout","time":13.520858347,"data":"| N/A   37C    P8              9W /   70W |       0MiB /  15360MiB |      0%      Default |\r\n"}
+,{"stream_name":"stdout","time":13.520867765,"data":"|                                         |                        |                  N/A |\r\n"}
+,{"stream_name":"stdout","time":13.520871897,"data":"+-----------------------------------------+------------------------+----------------------+\r\n"}
+,{"stream_name":"stdout","time":13.520876482,"data":"|   1  Tesla T4                       Off |   00000000:00:05.0 Off |                    0 |\r\n"}
+,{"stream_name":"stdout","time":13.520880502,"data":"| N/A   39C    P8              9W /   70W |       0MiB /  15360MiB |      0%      Default |\r\n"}
+,{"stream_name":"stdout","time":13.52088548,"data":"|                                         |                        |                  N/A |\r\n"}
+,{"stream_name":"stdout","time":13.520889423,"data":"+-----------------------------------------+------------------------+----------------------+\r\n"}
+,{"stream_name":"stdout","time":13.520893334,"data":"\r\n"}
+,{"stream_name":"stdout","time":13.52093669,"data":"+-----------------------------------------------------------------------------------------+\r\n"}
+,{"stream_name":"stdout","time":13.520941863000001,"data":"| Processes:                                                                              |\r\n"}
+,{"stream_name":"stdout","time":13.520959997,"data":"|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\r\n"}
+,{"stream_name":"stdout","time":13.520964875,"data":"|        ID   ID                                                               Usage      |\r\n"}
+,{"stream_name":"stdout","time":13.520969013,"data":"|=========================================================================================|\r\n"}
+,{"stream_name":"stdout","time":13.520973202,"data":"|  No running processes found                                                             |\r\n"}
+,{"stream_name":"stdout","time":13.520977304,"data":"+-----------------------------------------------------------------------------------------+\r\n"}
+,{"stream_name":"stdout","time":23.518962659,"data":"CUDA available: True | visible GPUs: 2\n"}
+,{"stream_name":"stdout","time":23.519001136,"data":"  GPU 0: Tesla T4 (15.6 GB)\n"}
+,{"stream_name":"stdout","time":23.519007656,"data":"  GPU 1: Tesla T4 (15.6 GB)\n"}
+,{"stream_name":"stdout","time":26.939868931,"data":"\u001b[?25l     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/58.6 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m58.6/58.6 kB\u001b[0m \u001b[31m1.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":28.559723982,"data":"\u001b[?25h\u001b[?25l     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/79.5 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m79.5/79.5 kB\u001b[0m \u001b[31m2.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":29.015829065,"data":"\u001b[?25h\u001b[?25l     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/62.4 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m62.4/62.4 kB\u001b[0m \u001b[31m2.9 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":29.219062805,"data":"\u001b[?25h\u001b[?25l     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/40.8 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m40.8/40.8 kB\u001b[0m \u001b[31m1.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":30.534922643,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/118.5 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[90m╺\u001b[0m\u001b[90m━\u001b[0m \u001b[32m112.6/118.5 kB\u001b[0m \u001b[31m148.1 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m118.5/118.5 kB\u001b[0m \u001b[31m1.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":30.738343123,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/12.3 MB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m1.7/12.3 MB\u001b[0m \u001b[31m58.1 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━\u001b[0m \u001b[32m9.1/12.3 MB\u001b[0m \u001b[31m136.0 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m12.3/12.3 MB\u001b[0m \u001b[31m205.8 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m12.3/12.3 MB\u001b[0m \u001b[31m205.8 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m12.3/12.3 MB\u001b[0m \u001b[31m76.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":30.788985006,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/559.1 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m553.0/559.1 kB\u001b[0m \u001b[31m244.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m559.1/559.1 kB\u001b[0m \u001b[31m15.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":30.839667947,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/516.0 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m512.0/516.0 kB\u001b[0m \u001b[31m281.3 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m516.0/516.0 kB\u001b[0m \u001b[31m11.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":30.891382231,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/846.4 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m839.7/846.4 kB\u001b[0m \u001b[31m281.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m846.4/846.4 kB\u001b[0m \u001b[31m14.1 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":31.452529938,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/50.1 MB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m7.0/50.1 MB\u001b[0m \u001b[31m212.2 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━\u001b[0m\u001b[90m╺\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m14.1/50.1 MB\u001b[0m \u001b[31m208.2 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m21.2/50.1 MB\u001b[0m \u001b[31m209.8 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m28.8/50.1 MB\u001b[0m \u001b[31m210.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━━\u001b[0m \u001b[32m35.9/50.1 MB\u001b[0m \u001b[31m209.5 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━\u001b[0m \u001b[32m43.3/50.1 MB\u001b[0m \u001b[31m211.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m49.5/50.1 MB\u001b[0m \u001b[31m189.4 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m50.1/50.1 MB\u001b[0m \u001b[31m180.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m50.1/50.1 MB\u001b[0m \u001b[31m180.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m50.1/50.1 MB\u001b[0m \u001b[31m180.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m50.1/50.1 MB\u001b[0m \u001b[31m180.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m50.1/50.1 MB\u001b[0m \u001b[31m180.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m50.1/50.1 MB\u001b[0m \u001b[31m180.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m50.1/50.1 MB\u001b[0m \u001b[31m180.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m50.1/50.1 MB\u001b[0m \u001b[31m32.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":31.554504255,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/10.8 MB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[90m╺\u001b[0m\u001b[90m━━━━━━━━━━━━━━\u001b[0m \u001b[32m6.9/10.8 MB\u001b[0m \u001b[31m207.3 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m10.8/10.8 MB\u001b[0m \u001b[31m211.1 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m10.8/10.8 MB\u001b[0m \u001b[31m211.1 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m10.8/10.8 MB\u001b[0m \u001b[31m96.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":31.860310818,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/35.3 MB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m8.5/35.3 MB\u001b[0m \u001b[31m256.4 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[90m╺\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m17.2/35.3 MB\u001b[0m \u001b[31m247.8 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[90m╺\u001b[0m\u001b[90m━━━━━━━━━━\u001b[0m \u001b[32m25.8/35.3 MB\u001b[0m \u001b[31m246.8 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[90m╺\u001b[0m \u001b[32m34.5/35.3 MB\u001b[0m \u001b[31m249.4 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m35.3/35.3 MB\u001b[0m \u001b[31m243.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m35.3/35.3 MB\u001b[0m \u001b[31m243.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m35.3/35.3 MB\u001b[0m \u001b[31m243.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m35.3/35.3 MB\u001b[0m \u001b[31m243.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m35.3/35.3 MB\u001b[0m \u001b[31m57.0 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":31.910766885,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/394.3 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m394.3/394.3 kB\u001b[0m \u001b[31m14.7 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":31.96209308,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/125.3 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m125.3/125.3 kB\u001b[0m \u001b[31m5.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":32.012933844,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/4.5 MB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m4.5/4.5 MB\u001b[0m \u001b[31m235.8 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m4.5/4.5 MB\u001b[0m \u001b[31m95.4 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":32.114638965,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/3.4 MB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m3.4/3.4 MB\u001b[0m \u001b[31m246.2 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m3.4/3.4 MB\u001b[0m \u001b[31m63.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":75.923135079,"data":"\u001b[?25h\u001b[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\r\n"}
+,{"stream_name":"stdout","time":75.923169514,"data":"bigframes 2.39.0 requires google-cloud-bigquery-storage\u003c3.0.0,\u003e=2.30.0, which is not installed.\r\n"}
+,{"stream_name":"stdout","time":75.923175993,"data":"google-adk 1.29.0 requires google-cloud-bigquery-storage\u003e=2.0.0, which is not installed.\r\n"}
+,{"stream_name":"stdout","time":75.923181073,"data":"ydata-profiling 4.18.4 requires pandas!=1.4.0,\u003c3.0,\u003e1.5, but you have pandas 3.0.6 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.923194553,"data":"ydata-profiling 4.18.4 requires scipy\u003c1.17,\u003e=1.8, but you have scipy 1.18.1 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.923198487,"data":"google-colab 1.0.0 requires jupyter-server==2.14.0, but you have jupyter-server 2.12.5 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.923202296,"data":"google-colab 1.0.0 requires pandas==2.2.2, but you have pandas 3.0.6 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.923209986,"data":"dopamine-rl 4.1.2 requires gym\u003c=0.25.2, but you have gym 0.26.2 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.923212677,"data":"bqplot 0.12.45 requires pandas\u003c3.0.0,\u003e=1.0.0, but you have pandas 3.0.6 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.923215259,"data":"cudf-cu12 26.2.1 requires pandas\u003c2.4.0,\u003e=2.0, but you have pandas 3.0.6 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.923217816,"data":"dask-cudf-cu12 26.2.1 requires pandas\u003c2.4.0,\u003e=2.0, but you have pandas 3.0.6 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.923220329,"data":"db-dtypes 1.5.1 requires pandas\u003c3.0.0,\u003e=1.5.3, but you have pandas 3.0.6 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":75.92322294,"data":"gradio 5.50.0 requires pandas\u003c3.0,\u003e=1.0, but you have pandas 3.0.6 which is incompatible.\u001b[0m\u001b[31m\r\n"}
+,{"stream_name":"stdout","time":98.084925125,"data":"\u001b[0mlaya 0.3.20 | transformers 5.17.0 | torch 2.10.0+cu128\n"}
+,{"stream_name":"stdout","time":107.22529328,"data":"DATA_DIR: /kaggle/input/datasets/bhishmbhandari/laya-nepali-v1\n"}
+,{"stream_name":"stderr","time":107.418499276,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":107.418524384,"data":"\n"}
+,{"stream_name":"stderr","time":107.41853035,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":125.560011804,"data":"snapshot: /root/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851\n"}
+,{"stream_name":"stdout","time":125.560053096,"data":"config  : {'max_len': 1024, 'head_max_len': 256, 'temperature': [1.0, 1.0, 1.0], 'model_name': 'rl-agent'}\n"}
+,{"stream_name":"stdout","time":126.562124069,"data":"train rows 5585 | calibration rows 612\n"}
+,{"stream_name":"stdout","time":152.710970969,"data":"train items 27925 | calibration items 3060\n"}
+,{"stream_name":"stdout","time":155.784277837,"data":"Writing /kaggle/working/train_ddp.py\n"}
+,{"stream_name":"stdout","time":155.91158857,"data":"executing: torchrun --standalone --nproc_per_node=2 /kaggle/working/train_ddp.py /root/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851/multilingual /kaggle/working/laya_nepali\n"}
+,{"stream_name":"stdout","time":157.843028122,"data":"W0927 05:40:11.046000 144 torch/distributed/run.py:852] \r\n"}
+,{"stream_name":"stdout","time":157.843057118,"data":"W0927 05:40:11.046000 144 torch/distributed/run.py:852] *****************************************\r\n"}
+,{"stream_name":"stdout","time":157.843064178,"data":"W0927 05:40:11.046000 144 torch/distributed/run.py:852] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. \r\n"}
+,{"stream_name":"stdout","time":157.843070597,"data":"W0927 05:40:11.046000 144 torch/distributed/run.py:852] *****************************************\r\n"}
+,{"stream_name":"stdout","time":158.04665656,"data":"[W927 05:40:11.968064681 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\r\n"}
+,{"stream_name":"stdout","time":166.21351577,"data":"[W927 05:40:19.114624368 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\r\n"}
+,{"stream_name":"stdout","time":166.315321725,"data":"[W927 05:40:19.203404560 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\r\n"}
+,{"stream_name":"stdout","time":181.883340589,"data":"train items 27925 | calibration 3060 | per rank 13963\r\n"}
+,{"stream_name":"stdout","time":183.657563089,"data":"[rank1]:[W927 05:40:36.567328232 reducer.cpp:1500] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())\r\n"}
+,{"stream_name":"stdout","time":183.65760895,"data":"[rank0]:[W927 05:40:36.567328211 reducer.cpp:1500] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())\r\n"}
+,{"stream_name":"stdout","time":186.856977452,"data":"/kaggle/working/train_ddp.py:166: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate\r\n"}
+,{"stream_name":"stdout","time":186.857010768,"data":"  scheduler.step()\r\n"}
+,{"stream_name":"stdout","time":186.857017049,"data":"/kaggle/working/train_ddp.py:166: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate\r\n"}
+,{"stream_name":"stdout","time":186.857022842,"data":"  scheduler.step()\r\n"}
+,{"stream_name":"stdout","time":218.70442134,"data":"  epoch 1/4 step 50 loss 0.6295 reward -0.121\r\n"}
+,{"stream_name":"stdout","time":253.463745072,"data":"  epoch 1/4 step 100 loss 0.3760 reward -0.763\r\n"}
+,{"stream_name":"stdout","time":288.84235528,"data":"  epoch 1/4 step 150 loss 0.7589 reward -0.321\r\n"}
+,{"stream_name":"stdout","time":325.112429581,"data":"  epoch 1/4 step 200 loss 0.1819 reward 0.259\r\n"}
+,{"stream_name":"stdout","time":362.009445133,"data":"  epoch 1/4 step 250 loss 0.6095 reward -0.088\r\n"}
+,{"stream_name":"stdout","time":398.290754023,"data":"  epoch 1/4 step 300 loss 0.1762 reward 0.187\r\n"}
+,{"stream_name":"stdout","time":435.02768179,"data":"  epoch 1/4 step 350 loss 0.4935 reward -0.016\r\n"}
+,{"stream_name":"stdout","time":471.175012412,"data":"  epoch 1/4 step 400 loss 0.2259 reward 0.363\r\n"}
+,{"stream_name":"stdout","time":507.741297138,"data":"  epoch 1/4 step 450 loss 0.5668 reward -0.518\r\n"}
+,{"stream_name":"stdout","time":544.485086743,"data":"  epoch 1/4 step 500 loss -0.0947 reward 0.288\r\n"}
+,{"stream_name":"stdout","time":580.718604997,"data":"  epoch 1/4 step 550 loss -0.4756 reward 0.279\r\n"}
+,{"stream_name":"stdout","time":617.102357548,"data":"  epoch 1/4 step 600 loss 0.1567 reward 0.322\r\n"}
+,{"stream_name":"stdout","time":653.343354914,"data":"  epoch 1/4 step 650 loss 0.3462 reward 0.250\r\n"}
+,{"stream_name":"stdout","time":690.181619293,"data":"  epoch 1/4 step 700 loss 0.2196 reward 0.329\r\n"}
+,{"stream_name":"stdout","time":726.114503511,"data":"  epoch 1/4 step 750 loss 0.4228 reward 0.184\r\n"}
+,{"stream_name":"stdout","time":763.129364321,"data":"  epoch 1/4 step 800 loss -0.1314 reward 0.436\r\n"}
+,{"stream_name":"stdout","time":799.36335072,"data":"  epoch 1/4 step 850 loss 2.6354 reward -0.139\r\n"}
+,{"stream_name":"stdout","time":836.006862668,"data":"  epoch 1/4 step 900 loss 0.1431 reward -0.121\r\n"}
+,{"stream_name":"stdout","time":872.488328695,"data":"  epoch 1/4 step 950 loss 0.3676 reward 0.157\r\n"}
+,{"stream_name":"stdout","time":909.285684692,"data":"  epoch 1/4 step 1000 loss 0.0878 reward 0.328\r\n"}
+,{"stream_name":"stdout","time":945.006501243,"data":"  epoch 1/4 step 1050 loss 0.2354 reward 0.205\r\n"}
+,{"stream_name":"stdout","time":981.441849204,"data":"  epoch 1/4 step 1100 loss 0.0225 reward 0.349\r\n"}
+,{"stream_name":"stdout","time":1018.071104507,"data":"  epoch 1/4 step 1150 loss 0.3572 reward 0.421\r\n"}
+,{"stream_name":"stdout","time":1054.537700962,"data":"  epoch 1/4 step 1200 loss 0.1134 reward 0.414\r\n"}
+,{"stream_name":"stdout","time":1091.240647028,"data":"  epoch 1/4 step 1250 loss 0.3019 reward 0.135\r\n"}
+,{"stream_name":"stdout","time":1127.769146729,"data":"  epoch 1/4 step 1300 loss 0.0405 reward -0.075\r\n"}
+,{"stream_name":"stdout","time":1164.561754961,"data":"  epoch 1/4 step 1350 loss 0.1976 reward 0.363\r\n"}
+,{"stream_name":"stdout","time":1201.094525117,"data":"  epoch 1/4 step 1400 loss 0.6739 reward 0.392\r\n"}
+,{"stream_name":"stdout","time":1237.579779767,"data":"  epoch 1/4 step 1450 loss 0.0918 reward 0.377\r\n"}
+,{"stream_name":"stdout","time":1273.806559649,"data":"  epoch 1/4 step 1500 loss -0.7369 reward 0.393\r\n"}
+,{"stream_name":"stdout","time":1310.344063979,"data":"  epoch 1/4 step 1550 loss 0.2578 reward 0.301\r\n"}
+,{"stream_name":"stdout","time":1346.521172076,"data":"  epoch 1/4 step 1600 loss 1.4282 reward 0.140\r\n"}
+,{"stream_name":"stdout","time":1382.754464447,"data":"  epoch 1/4 step 1650 loss 0.7392 reward -0.001\r\n"}
+,{"stream_name":"stdout","time":1419.43527698,"data":"  epoch 1/4 step 1700 loss 0.2708 reward 0.353\r\n"}
+,{"stream_name":"stdout","time":1452.683514954,"data":"=== epoch 1/4 done in 1270.8s | avg loss 0.2496 ===\r\n"}
+,{"stream_name":"stdout","time":1452.683575614,"data":"/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.\r\n"}
+,{"stream_name":"stdout","time":1452.683596747,"data":"  return func(*args, **kwargs)\r\n"}
+,{"stream_name":"stdout","time":1454.131504196,"data":"  saved rolling checkpoint (epoch 1)\r\n"}
+,{"stream_name":"stdout","time":1490.736697646,"data":"  epoch 2/4 step 50 loss 0.0704 reward 0.360\r\n"}
+,{"stream_name":"stdout","time":1527.126740935,"data":"  epoch 2/4 step 100 loss 0.4272 reward 0.430\r\n"}
+,{"stream_name":"stdout","time":1563.968783992,"data":"  epoch 2/4 step 150 loss -0.0397 reward 0.303\r\n"}
+,{"stream_name":"stdout","time":1600.383653355,"data":"  epoch 2/4 step 200 loss 0.2715 reward 0.401\r\n"}
+,{"stream_name":"stdout","time":1636.771462395,"data":"  epoch 2/4 step 250 loss -0.3158 reward 0.444\r\n"}
+,{"stream_name":"stdout","time":1673.057687477,"data":"  epoch 2/4 step 300 loss 0.1715 reward 0.413\r\n"}
+,{"stream_name":"stdout","time":1709.684612975,"data":"  epoch 2/4 step 350 loss -0.4730 reward 0.345\r\n"}
+,{"stream_name":"stdout","time":1746.371877623,"data":"  epoch 2/4 step 400 loss 0.4423 reward 0.325\r\n"}
+,{"stream_name":"stdout","time":1782.497004649,"data":"  epoch 2/4 step 450 loss 0.2052 reward 0.349\r\n"}
+,{"stream_name":"stdout","time":1819.391329357,"data":"  epoch 2/4 step 500 loss 0.5314 reward -0.048\r\n"}
+,{"stream_name":"stdout","time":1855.875407602,"data":"  epoch 2/4 step 550 loss 0.2040 reward 0.337\r\n"}
+,{"stream_name":"stdout","time":1892.857134938,"data":"  epoch 2/4 step 600 loss 0.5790 reward 0.399\r\n"}
+,{"stream_name":"stdout","time":1929.074599026,"data":"  epoch 2/4 step 650 loss -0.1993 reward 0.400\r\n"}
+,{"stream_name":"stdout","time":1966.049793708,"data":"  epoch 2/4 step 700 loss -1.5845 reward 0.408\r\n"}
+,{"stream_name":"stdout","time":2002.018599831,"data":"  epoch 2/4 step 750 loss 0.3287 reward 0.326\r\n"}
+,{"stream_name":"stdout","time":2038.792944889,"data":"  epoch 2/4 step 800 loss 0.1491 reward 0.390\r\n"}
+,{"stream_name":"stdout","time":2074.922479796,"data":"  epoch 2/4 step 850 loss 0.2187 reward 0.424\r\n"}
+,{"stream_name":"stdout","time":2111.416440152,"data":"  epoch 2/4 step 900 loss 0.2359 reward 0.409\r\n"}
+,{"stream_name":"stdout","time":2147.993058962,"data":"  epoch 2/4 step 950 loss -0.7711 reward 0.396\r\n"}
+,{"stream_name":"stdout","time":2183.820294525,"data":"  epoch 2/4 step 1000 loss 0.3495 reward 0.344\r\n"}
+,{"stream_name":"stdout","time":2220.095665828,"data":"  epoch 2/4 step 1050 loss 0.1800 reward 0.347\r\n"}
+,{"stream_name":"stdout","time":2256.4300786,"data":"  epoch 2/4 step 1100 loss -0.2788 reward 0.366\r\n"}
+,{"stream_name":"stdout","time":2292.962005305,"data":"  epoch 2/4 step 1150 loss 0.4369 reward 0.318\r\n"}
+,{"stream_name":"stdout","time":2329.445186682,"data":"  epoch 2/4 step 1200 loss -2.2406 reward 0.395\r\n"}
+,{"stream_name":"stdout","time":2366.131981199,"data":"  epoch 2/4 step 1250 loss 0.0940 reward 0.432\r\n"}
+,{"stream_name":"stdout","time":2402.263736107,"data":"  epoch 2/4 step 1300 loss 0.4318 reward 0.330\r\n"}
+,{"stream_name":"stdout","time":2438.747881776,"data":"  epoch 2/4 step 1350 loss 0.1910 reward 0.367\r\n"}
+,{"stream_name":"stdout","time":2475.178011639,"data":"  epoch 2/4 step 1400 loss 0.0812 reward 0.312\r\n"}
+,{"stream_name":"stdout","time":2511.451712952,"data":"  epoch 2/4 step 1450 loss -0.0697 reward 0.446\r\n"}
+,{"stream_name":"stdout","time":2548.33960082,"data":"  epoch 2/4 step 1500 loss 0.1610 reward 0.295\r\n"}
+,{"stream_name":"stdout","time":2584.167681625,"data":"  epoch 2/4 step 1550 loss 0.4305 reward -0.452\r\n"}
+,{"stream_name":"stdout","time":2620.962906527,"data":"  epoch 2/4 step 1600 loss -0.1398 reward 0.414\r\n"}
+,{"stream_name":"stdout","time":2656.893875195,"data":"  epoch 2/4 step 1650 loss 0.0117 reward 0.388\r\n"}
+,{"stream_name":"stdout","time":2693.628919706,"data":"  epoch 2/4 step 1700 loss 0.3405 reward 0.057\r\n"}
+,{"stream_name":"stdout","time":2726.811078026,"data":"=== epoch 2/4 done in 2544.9s | avg loss 0.0298 ===\r\n"}
+,{"stream_name":"stdout","time":2728.822529194,"data":"  saved rolling checkpoint (epoch 2)\r\n"}
+,{"stream_name":"stdout","time":2765.673693401,"data":"  epoch 3/4 step 50 loss -0.2350 reward 0.371\r\n"}
+,{"stream_name":"stdout","time":2801.802207819,"data":"  epoch 3/4 step 100 loss 0.1297 reward 0.407\r\n"}
+,{"stream_name":"stdout","time":2838.539634563,"data":"  epoch 3/4 step 150 loss -0.0864 reward 0.376\r\n"}
+,{"stream_name":"stdout","time":2874.872267718,"data":"  epoch 3/4 step 200 loss 0.4199 reward 0.195\r\n"}
+,{"stream_name":"stdout","time":2910.951151517,"data":"  epoch 3/4 step 250 loss -0.0169 reward 0.371\r\n"}
+,{"stream_name":"stdout","time":2947.835337971,"data":"  epoch 3/4 step 300 loss 0.4361 reward 0.356\r\n"}
+,{"stream_name":"stdout","time":2984.257352506,"data":"  epoch 3/4 step 350 loss 0.0495 reward 0.362\r\n"}
+,{"stream_name":"stdout","time":3020.691848214,"data":"  epoch 3/4 step 400 loss 0.1164 reward 0.457\r\n"}
+,{"stream_name":"stdout","time":3057.169290815,"data":"  epoch 3/4 step 450 loss 0.6792 reward 0.320\r\n"}
+,{"stream_name":"stdout","time":3094.215735874,"data":"  epoch 3/4 step 500 loss 0.4705 reward -0.348\r\n"}
+,{"stream_name":"stdout","time":3130.227232621,"data":"  epoch 3/4 step 550 loss 0.2137 reward 0.321\r\n"}
+,{"stream_name":"stdout","time":3166.86673649,"data":"  epoch 3/4 step 600 loss -0.0647 reward 0.399\r\n"}
+,{"stream_name":"stdout","time":3203.137964874,"data":"  epoch 3/4 step 650 loss 0.1911 reward 0.423\r\n"}
+,{"stream_name":"stdout","time":3239.915619538,"data":"  epoch 3/4 step 700 loss 0.1638 reward 0.346\r\n"}
+,{"stream_name":"stdout","time":3276.093937361,"data":"  epoch 3/4 step 750 loss -0.2311 reward 0.349\r\n"}
+,{"stream_name":"stdout","time":3312.726991989,"data":"  epoch 3/4 step 800 loss 0.1898 reward 0.393\r\n"}
+,{"stream_name":"stdout","time":3349.368859106,"data":"  epoch 3/4 step 850 loss -0.1861 reward 0.400\r\n"}
+,{"stream_name":"stdout","time":3385.567433269,"data":"  epoch 3/4 step 900 loss -0.2831 reward 0.374\r\n"}
+,{"stream_name":"stdout","time":3422.40227026,"data":"  epoch 3/4 step 950 loss -1.0057 reward 0.432\r\n"}
+,{"stream_name":"stdout","time":3458.585177177,"data":"  epoch 3/4 step 1000 loss -0.1860 reward 0.446\r\n"}
+,{"stream_name":"stdout","time":3495.267923764,"data":"  epoch 3/4 step 1050 loss -0.5686 reward 0.409\r\n"}
+,{"stream_name":"stdout","time":3531.702442878,"data":"  epoch 3/4 step 1100 loss 0.3163 reward 0.407\r\n"}
+,{"stream_name":"stdout","time":3568.187005945,"data":"  epoch 3/4 step 1150 loss -0.0795 reward 0.396\r\n"}
+,{"stream_name":"stdout","time":3604.75885014,"data":"  epoch 3/4 step 1200 loss 0.0256 reward 0.318\r\n"}
+,{"stream_name":"stdout","time":3641.484508208,"data":"  epoch 3/4 step 1250 loss -0.2469 reward 0.337\r\n"}
+,{"stream_name":"stdout","time":3677.65700952,"data":"  epoch 3/4 step 1300 loss 0.1959 reward 0.403\r\n"}
+,{"stream_name":"stdout","time":3713.849082219,"data":"  epoch 3/4 step 1350 loss -0.4981 reward 0.424\r\n"}
+,{"stream_name":"stdout","time":3750.62499296,"data":"  epoch 3/4 step 1400 loss -0.4158 reward 0.390\r\n"}
+,{"stream_name":"stdout","time":3786.741152399,"data":"  epoch 3/4 step 1450 loss 0.0075 reward 0.444\r\n"}
+,{"stream_name":"stdout","time":3823.271647632,"data":"  epoch 3/4 step 1500 loss -0.4351 reward 0.393\r\n"}
+,{"stream_name":"stdout","time":3859.901786192,"data":"  epoch 3/4 step 1550 loss 0.1434 reward 0.416\r\n"}
+,{"stream_name":"stdout","time":3896.785446311,"data":"  epoch 3/4 step 1600 loss 0.2938 reward 0.404\r\n"}
+,{"stream_name":"stdout","time":3932.82178339,"data":"  epoch 3/4 step 1650 loss 0.3274 reward 0.304\r\n"}
+,{"stream_name":"stdout","time":3969.761680074,"data":"  epoch 3/4 step 1700 loss 0.3388 reward 0.338\r\n"}
+,{"stream_name":"stdout","time":4002.970668328,"data":"=== epoch 3/4 done in 3821.1s | avg loss 0.0156 ===\r\n"}
+,{"stream_name":"stdout","time":4004.728998046,"data":"  saved rolling checkpoint (epoch 3)\r\n"}
+,{"stream_name":"stdout","time":4041.339695326,"data":"  epoch 4/4 step 50 loss -0.1585 reward 0.151\r\n"}
+,{"stream_name":"stdout","time":4078.279157845,"data":"  epoch 4/4 step 100 loss 0.7486 reward 0.417\r\n"}
+,{"stream_name":"stdout","time":4114.610687444,"data":"  epoch 4/4 step 150 loss 0.6355 reward 0.389\r\n"}
+,{"stream_name":"stdout","time":4150.890378552,"data":"  epoch 4/4 step 200 loss -0.1261 reward 0.401\r\n"}
+,{"stream_name":"stdout","time":4187.034531094,"data":"  epoch 4/4 step 250 loss 0.3025 reward 0.434\r\n"}
+,{"stream_name":"stdout","time":4223.525261962,"data":"  epoch 4/4 step 300 loss -0.2224 reward 0.366\r\n"}
+,{"stream_name":"stdout","time":4259.815446571,"data":"  epoch 4/4 step 350 loss 0.3396 reward 0.434\r\n"}
+,{"stream_name":"stdout","time":4296.747913947,"data":"  epoch 4/4 step 400 loss 0.2300 reward 0.441\r\n"}
+,{"stream_name":"stdout","time":4332.886598618,"data":"  epoch 4/4 step 450 loss 0.0631 reward 0.375\r\n"}
+,{"stream_name":"stdout","time":4369.792743476,"data":"  epoch 4/4 step 500 loss -0.0788 reward 0.327\r\n"}
+,{"stream_name":"stdout","time":4405.927989148,"data":"  epoch 4/4 step 550 loss -0.4348 reward 0.386\r\n"}
+,{"stream_name":"stdout","time":4441.858685682,"data":"  epoch 4/4 step 600 loss 0.1124 reward 0.426\r\n"}
+,{"stream_name":"stdout","time":4478.44270436,"data":"  epoch 4/4 step 650 loss 0.4851 reward 0.376\r\n"}
+,{"stream_name":"stdout","time":4514.759282613,"data":"  epoch 4/4 step 700 loss 0.0612 reward 0.416\r\n"}
+,{"stream_name":"stdout","time":4551.277349234,"data":"  epoch 4/4 step 750 loss -0.1123 reward 0.412\r\n"}
+,{"stream_name":"stdout","time":4587.543975193,"data":"  epoch 4/4 step 800 loss -0.5583 reward 0.433\r\n"}
+,{"stream_name":"stdout","time":4624.032609375,"data":"  epoch 4/4 step 850 loss 0.2174 reward 0.447\r\n"}
+,{"stream_name":"stdout","time":4660.244953235,"data":"  epoch 4/4 step 900 loss 0.4165 reward 0.368\r\n"}
+,{"stream_name":"stdout","time":4696.764787783,"data":"  epoch 4/4 step 950 loss 0.4364 reward 0.424\r\n"}
+,{"stream_name":"stdout","time":4733.03405736,"data":"  epoch 4/4 step 1000 loss 0.2819 reward 0.324\r\n"}
+,{"stream_name":"stdout","time":4769.759971068,"data":"  epoch 4/4 step 1050 loss -0.5719 reward 0.399\r\n"}
+,{"stream_name":"stdout","time":4806.182136699,"data":"  epoch 4/4 step 1100 loss 0.0152 reward 0.418\r\n"}
+,{"stream_name":"stdout","time":4842.306695588,"data":"  epoch 4/4 step 1150 loss 0.5649 reward 0.383\r\n"}
+,{"stream_name":"stdout","time":4879.177203212,"data":"  epoch 4/4 step 1200 loss -0.7759 reward 0.430\r\n"}
+,{"stream_name":"stdout","time":4914.791302548,"data":"  epoch 4/4 step 1250 loss -0.0256 reward 0.416\r\n"}
+,{"stream_name":"stdout","time":4951.478952659,"data":"  epoch 4/4 step 1300 loss -0.1330 reward 0.410\r\n"}
+,{"stream_name":"stdout","time":4987.813989217,"data":"  epoch 4/4 step 1350 loss 0.7846 reward 0.376\r\n"}
+,{"stream_name":"stdout","time":5024.542055213,"data":"  epoch 4/4 step 1400 loss 0.1808 reward 0.338\r\n"}
+,{"stream_name":"stdout","time":5060.950349449,"data":"  epoch 4/4 step 1450 loss 0.4778 reward 0.357\r\n"}
+,{"stream_name":"stdout","time":5097.828370546,"data":"  epoch 4/4 step 1500 loss -0.9593 reward 0.406\r\n"}
+,{"stream_name":"stdout","time":5134.357686279,"data":"  epoch 4/4 step 1550 loss 0.4328 reward 0.326\r\n"}
+,{"stream_name":"stdout","time":5171.409718288,"data":"  epoch 4/4 step 1600 loss 0.6459 reward 0.053\r\n"}
+,{"stream_name":"stdout","time":5207.527492001,"data":"  epoch 4/4 step 1650 loss 0.4447 reward 0.354\r\n"}
+,{"stream_name":"stdout","time":5244.204392399,"data":"  epoch 4/4 step 1700 loss 0.3750 reward 0.392\r\n"}
+,{"stream_name":"stdout","time":5277.760375309,"data":"=== epoch 4/4 done in 5095.9s | avg loss 0.1174 ===\r\n"}
+,{"stream_name":"stdout","time":5279.514095388,"data":"  saved rolling checkpoint (epoch 4)\r\n"}
+,{"stream_name":"stdout","time":5279.514129101,"data":"\r\n"}
+,{"stream_name":"stdout","time":5279.514134322,"data":"fitting calibration temperatures on the held-out split...\r\n"}
+,{"stream_name":"stdout","time":5326.453916222,"data":"fitted temperatures (choice, score, noul): [1.129, 1.2, 1.052]\r\n"}
+,{"stream_name":"stdout","time":5326.595875891,"data":"rule grid: 110 zero-FP points of 110\r\n"}
+,{"stream_name":"stdout","time":5326.595927121,"data":"  tau 0.30 | best zero-FP p_none\u003c0.02 | kind hits 275/299\r\n"}
+,{"stream_name":"stdout","time":5326.595935558,"data":"  tau 0.40 | best zero-FP p_none\u003c0.02 | kind hits 275/299\r\n"}
+,{"stream_name":"stdout","time":5326.595942312,"data":"  tau 0.50 | best zero-FP p_none\u003c0.02 | kind hits 274/299\r\n"}
+,{"stream_name":"stdout","time":5326.595948608,"data":"  tau 0.60 | best zero-FP p_none\u003c0.02 | kind hits 274/299\r\n"}
+,{"stream_name":"stdout","time":5326.595954669,"data":"  tau 0.65 | best zero-FP p_none\u003c0.02 | kind hits 274/299\r\n"}
+,{"stream_name":"stdout","time":5326.595960505,"data":"  tau 0.70 | best zero-FP p_none\u003c0.02 | kind hits 271/299\r\n"}
+,{"stream_name":"stdout","time":5326.595965599,"data":"  tau 0.75 | best zero-FP p_none\u003c0.02 | kind hits 269/299\r\n"}
+,{"stream_name":"stdout","time":5326.595971669,"data":"  tau 0.80 | best zero-FP p_none\u003c0.02 | kind hits 267/299\r\n"}
+,{"stream_name":"stdout","time":5326.595977239,"data":"  tau 0.85 | best zero-FP p_none\u003c0.02 | kind hits 257/299\r\n"}
+,{"stream_name":"stdout","time":5326.595983022,"data":"  tau 0.90 | best zero-FP p_none\u003c0.02 | kind hits 101/299\r\n"}
+,{"stream_name":"stdout","time":5326.595989339,"data":"chosen rule: tau 0.4 p_none\u003c0.02 | safety fp 0 | kind hits 275/299\r\n"}
+,{"stream_name":"stdout","time":5327.811521223,"data":"model saved to /kaggle/working/laya_nepali\r\n"}
+,{"stream_name":"stdout","time":5335.749771439,"data":"abstain threshold: 0.4 | p_none max: 0.02\n"}
+,{"stream_name":"stdout","time":5347.399707972,"data":"benchmark v2: 253/272 (93.0%)\n"}
+,{"stream_name":"stdout","time":5347.399801695,"data":"abstain: 92/92 | safety false commands: 0\n"}
+,{"stream_name":"stdout","time":5347.39981053,"data":"latency p50 28.1 ms | p95 30.7 ms\n"}
+,{"stream_name":"stdout","time":5347.399815834,"data":"ECE (answered): 0.0699\n"}
+,{"stream_name":"stdout","time":5347.399820321,"data":"  abstain                       92/92  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399825016,"data":"  discovery.query               31/36  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399829765,"data":"  discovery.recommend           11/12  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399834668,"data":"  discovery.show_menu           12/12  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399839409,"data":"  fulfillment.ask_delivery       8/12  fp 2\n"}
+,{"stream_name":"stdout","time":5347.399844646,"data":"  fulfillment.ask_hours         12/12  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399849196,"data":"  fulfillment.order_status       9/12  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399853755,"data":"  ordering.repeat_order         12/12  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399858456,"data":"  ordering.request_checkout     12/12  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399863377,"data":"  ordering.use_saved_address    10/12  fp 2\n"}
+,{"stream_name":"stdout","time":5347.399869126,"data":"  ordering.view_cart            10/12  fp 2\n"}
+,{"stream_name":"stdout","time":5347.399873885,"data":"  social.goodbye                12/12  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399894024,"data":"  social.greet                  12/12  fp 0\n"}
+,{"stream_name":"stdout","time":5347.399896888,"data":"  social.thanks                 10/12  fp 1\n"}
+,{"stream_name":"stdout","time":5347.519476474,"data":"HF_TOKEN secret not set; skipping publish.\n"}
+,{"stream_name":"stderr","time":5352.832772018,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":5352.832821841,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":5353.040626676,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":5353.040660468,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":5353.770444332,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":5354.107294776,"data":"[NbConvertApp] Writing 94662 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":5356.525305855,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":5357.460381049,"data":"[NbConvertApp] Writing 464238 bytes to __results__.html\n"}
+]

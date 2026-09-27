@@ -1,13 +1,33 @@
 # Handoff - laya-nepali
 
-Last updated: 2026-09-26 (P2, late). State: **dataset v1** at 1,994 cases /
-9,970 decisions (train 1,807 / calibration 187; gate PASS) and the **P2
-experiments are done** (`reports/p2-scaling.md`): best candidate is Kaggle
-`laya-nepali-finetune-full` version 3 - **228/272 (83.8%)**, abstain 80/92, ECE
-0.0666; **safety false commands remain 12/92** after targeted data (batch 4) and
-calibration-fitted thresholds. The residual is a documented taxonomy of
-high-confidence semantic confusions. Next: decide publish-now (P3, with the
-residual documented) vs one more targeted data pass (batch 5).
+Last updated: 2026-09-27 (P2 closed). State: **dataset v1** at 6,197 cases /
+30,985 decisions (train 5,585 / calibration 612; gate PASS). Kaggle
+`laya-nepali-finetune-full` version 16 **meets every P2 gate for the first
+time**: **253/272 (93.0%)** on the frozen Devanagari benchmark, abstain
+**92/92**, **safety false commands 0**, ECE (answered) **0.0699**, 28.1 ms p50
+on 2xT4, at a calibration-selected rule (tau 0.4, p_none < 0.02). Enabling
+fixes this cycle: the notebook rule selector searches a joint (tau, p_none)
+grid over command-only items; soft gold no longer leaks probability onto
+`none` for command families; boundary batches 7-13 added ~400 reviewed rows
+and three label-noise rows were removed. Next: P3 publish (needs HF token),
+upstream PRs (P4), held-out benchmark v3, and real-data benchmark v4.
+
+## v16 result and loop learnings
+
+- `reports/p2-logs/kaggle-full-v16.log`; rule grid reports **110/110
+  zero-FP calibration points** after the gold fix.
+- Mining harness: the fine-tuned checkpoint can be evaluated on CPU
+  (`laya.Agent(..., device="cpu")`), ~20 min for calibration + benchmark;
+  every safety misroute is dumped with confidence and p_none so batches target
+  exact texts.
+- Root causes fixed this cycle: (1) high-confidence confusion batches need the
+  *distinguishing word* on both sides in the same batch; (2) leftover soft-gold
+  probability must never fall on `none` for command families; (3) benchmark
+  texts must never be copied into training rows (leakage gate), use one-word
+  variants; (4) label-noise rows in the calibration split force over-strict
+  rules and must be relabeled or rejected; (5) staging
+  (`data/generated/ne-candidates-v2.jsonl`) is the source of truth for case
+  content - sheet edits without staging edits are clobbered by rebuilds.
 
 ## Commit map (main)
 
