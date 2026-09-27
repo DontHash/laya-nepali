@@ -454,18 +454,30 @@ def _categorical(rng: random.Random, keys: Sequence[str], primary: str, low: flo
 
 
 def _command_distribution(rng: random.Random, family: Family) -> dict[str, float]:
+    """Soft command targets, with no mass on ``none`` for command families.
+
+    Kind messages are by definition commands, so the residual probability must
+    not leak onto the abstain key: that leak made the model learn p(none)
+    5-12% for social and query kinds and broke p(none)-gated abstention. Only
+    abstain families keep ``none`` as the primary label.
+    """
     keys = list(COMMAND_CRITERIA)
     distribution = dict.fromkeys(keys, 0.0)
     distribution[family.command] = rng.uniform(0.88, 0.95)
     rest = 1.0 - distribution[family.command]
-    if family.command in QUERY_FIELDS:
-        distribution[ABSTAIN_KEY] = rest * 0.4
-        for other in QUERY_FIELDS:
-            if other != family.command:
-                distribution[other] = rest * 0.3
-    else:
-        secondary = family.confusable or (ABSTAIN_KEY if family.command != ABSTAIN_KEY else "greet")
+    if family.command == ABSTAIN_KEY:
+        secondary = family.confusable or "greet"
         distribution[secondary] += rest
+    elif family.command in QUERY_FIELDS:
+        others = [other for other in QUERY_FIELDS if other != family.command]
+        for other in others:
+            distribution[other] = rest / len(others)
+    elif family.confusable:
+        distribution[family.confusable] += rest
+    else:
+        others = [key for key in keys if key not in (family.command, ABSTAIN_KEY)][:3]
+        for key in others:
+            distribution[key] = rest / len(others)
     total = sum(distribution.values())
     return {key: round(value / total, 6) for key, value in distribution.items()}
 
