@@ -8,7 +8,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.11%2B-brightgreen.svg)](pyproject.toml)
-[![Tests](https://img.shields.io/badge/Tests-180%20passing-success.svg)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-185%20passing-success.svg)](tests/)
 [![Inference Latency](https://img.shields.io/badge/Latency-28ms%20(GPU)%20%7C%20%7E1s%20(CPU)-orange.svg)](#benchmarks--performance)
 [![Jev Compatible](https://img.shields.io/badge/Jev-Wire%20Compatible-purple.svg)](#jev-wire-compatibility-post-v1systemone)
 [![Checkpoint](https://img.shields.io/badge/Checkpoint-v1.0.0-teal.svg)](https://www.kaggle.com/datasets/bhishmbhandari/laya-nepali-clothing-v1)
@@ -118,9 +118,12 @@ Here is how Laya Nepali handles real conversational nuances from Nepali customer
 ├── data/
 │   ├── benchmark/           # Frozen evaluation benchmarks (cl-bench-v1, ne-bench-deva-v2)
 │   ├── clothing_export/     # Stratified datasets (train, calibration, test splits)
-│   └── export/              # Restaurant baseline dataset splits
+│   ├── export/              # Restaurant baseline dataset splits
+│   └── reviewed/            # Reviewed rows and review sheets before export
 ├── docs/                    # Architecture policy, formal schemas, provenance records
+├── kaggle_kernel_clothing/  # Kaggle kernel push bundle (metadata + notebook)
 ├── notebooks/               # 2xT4 Kaggle distributed training notebooks (DDP, RLCD)
+├── reports/                 # Benchmark results and training logs
 ├── src/layanep/
 │   ├── clothing_policy.py   # Runtime autonomy policy & tier guard (clothing domain)
 │   ├── clothing_questions.py# Typed question definitions & command criteria
@@ -131,7 +134,7 @@ Here is how Laya Nepali handles real conversational nuances from Nepali customer
 │   ├── responses.py         # Restaurant Devanagari response templates
 │   ├── schema.py            # Pinned typed-decision schema & contracts
 │   └── serve.py             # FastAPI serving layer (multi-domain REST API)
-└── tests/                   # 180 unit and integration tests (pytest suite)
+└── tests/                   # 185 unit and integration tests (pytest suite)
 ```
 
 ---
@@ -158,7 +161,7 @@ pip install -e ".[dev,serve]"
 Ensure all deterministic gates and unit tests pass:
 
 ```bash
-# Run pytest test suite (180 tests)
+# Run pytest test suite (185 tests)
 python -m pytest -q
 
 # Run deterministic evaluation gate
