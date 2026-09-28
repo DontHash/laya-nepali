@@ -1,11 +1,13 @@
 """Import an external message bank (``{message, family}``) into schema cases.
 
 Writing LLMs should never touch ids, state, gold labels or probabilities: this
-module derives all of them through ``templates.build_case`` from the family id,
-validates every message with the same gate the generator uses, and drops rows
-that collide with the frozen benchmark or duplicate the existing corpus.
+module derives all of them through the selected domain generator's
+``build_case`` from the family id, validates every message with the same gate
+the generator uses, and drops rows that collide with the frozen benchmark or
+duplicate the existing corpus.
 
-Supports ``--domain restaurant`` (default) and ``--domain clothing``.
+The domain comes from the registry: ``--domain restaurant`` (default),
+``--domain clothing``, or any future ``layanep.domains`` package.
 """
 
 from __future__ import annotations
@@ -17,16 +19,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Mapping, Sequence
 
+from .domains import available_domains, get_domain
 from .export import DEFAULT_BENCHMARK_PATHS, benchmark_texts
 from .generate import validate_message
 from .normalize import normalize_text
-from .domains.restaurant.generator import (
-    FAMILY_BY_ID as RESTAURANT_FAMILY_BY_ID,
-    TRAINING_BUSINESSES as RESTAURANT_BUSINESSES,
-    GenerationTask as RestaurantTask,
-    build_case as restaurant_build_case,
-    build_prompt as restaurant_build_prompt,
-)
+from .transliterate import detect_language
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUT = REPO_ROOT / "data" / "generated" / "ne-bank.jsonl"
@@ -37,20 +34,6 @@ DEFAULT_CORPUS = (
 DEFAULT_ID_PREFIX = "ne-bank"
 GENERATOR = "external-llm:bank"
 MAX_WORDS = 15
-
-DOMAINS = ("restaurant", "clothing")
-
-
-def _clothing_imports():
-    """Lazy import of clothing domain modules (avoids circular at module level)."""
-    from .domains.clothing.generator import (
-        FAMILY_BY_ID as CLOTHING_FAMILY_BY_ID,
-        TRAINING_BUSINESSES as CLOTHING_BUSINESSES,
-        ClothingGenerationTask,
-        build_case as clothing_build_case,
-        build_prompt as clothing_build_prompt,
-    )
-    return CLOTHING_FAMILY_BY_ID, CLOTHING_BUSINESSES, ClothingGenerationTask, clothing_build_case, clothing_build_prompt
 
 
 @dataclass
@@ -83,10 +66,8 @@ def load_corpus_messages(paths: Sequence[Path]) -> set[str]:
     return messages
 
 
-from .transliterate import detect_language
-
-
-def _build_row_restaurant(
+def _build_row(
+    gen,
     family_index: Mapping,
     businesses: Sequence,
     family_id: str,
@@ -98,49 +79,19 @@ def _build_row_restaurant(
     generator: str,
     lang: str = "ne",
 ) -> dict:
-    """Build a case row using restaurant domain templates."""
+    """Build a case row with the selected domain's generator."""
     family = family_index[family_id]
     business = businesses[(rows_count + index) % len(businesses)]
-    task = RestaurantTask(
+    task = gen.GenerationTask(
         id=case_id,
         family=family,
         language=lang,
         business=business,
         variant=0,
-        prompt=restaurant_build_prompt(business, family, lang),
+        prompt=gen.build_prompt(business, family, lang),
     )
     rng = random.Random(f"{case_id}:{seed}")
-    return restaurant_build_case(task, message, rng, generator=generator).to_row()
-
-
-def _build_row_clothing(
-    family_index: Mapping,
-    businesses: Sequence,
-    family_id: str,
-    case_id: str,
-    message: str,
-    index: int,
-    rows_count: int,
-    seed: int,
-    generator: str,
-    lang: str = "ne",
-) -> dict:
-    """Build a case row using clothing domain templates."""
-    cl_family_index, cl_businesses, ClothingTask, cl_build_case, cl_build_prompt = _clothing_imports()
-    fi = family_index or cl_family_index
-    biz = businesses or cl_businesses
-    family = fi[family_id]
-    business = biz[(rows_count + index) % len(biz)]
-    task = ClothingTask(
-        id=case_id,
-        family=family,
-        language=lang,
-        business=business,
-        variant=0,
-        prompt=cl_build_prompt(business, family, lang),
-    )
-    rng = random.Random(f"{case_id}:{seed}")
-    return cl_build_case(task, message, rng, generator=generator).to_row()
+    return gen.build_case(task, message, rng, generator=generator).to_row()
 
 
 def import_entries(
@@ -160,15 +111,9 @@ def import_entries(
     seen: set[str] = set()
     rows: list[dict] = []
 
-    if domain == "clothing":
-        cl_family_index, cl_businesses, _, _, _ = _clothing_imports()
-        family_index = cl_family_index
-        businesses = cl_businesses
-        build_row = _build_row_clothing
-    else:
-        family_index = RESTAURANT_FAMILY_BY_ID
-        businesses = RESTAURANT_BUSINESSES
-        build_row = _build_row_restaurant
+    gen = get_domain(domain).generator
+    family_index = gen.FAMILY_BY_ID
+    businesses = gen.TRAINING_BUSINESSES
 
     for index, entry in enumerate(entries, start=1):
         message = entry.get("message")
@@ -196,7 +141,7 @@ def import_entries(
             continue
         seen.add(normalized)
         case_id = f"{id_prefix}-{len(rows) + 1:04d}"
-        row = build_row(family_index, businesses, family_id, case_id, message, index, len(rows), seed, generator, lang=lang)
+        row = _build_row(gen, family_index, businesses, family_id, case_id, message, index, len(rows), seed, generator, lang=lang)
         rows.append(row)
         report.imported += 1
     return rows, report
@@ -208,7 +153,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--id-prefix", default=DEFAULT_ID_PREFIX)
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--domain", choices=DOMAINS, default="restaurant", help="domain: restaurant (default) or clothing")
+    parser.add_argument("--domain", choices=available_domains(), default="restaurant", help="domain package (default: restaurant)")
     parser.add_argument("--language", choices=("auto", "ne", "ne-rom", "en"), default="auto", help="language: auto (detect), ne, ne-rom, or en")
     parser.add_argument("--corpus", type=Path, action="append", default=[], help="corpus JSONL to dedupe against")
     parser.add_argument("--benchmark", type=Path, action="append", default=[], help="benchmark JSON to avoid")

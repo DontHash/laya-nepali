@@ -26,6 +26,7 @@ from types import ModuleType
 
 _PACKAGE = __name__
 _cache: dict[str, ModuleType] = {}
+_workflow_cache: dict[str, ModuleType] | None = None
 
 
 def available_domains() -> list[str]:
@@ -43,3 +44,11 @@ def get_domain(name: str) -> ModuleType:
             raise KeyError(f"unknown domain {name!r}; available: {', '.join(available_domains())}")
         _cache[name] = import_module(f"{_PACKAGE}.{name}")
     return _cache[name]
+
+
+def workflow_map() -> dict[str, ModuleType]:
+    """Return ``workflow id -> domain package`` for every installed domain."""
+    global _workflow_cache
+    if _workflow_cache is None:
+        _workflow_cache = {get_domain(name).WORKFLOW: get_domain(name) for name in available_domains()}
+    return _workflow_cache

@@ -1,9 +1,9 @@
 """LLM-assisted candidate generation (P1).
 
-Pipeline: ``templates.build_plan`` -> Gemini Flash-Lite writes one natural
-customer message per (family, language, business) -> validate (script, PII,
-length) -> derive soft gold from the family -> append a schema-valid candidate
-row to ``data/generated/``.
+Pipeline: the domain generator's ``build_plan`` -> Gemini Flash-Lite writes one
+natural customer message per (family, language, business) -> validate (script,
+PII, length) -> derive soft gold from the family -> append a schema-valid
+candidate row to ``data/generated/``.
 
 Rows are candidates only: ``provenance.reviewed_by`` stays null until the review
 pass (``review.py``) accepts or edits them into ``data/reviewed/``.
@@ -32,7 +32,8 @@ from typing import Protocol, Sequence
 from .normalize import normalize_text
 from .schema import SchemaError, validate_case
 from .spelling import apply_spelling_variant
-from .domains.restaurant.generator import FAMILIES, TRAINING_BUSINESSES, GenerationTask, build_case, build_plan
+from .domains import available_domains, get_domain
+from .generation_core import GenerationTask
 from .transliterate import DEVANAGARI_RE
 from .validate import scan_pii
 
@@ -428,8 +429,10 @@ def generate_candidates(
     spelling_share: float = 0.0,
     resume: bool = False,
     forbidden_texts: set[str] | None = None,
+    domain: str = "restaurant",
 ) -> GenerationReport:
     report = GenerationReport(planned=len(tasks), output=out_path)
+    case_builder = get_domain(domain).generator.build_case
     rng = random.Random(seed)
     seen: dict[str, tuple[set[str], list[frozenset[str]]]] = {}
     calls = 0
@@ -481,7 +484,7 @@ def generate_candidates(
             seen_keys.add(_normalized_key(message))
             seen_tokens.append(_token_set(message))
 
-            case = build_case(task, message, rng, generator=generator_name)
+            case = case_builder(task, message, rng, generator=generator_name)
             try:
                 validate_case(case)
             except SchemaError as exc:
@@ -493,7 +496,7 @@ def generate_candidates(
             if spelling_share and rng.random() < spelling_share:
                 variant_text = apply_spelling_variant(message, rng)
                 if variant_text:
-                    variant_case = build_case(task, variant_text, rng, generator=generator_name)
+                    variant_case = case_builder(task, variant_text, rng, generator=generator_name)
                     variant_case.id = f"{task.id}-v1"
                     variant_case.provenance["augmentation"] = "spelling-v1"
                     variant_case.provenance["variant_of"] = task.id
@@ -522,6 +525,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--languages", default="ne", help="comma-separated language mix")
     parser.add_argument("--families", default="", help="comma-separated family ids (default: all)")
     parser.add_argument("--id-prefix", default="ne-gen", help="task id prefix; change it for a new batch")
+    parser.add_argument("--domain", choices=available_domains(), default="restaurant", help="domain package (default: restaurant)")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--model", default=None, help=f"model name (default {DEFAULT_MODEL} or $GEMINI_MODEL; vertex: {DEFAULT_VERTEX_MODEL} or $VERTEX_MODEL)")
     parser.add_argument("--backend", choices=("gemini", "vertex"), default="gemini", help="text generation backend")
@@ -537,16 +541,19 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     languages = [language.strip() for language in args.languages.split(",") if language.strip()]
-    businesses = TRAINING_BUSINESSES[: args.businesses] if args.businesses else TRAINING_BUSINESSES
+    generator_module = get_domain(args.domain).generator
+    training_businesses = generator_module.TRAINING_BUSINESSES
+    families = generator_module.FAMILIES
+    businesses = training_businesses[: args.businesses] if args.businesses else training_businesses
     if args.families.strip():
         wanted = {value.strip() for value in args.families.split(",") if value.strip()}
-        unknown = sorted(wanted - {family.id for family in FAMILIES})
+        unknown = sorted(wanted - {family.id for family in families})
         if unknown:
             parser.error(f"unknown families: {', '.join(unknown)}")
-        selected_families = [family for family in FAMILIES if family.id in wanted]
+        selected_families = [family for family in families if family.id in wanted]
     else:
-        selected_families = list(FAMILIES)
-    tasks = build_plan(
+        selected_families = list(families)
+    tasks = generator_module.build_plan(
         businesses=businesses,
         families=selected_families,
         languages=languages,
@@ -606,6 +613,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         spelling_share=max(0.0, min(1.0, args.spelling_share)),
         resume=args.resume,
         forbidden_texts=benchmark_texts(),
+        domain=args.domain,
     )
     print(report.summary())
     for task_id, reasons in report.rejected[:10]:

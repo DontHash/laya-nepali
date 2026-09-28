@@ -53,6 +53,24 @@ def test_import_respects_existing_corpus(tmp_path: Path) -> None:
     assert report.skipped["duplicate"] == 1
 
 
+def test_import_supports_the_clothing_domain() -> None:
+    entries = [
+        entry("क्यास अन डेलिभरी हुन्छ?", "ask_cod"),
+        entry("कुर्ता कति पर्छ?", "query_price"),
+        entry("यो पुरानो हो", "not_a_clothing_family"),
+    ]
+    rows, report = import_entries(entries, forbidden=set(), existing=set(), domain="clothing", language="ne")
+    assert report.imported == 2
+    assert report.skipped["invalid entry"] == 1
+    for row in rows:
+        case = Case.from_row(row)
+        validate_case(case)
+        assert case.workflow == "clothing_command_lu"
+    assert json.loads(rows[0]["gold"])["command"]["label"] == "cod"
+    assert json.loads(rows[1]["gold"])["command"]["label"] == "price"
+    assert "catalog" in json.loads(rows[0]["questions"])["command"]["criteria"]
+
+
 def test_cli_imports_a_bank_file(tmp_path: Path) -> None:
     bank = tmp_path / "bank.jsonl"
     bank.write_text(

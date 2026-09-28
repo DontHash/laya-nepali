@@ -78,3 +78,12 @@ def test_get_domain_caches_and_rejects_unknown_names() -> None:
     assert get_domain("restaurant") is get_domain("restaurant")
     with pytest.raises(KeyError, match="unknown domain"):
         get_domain("no-such-domain")
+
+
+def test_workflow_map_covers_every_domain() -> None:
+    from layanep.domains import workflow_map
+
+    mapped = workflow_map()
+    for name in available_domains():
+        domain = get_domain(name)
+        assert mapped[domain.WORKFLOW] is domain

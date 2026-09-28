@@ -27,11 +27,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Sequence
 
+from .domains import workflow_map
 from .generate import validate_message
 from .normalize import normalize_text
 from .provenance import provenance_failures
 from .schema import ABSTAIN_KEY, Case, SchemaError, validate_case
-from .domains.restaurant.generator import FAMILY_BY_ID
 from .validate import load_rows
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -131,6 +131,15 @@ def save_sheet(path: Path, records: Sequence[ReviewRecord]) -> None:
     os.replace(tmp_path, path)
 
 
+def _family_for(case_row: dict):
+    """Return the domain family that produced this row, if resolvable."""
+    domain = workflow_map().get(str(case_row.get("workflow", "")))
+    if domain is None:
+        return None
+    family_id = str((case_row.get("provenance") or {}).get("family", ""))
+    return domain.generator.FAMILY_BY_ID.get(family_id)
+
+
 def case_message(case_row: dict) -> str:
     return str(Case.from_row(case_row).state.get("customer_message", ""))
 
@@ -146,7 +155,7 @@ def _expected_summary(case_row: dict) -> str:
 
 def _needs_human(case_row: dict, record_id: str, sample_rate: float) -> bool:
     provenance = case_row.get("provenance") or {}
-    family = FAMILY_BY_ID.get(str(provenance.get("family", "")))
+    family = _family_for(case_row)
     if family is None or family.command == ABSTAIN_KEY:
         return True
     if sample_rate >= 1.0:
@@ -205,7 +214,7 @@ def format_record(record: ReviewRecord, index: int | None = None, total: int | N
     ]
     if record.status == "edited":
         lines.append(f"  was:  {record.original_text}")
-    family = FAMILY_BY_ID.get(str(provenance.get("family", "")))
+    family = _family_for(record.case)
     if family:
         lines.append(f"  should express: {family.instruction}")
     lines.append(f"  expected: {_expected_summary(record.case)}")

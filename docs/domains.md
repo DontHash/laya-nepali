@@ -8,7 +8,7 @@ domain never touches shared code.
 
 ```text
 src/layanep/domains/
-├── __init__.py        # registry: available_domains(), get_domain(name)
+├── __init__.py        # registry: available_domains(), get_domain(name), workflow_map()
 ├── restaurant/
 │   ├── __init__.py    # binds the surface below
 │   ├── questions.py   # typed question definitions + command criteria
@@ -36,9 +36,14 @@ A domain package must expose (see `domains/restaurant/__init__.py`):
 | `DEFAULT_CONFIDENCE_TAU`, `DEFAULT_P_NONE_MAX` | calibration defaults |
 | `classify_tier`, `extract_signals` | shared tier engine bound to the vocabulary |
 | `RESPONSE_TEMPLATES`, `fill_template`, `escalation_message` | shared response engine bound to the domain |
-| `generator` | synthetic generation: `TRAINING_BUSINESSES`, `FAMILIES`, `FAMILY_BY_ID`, `build_prompt`, `build_plan`, `derive_gold`, `build_case` |
+| `generator` | synthetic generation: `TRAINING_BUSINESSES`, `FAMILIES`, `FAMILY_BY_ID`, `SPEC`, `build_prompt`, `build_plan`, `derive_gold`, `build_case` |
 
 `tests/test_domains.py` checks this surface for every installed domain.
+
+The candidate pipeline (`layanep.generate`, `layanep.import_bank`) and the
+review sheet resolve the domain through the registry: `--domain <name>` works
+for any installed domain without pipeline changes, and review finds the right
+family from each row's `workflow` id (`workflow_map()`).
 
 ## Adding a domain
 
