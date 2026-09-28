@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import pytest
 
+from layanep import clothing_policy
 from layanep.policy import (
     T0_READ_ONLY,
     T1_MUTATIONS,
+    TierResult,
     classify_tier,
     extract_signals,
 )
@@ -104,3 +106,7 @@ def test_unknown_label_escalates() -> None:
     result = classify_tier("something_new", confidence=0.99, p_none=0.001)
     assert result.tier == 3
     assert result.auto_serve is False
+
+
+def test_domains_share_one_tier_engine() -> None:
+    assert TierResult is clothing_policy.TierResult
