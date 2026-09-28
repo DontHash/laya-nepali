@@ -125,13 +125,11 @@ Here is how Laya Nepali handles real conversational nuances from Nepali customer
 ├── notebooks/               # 2xT4 Kaggle distributed training notebooks (DDP, RLCD)
 ├── reports/                 # Benchmark results and training logs
 ├── src/layanep/
-│   ├── clothing_policy.py   # Runtime autonomy policy & tier guard (clothing domain)
-│   ├── clothing_questions.py# Typed question definitions & command criteria
-│   ├── clothing_responses.py# Template synthesis with catalog state injection
-│   ├── clothing_templates.py# Synthetic generator & minimal-pair boundary harness
-│   ├── policy.py            # Autonomy policy & tier guard (restaurant domain)
-│   ├── questions.py         # Restaurant intent questions
-│   ├── responses.py         # Restaurant Devanagari response templates
+│   ├── domains/
+│   │   ├── restaurant/      # questions, responses, policy guard, generator
+│   │   └── clothing/        # questions, responses, policy guard, generator
+│   ├── policy_core.py       # Shared tier engine bound per domain
+│   ├── responses_core.py    # Shared response fill/fallback engine
 │   ├── schema.py            # Pinned typed-decision schema & contracts
 │   └── serve.py             # FastAPI serving layer (multi-domain REST API)
 └── tests/                   # 185 unit and integration tests (pytest suite)

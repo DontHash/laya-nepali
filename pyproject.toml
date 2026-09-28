@@ -32,7 +32,9 @@ serve = [
 
 [tool.setuptools]
 package-dir = { "" = "src" }
-packages = ["layanep", "layanep.benchmark"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

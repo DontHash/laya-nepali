@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from layanep.clothing_questions import (
+from layanep.domains.clothing.questions import (
     CLOTHING_COMMAND_CRITERIA,
     CLOTHING_COMMAND_LABEL_TO_KIND,
     CLOTHING_LU_COMMAND_KINDS,
@@ -13,7 +13,7 @@ from layanep.clothing_questions import (
     clothing_label_to_kind,
     clothing_questions,
 )
-from layanep.questions import COMMAND_CRITERIA
+from layanep.domains.restaurant.questions import COMMAND_CRITERIA
 from layanep.schema import ABSTAIN_KEY, MAX_CHOICE_OPTIONS
 
 

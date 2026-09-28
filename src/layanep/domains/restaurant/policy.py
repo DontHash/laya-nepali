@@ -1,6 +1,6 @@
-"""Runtime autonomy policy guard — clothing domain.
+"""Runtime autonomy policy guard — restaurant domain.
 
-Binds the shared tier engine (``policy_core.py``) to the clothing command
+Binds the shared tier engine (``policy_core.py``) to the restaurant command
 vocabulary. The hard allowlist is a structural guarantee: a command outside the
 T0 set is never served automatically, regardless of confidence.
 
@@ -10,7 +10,7 @@ Confidence and p(none) thresholds are read from the fine-tuned checkpoint's
 
 from __future__ import annotations
 
-from .policy_core import (
+from ...policy_core import (
     DEFAULT_CONFIDENCE_TAU,
     DEFAULT_P_NONE_MAX,
     TierResult,
@@ -25,25 +25,20 @@ from .policy_core import (
 
 T0_READ_ONLY = frozenset({
     "greet", "thanks", "goodbye",
-    "catalog", "recommend",
-    "price", "size", "color", "material",
-    "stock", "delivery", "cod",
+    "menu", "recommend",
+    "price", "availability", "details",
+    "hours", "delivery",
     "order_status", "cart",
 })
 
 T1_MUTATIONS = frozenset({
-    "checkout", "exchange", "custom_order", "saved_address",
+    "checkout", "repeat_order", "saved_address",
 })
 
 # T2 is detected by the ``needs_staff`` noul question, not by command label.
-#     skin_sensitivity, counterfeit, sizing dispute, refund demand,
-#     complaint, human request.
-# T3 is detected by the ``abstain`` noul question (unclear, gibberish,
-#     bare_order, yes_no).
+# T3 is detected by the ``abstain`` noul question (unclear / OOD).
 
-NEEDS_STAFF_REASON = (
-    "needs_staff=true: skin_sensitivity/counterfeit/sizing dispute/refund/complaint/human request"
-)
+NEEDS_STAFF_REASON = "needs_staff=true: allergy/refund/complaint/human request"
 
 
 def classify_tier(
@@ -56,7 +51,7 @@ def classify_tier(
     tau: float = DEFAULT_CONFIDENCE_TAU,
     p_none_max: float = DEFAULT_P_NONE_MAX,
 ) -> TierResult:
-    """Classify a clothing decision into an autonomy tier (see ``policy_core``)."""
+    """Classify a restaurant decision into an autonomy tier (see ``policy_core``)."""
     return _classify_tier(
         label,
         confidence,

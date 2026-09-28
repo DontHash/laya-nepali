@@ -21,7 +21,7 @@ from layanep.review import (
     set_decision,
 )
 from layanep.schema import Case, validate_case
-from layanep.templates import build_case, build_plan
+from layanep.domains.restaurant.generator import build_case, build_plan
 
 MESSAGES = {"ne": "नमस्कार, सन्चै छ?", "ne-rom": "dhanyabad hajur", "en": "how much is the momo?"}
 

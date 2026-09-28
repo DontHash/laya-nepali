@@ -32,7 +32,7 @@ from typing import Protocol, Sequence
 from .normalize import normalize_text
 from .schema import SchemaError, validate_case
 from .spelling import apply_spelling_variant
-from .templates import FAMILIES, TRAINING_BUSINESSES, GenerationTask, build_case, build_plan
+from .domains.restaurant.generator import FAMILIES, TRAINING_BUSINESSES, GenerationTask, build_case, build_plan
 from .transliterate import DEVANAGARI_RE
 from .validate import scan_pii
 

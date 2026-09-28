@@ -12,7 +12,7 @@ domain's probe result: 55/79 natural vs 16/79 dotted).
 
 from __future__ import annotations
 
-from .schema import ABSTAIN_KEY, Question
+from ...schema import ABSTAIN_KEY, Question
 
 # ---------------------------------------------------------------------------
 # Clothing LU command kinds (dotted notation for wire format)

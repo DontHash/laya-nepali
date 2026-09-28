@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from layanep.clothing_policy import (
+from layanep.domains.clothing.policy import (
     T0_READ_ONLY,
     T1_MUTATIONS,
     classify_tier,

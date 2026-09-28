@@ -19,7 +19,7 @@ same keys and the same instructions.
 
 from __future__ import annotations
 
-from .schema import ABSTAIN_KEY, LU_COMMAND_KINDS, QUERY_FIELDS, Question
+from ...schema import ABSTAIN_KEY, LU_COMMAND_KINDS, QUERY_FIELDS, Question
 
 NE_QUESTION_IDS = ("command", "query_field", "order_intent", "needs_staff", "abstain")
 

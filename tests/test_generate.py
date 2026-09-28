@@ -22,7 +22,7 @@ from layanep.generate import (
     vertex_project,
 )
 from layanep.schema import ABSTAIN_KEY, Case, validate_case
-from layanep.templates import FAMILIES, LANGUAGES, TRAINING_BUSINESSES, build_case, build_plan, derive_gold
+from layanep.domains.restaurant.generator import FAMILIES, LANGUAGES, TRAINING_BUSINESSES, build_case, build_plan, derive_gold
 
 
 class FakeGenerator:

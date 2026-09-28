@@ -22,7 +22,7 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
-from .responses_core import (
+from ...responses_core import (
     ESCALATION_TEMPLATES as ESCALATION_TEMPLATES,
     escalation_message as escalation_message,
     fill_template as _fill_template,

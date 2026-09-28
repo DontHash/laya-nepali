@@ -20,7 +20,7 @@ from typing import Mapping, Sequence
 from .export import DEFAULT_BENCHMARK_PATHS, benchmark_texts
 from .generate import validate_message
 from .normalize import normalize_text
-from .templates import (
+from .domains.restaurant.generator import (
     FAMILY_BY_ID as RESTAURANT_FAMILY_BY_ID,
     TRAINING_BUSINESSES as RESTAURANT_BUSINESSES,
     GenerationTask as RestaurantTask,
@@ -43,7 +43,7 @@ DOMAINS = ("restaurant", "clothing")
 
 def _clothing_imports():
     """Lazy import of clothing domain modules (avoids circular at module level)."""
-    from .clothing_templates import (
+    from .domains.clothing.generator import (
         FAMILY_BY_ID as CLOTHING_FAMILY_BY_ID,
         TRAINING_BUSINESSES as CLOTHING_BUSINESSES,
         ClothingGenerationTask,

@@ -14,7 +14,7 @@ from layanep.contrastive import (
 )
 from layanep.generate import validate_message
 from layanep.schema import ABSTAIN_KEY, Case, validate_case
-from layanep.templates import FAMILY_BY_ID
+from layanep.domains.restaurant.generator import FAMILY_BY_ID
 
 
 def all_boundaries() -> tuple[Boundary, ...]:

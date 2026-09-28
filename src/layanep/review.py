@@ -31,7 +31,7 @@ from .generate import validate_message
 from .normalize import normalize_text
 from .provenance import provenance_failures
 from .schema import ABSTAIN_KEY, Case, SchemaError, validate_case
-from .templates import FAMILY_BY_ID
+from .domains.restaurant.generator import FAMILY_BY_ID
 from .validate import load_rows
 
 REPO_ROOT = Path(__file__).resolve().parents[2]

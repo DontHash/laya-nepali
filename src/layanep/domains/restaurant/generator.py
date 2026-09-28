@@ -14,8 +14,8 @@ from dataclasses import dataclass
 from typing import Sequence
 
 from .questions import COMMAND_CRITERIA, QUERY_FIELD_DESCRIPTIONS, ne_questions
-from .reference import REGISTER_RULES
-from .schema import ABSTAIN_KEY, QUERY_FIELDS, Case, Gold
+from ...reference import REGISTER_RULES
+from ...schema import ABSTAIN_KEY, QUERY_FIELDS, Case, Gold
 
 GENERATOR_WORKFLOW = "restaurant_command_lu"
 LANGUAGES = ("ne", "ne-rom", "en")

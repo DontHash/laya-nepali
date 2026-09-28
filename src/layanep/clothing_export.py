@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Mapping, Sequence
 
-from .clothing_questions import clothing_label_to_kind
+from .domains.clothing.questions import clothing_label_to_kind
 from .normalize import normalize_text
 from .schema import Case, validate_case
 

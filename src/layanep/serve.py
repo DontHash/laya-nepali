@@ -43,21 +43,15 @@ _agent = None
 _config: dict[str, Any] = {}
 
 # Standard library and project imports that are always safe.
-from .policy import DEFAULT_CONFIDENCE_TAU, DEFAULT_P_NONE_MAX, classify_tier, extract_signals
-from .questions import ne_questions
-from .responses import escalation_message, fill_template
+from .domains import available_domains, get_domain
 
-from .clothing_policy import (
-    DEFAULT_CONFIDENCE_TAU as CLOTHING_CONFIDENCE_TAU,
-    DEFAULT_P_NONE_MAX as CLOTHING_P_NONE_MAX,
-    classify_tier as clothing_classify_tier,
-    extract_signals as clothing_extract_signals,
-)
-from .clothing_questions import clothing_questions
-from .clothing_responses import (
-    escalation_message as clothing_escalation_message,
-    fill_template as clothing_fill_template,
-)
+
+def _resolve_domain(name: str):
+    """Return the domain package for ``name``; unknown names fall back to restaurant."""
+    try:
+        return get_domain(name)
+    except KeyError:
+        return get_domain("restaurant")
 
 
 def _load_checkpoint_config(model_path: str) -> dict[str, Any]:
@@ -76,11 +70,11 @@ def _load_agent(model_path: str, device: str | None = None):
     cfg = _load_checkpoint_config(model_path)
     agent = laya.load(model_path, device=device)
     logger.info(
-        "loaded checkpoint %s on %s (tau=%.3f, p_none_max=%.3f)",
+        "loaded checkpoint %s on %s (tau=%s, p_none_max=%s)",
         model_path,
         device or "auto",
-        cfg.get("abstain_threshold", DEFAULT_CONFIDENCE_TAU),
-        cfg.get("abstain_p_none", DEFAULT_P_NONE_MAX),
+        cfg.get("abstain_threshold", "domain default"),
+        cfg.get("abstain_p_none", "domain default"),
     )
     return agent, cfg
 
@@ -200,10 +194,7 @@ def create_app(
         questions = req.questions
         req_domain = req.domain or app_domain
         if questions is None:
-            if req_domain == "clothing":
-                qs = clothing_questions(req.business_name)
-            else:
-                qs = ne_questions(req.business_name)
+            qs = _resolve_domain(req_domain).questions(req.business_name)
             questions = {qid: q.to_dict() for qid, q in qs.items()}
 
         started = time.perf_counter()
@@ -220,14 +211,12 @@ def create_app(
             return JSONResponse(status_code=503, content={"error": "model not loaded"})
 
         req_domain = req.domain or app_domain
+        domain = _resolve_domain(req_domain)
         state = {"body": req.text}
         biz_state = req.business_state or {}
         business_name = req.business_name or biz_state.get("business", {}).get("name")
 
-        if req_domain == "clothing":
-            qs = clothing_questions(business_name)
-        else:
-            qs = ne_questions(business_name)
+        qs = domain.questions(business_name)
         questions = {qid: q.to_dict() for qid, q in qs.items()}
 
         started = time.perf_counter()
@@ -236,24 +225,14 @@ def create_app(
 
         answers = result.get("answers", result)
 
-        if req_domain == "clothing":
-            signals = clothing_extract_signals(answers)
-            tau = float(_config.get("abstain_threshold", CLOTHING_CONFIDENCE_TAU))
-            p_none_max = float(_config.get("abstain_p_none", CLOTHING_P_NONE_MAX))
-            tier_result = clothing_classify_tier(**signals, tau=tau, p_none_max=p_none_max)
-            if tier_result.auto_serve and tier_result.label:
-                reply = clothing_fill_template(tier_result.label, biz_state)
-            else:
-                reply = clothing_escalation_message(tier_result.tier)
+        signals = domain.extract_signals(answers)
+        tau = float(_config.get("abstain_threshold", domain.DEFAULT_CONFIDENCE_TAU))
+        p_none_max = float(_config.get("abstain_p_none", domain.DEFAULT_P_NONE_MAX))
+        tier_result = domain.classify_tier(**signals, tau=tau, p_none_max=p_none_max)
+        if tier_result.auto_serve and tier_result.label:
+            reply = domain.fill_template(tier_result.label, biz_state)
         else:
-            signals = extract_signals(answers)
-            tau = float(_config.get("abstain_threshold", DEFAULT_CONFIDENCE_TAU))
-            p_none_max = float(_config.get("abstain_p_none", DEFAULT_P_NONE_MAX))
-            tier_result = classify_tier(**signals, tau=tau, p_none_max=p_none_max)
-            if tier_result.auto_serve and tier_result.label:
-                reply = fill_template(tier_result.label, biz_state)
-            else:
-                reply = escalation_message(tier_result.tier)
+            reply = domain.escalation_message(tier_result.tier)
 
         return MessageResponse(
             reply=reply,
@@ -280,7 +259,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Laya Nepali inference server.")
     parser.add_argument("--model-path", required=True, help="path to fine-tuned checkpoint directory")
     parser.add_argument("--device", default=None, help="cuda, cpu, or mps (default auto)")
-    parser.add_argument("--domain", choices=["restaurant", "clothing"], default="restaurant", help="domain schema (default: restaurant)")
+    parser.add_argument("--domain", choices=available_domains(), default="restaurant", help="domain schema (default: restaurant)")
     parser.add_argument("--host", default="0.0.0.0", help="bind host (default 0.0.0.0)")
     parser.add_argument("--port", type=int, default=8000, help="bind port (default 8000)")
     args = parser.parse_args(argv)

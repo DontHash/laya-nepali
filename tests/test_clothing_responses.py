@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import re
 
-from layanep.clothing_policy import T0_READ_ONLY
-from layanep.clothing_responses import (
+from layanep.domains.clothing.policy import T0_READ_ONLY
+from layanep.domains.clothing.responses import (
     ESCALATION_TEMPLATES,
     RESPONSE_TEMPLATES,
     escalation_message,

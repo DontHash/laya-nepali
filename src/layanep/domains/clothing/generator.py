@@ -11,14 +11,14 @@ import random
 from dataclasses import dataclass
 from typing import Sequence
 
-from .clothing_questions import (
+from .questions import (
     CLOTHING_COMMAND_CRITERIA,
     CLOTHING_QUERY_FIELD_DESCRIPTIONS,
     CLOTHING_QUERY_FIELDS,
     clothing_questions,
 )
-from .reference import REGISTER_RULES
-from .schema import ABSTAIN_KEY, Case, Gold
+from ...reference import REGISTER_RULES
+from ...schema import ABSTAIN_KEY, Case, Gold
 
 GENERATOR_WORKFLOW = "clothing_command_lu"
 LANGUAGES = ("ne", "ne-rom", "en")

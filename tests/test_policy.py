@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pytest
 
-from layanep import clothing_policy
-from layanep.policy import (
+from layanep.domains.clothing import policy as clothing_policy
+from layanep.domains.restaurant.policy import (
     T0_READ_ONLY,
     T1_MUTATIONS,
     TierResult,

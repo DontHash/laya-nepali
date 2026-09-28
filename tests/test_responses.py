@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import re
 
-from layanep import clothing_responses
-from layanep.policy import T0_READ_ONLY
-from layanep.responses import (
+from layanep.domains.clothing import responses as clothing_responses
+from layanep.domains.restaurant.policy import T0_READ_ONLY
+from layanep.domains.restaurant.responses import (
     ESCALATION_TEMPLATES,
     RESPONSE_TEMPLATES,
     escalation_message,

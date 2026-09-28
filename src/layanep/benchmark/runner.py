@@ -23,7 +23,7 @@ from pathlib import Path
 from typing import Callable, Mapping, Sequence
 
 from ..pins import MODEL_REPO, MODEL_REVISION, MULTILINGUAL_SUBFOLDER
-from ..questions import COMMAND_LABEL_TO_KIND, command_question
+from ..domains.restaurant.questions import COMMAND_LABEL_TO_KIND, command_question
 from ..schema import LU_COMMAND_KINDS
 from ..transliterate import detect_language
 from .corpus import (

@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
-from .templates import (
+from .domains.restaurant.generator import (
     FAMILY_BY_ID,
     TRAINING_BUSINESSES,
     GenerationTask,

@@ -38,7 +38,7 @@ gate enforces the lanes defined in `src/layanep/provenance.py` and documented in
 - `choice` criteria is a `{key: description}` map. The command question uses
   natural-language keys (`greet`, `price`, `order_status`, ...) because the
   zero-shot probe measured them at 55/79 against 16/79 for dotted keys.
-  `COMMAND_LABEL_TO_KIND` in `src/layanep/questions.py` maps each key onto its
+  `COMMAND_LABEL_TO_KIND` in `src/layanep/domains/restaurant/questions.py` maps each key onto its
   dotted LU kind (`price`/`availability`/`details` -> `discovery.query`), and
   the same module is the single source of truth for both the training dataset
   and the `ne-probe-v1` benchmark.
@@ -63,7 +63,7 @@ gate enforces the lanes defined in `src/layanep/provenance.py` and documented in
 
 ## The five questions per case
 
-Defined in `src/layanep/questions.py`:
+Defined in `src/layanep/domains/restaurant/questions.py`:
 
 | id | type | what it asks |
 |---|---|---|

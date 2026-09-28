@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import random
 
-from layanep.clothing_questions import CLOTHING_COMMAND_CRITERIA
-from layanep.clothing_templates import (
+from layanep.domains.clothing.questions import CLOTHING_COMMAND_CRITERIA
+from layanep.domains.clothing.generator import (
     FAMILIES,
     FAMILY_BY_ID,
     GENERATOR_WORKFLOW,

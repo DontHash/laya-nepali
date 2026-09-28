@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from layanep.questions import (
+from layanep.domains.restaurant.questions import (
     COMMAND_CRITERIA,
     COMMAND_LABEL_TO_KIND,
     NE_QUESTION_IDS,
