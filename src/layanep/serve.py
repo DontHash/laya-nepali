@@ -85,30 +85,16 @@ def _load_agent(model_path: str, device: str | None = None):
     return agent, cfg
 
 
-# ---------------------------------------------------------------------------
-# FastAPI application
-# ---------------------------------------------------------------------------
+try:
+    from pydantic import BaseModel, Field
+    HAS_PYDANTIC = True
+except ImportError:
+    HAS_PYDANTIC = False
+    BaseModel = object  # type: ignore
+    Field = lambda *args, **kwargs: None  # type: ignore
 
-def create_app(
-    model_path: str | None = None,
-    device: str | None = None,
-    domain: str | None = None,
-):
-    """Factory that creates the FastAPI app with optional model preloading."""
-    try:
-        from fastapi import FastAPI
-        from fastapi.responses import JSONResponse
-        from pydantic import BaseModel, Field
-    except ImportError as exc:
-        raise ImportError(
-            "FastAPI is required for the serving layer. "
-            "Install with: pip install -e '.[serve]'"
-        ) from exc
 
-    app_domain = domain or os.environ.get("LAYA_DOMAIN", "restaurant")
-
-    # --- Pydantic schemas --------------------------------------------------
-
+if HAS_PYDANTIC:
     class SystemOneRequest(BaseModel):
         state: dict[str, Any]
         questions: dict[str, Any] | None = None
@@ -136,6 +122,39 @@ def create_app(
         confidence: float
         reason: str
         latency_ms: float
+else:
+    SystemOneRequest = object  # type: ignore
+    SystemOneResponse = object  # type: ignore
+    MessageRequest = object  # type: ignore
+    MessageResponse = object  # type: ignore
+
+
+# ---------------------------------------------------------------------------
+# FastAPI application
+# ---------------------------------------------------------------------------
+
+def create_app(
+    model_path: str | None = None,
+    device: str | None = None,
+    domain: str | None = None,
+):
+    """Factory that creates the FastAPI app with optional model preloading."""
+    try:
+        from fastapi import FastAPI
+        from fastapi.responses import JSONResponse
+    except ImportError as exc:
+        raise ImportError(
+            "FastAPI is required for the serving layer. "
+            "Install with: pip install -e '.[serve]'"
+        ) from exc
+
+    if not HAS_PYDANTIC:
+        raise ImportError(
+            "Pydantic is required for the serving layer. "
+            "Install with: pip install -e '.[serve]'"
+        )
+
+    app_domain = domain or os.environ.get("LAYA_DOMAIN", "restaurant")
 
     # --- Lifespan: load model at startup -----------------------------------
 
