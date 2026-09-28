@@ -1,10 +1,10 @@
 """Training templates: businesses, intent families, prompts, and derived gold.
 
 Benchmark menus are held out from generation (see AGENTS.md), so the training
-states use their own fictional businesses and menus. Gold is *constructed* from
-the family that requested the message rather than sampled from a teacher: the
-intended outcome is known by construction, probabilities are deliberately soft,
-and the review pass corrects any message that fails to express its intent.
+states use their own fictional businesses and menus. Gold is constructed by
+``generation_core`` from the family that requested the message rather than
+sampled from a teacher; the review pass corrects any message that fails to
+express its intent.
 """
 
 from __future__ import annotations
@@ -14,8 +14,17 @@ from dataclasses import dataclass
 from typing import Sequence
 
 from .questions import COMMAND_CRITERIA, QUERY_FIELD_DESCRIPTIONS, ne_questions
-from ...reference import REGISTER_RULES
-from ...schema import ABSTAIN_KEY, QUERY_FIELDS, Case, Gold
+from ...generation_core import (
+    GenerationFamily,
+    GenerationSpec,
+    GenerationTask,
+    build_budget_plan,
+    build_case as _build_case,
+    build_variant_plan,
+    derive_gold as _derive_gold,
+    prompt_rules,
+)
+from ...schema import QUERY_FIELDS, Case, Gold
 
 GENERATOR_WORKFLOW = "restaurant_command_lu"
 LANGUAGES = ("ne", "ne-rom", "en")
@@ -170,20 +179,7 @@ TRAINING_BUSINESSES: tuple[TrainingBusiness, ...] = (
 )
 
 
-@dataclass(frozen=True)
-class Family:
-    """One intended intent: what the message should express and its gold outcomes."""
-
-    id: str
-    command: str
-    instruction: str
-    query_field: str = ABSTAIN_KEY
-    order_intent: bool = False
-    needs_staff: bool = False
-    abstain: bool = False
-    confusable: str | None = None
-    mentions_item: bool = False
-
+Family = GenerationFamily
 
 FAMILIES: tuple[Family, ...] = (
     Family("greet", "greet", "a greeting to the restaurant (hello, namaste, good morning)"),
@@ -322,37 +318,18 @@ FAMILIES: tuple[Family, ...] = (
 FAMILY_BY_ID = {family.id: family for family in FAMILIES}
 
 
-@dataclass(frozen=True)
-class GenerationTask:
-    id: str
-    family: Family
-    language: str
-    business: TrainingBusiness
-    variant: int
-    prompt: str
-
-
 def build_prompt(business: TrainingBusiness, family: Family, language: str, variant: int = 0) -> str:
     menu_lines = "\n".join(
         f"- {item.name} (NPR {item.price_npr})" + (f", contains {item.contains}" if item.contains else "")
         for item in business.menu
     )
-    rules = [
-        "- The customer is writing to the restaurant; never write as the restaurant.",
-        "- Express exactly one intent and nothing else; do not add a second request or order.",
-        "- Do not put the restaurant's name in the message.",
-    ]
-    if family.mentions_item:
-        rules.append("- Name one specific item from the menu.")
-    if variant:
-        rules.append(f"- Variation {variant + 1}: use a clearly different wording, length and tone.")
-    rules.extend(
-        ["- " + rule for rule in REGISTER_RULES[:-1]]
-        + [
-            "- Natural, the way real customers type; 2 to 15 words.",
-            "- No names, phone numbers, addresses, emails, URLs, emojis or line breaks.",
-            "- Return only the message text, with no quotes and no explanation.",
-        ]
+    rules = prompt_rules(
+        family,
+        audience="restaurant",
+        item_word="item",
+        list_word="menu",
+        register_line="Natural, the way real customers type; 2 to 15 words.",
+        variant=variant,
     )
     return (
         "You write realistic WhatsApp messages that customers send to a Nepali restaurant.\n"
@@ -362,6 +339,16 @@ def build_prompt(business: TrainingBusiness, family: Family, language: str, vari
         f"The customer writes one short message in {LANGUAGE_INSTRUCTIONS[language]}.\n"
         "Rules:\n" + "\n".join(rules)
     )
+
+
+SPEC = GenerationSpec(
+    workflow=GENERATOR_WORKFLOW,
+    command_criteria=COMMAND_CRITERIA,
+    query_fields=QUERY_FIELDS,
+    query_field_descriptions=QUERY_FIELD_DESCRIPTIONS,
+    questions=ne_questions,
+    build_prompt=build_prompt,
+)
 
 
 def build_plan(
@@ -384,142 +371,30 @@ def build_plan(
     across batches so dataset revisions never collide.
     """
     if kind_cases is not None or safety_cases is not None:
-        return _build_budget_plan(
-            businesses, families, languages, kind_cases or 0, safety_cases or 0, limit, id_prefix
+        return build_budget_plan(
+            SPEC,
+            businesses=businesses,
+            families=families,
+            languages=languages,
+            kind_cases=kind_cases or 0,
+            safety_cases=safety_cases or 0,
+            limit=limit,
+            id_prefix=id_prefix,
         )
-
-    tasks: list[GenerationTask] = []
-    for variant in range(variants):
-        for family in families:
-            for language in languages:
-                for business in businesses:
-                    tasks.append(
-                        GenerationTask(
-                            id=f"{id_prefix}-{len(tasks) + 1:04d}",
-                            family=family,
-                            language=language,
-                            business=business,
-                            variant=variant,
-                            prompt=build_prompt(business, family, language, variant),
-                        )
-                    )
-                    if limit is not None and len(tasks) >= limit:
-                        return tasks
-    return tasks
-
-
-def _build_budget_plan(
-    businesses: Sequence[TrainingBusiness],
-    families: Sequence[Family],
-    languages: Sequence[str],
-    kind_cases: int,
-    safety_cases: int,
-    limit: int | None,
-    id_prefix: str,
-) -> list[GenerationTask]:
-    combos = [(business, language) for language in languages for business in businesses]
-    tasks: list[GenerationTask] = []
-    if not combos:
-        return tasks
-    max_budget = max(kind_cases, safety_cases)
-    for index in range(max_budget):
-        for position, family in enumerate(families):
-            budget = kind_cases if family.command != ABSTAIN_KEY else safety_cases
-            if index >= budget:
-                continue
-            combo_index = index + position
-            business, language = combos[combo_index % len(combos)]
-            variant = combo_index // len(combos)
-            tasks.append(
-                GenerationTask(
-                    id=f"{id_prefix}-{len(tasks) + 1:04d}",
-                    family=family,
-                    language=language,
-                    business=business,
-                    variant=variant,
-                    prompt=build_prompt(business, family, language, variant),
-                )
-            )
-            if limit is not None and len(tasks) >= limit:
-                return tasks
-    return tasks
-
-
-def _categorical(rng: random.Random, keys: Sequence[str], primary: str, low: float, high: float) -> dict[str, float]:
-    probability = rng.uniform(low, high)
-    rest = (1.0 - probability) / (len(keys) - 1)
-    distribution = {key: (probability if key == primary else rest) for key in keys}
-    total = sum(distribution.values())
-    return {key: round(value / total, 6) for key, value in distribution.items()}
-
-
-def _command_distribution(rng: random.Random, family: Family) -> dict[str, float]:
-    """Soft command targets, with no mass on ``none`` for command families.
-
-    Kind messages are by definition commands, so the residual probability must
-    not leak onto the abstain key: that leak made the model learn p(none)
-    5-12% for social and query kinds and broke p(none)-gated abstention. Only
-    abstain families keep ``none`` as the primary label.
-    """
-    keys = list(COMMAND_CRITERIA)
-    distribution = dict.fromkeys(keys, 0.0)
-    distribution[family.command] = rng.uniform(0.88, 0.95)
-    rest = 1.0 - distribution[family.command]
-    if family.command == ABSTAIN_KEY:
-        secondary = family.confusable or "greet"
-        distribution[secondary] += rest
-    elif family.command in QUERY_FIELDS:
-        others = [other for other in QUERY_FIELDS if other != family.command]
-        for other in others:
-            distribution[other] = rest / len(others)
-    elif family.confusable:
-        distribution[family.confusable] += rest
-    else:
-        others = [key for key in keys if key not in (family.command, ABSTAIN_KEY)][:3]
-        for key in others:
-            distribution[key] = rest / len(others)
-    total = sum(distribution.values())
-    return {key: round(value / total, 6) for key, value in distribution.items()}
+    return build_variant_plan(
+        SPEC,
+        businesses=businesses,
+        families=families,
+        languages=languages,
+        variants=variants,
+        limit=limit,
+        id_prefix=id_prefix,
+    )
 
 
 def derive_gold(family: Family, rng: random.Random) -> dict[str, Gold]:
-    def noul(intended: bool) -> Gold:
-        primary = "true" if intended else "false"
-        probabilities = _categorical(rng, ("true", "false"), primary, 0.90, 0.96)
-        return Gold(label=primary, probabilities=probabilities)
-
-    return {
-        "command": Gold(label=family.command, probabilities=_command_distribution(rng, family)),
-        "query_field": Gold(
-            label=family.query_field,
-            probabilities=_categorical(
-                rng, list(QUERY_FIELD_DESCRIPTIONS), family.query_field, 0.86, 0.94
-            ),
-        ),
-        "order_intent": noul(family.order_intent),
-        "needs_staff": noul(family.needs_staff),
-        "abstain": noul(family.abstain),
-    }
+    return _derive_gold(SPEC, family, rng)
 
 
 def build_case(task: GenerationTask, message: str, rng: random.Random, *, generator: str) -> Case:
-    state = task.business.state_base()
-    state["customer_message"] = message
-    state["language"] = task.language
-    return Case(
-        id=task.id,
-        workflow=GENERATOR_WORKFLOW,
-        state=state,
-        questions=ne_questions(task.business.name),
-        gold=derive_gold(task.family, rng),
-        provenance={
-            "source": "synthetic",
-            "generator": generator,
-            "license": "CC-BY-4.0",
-            "family": task.family.id,
-            "language": task.language,
-            "business": task.business.id,
-            "variant": task.variant,
-            "reviewed_by": None,
-        },
-    )
+    return _build_case(SPEC, task, message, rng, generator=generator)

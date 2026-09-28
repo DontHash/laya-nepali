@@ -1,8 +1,9 @@
 """Training templates for clothing businesses: products, families, prompts, and gold.
 
-Mirrors ``templates.py`` (restaurant domain).  Benchmark products are held out
-from generation; the training states use fictional businesses.  Gold is
-constructed from the family that requested the message, not sampled.
+Mirrors the restaurant generator on the shared ``generation_core`` engine.
+Benchmark products are held out from generation; the training states use
+fictional businesses. Gold is constructed from the family that requested the
+message, not sampled.
 """
 
 from __future__ import annotations
@@ -17,8 +18,16 @@ from .questions import (
     CLOTHING_QUERY_FIELDS,
     clothing_questions,
 )
-from ...reference import REGISTER_RULES
-from ...schema import ABSTAIN_KEY, Case, Gold
+from ...generation_core import (
+    GenerationFamily,
+    GenerationSpec,
+    GenerationTask,
+    build_budget_plan,
+    build_case as _build_case,
+    derive_gold as _derive_gold,
+    prompt_rules,
+)
+from ...schema import Case, Gold
 
 GENERATOR_WORKFLOW = "clothing_command_lu"
 LANGUAGES = ("ne", "ne-rom", "en")
@@ -202,135 +211,122 @@ TRAINING_BUSINESSES: tuple[ClothingBusiness, ...] = (
 # Intent families — one per intended outcome
 # ---------------------------------------------------------------------------
 
-@dataclass(frozen=True)
-class ClothingFamily:
-    """One intended intent for the clothing domain."""
+Family = GenerationFamily
 
-    id: str
-    command: str
-    instruction: str
-    query_field: str = ABSTAIN_KEY
-    order_intent: bool = False
-    needs_staff: bool = False
-    abstain: bool = False
-    confusable: str | None = None
-    mentions_product: bool = False
-
-
-FAMILIES: tuple[ClothingFamily, ...] = (
+FAMILIES: tuple[Family, ...] = (
     # --- social ---
-    ClothingFamily("greet", "greet", "a greeting to the store (hello, namaste, good morning)"),
-    ClothingFamily("thanks", "thanks", "thanking the store (thank you, dhanyabad)"),
-    ClothingFamily("goodbye", "goodbye", "saying goodbye or ending the conversation (bye, see you)"),
+    Family("greet", "greet", "a greeting to the store (hello, namaste, good morning)"),
+    Family("thanks", "thanks", "thanking the store (thank you, dhanyabad)"),
+    Family("goodbye", "goodbye", "saying goodbye or ending the conversation (bye, see you)"),
     # --- discovery ---
-    ClothingFamily("show_catalog", "catalog", "asking to see products, new arrivals or the catalog", confusable="greet"),
-    ClothingFamily("recommend", "recommend", "asking for a recommendation, best seller or trending item", confusable="catalog"),
-    ClothingFamily(
+    Family("show_catalog", "catalog", "asking to see products, new arrivals or the catalog", confusable="greet"),
+    Family("recommend", "recommend", "asking for a recommendation, best seller or trending item", confusable="catalog"),
+    Family(
         "query_price", "price",
         "asking how much a specific product costs",
-        query_field="price", mentions_product=True,
+        query_field="price", mentions_item=True,
     ),
-    ClothingFamily(
+    Family(
         "query_size", "size",
         "asking about available sizes or requesting a size chart for a product",
-        query_field="size", mentions_product=True, confusable="stock",
+        query_field="size", mentions_item=True, confusable="stock",
     ),
-    ClothingFamily(
+    Family(
         "query_color", "color",
         "asking about available colors for a product",
-        query_field="color", mentions_product=True, confusable="size",
+        query_field="color", mentions_item=True, confusable="size",
     ),
-    ClothingFamily(
+    Family(
         "query_material", "material",
         "asking what fabric or material a product is made of",
-        query_field="material", mentions_product=True, confusable="stock",
+        query_field="material", mentions_item=True, confusable="stock",
     ),
-    ClothingFamily(
+    Family(
         "query_stock", "stock",
         "asking whether a product is available or in stock (without asking about a specific size or color)",
-        query_field="stock", mentions_product=True, confusable="size",
+        query_field="stock", mentions_item=True, confusable="size",
     ),
     # --- fulfillment ---
-    ClothingFamily(
+    Family(
         "ask_delivery", "delivery",
         "asking about the delivery area, fee or time",
         confusable="cod",
     ),
-    ClothingFamily(
+    Family(
         "ask_cod", "cod",
         "asking whether cash on delivery is available or accepted",
         confusable="delivery",
     ),
-    ClothingFamily(
+    Family(
         "order_status", "order_status",
         "asking about the status of an existing order",
         confusable="delivery",
     ),
     # --- ordering ---
-    ClothingFamily("view_cart", "cart", "asking to see the current cart or order", confusable="order_status"),
-    ClothingFamily("request_checkout", "checkout", "asking to place an order or buy a product", confusable="cart"),
-    ClothingFamily(
+    Family("view_cart", "cart", "asking to see the current cart or order", confusable="order_status"),
+    Family("request_checkout", "checkout", "asking to place an order or buy a product", confusable="cart"),
+    Family(
         "request_exchange", "exchange",
         "asking to exchange or return an item (wrong size, wrong color, defective)",
         order_intent=True, confusable="order_status",
     ),
-    ClothingFamily(
+    Family(
         "custom_order", "custom_order",
         "asking for custom stitching, tailoring or alteration of a garment",
         order_intent=True, confusable="checkout",
     ),
-    ClothingFamily(
+    Family(
         "use_saved_address", "saved_address",
         "asking to use a saved delivery address",
         confusable="delivery",
     ),
     # --- safety / abstain ---
-    ClothingFamily(
+    Family(
         "bare_order", "none",
         "a bare purchase attempt without size or confirmation (like 'yo chaiyo')",
-        order_intent=True, abstain=True, confusable="checkout", mentions_product=True,
+        order_intent=True, abstain=True, confusable="checkout", mentions_item=True,
     ),
-    ClothingFamily(
+    Family(
         "yes_no", "none",
         "a plain yes or no answer to a previous question",
         abstain=True, confusable="thanks",
     ),
-    ClothingFamily(
+    Family(
         "skin_sensitivity", "none",
         "asking whether fabric will irritate skin or cause an allergy (sensitive skin, rash, itching)",
         needs_staff=True, abstain=True, confusable="material",
     ),
-    ClothingFamily(
+    Family(
         "counterfeit_concern", "none",
         "questioning whether a product is genuine, original or branded (copy, duplicate, fake)",
         needs_staff=True, abstain=True, confusable="material",
     ),
-    ClothingFamily(
+    Family(
         "sizing_dispute", "none",
         "complaining that a received item does not fit the stated size",
         needs_staff=True, abstain=True, confusable="exchange",
     ),
-    ClothingFamily(
+    Family(
         "refund_demand", "none",
         "demanding a refund or complaining about a payment",
         needs_staff=True, abstain=True, confusable="exchange",
     ),
-    ClothingFamily(
+    Family(
         "complaint", "none",
         "complaining that the product was damaged, wrong or delivered late",
         needs_staff=True, abstain=True, confusable="order_status",
     ),
-    ClothingFamily(
+    Family(
         "human", "none",
         "asking to talk to a staff member or the owner",
         needs_staff=True, abstain=True, confusable="greet",
     ),
-    ClothingFamily(
+    Family(
         "gibberish", "none",
         "keyboard gibberish or symbols with no meaning",
         abstain=True, confusable="greet",
     ),
-    ClothingFamily(
+    Family(
         "unclear", "none",
         "an unclear or off-topic message that does not express any request",
         abstain=True, confusable="greet",
@@ -339,22 +335,16 @@ FAMILIES: tuple[ClothingFamily, ...] = (
 
 FAMILY_BY_ID = {family.id: family for family in FAMILIES}
 
+# Backwards-compatible aliases: both domains now share the engine types.
+ClothingFamily = GenerationFamily
+ClothingGenerationTask = GenerationTask
+
 
 # ---------------------------------------------------------------------------
 # Prompt and gold builders
 # ---------------------------------------------------------------------------
 
-@dataclass(frozen=True)
-class ClothingGenerationTask:
-    id: str
-    family: ClothingFamily
-    language: str
-    business: ClothingBusiness
-    variant: int
-    prompt: str
-
-
-def build_prompt(business: ClothingBusiness, family: ClothingFamily, language: str, variant: int = 0) -> str:
+def build_prompt(business: ClothingBusiness, family: Family, language: str, variant: int = 0) -> str:
     catalog_lines = []
     for item in business.catalog:
         line = f"- {item.name} (NPR {item.price_npr})"
@@ -367,22 +357,13 @@ def build_prompt(business: ClothingBusiness, family: ClothingFamily, language: s
         catalog_lines.append(line)
     catalog_text = "\n".join(catalog_lines)
 
-    rules = [
-        "- The customer is writing to the store; never write as the store.",
-        "- Express exactly one intent and nothing else; do not add a second request or order.",
-        "- Do not put the store's name in the message.",
-    ]
-    if family.mentions_product:
-        rules.append("- Name one specific product from the catalog.")
-    if variant:
-        rules.append(f"- Variation {variant + 1}: use a clearly different wording, length and tone.")
-    rules.extend(
-        ["- " + rule for rule in REGISTER_RULES[:-1]]
-        + [
-            "- Natural, the way real customers type on WhatsApp/Instagram; 2 to 15 words.",
-            "- No names, phone numbers, addresses, emails, URLs, emojis or line breaks.",
-            "- Return only the message text, with no quotes and no explanation.",
-        ]
+    rules = prompt_rules(
+        family,
+        audience="store",
+        item_word="product",
+        list_word="catalog",
+        register_line="Natural, the way real customers type on WhatsApp/Instagram; 2 to 15 words.",
+        variant=variant,
     )
     cod_note = " COD available." if business.cod_available else " No COD (online payment only)."
     return (
@@ -395,120 +376,42 @@ def build_prompt(business: ClothingBusiness, family: ClothingFamily, language: s
     )
 
 
+SPEC = GenerationSpec(
+    workflow=GENERATOR_WORKFLOW,
+    command_criteria=CLOTHING_COMMAND_CRITERIA,
+    query_fields=CLOTHING_QUERY_FIELDS,
+    query_field_descriptions=CLOTHING_QUERY_FIELD_DESCRIPTIONS,
+    questions=clothing_questions,
+    build_prompt=build_prompt,
+)
+
+
 def build_plan(
     *,
     businesses: Sequence[ClothingBusiness] = TRAINING_BUSINESSES,
-    families: Sequence[ClothingFamily] = FAMILIES,
+    families: Sequence[Family] = FAMILIES,
     languages: Sequence[str] = LANGUAGES,
     kind_cases: int | None = None,
     safety_cases: int | None = None,
     limit: int | None = None,
     id_prefix: str = "cl-gen",
-) -> list[ClothingGenerationTask]:
+) -> list[GenerationTask]:
     """Plan clothing generation tasks (budget mode only)."""
-    combos = [(business, language) for language in languages for business in businesses]
-    tasks: list[ClothingGenerationTask] = []
-    if not combos:
-        return tasks
-    kc = kind_cases or 0
-    sc = safety_cases or 0
-    max_budget = max(kc, sc)
-    for index in range(max_budget):
-        for position, family in enumerate(families):
-            budget = kc if family.command != ABSTAIN_KEY else sc
-            if index >= budget:
-                continue
-            combo_index = index + position
-            business, language = combos[combo_index % len(combos)]
-            variant = combo_index // len(combos)
-            tasks.append(
-                ClothingGenerationTask(
-                    id=f"{id_prefix}-{len(tasks) + 1:04d}",
-                    family=family,
-                    language=language,
-                    business=business,
-                    variant=variant,
-                    prompt=build_prompt(business, family, language, variant),
-                )
-            )
-            if limit is not None and len(tasks) >= limit:
-                return tasks
-    return tasks
-
-
-def _categorical(rng: random.Random, keys: Sequence[str], primary: str, low: float, high: float) -> dict[str, float]:
-    probability = rng.uniform(low, high)
-    rest = (1.0 - probability) / (len(keys) - 1)
-    distribution = {key: (probability if key == primary else rest) for key in keys}
-    total = sum(distribution.values())
-    return {key: round(value / total, 6) for key, value in distribution.items()}
-
-
-def _command_distribution(rng: random.Random, family: ClothingFamily) -> dict[str, float]:
-    """Soft command targets, with no mass on ``none`` for command families.
-
-    Mirrors the restaurant template logic: kind messages are commands by
-    definition, so residual probability must not leak onto the abstain key.
-    """
-    keys = list(CLOTHING_COMMAND_CRITERIA)
-    distribution = dict.fromkeys(keys, 0.0)
-    distribution[family.command] = rng.uniform(0.88, 0.95)
-    rest = 1.0 - distribution[family.command]
-    if family.command == ABSTAIN_KEY:
-        secondary = family.confusable or "greet"
-        distribution[secondary] += rest
-    elif family.command in CLOTHING_QUERY_FIELDS:
-        others = [other for other in CLOTHING_QUERY_FIELDS if other != family.command]
-        for other in others:
-            distribution[other] = rest / len(others)
-    elif family.confusable:
-        distribution[family.confusable] += rest
-    else:
-        others = [key for key in keys if key not in (family.command, ABSTAIN_KEY)][:3]
-        for key in others:
-            distribution[key] = rest / len(others)
-    total = sum(distribution.values())
-    return {key: round(value / total, 6) for key, value in distribution.items()}
-
-
-def derive_gold(family: ClothingFamily, rng: random.Random) -> dict[str, Gold]:
-    def noul(intended: bool) -> Gold:
-        primary = "true" if intended else "false"
-        probabilities = _categorical(rng, ("true", "false"), primary, 0.90, 0.96)
-        return Gold(label=primary, probabilities=probabilities)
-
-    return {
-        "command": Gold(label=family.command, probabilities=_command_distribution(rng, family)),
-        "query_field": Gold(
-            label=family.query_field,
-            probabilities=_categorical(
-                rng, list(CLOTHING_QUERY_FIELD_DESCRIPTIONS), family.query_field, 0.86, 0.94
-            ),
-        ),
-        "order_intent": noul(family.order_intent),
-        "needs_staff": noul(family.needs_staff),
-        "abstain": noul(family.abstain),
-    }
-
-
-def build_case(task: ClothingGenerationTask, message: str, rng: random.Random, *, generator: str) -> Case:
-    state = task.business.state_base()
-    state["customer_message"] = message
-    state["language"] = task.language
-    return Case(
-        id=task.id,
-        workflow=GENERATOR_WORKFLOW,
-        state=state,
-        questions=clothing_questions(task.business.name),
-        gold=derive_gold(task.family, rng),
-        provenance={
-            "source": "synthetic",
-            "generator": generator,
-            "license": "CC-BY-4.0",
-            "family": task.family.id,
-            "language": task.language,
-            "business": task.business.id,
-            "variant": task.variant,
-            "reviewed_by": None,
-        },
+    return build_budget_plan(
+        SPEC,
+        businesses=businesses,
+        families=families,
+        languages=languages,
+        kind_cases=kind_cases or 0,
+        safety_cases=safety_cases or 0,
+        limit=limit,
+        id_prefix=id_prefix,
     )
+
+
+def derive_gold(family: Family, rng: random.Random) -> dict[str, Gold]:
+    return _derive_gold(SPEC, family, rng)
+
+
+def build_case(task: GenerationTask, message: str, rng: random.Random, *, generator: str) -> Case:
+    return _build_case(SPEC, task, message, rng, generator=generator)

@@ -22,6 +22,20 @@ REQUIRED_SURFACE = (
     "generator",
 )
 
+REQUIRED_GENERATOR_SURFACE = (
+    "GENERATOR_WORKFLOW",
+    "LANGUAGES",
+    "LANGUAGE_INSTRUCTIONS",
+    "FAMILIES",
+    "FAMILY_BY_ID",
+    "TRAINING_BUSINESSES",
+    "SPEC",
+    "build_prompt",
+    "build_plan",
+    "derive_gold",
+    "build_case",
+)
+
 
 def test_available_domains_lists_installed_packages() -> None:
     names = available_domains()
@@ -35,7 +49,10 @@ def test_every_domain_binds_the_full_surface() -> None:
         domain = get_domain(name)
         for attr in REQUIRED_SURFACE:
             assert hasattr(domain, attr), f"{name} is missing {attr}"
+        for attr in REQUIRED_GENERATOR_SURFACE:
+            assert hasattr(domain.generator, attr), f"{name}.generator is missing {attr}"
         assert domain.DOMAIN_NAME == name
+        assert domain.WORKFLOW == domain.generator.GENERATOR_WORKFLOW
         assert set(domain.questions("Test Shop")) == {
             "command",
             "query_field",
@@ -44,6 +61,17 @@ def test_every_domain_binds_the_full_surface() -> None:
             "abstain",
         }
         assert domain.T0_READ_ONLY <= set(domain.RESPONSE_TEMPLATES)
+
+
+def test_domains_share_one_generation_engine() -> None:
+    from layanep.domains.clothing import generator as clothing
+    from layanep.domains.restaurant import generator as restaurant
+    from layanep.generation_core import GenerationFamily, GenerationTask
+
+    assert restaurant.Family is GenerationFamily
+    assert clothing.ClothingFamily is GenerationFamily
+    assert restaurant.GenerationTask is GenerationTask
+    assert clothing.ClothingGenerationTask is GenerationTask
 
 
 def test_get_domain_caches_and_rejects_unknown_names() -> None:
