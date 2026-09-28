@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 
+from layanep import clothing_responses
 from layanep.policy import T0_READ_ONLY
 from layanep.responses import (
     ESCALATION_TEMPLATES,
@@ -90,3 +91,7 @@ def test_response_templates_cover_t0_labels() -> None:
     assert T0_READ_ONLY <= set(RESPONSE_TEMPLATES), (
         f"missing: {T0_READ_ONLY - set(RESPONSE_TEMPLATES)}"
     )
+
+
+def test_domains_share_one_escalation_table() -> None:
+    assert ESCALATION_TEMPLATES is clothing_responses.ESCALATION_TEMPLATES
