@@ -123,6 +123,8 @@ contrast pair inside each part. Then output ONLY the file (or its download link)
 
 ## Import
 
+Save the downloaded bank under `data/generated/` (gitignored) before importing:
+
 ```bash
 python -m layanep.import_bank --input <bank.jsonl> --out data/generated/ne-bank-<name>.jsonl --id-prefix ne-bank
 ```
