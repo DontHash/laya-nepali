@@ -1,0 +1,16 @@
+{
+  "id": "bhishmbhandari/laya-nepali-clothing-finetune",
+  "title": "Laya Nepali Clothing Finetune",
+  "code_file": "laya_finetune_clothing_2xT4_kaggle.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "bhishmbhandari/laya-nepali-clothing-v1"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

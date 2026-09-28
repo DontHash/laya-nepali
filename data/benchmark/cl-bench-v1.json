@@ -1,0 +1,5763 @@
+{
+  "revision": "cl-bench-v1",
+  "source": "cl-decisions-v1 held-out test split (10%)",
+  "businesses": {
+    "birgunj-saree": {
+      "name": "Birgunj Saree House",
+      "area": "Birgunj",
+      "hours": "9 AM - 7 PM daily",
+      "delivery_area": "Birgunj and Parsa",
+      "delivery_fee_npr": 60
+    },
+    "chitwan-sports": {
+      "name": "Chitwan Sports Corner",
+      "area": "Bharatpur, Chitwan",
+      "hours": "8 AM - 8 PM daily",
+      "delivery_area": "Bharatpur and Ratnanagar",
+      "delivery_fee_npr": 80
+    },
+    "newari-heritage": {
+      "name": "Newa Heritage Clothing",
+      "area": "Patan, Lalitpur",
+      "hours": "10 AM - 6 PM (closed Saturdays)",
+      "delivery_area": "Patan and Mangal Bazaar",
+      "delivery_fee_npr": 80
+    },
+    "pokhara-boutique": {
+      "name": "Pokhara Style Boutique",
+      "area": "Lakeside, Pokhara",
+      "hours": "10 AM - 7 PM (closed Saturdays)",
+      "delivery_area": "Pokhara and Lekhnath",
+      "delivery_fee_npr": 100
+    },
+    "thamel-threads": {
+      "name": "Thamel Threads",
+      "area": "Thamel, Kathmandu",
+      "hours": "10 AM - 8 PM daily",
+      "delivery_area": "Kathmandu Valley",
+      "delivery_fee_npr": 150
+    },
+    "bhaktapur-stitch": {
+      "name": "Bhaktapur Custom Stitch",
+      "area": "Bhaktapur",
+      "hours": "9 AM - 6 PM daily",
+      "delivery_area": "Bhaktapur and Thimi",
+      "delivery_fee_npr": 80
+    },
+    "biratnagar-fashion": {
+      "name": "Biratnagar Fashion Hub",
+      "area": "Biratnagar",
+      "hours": "10 AM - 8 PM daily",
+      "delivery_area": "Biratnagar and Dharan",
+      "delivery_fee_npr": 120
+    },
+    "lalitpur-kids": {
+      "name": "Little Lalitpur Kids Wear",
+      "area": "Jhamsikhel, Lalitpur",
+      "hours": "10 AM - 6 PM (closed Sundays)",
+      "delivery_area": "Lalitpur and Patan",
+      "delivery_fee_npr": 100
+    }
+  },
+  "cases": [
+    {
+      "id": "bench-case-bhaktapur-stitch",
+      "category": "clothing",
+      "description": "Customer dialog steps for Bhaktapur Custom Stitch",
+      "menu_id": "bhaktapur-stitch",
+      "steps": [
+        {
+          "id": "cl-bank-0970-step1",
+          "language": "ne",
+          "text": "सामान हेरेर मात्र पैसा दिन पाउँछु?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-2172-step1",
+          "language": "ne",
+          "text": "सामान घर आइपुगेपछि नगद तिर्न पाइन्छ हजुर?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-0990-step1",
+          "language": "ne",
+          "text": "क्यास अन डेलिभरी छ कि अनलाइन मात्र?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-4423-step1",
+          "language": "ne-rom",
+          "text": "outside valley COD available cha ki online bank transfer matra accept huncha?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-4120-step1",
+          "language": "ne-rom",
+          "text": "advance payment nagari cash on delivery milxa ki mildaina ktm vitra?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-3691-step1",
+          "language": "ne-rom",
+          "text": "partial advance diyera baki amount cod garna milcha saman aayesi?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-4676-step1",
+          "language": "ne-rom",
+          "text": "delivery boy lai aayepachi matra cash dinchu milcha?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-7863-step1",
+          "language": "en",
+          "text": "What are the shipping timelines for courier outside valley during festival week?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0886-step1",
+          "language": "ne",
+          "text": "डेलिभरी चार्ज फ्रि छ कि पैसा लाग्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0926-step1",
+          "language": "ne",
+          "text": "उपत्यका भित्र कति घण्टामा डेलिभर हुन्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-2291-step1",
+          "language": "ne",
+          "text": "सामान गोरखा बजारसम्म पुर्‍याइदिनुहुन्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-2432-step1",
+          "language": "ne",
+          "text": "झापा बिर्तामोडसम्म डेलिभरी गर्न कति दिन लाग्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0906-step1",
+          "language": "ne",
+          "text": "कुरियर चार्ज सामान अनुसार फरक हुन्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-2504-step1",
+          "language": "ne",
+          "text": "बुटवल मिलनचोकसम्म सामान पुग्न कति समय लाग्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0938-step1",
+          "language": "ne",
+          "text": "उपत्यका बाहिर डेलिभरी चार्ज कति पर्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-5294-step1",
+          "language": "ne-rom",
+          "text": "inside ring road pathao express delivery charge free ho tapaiharuko?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0654-step1",
+          "language": "ne",
+          "text": "स्कुल ड्रेस",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-2960-step1",
+          "language": "ne-rom",
+          "text": "black cargo",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-5108-step1",
+          "language": "ne-rom",
+          "text": "crop cardigan olive green",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0282-step1",
+          "language": "ne",
+          "text": "लेहेंगाको कपडा च्यातिएको रहेछ",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-0234-step1",
+          "language": "ne",
+          "text": "ट्र्याकको कपडा एकदम पातलो र कमजोर छ",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-0258-step1",
+          "language": "ne",
+          "text": "कस्तो रद्दी क्वालिटीको सामान आयो",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-0410-step1",
+          "language": "ne",
+          "text": "लेहेंगा फोटो जस्तै ओरिजिनल आउँछ?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-0418-step1",
+          "language": "ne",
+          "text": "स्कुल ड्रेसको कपडा ओरिजिनल क्वालिटीकै हो?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-2125-step1",
+          "language": "ne",
+          "text": "ओरिजिनल ब्राण्डेड कपडा हो कि नक्कली हो?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-1989-step1",
+          "language": "ne",
+          "text": "ओरिजिनल ब्राण्डेड सामान हो कि नक्कली हो?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-1693-step1",
+          "language": "ne",
+          "text": "डुप्लिकेट सामान त होइन नि?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-7117-step1",
+          "language": "en",
+          "text": "Can I provide my own measurements for stitching the bridal lehenga?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-2037-step1",
+          "language": "ne",
+          "text": "यो ओभरकोट मेरो काँधको नाप अनुसार अल्टर गरिदिनु",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-0846-step1",
+          "language": "ne",
+          "text": "टपको फेब्रिक चेन्ज गरेर सिलाउन मिल्छ?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-1318-step1",
+          "language": "ne",
+          "text": "यो कुर्ता मेरो नाप अनुसार सिलाइदिनु",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-0830-step1",
+          "language": "ne",
+          "text": "पश्मिना सलमा नाम लेखिदिन मिल्छ?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-0826-step1",
+          "language": "ne",
+          "text": "ब्लाउजको पछाडि डोरी राखिदिनुहोला",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-2932-step1",
+          "language": "ne-rom",
+          "text": "blouse stitching garnu huncha?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-1242-step1",
+          "language": "ne",
+          "text": "पफबभमरल",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-1250-step1",
+          "language": "ne",
+          "text": "घङझञढण",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-1495-step1",
+          "language": "ne",
+          "text": "कखगघ ङचछज",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-2712-step1",
+          "language": "ne-rom",
+          "text": "ok bye didi paxi linchu ma",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-3128-step1",
+          "language": "ne-rom",
+          "text": "ok bye bye have a nice evening",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-5223-step1",
+          "language": "ne-rom",
+          "text": "la ta solti ma bhat khayera msg thukchu pack gardai garnu bye",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-1786-step1",
+          "language": "ne",
+          "text": "नमस्ते हजुर मलाई एउटा स्वेटर चाहिएको थियो",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3100-step1",
+          "language": "ne-rom",
+          "text": "hello didi kasto chaliracha?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3084-step1",
+          "language": "ne-rom",
+          "text": "namaskar hajur shop khulla cha ahile?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-2676-step1",
+          "language": "ne-rom",
+          "text": "hello team",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-4239-step1",
+          "language": "ne-rom",
+          "text": "hello didi online ma kapada herna milxa ahile?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-1881-step1",
+          "language": "ne",
+          "text": "स्टाफसँग फोनमा कुरा गराइदिनु पर्यो तुरुन्तै",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-6991-step1",
+          "language": "en",
+          "text": "Has my exchange item been dispatched yet?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-0122-step1",
+          "language": "ne",
+          "text": "हिजो पठाएको सामान हिँड्यो कि छैन?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-0154-step1",
+          "language": "ne",
+          "text": "ट्र्याक सामान आइपुग्न कति दिन लाग्छ?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-0162-step1",
+          "language": "ne",
+          "text": "पार्सल हिँडिसकेको हो त दिदी?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-5064-step1",
+          "language": "ne-rom",
+          "text": "mero bill number 1198 ko courier status check garidinu na dispatch bhayo?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-5060-step1",
+          "language": "ne-rom",
+          "text": "order number KU-890 ko package courier ma handover bhayo ki baki cha?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-1563-step1",
+          "language": "ne",
+          "text": "सेतो बाहेक अरु के रङ्गमा उपलब्ध छ?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-3304-step1",
+          "language": "ne-rom",
+          "text": "navy blue color ma dekhna payincha yo hoodie?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-7783-step1",
+          "language": "en",
+          "text": "Is this ring pashmina ultra-fine enough to slip through a ring?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-2164-step1",
+          "language": "ne",
+          "text": "यो बर्को ऊनी धागोले बनेको हो?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-1682-step1",
+          "language": "ne",
+          "text": "यो कपडा कटन हो कि मिक्स हो?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-2820-step1",
+          "language": "ne-rom",
+          "text": "winter ko lagi warm cha yo jacket ko material?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-3651-step1",
+          "language": "ne-rom",
+          "text": "georgette fabric ho ki chiffon ho yo kurti ko material?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-2824-step1",
+          "language": "ne-rom",
+          "text": "rough cha ki soft material cha chala ma?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-2245-step1",
+          "language": "ne",
+          "text": "यो उनिया स्विटरको कति पर्छ भनिदिनुस् न",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-3276-step1",
+          "language": "ne-rom",
+          "text": "black cargo pant ko price bhandinus na",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-5255-step1",
+          "language": "ne-rom",
+          "text": "daura suruwal ra koti ko combined package price kati linxau bro?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-7721-step1",
+          "language": "en",
+          "text": "Is this winter coat roomy enough to layer a thick sweater underneath?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3663-step1",
+          "language": "ne-rom",
+          "text": "out of stock ta bhako xaina ni yo product order garna thye?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-2832-step1",
+          "language": "ne-rom",
+          "text": "yo dress paucha?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-7632-step1",
+          "language": "en",
+          "text": "Recommend a breathable cotton-blend kurti for humid summer afternoons.",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-3268-step1",
+          "language": "ne-rom",
+          "text": "mom ko birthday ma dina kasto suit set thik huncha?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-5247-step1",
+          "language": "ne-rom",
+          "text": "sister ko engagement ma lagauna light pastel lehenga k suggest garnu huncha?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-3264-step1",
+          "language": "ne-rom",
+          "text": "mero height 5 2 cha kasto maxi dress suhauchha?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-2195-step1",
+          "language": "ne",
+          "text": "सामान तुरुन्त फिर्ता लैजानुस् र मेरो पैसा रिफन्ड गर्नुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-0618-step1",
+          "language": "ne",
+          "text": "दौरा सुरुवालको पेमेन्ट फिर्ता चाहियो",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-1302-step1",
+          "language": "ne",
+          "text": "सामान फिर्ता लगेर पैसा दिनुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-0586-step1",
+          "language": "ne",
+          "text": "भोटो फिर्ता लैजानुस् मेरो पैसा दिनुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-2411-step1",
+          "language": "ne",
+          "text": "सामान फिर्ता लिएर मेरो पूरा रकम तुरुन्त फिर्ता दिनुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-3028-step1",
+          "language": "ne-rom",
+          "text": "payment return chahiyo",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-4768-step1",
+          "language": "ne-rom",
+          "text": "saman cancel garera mero esewa ma refund halidinu turuntai",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-7071-step1",
+          "language": "en",
+          "text": "Please process checkout with cash on delivery to Thamel.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-5322-step1",
+          "language": "ne-rom",
+          "text": "bill finalize garera send gardinu ma connectIPS bata payment transfer handinchu",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-7113-step1",
+          "language": "en",
+          "text": "Please guide me on how to return this for another size in Pokhara.",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-7097-step1",
+          "language": "en",
+          "text": "Can you exchange the waist size of this suruwal from 32 to 34 inches?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-4981-step1",
+          "language": "ne-rom",
+          "text": "drive link xa vane share handeu na heram sabai photo",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-3252-step1",
+          "language": "ne-rom",
+          "text": "oversized t shirt ko catalog link paucha hajur?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-4985-step1",
+          "language": "ne-rom",
+          "text": "pinterest type retro outfits haru ko link xa tapai haru ko?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-8005-step1",
+          "language": "en",
+          "text": "The waist of this bridal lehenga falls straight to my knees!",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-8009-step1",
+          "language": "en",
+          "text": "The armholes are so deep that my entire torso is exposed.",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0530-step1",
+          "language": "ne",
+          "text": "ट्यागमा मिडियम लेखेको सामान लार्ज छ",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0502-step1",
+          "language": "ne",
+          "text": "दौरा सुरुवाल नापभन्दा दुई इन्च सानो छ",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-1310-step1",
+          "language": "ne",
+          "text": "साइज नै नमिलेको पठाउने?",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0758-step1",
+          "language": "ne",
+          "text": "ब्लाउजको नेट कपडाले ढाड चिलाउँछ कि?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-4812-step1",
+          "language": "ne-rom",
+          "text": "tysm hajur kapada ekdam dami fit bhayo",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3224-step1",
+          "language": "ne-rom",
+          "text": "tq hajur next time feri order garumla",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3228-step1",
+          "language": "ne-rom",
+          "text": "dherai dhanyabaad time mai deliver garidinu bhayo",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-4259-step1",
+          "language": "ne-rom",
+          "text": "dherai dherai dhanyabad dai parcel ekdam fast delivery bhayo",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-1222-step1",
+          "language": "ne",
+          "text": "सबै कुरा ठिकठाक नै होला नि",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-1170-step1",
+          "language": "ne",
+          "text": "मलाई त केही सोच्नै आएन",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-4800-step1",
+          "language": "ne-rom",
+          "text": "hawa kura nagarnus sidha kura lekhnus chat ma kasto confusing",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-4235-step1",
+          "language": "ne-rom",
+          "text": "kura kasto vague cha tapai ko ke bhanya ho explain garnus?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-2089-step1",
+          "language": "ne",
+          "text": "मेरो अघिल्लो महिनाकै ठेगानामा सामान पठाइदिनुहोला",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1026-step1",
+          "language": "ne",
+          "text": "अस्ति साडी पठाएको ठेगानामै पठाइदिनुहोला",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1046-step1",
+          "language": "ne",
+          "text": "मेरो प्रोफाइलको एड्रेस प्रयोग गर्नुस् न",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-4720-step1",
+          "language": "ne-rom",
+          "text": "agillo delivery bhayeko saved location mai send garnus kunai change xaina",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-7031-step1",
+          "language": "en",
+          "text": "Show me the line item prices for each garment in my cart.",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-1725-step1",
+          "language": "ne",
+          "text": "मैले रोजेको सामानको कुल हिसाब दिनु न",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-0106-step1",
+          "language": "ne",
+          "text": "अहँ अहिल्यै नपठाउनु",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0110-step1",
+          "language": "ne",
+          "text": "नाइँ नपठाउनु है",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0102-step1",
+          "language": "ne",
+          "text": "अहँ पर्दैन दाइ",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0022-step1",
+          "language": "ne",
+          "text": "ल पठाइदिनुस्",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-2976-step1",
+          "language": "ne-rom",
+          "text": "thik cha",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-2984-step1",
+          "language": "ne-rom",
+          "text": "nai pardaina",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-2988-step1",
+          "language": "ne-rom",
+          "text": "no thanks",
+          "expected": null,
+          "note": "family:yes_no"
+        }
+      ]
+    },
+    {
+      "id": "bench-case-biratnagar-fashion",
+      "category": "clothing",
+      "description": "Customer dialog steps for Biratnagar Fashion Hub",
+      "menu_id": "biratnagar-fashion",
+      "steps": [
+        {
+          "id": "cl-bank-1723-step1",
+          "language": "ne",
+          "text": "सामान खोलेर हेरेपछि क्यास तिर्न पाइन्छ?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-1672-step1",
+          "language": "ne",
+          "text": "डेलिभरी भएको बेला हातमा पैसा दिँदा चल्छ?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-3350-step1",
+          "language": "ne-rom",
+          "text": "Pokhara ma cash on delivery paucha hajur?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-1412-step1",
+          "language": "ne",
+          "text": "नेपालगन्ज आइपुग्न कति दिनको समय लाग्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0896-step1",
+          "language": "ne",
+          "text": "वीरगन्ज पठाउन कति पैसा पर्छ हजुर?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0900-step1",
+          "language": "ne",
+          "text": "डेलिभरी शुल्क कति लिने गर्नुभएको छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-4666-step1",
+          "language": "ne-rom",
+          "text": "Lalitpur Imadol ma courier aipugna kati ghanta lagcha?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-4405-step1",
+          "language": "ne-rom",
+          "text": "Pokhara Lakeside ma courier pathauda shipping charge kati lagcha total?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-2846-step1",
+          "language": "ne-rom",
+          "text": "outside valley shipping charge kati ho?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0288-step1",
+          "language": "ne",
+          "text": "ज्याकेटको अगाडि च्यातिएको रहेछ",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-0308-step1",
+          "language": "ne",
+          "text": "हाकुपटासीको बोर्डर उप्किएको रहेछ",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-0236-step1",
+          "language": "ne",
+          "text": "पश्मिनामा कालो दाग लागेको छ दिदी",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-0252-step1",
+          "language": "ne",
+          "text": "टपको प्रिन्ट खुस्किएको छ दिदी",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-0260-step1",
+          "language": "ne",
+          "text": "साडीमा मैलो दाग छ दिदी",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-1537-step1",
+          "language": "ne",
+          "text": "यो ओरिजिनल सामान हो कि डुप्लिकेट कपडा हो?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-0424-step1",
+          "language": "ne",
+          "text": "कुर्ताको ब्रान्ड जेन्युन हो कि कपी?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-1473-step1",
+          "language": "ne",
+          "text": "नक्कली सामान पठाएर ठग्ने काम त हुँदैन नि?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-4506-step1",
+          "language": "ne-rom",
+          "text": "duplicate saman aipugyo bhane turuntai return garna milcha paisa sahit?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-7119-step1",
+          "language": "en",
+          "text": "Can you customize the neckline of this kurta into a sweetheart neck?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-2209-step1",
+          "language": "ne",
+          "text": "यो कालो कोट मेरो काँधको नाप अनुसार अल्टर गरिदिनु",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-1553-step1",
+          "language": "ne",
+          "text": "यो ड्रेस मेरो नाप अनुसार सिलाइदिनु",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-3398-step1",
+          "language": "ne-rom",
+          "text": "custom size tailoring available cha tapaiharuko boutique ma?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-1252-step1",
+          "language": "ne",
+          "text": "बभमयरलव",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-3062-step1",
+          "language": "ne-rom",
+          "text": ".............",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-6587-step1",
+          "language": "en",
+          "text": "That is all from my side today, goodbye!",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-2702-step1",
+          "language": "ne-rom",
+          "text": "paxi kura garamla hai ahile ma ali busy bhaye",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-3086-step1",
+          "language": "ne-rom",
+          "text": "namasteee online hununchha?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-4257-step1",
+          "language": "ne-rom",
+          "text": "hello didi namaste reply deu na please",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-6985-step1",
+          "language": "en",
+          "text": "Can you confirm if my order was packed and dispatched today?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-7896-step1",
+          "language": "en",
+          "text": "Has my bridal lehenga tailoring been completed by the master tailor?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-6989-step1",
+          "language": "en",
+          "text": "Could you verify if my address was updated on order #7109?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-0212-step1",
+          "language": "ne",
+          "text": "हुडीको पार्सल ट्र्याकिङ दिनु न",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-2402-step1",
+          "language": "ne",
+          "text": "मेरो पार्सल अहिले कहाँ आइपुग्यो स्थिति पत्ता लगाउन मिल्छ?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-0196-step1",
+          "language": "ne",
+          "text": "स्कुल ड्रेस आज आउँछ कि?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-0136-step1",
+          "language": "ne",
+          "text": "पश्मिना शाल पठाइसक्नुभयो त?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-2882-step1",
+          "language": "ne-rom",
+          "text": "courier tracking link pathaidinu na",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-3358-step1",
+          "language": "ne-rom",
+          "text": "mero tracking number pauna sakchu order status check garna?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-1392-step1",
+          "language": "ne",
+          "text": "कतिवटा कलर अपन उपलब्ध छन् यस डिजाइनमा?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-2607-step1",
+          "language": "ne",
+          "text": "यो कुर्ता कालो बाहेक कलेजी रङ्गमा पाइन्छ?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-2810-step1",
+          "language": "ne-rom",
+          "text": "single color matra ho ki aru pani cha hajur?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-3945-step1",
+          "language": "ne-rom",
+          "text": "cream ra brown color ma stock baki cha yo trench coat ko?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-7777-step1",
+          "language": "en",
+          "text": "Is the graphic print screen printed, rubber puff, or vinyl transfer?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-3274-step1",
+          "language": "ne-rom",
+          "text": "yo beige trench coat ko price kati parcha hajur?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-3174-step1",
+          "language": "ne-rom",
+          "text": "price kati parne ho bhandina milcha?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-7715-step1",
+          "language": "en",
+          "text": "Do you offer tailored custom sizing if my specs don't match the chart?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-2162-step1",
+          "language": "ne",
+          "text": "यो विन्डचिटर लार्ज साइजमा पाइन्छ?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-1680-step1",
+          "language": "ne",
+          "text": "बत्तीस साइजको कट्टु छ हजुर?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-2546-step1",
+          "language": "ne",
+          "text": "यो मखमली जुत्ता सात नम्बरमा उपलब्ध छ?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3294-step1",
+          "language": "ne-rom",
+          "text": "XXL size ma yo kurti paucha ki paudaina?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3290-step1",
+          "language": "ne-rom",
+          "text": "size chart cha bhane send gardinus na measurements match garchu",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-5007-step1",
+          "language": "ne-rom",
+          "text": "oversize look chahiyeko, normal medium lai kun size le loose look dinxa?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-1505-step1",
+          "language": "ne",
+          "text": "यो सर्ट उपलब्ध छ?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-1284-step1",
+          "language": "ne",
+          "text": "कालो जिन्स उपलब्ध छ?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-2201-step1",
+          "language": "ne",
+          "text": "यो ट्र्याकसूट छ?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-4099-step1",
+          "language": "ne-rom",
+          "text": "restock bhako ho yo item ajhai paucha order garna?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-7634-step1",
+          "language": "en",
+          "text": "What outfit would you suggest for a nephew's Bratabandha ritual?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-2742-step1",
+          "language": "ne-rom",
+          "text": "sathi ko birthday ma dina k recommend garnu huncha?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-4343-step1",
+          "language": "ne-rom",
+          "text": "yo pant sanga match hune sweatshirt kun hola recommend garnus bro",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-5245-step1",
+          "language": "ne-rom",
+          "text": "mom ko 50th birthday ma gift dina classy saree kun lida best hola hajur?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-1695-step1",
+          "language": "ne",
+          "text": "पैसा फिर्ता दिनुस् मलाई सामान राख्नु छैन",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-0588-step1",
+          "language": "ne",
+          "text": "मैले तिरेको पैसा आजै फिर्ता चाहियो",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-1308-step1",
+          "language": "ne",
+          "text": "कलर चित्त बुझेन सामान फिर्ता लगेर मेरो खातामा पैसा हाल्दिनु",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-7041-step1",
+          "language": "en",
+          "text": "Confirming my order for the Daura Suruwal set in size 40.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-7061-step1",
+          "language": "en",
+          "text": "Please proceed with checkout for the water pashmina stole in cream.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-1688-step1",
+          "language": "ne",
+          "text": "यो सामान म फाइनल गर्छु मेरो नाममा राख्नुहोला",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-1648-step1",
+          "language": "ne",
+          "text": "यो कुर्ता म लिन्छु कन्फर्म गरिदिनुहोला",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-3382-step1",
+          "language": "ne-rom",
+          "text": "mero order confirm bhayo bhane receipt send garnus",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-3713-step1",
+          "language": "ne-rom",
+          "text": "order place gardinus delivery address share garisake maile",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-4140-step1",
+          "language": "ne-rom",
+          "text": "order place gardinus delivery address drop garisake chat box ma",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-7103-step1",
+          "language": "en",
+          "text": "Can I exchange this item for store credit if my size is currently sold out?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-7963-step1",
+          "language": "en",
+          "text": "Can I exchange this velvet gown for a festive kurti set?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-3390-step1",
+          "language": "ne-rom",
+          "text": "yo top exchange garera arko pant lina paincha?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-1360-step1",
+          "language": "ne",
+          "text": "क्याटलग पठाइदिनुस् न साडीहरूको",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-3146-step1",
+          "language": "ne-rom",
+          "text": "daura suruwal set ko naya design herna man thiyo",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-3897-step1",
+          "language": "ne-rom",
+          "text": "lehenga choli ko designs herna man thiyo catalog xa?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-3134-step1",
+          "language": "ne-rom",
+          "text": "k k designs available cha heram na",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-0552-step1",
+          "language": "ne",
+          "text": "ढाका टोपीको नाप मिलेन साट्नु पर्यो",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0496-step1",
+          "language": "ne",
+          "text": "एल साइज मगाएको एक्सएल पो आएछ",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0516-step1",
+          "language": "ne",
+          "text": "कुर्ताको घाँटी निकै ठूलो भयो",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0732-step1",
+          "language": "ne",
+          "text": "सेन्सेटिभ छालालाई समस्या त गर्दैन?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-1292-step1",
+          "language": "ne",
+          "text": "यो कपडाले शरीर चिलाउँछ?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-0740-step1",
+          "language": "ne",
+          "text": "लेहेंगाको भित्रपट्टी नरम अस्तर छ कि कोतारिन्छ?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-0784-step1",
+          "language": "ne",
+          "text": "दौरा सुरुवालको कपडाले छाला पोल्छ कि?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-0748-step1",
+          "language": "ne",
+          "text": "ढाका टोपीले टाउकोमा चिलाउने समस्या हुन्छ कि?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-4814-step1",
+          "language": "ne-rom",
+          "text": "dhanyawad didi family ma sabai lai man paryo kapada",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3561-step1",
+          "language": "ne-rom",
+          "text": "tq hajur next time feri tapaiharu sangai order garchu",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3869-step1",
+          "language": "ne-rom",
+          "text": "dhanyabad didi customer support ekdam babal raicha",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-1184-step1",
+          "language": "ne",
+          "text": "के सुनाउनु यस्तै छ हालखबर",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-1204-step1",
+          "language": "ne",
+          "text": "दिउँसो भेटेर कुरा गरौँला नि",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-1176-step1",
+          "language": "ne",
+          "text": "हुन त त्यो पनि ठिकै हो",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-1156-step1",
+          "language": "ne",
+          "text": "के गर्ने होला सोच्नै सकिनँ",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-2483-step1",
+          "language": "ne",
+          "text": "आज बिहानको मौसम कति रमाइलो छ",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-7165-step1",
+          "language": "en",
+          "text": "Same delivery spot behind Kathmandu Mall, Sundhara.",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-6393-step1",
+          "language": "en",
+          "text": "Keep the shipping details identical to my last order.",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1056-step1",
+          "language": "ne",
+          "text": "ठेगाना पुरानै छ सिस्टमबाट हेर्नुहोस्",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1020-step1",
+          "language": "ne",
+          "text": "पहिले पठाएकै लोकेसनमा छोडिदिनुस्",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1452-step1",
+          "language": "ne",
+          "text": "अघिल्लो हप्ता पठाउनुभएको लोकेसन सुरक्षित छ त्यहीँ हाल्दिनु",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1072-step1",
+          "language": "ne",
+          "text": "पुरानै एड्रेसमा डेलिभर गर्दिनु न दिदी",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1080-step1",
+          "language": "ne",
+          "text": "मेरो पुरानै लोकेसनमा डेलिभरी मिलाइदिनुस्",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-3406-step1",
+          "language": "ne-rom",
+          "text": "agi diyeko purano address mai shipping garda huncha",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-5106-step1",
+          "language": "ne-rom",
+          "text": "last time jaha rider aathiyo tehi drop garidinus ghar number tehi ho",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1432-step1",
+          "language": "ne",
+          "text": "मेरो अर्डर लिस्टमा के के थपियो?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-4436-step1",
+          "language": "ne-rom",
+          "text": "mero cart ma total kati ota saman save bhayecha heridinu na check garera",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-3374-step1",
+          "language": "ne-rom",
+          "text": "maile add gareko sabai items herna milxa?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-4690-step1",
+          "language": "ne-rom",
+          "text": "total bill calculation with delivery fee kati aayo total amount?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-4137-step1",
+          "language": "ne-rom",
+          "text": "cart summary dekhaunus ta payment agadi review garna man thiyo",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-0032-step1",
+          "language": "ne",
+          "text": "हुन्छ बुक गर्दिनु",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0060-step1",
+          "language": "ne",
+          "text": "हुन्छ नि हजुर",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0120-step1",
+          "language": "ne",
+          "text": "अहँ दिदी पर्दैन",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-2982-step1",
+          "language": "ne-rom",
+          "text": "umm thik cha",
+          "expected": null,
+          "note": "family:yes_no"
+        }
+      ]
+    },
+    {
+      "id": "bench-case-birgunj-saree",
+      "category": "clothing",
+      "description": "Customer dialog steps for Birgunj Saree House",
+      "menu_id": "birgunj-saree",
+      "steps": [
+        {
+          "id": "cl-bank-5722-step1",
+          "language": "en",
+          "text": "Can I pay cash on delivery in Chitwan Narayangarh?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-7871-step1",
+          "language": "en",
+          "text": "Can I pay via cash on delivery in Biratnagar city?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-5718-step1",
+          "language": "en",
+          "text": "Is COD available for custom tailored Daura Suruwal sets?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-6916-step1",
+          "language": "en",
+          "text": "Do you offer discreet plain box packaging for delivery?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-5694-step1",
+          "language": "en",
+          "text": "Can I schedule a specific delivery time for New Road?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-6884-step1",
+          "language": "en",
+          "text": "What courier company do you use to ship parcels to Dharan and Biratnagar?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-6904-step1",
+          "language": "en",
+          "text": "How long will delivery take to reach Gorkha bazaar?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-6912-step1",
+          "language": "en",
+          "text": "Is there an extra fee for express morning delivery in Sanepa?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-6324-step1",
+          "language": "en",
+          "text": "Is shipping free if I purchase two cashmere sweaters in Kathmandu?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-2140-step1",
+          "language": "ne",
+          "text": "इटहरी बजार भित्र होम डेलिभरी हुन्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-4113-step1",
+          "language": "ne-rom",
+          "text": "Kohalpur delivery service available cha tapaiharuko courier bata?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-6399-step1",
+          "language": "en",
+          "text": "Want this kurta",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-6112-step1",
+          "language": "en",
+          "text": "The lehenga zipper was stuck and broke upon trying it on for the first time.",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-6446-step1",
+          "language": "en",
+          "text": "The delivery arrived three days late and missed my brother's wedding.",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-6108-step1",
+          "language": "en",
+          "text": "There are missing hooks on the blouse and raw threads hanging everywhere.",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-7384-step1",
+          "language": "en",
+          "text": "The lehenga zipper was completely jammed and split open the first time I tried it on.",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-1619-step1",
+          "language": "ne",
+          "text": "कपडामा ठूलो दाग लागेको छ र सिलाई फुस्किएको छ",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-6024-step1",
+          "language": "en",
+          "text": "Are your products verified and certified by Nepal government textile standards?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-5878-step1",
+          "language": "en",
+          "text": "Is it possible to customize the kurti with long sleeves instead of sleeveless?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-5886-step1",
+          "language": "en",
+          "text": "Can I request custom initials embroidered on the cashmere scarf?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-5866-step1",
+          "language": "en",
+          "text": "Do you customize pure cashmere sweaters according to body measurements?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-4160-step1",
+          "language": "ne-rom",
+          "text": "fitting alteration service cha ready made kapada lai body fit banauna?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-6470-step1",
+          "language": "en",
+          "text": "zzxxccvvbbnnmm",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-6168-step1",
+          "language": "en",
+          "text": "????? ??????",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-7449-step1",
+          "language": "en",
+          "text": "???!!@@##$$",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-6172-step1",
+          "language": "en",
+          "text": "///???????",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-5175-step1",
+          "language": "ne-rom",
+          "text": "xxxxxxx!!!!!!zzzz",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-2529-step1",
+          "language": "ne",
+          "text": "हस त बाइ फेरि अर्को हप्ता सम्पर्क गर्छु",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-7494-step1",
+          "language": "en",
+          "text": "Hello there! Is this the official customer support line?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-5410-step1",
+          "language": "en",
+          "text": "Hey, quick hello before I place my order!",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-5188-step1",
+          "language": "ne-rom",
+          "text": "namaskar team customer online xa hai reply paam",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3986-step1",
+          "language": "ne-rom",
+          "text": "namaskar maam tapai ko boutique open cha aaja?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3548-step1",
+          "language": "ne-rom",
+          "text": "hii dear sanchai xau?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-6136-step1",
+          "language": "en",
+          "text": "Please provide a direct phone number where I can speak to a human.",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-7416-step1",
+          "language": "en",
+          "text": "Transfer this conversation to an executive support agent immediately.",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-6132-step1",
+          "language": "en",
+          "text": "I want to speak directly to your master tailor regarding bridal fittings.",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-7436-step1",
+          "language": "en",
+          "text": "I need a live person to help resolve an urgent Fonepay transaction error.",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-6148-step1",
+          "language": "en",
+          "text": "Can someone call me? It's too tedious to type all this out.",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-7428-step1",
+          "language": "en",
+          "text": "I need human assistance to explain my measurements; typing is too cumbersome.",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-3460-step1",
+          "language": "ne-rom",
+          "text": "customer service agent sanga direct phone ma kura garna paam",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-6344-step1",
+          "language": "en",
+          "text": "Can you verify if my parcel arrived at the Dharan depot?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-7752-step1",
+          "language": "en",
+          "text": "Can you send a daylight video showing the true saree shade?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-7733-step1",
+          "language": "en",
+          "text": "What shades of red do you have for traditional wedding sarees?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-5614-step1",
+          "language": "en",
+          "text": "Is the embroidery on this lehenga silver, gold, or antique bronze?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-4376-step1",
+          "language": "ne-rom",
+          "text": "emerald green shade ma paucha yo kurti set herna milcha photos?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-5622-step1",
+          "language": "en",
+          "text": "What ply is this cashmere sweater?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-1813-step1",
+          "language": "ne",
+          "text": "यो जाडोको ज्याकेट कुन कपडाले बनेको हो?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-4645-step1",
+          "language": "ne-rom",
+          "text": "pure cotton fabric ho ki synthetic polyester mixed ho yo?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-6268-step1",
+          "language": "en",
+          "text": "Price check for the black cashmere turtleneck sweater please?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-5534-step1",
+          "language": "en",
+          "text": "What is the cost of a complete Daura Suruwal set including Dhaka topi?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-6712-step1",
+          "language": "en",
+          "text": "What do you charge for altering ready-made garments bought elsewhere?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-6684-step1",
+          "language": "en",
+          "text": "Price please for the chiffon drape with scalloped border?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-4617-step1",
+          "language": "ne-rom",
+          "text": "daura suruwal set ko total cost kati parcha topi sahit?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-6744-step1",
+          "language": "en",
+          "text": "What are the dimensions of the water pashmina stole?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-6720-step1",
+          "language": "en",
+          "text": "What sizes do you carry for the Daura Suruwal sets?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-6740-step1",
+          "language": "en",
+          "text": "Are your graphic tee measurements Asian or European standard fit?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-1775-step1",
+          "language": "ne",
+          "text": "यो कुर्ता बयालीस साइजमा छ?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-4836-step1",
+          "language": "ne-rom",
+          "text": "oversized fit ho ki slim fit ho yesko shoulder sizing?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-4066-step1",
+          "language": "ne-rom",
+          "text": "height 5 9 weight 75kg lai kun size lida perfect fit huncha?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-6864-step1",
+          "language": "en",
+          "text": "Is the men's winter overcoat available off the shelf in Kathmandu?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-7814-step1",
+          "language": "en",
+          "text": "Is size 38 in this Daura Suruwal available immediately for pickup?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-5662-step1",
+          "language": "en",
+          "text": "Is size L completely sold out in this kurti?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-6312-step1",
+          "language": "en",
+          "text": "Can I pick up this kurti set from your Thamel boutique today?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-2518-step1",
+          "language": "ne",
+          "text": "यो छालाको पेटी उपलब्ध छ?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-1639-step1",
+          "language": "ne",
+          "text": "पूजाको लागि कुन रङ्गको साडी राम्रो देखिन्छ?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-4828-step1",
+          "language": "ne-rom",
+          "text": "trending baggy cargo pant kun ho best seller tapai ko?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-3903-step1",
+          "language": "ne-rom",
+          "text": "bihe ko reception party ma lagauna kasto gown best hola?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-7337-step1",
+          "language": "en",
+          "text": "Your courier delivered five days late after the wedding passed; take it back and refund me.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-3448-step1",
+          "language": "ne-rom",
+          "text": "mero paisa turuntai esewa ma refund halidinu paryo",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-5818-step1",
+          "language": "en",
+          "text": "Let's finalize this! I have shared my phone number and address.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-5858-step1",
+          "language": "en",
+          "text": "Can I exchange this item for store credit if my size is out of stock?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-1836-step1",
+          "language": "ne",
+          "text": "यो रङ्ग मन परेन अर्को रङ्गसँग साट्न मिल्ला?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-1929-step1",
+          "language": "ne",
+          "text": "साइज मिलेन अर्को पठाइदिनु न साटेर",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-5490-step1",
+          "language": "en",
+          "text": "Please forward the catalog for engagement gowns.",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6248-step1",
+          "language": "en",
+          "text": "Could you share the lookbook for your Newari bridal ensembles?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-2272-step1",
+          "language": "ne",
+          "text": "नयाँ आएका पार्टी वेयर गाउनहरूको कलेक्सन देखाउनु न",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-4988-step1",
+          "language": "ne-rom",
+          "text": "fresh denim bootcut collection herna paam na catalogue ma",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-4327-step1",
+          "language": "ne-rom",
+          "text": "cargo pants ko available designs dekhauna milcha insta catalogue ma?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-3899-step1",
+          "language": "ne-rom",
+          "text": "fresh arrivals ma k k add bhako cha photo pathaunus na",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-5360-step1",
+          "language": "ne-rom",
+          "text": "label euta sizing arko, totally non-standard sizing raixa kasto careless manche haru",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-5996-step1",
+          "language": "en",
+          "text": "Does this fabric contain latex or elastane that triggers skin allergies?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-1839-step1",
+          "language": "ne",
+          "text": "यो कपडाले शरीर चिलाएर डाबर आउने त होइन?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-4192-step1",
+          "language": "ne-rom",
+          "text": "skin rash aaune dar cha fabric soft cha breathable organic ho?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-3749-step1",
+          "language": "ne-rom",
+          "text": "body rash aaune dar cha fabric soft cha skin friendly organic ho?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-5442-step1",
+          "language": "en",
+          "text": "Appreciate the honest recommendation on fabric quality.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-6228-step1",
+          "language": "en",
+          "text": "Dhanyabad for arranging same-day dispatch in Kathmandu.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-7518-step1",
+          "language": "en",
+          "text": "Thanks a million for reserving the pashmina shawl for me.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-5426-step1",
+          "language": "en",
+          "text": "Thank you for confirming the Fonepay payment.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-6200-step1",
+          "language": "en",
+          "text": "How about later on?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-7462-step1",
+          "language": "en",
+          "text": "Will this do for then?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-3476-step1",
+          "language": "ne-rom",
+          "text": "kura kasto clear xaina tapai ko",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-5906-step1",
+          "language": "en",
+          "text": "Use my previous shipping details for Dharan.",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-7920-step1",
+          "language": "en",
+          "text": "What is the final breakdown of the items I selected in this chat?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-5794-step1",
+          "language": "en",
+          "text": "Is the shipping charge added to my cart summary?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-2086-step1",
+          "language": "ne",
+          "text": "मैले अर्डर गर्न लागेका सामानहरूको कुल बिल कति पुग्यो?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-3492-step1",
+          "language": "ne-rom",
+          "text": "mero cart ko total calculation send garnus",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-5956-step1",
+          "language": "en",
+          "text": "Definitely",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-7202-step1",
+          "language": "en",
+          "text": "No thanks, just looking",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-5949-step1",
+          "language": "en",
+          "text": "Sure",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-3420-step1",
+          "language": "ne-rom",
+          "text": "haina hudaina",
+          "expected": null,
+          "note": "family:yes_no"
+        }
+      ]
+    },
+    {
+      "id": "bench-case-chitwan-sports",
+      "category": "clothing",
+      "description": "Customer dialog steps for Chitwan Sports Corner",
+      "menu_id": "chitwan-sports",
+      "steps": [
+        {
+          "id": "cl-bank-6925-step1",
+          "language": "en",
+          "text": "Is cash on delivery allowed for orders above 25,000 NPR?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-7888-step1",
+          "language": "en",
+          "text": "Is COD available for hotel drop-offs in Thamel?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-6941-step1",
+          "language": "en",
+          "text": "Is COD supported for deliveries in Bhaktapur Suryabinayak?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-6325-step1",
+          "language": "en",
+          "text": "Can I pay cash on delivery in Lalitpur, Jhamsikhel?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-6881-step1",
+          "language": "en",
+          "text": "How many days will standard delivery take inside Kathmandu Valley?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-2582-step1",
+          "language": "ne",
+          "text": "सामान धादिङ गजुरीसम्म ल्याइदिनुहुन्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-5935-step1",
+          "language": "en",
+          "text": "Shawl",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-5947-step1",
+          "language": "en",
+          "text": "Lehenga",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-1455-step1",
+          "language": "ne",
+          "text": "जिन्स चाहिन्छ",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-4177-step1",
+          "language": "ne-rom",
+          "text": "running sneakers 42",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-4169-step1",
+          "language": "ne-rom",
+          "text": "cotton printed kurti set",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-6109-step1",
+          "language": "en",
+          "text": "The Dhaka topi was crushed completely flat because you packed it in a flimsy envelope.",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-6117-step1",
+          "language": "en",
+          "text": "You sent an empty box without the matching dupatta!",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-6021-step1",
+          "language": "en",
+          "text": "Is this pure mulberry silk or synthetic art silk posing as pure?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-7287-step1",
+          "language": "en",
+          "text": "Can you provide verification from the Nepal Bureau of Standards and Metrology?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-6017-step1",
+          "language": "en",
+          "text": "Are these oversized tees genuine 100% combed cotton or cheap polyester blend?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-2072-step1",
+          "language": "ne",
+          "text": "यो दौरा सुरुवाल मेरो जिउको नाप लिएर सिलाइदिनुस्",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-1968-step1",
+          "language": "ne",
+          "text": "यो पार्टी वेयर गाउन मेरो नाप अनुसार सिलाइदिनु",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-3732-step1",
+          "language": "ne-rom",
+          "text": "blouse ko back gala deep banauna milxa stitching ma photo pathauchu?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-2259-step1",
+          "language": "ne",
+          "text": "थदधनपफब",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-7578-step1",
+          "language": "en",
+          "text": "Bye bye team, thanks once again!",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-4976-step1",
+          "language": "ne-rom",
+          "text": "ok solti paxi kura garamla bida paxi shopping garamla",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-7467-step1",
+          "language": "en",
+          "text": "Namaste! Are you currently open for inquiries?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-7479-step1",
+          "language": "en",
+          "text": "Hi, good morning team! Reaching out regarding festive sarees.",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-7487-step1",
+          "language": "en",
+          "text": "Namaste, wanted to check if customer service is online.",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-2141-step1",
+          "language": "ne",
+          "text": "हेलो दाइ सन्चै हुनुहुन्छ?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3841-step1",
+          "language": "ne-rom",
+          "text": "namaste sir aaja outlet open cha ki chaina?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3983-step1",
+          "language": "ne-rom",
+          "text": "namaste bhai t-shirt haru herna thiyo",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-4558-step1",
+          "language": "ne-rom",
+          "text": "hello sis online xau? naya kapada kinna man lagyo",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-1772-step1",
+          "language": "ne",
+          "text": "कस्टमर सपोर्टको मान्छेसँग कुरा गराउनुस् न",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-4525-step1",
+          "language": "ne-rom",
+          "text": "bot le kura bujhena real human support agent lai connect garidinu please chat ma",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-4929-step1",
+          "language": "ne-rom",
+          "text": "robot bata automated reply na pathaunus manche sanga kura garnu cha",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-2433-step1",
+          "language": "ne",
+          "text": "मेरो पार्सल अहिले कहाँ छ स्थिति बताइदिनुस्",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-7745-step1",
+          "language": "en",
+          "text": "Can I see all the color variants currently in stock for this top?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-5615-step1",
+          "language": "en",
+          "text": "Do you have bottle green in this georgette saree?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-6789-step1",
+          "language": "en",
+          "text": "Is this silk gown available in wine or burgundy?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-6765-step1",
+          "language": "en",
+          "text": "Is this chiffon saree available in lavender or lilac?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-7753-step1",
+          "language": "en",
+          "text": "Does this winter wrap come in camel brown?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-6797-step1",
+          "language": "en",
+          "text": "Is this cashmere sweater available in pastel pink?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-4841-step1",
+          "language": "ne-rom",
+          "text": "wine red color ma cha yo saree photos heram na",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-3513-step1",
+          "language": "ne-rom",
+          "text": "pink color ma herna milxa yo set?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-6809-step1",
+          "language": "en",
+          "text": "Does this pashmina have silk mixed into the warp for extra shine?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-6297-step1",
+          "language": "en",
+          "text": "Is this Banarasi saree pure silk or art silk?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-6829-step1",
+          "language": "en",
+          "text": "What cloth is used for the waistband lining of the lehenga?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-5280-step1",
+          "language": "ne-rom",
+          "text": "denim stretchable ho ki rigid non-stretch raw denim pant ho khutta nachhirne?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-1864-step1",
+          "language": "ne",
+          "text": "यो पहेँलो सुरुवालको मूल्य कति हो?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-4047-step1",
+          "language": "ne-rom",
+          "text": "tactical cargo pant ko price bhandinus na kati parne ho bro",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-4051-step1",
+          "language": "ne-rom",
+          "text": "yo party dress ko cost kati parne ho total?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-6749-step1",
+          "language": "en",
+          "text": "Does this dress come in petite sizing for someone 5'0\"?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-5583-step1",
+          "language": "en",
+          "text": "Will this lehenga fit a 36DD bust comfortably?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-6873-step1",
+          "language": "en",
+          "text": "Is this oversized tee ready to ship or on back-order?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-6305-step1",
+          "language": "en",
+          "text": "Is the emerald green Banarasi saree in stock right now?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-5655-step1",
+          "language": "en",
+          "text": "Do you have any units left of the Palpali Dhaka topi?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-1624-step1",
+          "language": "ne",
+          "text": "यो जुत्ता छ?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-5288-step1",
+          "language": "ne-rom",
+          "text": "out of stock dekhairathyo website ma ahile message garda paucha stock?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-5511-step1",
+          "language": "en",
+          "text": "What Dhaka topi pattern goes best with an off-white Daura Suruwal?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-5523-step1",
+          "language": "en",
+          "text": "Which of your cashmere cardigans is the easiest to style?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-4825-step1",
+          "language": "ne-rom",
+          "text": "office party ma suhaune elegant dress suggest gardinu na",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-7354-step1",
+          "language": "en",
+          "text": "Cancel this order and refund every single rupee to my mobile banking.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-6065-step1",
+          "language": "en",
+          "text": "I want a full refund immediately.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-1964-step1",
+          "language": "ne",
+          "text": "यो स्वेटर फिर्ता गरेर मेरो पैसा तुरुन्त पठाउनुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-6357-step1",
+          "language": "en",
+          "text": "Please book this Daura Suruwal under my name: Bikash Shrestha.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-2553-step1",
+          "language": "ne",
+          "text": "यो मखमली जुत्ता म किन्छु अर्डर कन्फर्म गरिदिनुस्",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-4451-step1",
+          "language": "ne-rom",
+          "text": "bank account details dinus payment garera checkout garchu ahile turuntai",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-5839-step1",
+          "language": "en",
+          "text": "The neckline of this kurti is too wide, can I exchange it?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-7960-step1",
+          "language": "en",
+          "text": "I want to exchange this gift item my sister received yesterday.",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-4459-step1",
+          "language": "ne-rom",
+          "text": "size exchange policy kati din bhitra lagu huncha deliver bhayepachi bhandinu?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-6618-step1",
+          "language": "en",
+          "text": "Do you have a lookbook for traditional Nepali jewelry complements?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6626-step1",
+          "language": "en",
+          "text": "Please provide photos of your semi-formal office wear kurtas.",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-2394-step1",
+          "language": "ne",
+          "text": "नयाँ आएका ऊनी सल र स्विटरहरूको फोटो देखाउनु त",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-4019-step1",
+          "language": "ne-rom",
+          "text": "saree ko latest bridal catalog pathaidinu na didi",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-5200-step1",
+          "language": "ne-rom",
+          "text": "baggy parachute pants ko available colorway catalog share garnus na",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-4821-step1",
+          "language": "ne-rom",
+          "text": "chiffon kurti set ko photos dekhaunus na didi",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6061-step1",
+          "language": "en",
+          "text": "The sleeve circumference is so tight my blood circulation is cut off.",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-6431-step1",
+          "language": "en",
+          "text": "I followed your measurement guide and the lehenga skirt is still 5 inches too wide.",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-6411-step1",
+          "language": "en",
+          "text": "Is this shawl completely itch-free when wrapped around the neck?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-7231-step1",
+          "language": "en",
+          "text": "Is the forehead band of the Palpali Dhaka topi lined with smooth sweat-absorbing cotton?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-5124-step1",
+          "language": "ne-rom",
+          "text": "synthetic material le garda chala ma chilaune allergy foka ta aaudaina body ma?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-7539-step1",
+          "language": "en",
+          "text": "Thank you kindly, enjoy the rest of your productive week.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-5427-step1",
+          "language": "en",
+          "text": "Much appreciated, looking forward to receiving the package.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-7535-step1",
+          "language": "en",
+          "text": "Thank you! The oversized tee fits exactly how I wanted.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-5435-step1",
+          "language": "en",
+          "text": "Thank you, you made shopping so effortless.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-1636-step1",
+          "language": "ne",
+          "text": "सहयोगको लागि मुरी मुरी धन्यवाद",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3791-step1",
+          "language": "ne-rom",
+          "text": "tysm sis dress ekdam babal lagyo fit pani perfect cha",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3987-step1",
+          "language": "ne-rom",
+          "text": "thank u so much didi size ekdam fit aayo malai",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3505-step1",
+          "language": "ne-rom",
+          "text": "k bhaneko ho yo bujhina?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-3740-step1",
+          "language": "ne-rom",
+          "text": "mero saved address record cha bhane tyahi pathaidinu bhalakheko",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-5791-step1",
+          "language": "en",
+          "text": "Can you tally up the cashmere pullover and the graphic tee for me?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-6349-step1",
+          "language": "en",
+          "text": "What is the final cost of the items in my shopping bag?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-5779-step1",
+          "language": "en",
+          "text": "Please check my cart, did both kurtas get added?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-4181-step1",
+          "language": "ne-rom",
+          "text": "thik cha confirm garda huncha",
+          "expected": null,
+          "note": "family:yes_no"
+        }
+      ]
+    },
+    {
+      "id": "bench-case-lalitpur-kids",
+      "category": "clothing",
+      "description": "Customer dialog steps for Little Lalitpur Kids Wear",
+      "menu_id": "lalitpur-kids",
+      "steps": [
+        {
+          "id": "cl-bank-2158-step1",
+          "language": "ne",
+          "text": "डेलिभरी ब्वायलाई हातमा पैसा दिँदा चल्छ?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-3688-step1",
+          "language": "ne-rom",
+          "text": "delivery rider lai aayepachi paisa tirda huncha ktm vitra?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-7856-step1",
+          "language": "en",
+          "text": "Can I send a Pathao rider to collect the package directly from your boutique?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-2857-step1",
+          "language": "ne-rom",
+          "text": "Biratnagar ma courier charge kati linuhuncha?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-3345-step1",
+          "language": "ne-rom",
+          "text": "outside valley kati ota district ma ship garnu hunchha?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0727-step1",
+          "language": "ne",
+          "text": "सेतो कुर्ता सुरुवाल",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0683-step1",
+          "language": "ne",
+          "text": "कालो हुडी",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0679-step1",
+          "language": "ne",
+          "text": "ज्याकेट",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-2338-step1",
+          "language": "ne",
+          "text": "स्नीकर्स",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0255-step1",
+          "language": "ne",
+          "text": "स्कुल ड्रेसको सिलाइ पूरै बिग्रेको छ",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-4777-step1",
+          "language": "ne-rom",
+          "text": "pant ko zip nai bigreko raicha defective aayo check nagari pathaune?",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-2511-step1",
+          "language": "ne",
+          "text": "लोकल कपडालाई ब्राण्डेड भनेर झुक्याउनुभएको त होइन नि?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-0403-step1",
+          "language": "ne",
+          "text": "प्योर पश्मिना हो कि मिक्स?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-3005-step1",
+          "language": "ne-rom",
+          "text": "quality genuine cha?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-4505-step1",
+          "language": "ne-rom",
+          "text": "100 percent original brand item ho ki local banako duplicate ho bhandinus?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-0803-step1",
+          "language": "ne",
+          "text": "लम्बाइ दुई इन्च घटाइदिनु पर्ने भयो",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-0811-step1",
+          "language": "ne",
+          "text": "ढाका टोपीको गोलाइ अलि ठूलो बनाइदिनु न",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-2941-step1",
+          "language": "ne-rom",
+          "text": "aafnai size anusar banauna k garnu parcha?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-1279-step1",
+          "language": "ne",
+          "text": "डढतथदध",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-3061-step1",
+          "language": "ne-rom",
+          "text": "hgfdsaaaaaa",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-6590-step1",
+          "language": "en",
+          "text": "Logging off, talk soon!",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-6578-step1",
+          "language": "en",
+          "text": "Leaving the chat for now, farewell!",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-6570-step1",
+          "language": "en",
+          "text": "Goodbye, looking forward to receiving the tracking details.",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-1351-step1",
+          "language": "ne",
+          "text": "हस त बाइ",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-4276-step1",
+          "language": "ne-rom",
+          "text": "bye bro bholi payment garera screenshot pathauchu bye bye",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-3237-step1",
+          "language": "ne-rom",
+          "text": "huss ta bye good night hajur",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-3233-step1",
+          "language": "ne-rom",
+          "text": "pachi kura garumla ahile ma ali busy bhaye",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-1556-step1",
+          "language": "ne",
+          "text": "नमस्कार हजुर सन्चै हुनुहुन्छ?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-2316-step1",
+          "language": "ne",
+          "text": "नमस्कार दिदी आरामै हुनुहुन्छ?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3085-step1",
+          "language": "ne-rom",
+          "text": "oyee k xa khabar",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3213-step1",
+          "language": "ne-rom",
+          "text": "namaste sathi haru k cha khabar?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-0399-step1",
+          "language": "ne",
+          "text": "बोट हटाएर स्टाफ ल्याउनुस् न",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-1492-step1",
+          "language": "ne",
+          "text": "म्यानेजरको नम्बर दिनुस् म तुरुन्त फोन गर्छु",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-0391-step1",
+          "language": "ne",
+          "text": "साहुजीलाई तुरुन्तै फोन उठाउन भन्नु",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-0323-step1",
+          "language": "ne",
+          "text": "कोही जिम्मेवार व्यक्ति उपलब्ध हुनुहुन्छ?",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-0395-step1",
+          "language": "ne",
+          "text": "मान्छेसँग कुरा नगरी चित्त बुझ्दैन",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-0211-step1",
+          "language": "ne",
+          "text": "ब्लाउज कुरियर भएको छ कि छैन?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-3365-step1",
+          "language": "ne-rom",
+          "text": "hijo dispatch bhako package kata aipugyo check garidinu na",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-3700-step1",
+          "language": "ne-rom",
+          "text": "parcel ship bhako message aathiyo tracking link dinus na online herna",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-2805-step1",
+          "language": "ne-rom",
+          "text": "navy blue color cha yo hoodie ko?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-2134-step1",
+          "language": "ne",
+          "text": "यो कट्टु कुन फेब्रिकबाट बनेको हो?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-4649-step1",
+          "language": "ne-rom",
+          "text": "kapada transparent ta hudaina ni vitra body dekhine?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-2757-step1",
+          "language": "ne-rom",
+          "text": "yo black hoodie ko price kati ho?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-3923-step1",
+          "language": "ne-rom",
+          "text": "price bhanna milcha yo kurti set ko kati linuhuncha?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-2769-step1",
+          "language": "ne-rom",
+          "text": "discount pachhi kati huncha price?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-2761-step1",
+          "language": "ne-rom",
+          "text": "yo green kurti ko price kati xa?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-2416-step1",
+          "language": "ne",
+          "text": "यो ऊनी पञ्जा ठूलो साइजमा पाइन्छ?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-2785-step1",
+          "language": "ne-rom",
+          "text": "28 waist size paucha yo jeans ko?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3185-step1",
+          "language": "ne-rom",
+          "text": "XL size stock ma cha ki xaina?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3293-step1",
+          "language": "ne-rom",
+          "text": "free size bhaneko kati samma ko waist lai huncha?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-2083-step1",
+          "language": "ne",
+          "text": "यो डिजाइनको स्वेटर अझै स्टकमा बाँकी छ?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-1683-step1",
+          "language": "ne",
+          "text": "यो मोडलको झोला अझै उपलब्ध छ?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-1867-step1",
+          "language": "ne",
+          "text": "यो रातो कुर्ता अझै स्टकमा बाँकी छ?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-4653-step1",
+          "language": "ne-rom",
+          "text": "yo piece ahile ready stock ma cha showroom ma?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-3333-step1",
+          "language": "ne-rom",
+          "text": "available cha bhane turuntai bhandinus na",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-7641-step1",
+          "language": "en",
+          "text": "Recommend an elegant stole to drape over a formal evening gown.",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-4338-step1",
+          "language": "ne-rom",
+          "text": "mero height 5 4 cha kasto type ko pant suhauchha bhandinu na didi",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-3161-step1",
+          "language": "ne-rom",
+          "text": "gym wear ko lagi best option k cha tapai ko?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-3600-step1",
+          "language": "ne-rom",
+          "text": "daily college wear ko lagi comfortable kapada suggest gardinu na",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-0631-step1",
+          "language": "ne",
+          "text": "रिफन्ड रिक्वेस्ट अप्रुभ भयो कि नाइँ?",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-3033-step1",
+          "language": "ne-rom",
+          "text": "mero advance payment turuntai firta dinus",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-7052-step1",
+          "language": "en",
+          "text": "Checkout my cart items for delivery to Jhamsikhel, Lalitpur.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-7040-step1",
+          "language": "en",
+          "text": "Ready to place the order, please send your Fonepay QR code.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-7048-step1",
+          "language": "en",
+          "text": "Please confirm my order for the chiffon drape immediately.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-2424-step1",
+          "language": "ne",
+          "text": "यो ऊनी पञ्जा म किन्छु अर्डर लिइदिनुस्",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-5081-step1",
+          "language": "ne-rom",
+          "text": "order lock gardinus mero address ma send gardiye checkout process agadi badhaunu",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-3381-step1",
+          "language": "ne-rom",
+          "text": "yo 2 piece dress confirm gardinu checkout process start garnus",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-1443-step1",
+          "language": "ne",
+          "text": "जुत्ता आठ नम्बरको सट्टा नौ नम्बरसँग साट्न पाइन्छ?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-2189-step1",
+          "language": "ne",
+          "text": "कलर मन परेन गुलाबीसँग साट्न मिल्ला?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-2626-step1",
+          "language": "ne",
+          "text": "कलर एक्सचेन्ज गरिदिनु न कलेजी रङ्ग मन परेन",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-2925-step1",
+          "language": "ne-rom",
+          "text": "saman exchange garna delivery charge lagcha?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-2717-step1",
+          "language": "ne-rom",
+          "text": "catalog link pathaidinus na",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-7302-step1",
+          "language": "en",
+          "text": "The suruwal length stops midway up my calf, it is absurdly short for an adult.",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-1878-step1",
+          "language": "ne",
+          "text": "मैले भनेको साइज नपठाई अर्कै नाप पठाएर दु:ख दिने?",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0495-step1",
+          "language": "ne",
+          "text": "ढाका टोपी टाउकोमा अटाउँदै अटेन",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0555-step1",
+          "language": "ne",
+          "text": "ब्लाउजको फिटिङ साह्रै नराम्रो भयो",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-3810-step1",
+          "language": "ne-rom",
+          "text": "size totalement wrong aayo 30 bhanera 34 pathaidine kasto manchhe?",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0751-step1",
+          "language": "ne",
+          "text": "मेरो छाला साह्रै सेन्सेटिभ छ चिलाउँदैन नि?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-0787-step1",
+          "language": "ne",
+          "text": "छाला एलर्जी हुनेलाई यो सुहाउँछ कि नाइँ?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-0795-step1",
+          "language": "ne",
+          "text": "टपको रङ्गले छालामा एलर्जी हुन्छ कि?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-0731-step1",
+          "language": "ne",
+          "text": "यो कपडाले शरीर चिलाउँछ कि?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-1787-step1",
+          "language": "ne",
+          "text": "छिटो पठाइदिनुभयो धेरै धेरै धन्यवाद",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-5220-step1",
+          "language": "ne-rom",
+          "text": "parcel haat paryo fabric ekdum khatra raixa thank uu so much",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-1207-step1",
+          "language": "ne",
+          "text": "भोलिपर्सि तिर सोचौँला नि त",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-4236-step1",
+          "language": "ne-rom",
+          "text": "tyo wala item k bhannu bhako kun model ho?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-4232-step1",
+          "language": "ne-rom",
+          "text": "kata ko barema kura gardai hununchha thaha bhayena?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-7188-step1",
+          "language": "en",
+          "text": "Same address in Dhangadhi as previous shipments.",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-2539-step1",
+          "language": "ne",
+          "text": "मेरो पहिलेकै ठेगानामा पार्सल पठाइदिनुहोला",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1047-step1",
+          "language": "ne",
+          "text": "अस्ति जहाँ डेलिभर भयो त्यहीँ पठाउनु",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-2949-step1",
+          "language": "ne-rom",
+          "text": "last time delivery gareko location mai send garnus",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-1111-step1",
+          "language": "ne",
+          "text": "कुन कुन कपडा अर्डर भयो लिस्ट दिनु",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-1103-step1",
+          "language": "ne",
+          "text": "जम्मा रकम कति भयो हिसाब दिनुहोला",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-1115-step1",
+          "language": "ne",
+          "text": "झोलामा भएको सामानको हिसाब किताब देखाउनुस्",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-2893-step1",
+          "language": "ne-rom",
+          "text": "maile k k item add gareko chu?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-0119-step1",
+          "language": "ne",
+          "text": "हुन्न दाइ नपठाउनु",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0115-step1",
+          "language": "ne",
+          "text": "अहँ आज नपठाउनु",
+          "expected": null,
+          "note": "family:yes_no"
+        }
+      ]
+    },
+    {
+      "id": "bench-case-newari-heritage",
+      "category": "clothing",
+      "description": "Customer dialog steps for Newa Heritage Clothing",
+      "menu_id": "newari-heritage",
+      "steps": [
+        {
+          "id": "cl-bank-6930-step1",
+          "language": "en",
+          "text": "Do you offer cash on delivery for Lalitpur residential addresses?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-6942-step1",
+          "language": "en",
+          "text": "Why do you require advance payment instead of COD for customized kurtas?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-5724-step1",
+          "language": "en",
+          "text": "Do you allow COD for oversized graphic tees delivered inside the valley?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-4862-step1",
+          "language": "ne-rom",
+          "text": "outside valley full COD paucha ki partial advance tirnu parcha?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-6902-step1",
+          "language": "en",
+          "text": "Can someone hand-deliver this bridal box to ensure it doesn't get crushed?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-6318-step1",
+          "language": "en",
+          "text": "Can you deliver the package to Tribhuvan International Airport tomorrow at 6 PM?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-3800-step1",
+          "language": "ne-rom",
+          "text": "Dharan ma courier charge kati linuhuncha ghar aipugda?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-4115-step1",
+          "language": "ne-rom",
+          "text": "Bharatpur Chitwan ma kaile samma parcel pugcha pathaye pachi?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-5920-step1",
+          "language": "en",
+          "text": "Kurta set",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-6102-step1",
+          "language": "en",
+          "text": "The package arrived soaking wet and the white Daura Suruwal inside is stained.",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-6098-step1",
+          "language": "en",
+          "text": "The embroidery threads on the neckline are completely frayed and unraveling.",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-5157-step1",
+          "language": "ne-rom",
+          "text": "armpit ko silai udhreko fuskeko kapada pathaunu bhayecha checking nagari?",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-7264-step1",
+          "language": "en",
+          "text": "Is this Daura Suruwal fabric authentic woolen tweed or synthetic polyester imitation?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-7284-step1",
+          "language": "en",
+          "text": "Do you sell original handloom fabrics or powerloom mass copies?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-3755-step1",
+          "language": "ne-rom",
+          "text": "genuine tag ra barcode huncha saman ma original official showroom ko?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-5884-step1",
+          "language": "en",
+          "text": "Can you tailor a saree blouse according to a reference photo I send?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-2554-step1",
+          "language": "ne",
+          "text": "यो जुत्ता मेरो खुट्टाको नाप अनुसार अलि खुकुलो बनाएर बनाइदिनु",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-4158-step1",
+          "language": "ne-rom",
+          "text": "sleeves ali lamo banayera customized garna milcha matching kapada thapera?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-1773-step1",
+          "language": "ne",
+          "text": "कखगघङचछजझञ",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-1581-step1",
+          "language": "ne",
+          "text": "जसद्कल्फ",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-6599-step1",
+          "language": "en",
+          "text": "Leaving now, take care!",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-5456-step1",
+          "language": "en",
+          "text": "Bye bye! Thanks again for everything.",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-6238-step1",
+          "language": "en",
+          "text": "I'll visit the Jhamsikhel shop personally this Friday. Bye!",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-4012-step1",
+          "language": "ne-rom",
+          "text": "tata bye bye bholi address send garchu",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-7480-step1",
+          "language": "en",
+          "text": "Namaste! Hope someone is free for a short consultation.",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-7488-step1",
+          "language": "en",
+          "text": "Hi! Reaching out after a recommendation from my sister.",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-7476-step1",
+          "language": "en",
+          "text": "Good evening! Is anyone online to take an order?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3846-step1",
+          "language": "ne-rom",
+          "text": "namasteee hajur delivery ko barema sodhnu thiyo",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3534-step1",
+          "language": "ne-rom",
+          "text": "namaste didi aaja shop open cha ki bida ho?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3506-step1",
+          "language": "ne-rom",
+          "text": "namaskar dai sanchai hununxa?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-4293-step1",
+          "language": "ne-rom",
+          "text": "oyee sis message hera na kurti set chaine bhayo",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-7442-step1",
+          "language": "en",
+          "text": "Get me a human on this line immediately.",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-6456-step1",
+          "language": "en",
+          "text": "Can someone from the Jhamsikhel branch call me on my phone?",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-3462-step1",
+          "language": "ne-rom",
+          "text": "owner ko contact number dinus malai kura garnu cha",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-6338-step1",
+          "language": "en",
+          "text": "Where is my courier package right now? Under name Pooja Thapa.",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-5744-step1",
+          "language": "en",
+          "text": "Where is my courier package right now? Order under name Sunita Shrestha.",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-4866-step1",
+          "language": "ne-rom",
+          "text": "tracking code aayena sms ma status k cha order ko?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-4130-step1",
+          "language": "ne-rom",
+          "text": "parcel ship bhako confirmation aathiyo tracking link dinus na online herna",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-6290-step1",
+          "language": "en",
+          "text": "Does this bridal lehenga come in pastel peach?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-6794-step1",
+          "language": "en",
+          "text": "Can I get this waistcoat dyed to match my bride's lehenga color?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-4378-step1",
+          "language": "ne-rom",
+          "text": "lilac color ma available cha yo fleece sweatshirt ahile ko time ma?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-6830-step1",
+          "language": "en",
+          "text": "Is this kurti made from organic hand-spun cotton?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-6818-step1",
+          "language": "en",
+          "text": "Does the fabric shrink after gentle hand washing?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-6806-step1",
+          "language": "en",
+          "text": "What cloth is used in making the Palpali Dhaka topi?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-1625-step1",
+          "language": "ne",
+          "text": "यो सुरुवाल कुन फेब्रिकबाट बनेको हो?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-4846-step1",
+          "language": "ne-rom",
+          "text": "fleece lining cha vitra bata yo winter jacket ko?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-7685-step1",
+          "language": "en",
+          "text": "What do you charge for minor hem adjustments on ready-made wear?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-7669-step1",
+          "language": "en",
+          "text": "Can you give me the wholesale price for 15 Palpali Dhaka topis?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-5532-step1",
+          "language": "en",
+          "text": "Price please for the bridal lehenga featured in your reel?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-2010-step1",
+          "language": "ne",
+          "text": "यो कालो ट्राउजरको कति पर्छ भनिदिनुस् न",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-4830-step1",
+          "language": "ne-rom",
+          "text": "palazzo set ko rate kati parcha delivery jodera?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-6734-step1",
+          "language": "en",
+          "text": "What is the sleeve length on the men's cashmere pullover?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-1601-step1",
+          "language": "ne",
+          "text": "तीस कम्मर साइजको जिन्स पाइन्छ हजुर?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-2099-step1",
+          "language": "ne",
+          "text": "यो लेगिन्स लार्ज साइजमा उपलब्ध छ?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3796-step1",
+          "language": "ne-rom",
+          "text": "38 size ma paucha yo jacket chest size ma?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-7804-step1",
+          "language": "en",
+          "text": "Will you be restocking the black cashmere cardigan anytime soon?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-5668-step1",
+          "language": "en",
+          "text": "Is the maroon velvet shawl in stock or made-to-order?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-7824-step1",
+          "language": "en",
+          "text": "Is the floral georgette saree currently available for dispatch?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-4850-step1",
+          "language": "ne-rom",
+          "text": "yo model baki cha bhane reserve gardinu stock ma cha?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-6651-step1",
+          "language": "en",
+          "text": "Can you recommend a lightweight chiffon saree for a college farewell?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-5512-step1",
+          "language": "en",
+          "text": "Which shawl is the warmest among your pure cashmere range?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-2531-step1",
+          "language": "ne",
+          "text": "अफिस जानको लागि कुन पेटी सबैभन्दा टिकाउ हुन्छ?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-2499-step1",
+          "language": "ne",
+          "text": "विवाहमा दुलहीको बहिनीले लगाउन कुन लेहङ्गा बढी सुहाउँछ?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-4036-step1",
+          "language": "ne-rom",
+          "text": "winter ma sabai bhanda warm jacket kun recommend garnu huncha?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-7335-step1",
+          "language": "en",
+          "text": "I am not interested in store credit or an exchange; refund my hard-earned cash.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-7355-step1",
+          "language": "en",
+          "text": "Reverse the transaction immediately, the fabric was stained in transit.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-7347-step1",
+          "language": "en",
+          "text": "Take this duplicate synthetic cloth back and reverse my Fonepay QR payment.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-2512-step1",
+          "language": "ne",
+          "text": "सामान तुरुन्त फिर्ता लैजानुस् र मेरो पूरा रकम फिर्ता दिनुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-5816-step1",
+          "language": "en",
+          "text": "Ready to pay the deposit for my custom bridal blouse.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-4452-step1",
+          "language": "ne-rom",
+          "text": "size ali loose bhayo sano size sanga exchange huncha hajur courier bata?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-5472-step1",
+          "language": "en",
+          "text": "Please send me your Banarasi saree lookbook.",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6603-step1",
+          "language": "en",
+          "text": "Can I see your lookbook for men's Daura Suruwal sets?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6607-step1",
+          "language": "en",
+          "text": "Do you have a PDF brochure of wedding guest lehengas?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6623-step1",
+          "language": "en",
+          "text": "Do you have pictures of hand-loomed Dhaka shawls for gifting?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6631-step1",
+          "language": "en",
+          "text": "Do you have a catalog of modern fusion ethnic wear?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-4325-step1",
+          "language": "ne-rom",
+          "text": "saree ko latest bridal catalog pathaidinu na didi photos sahit",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6432-step1",
+          "language": "en",
+          "text": "The Dhaka topi does not fit an adult size head despite being labeled Large.",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-6424-step1",
+          "language": "en",
+          "text": "I ordered a size L and you sent an item measuring like an XS.",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-4914-step1",
+          "language": "ne-rom",
+          "text": "L size bhanera S size pathaidine kasto sizing hawa tapaiharuko?",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-3763-step1",
+          "language": "ne-rom",
+          "text": "wrong size deliver bhayo yo kasari lagaune fit nai hudaina ghatiya sizing",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-7248-step1",
+          "language": "en",
+          "text": "Is the inner side of the Dhaka waistcoat smooth and non-abrasive?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-7240-step1",
+          "language": "en",
+          "text": "Can you ensure there are no nylon threads in the interior stitching of the blouse?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-2264-step1",
+          "language": "ne",
+          "text": "यो दोसल्लाले गर्दा छाती वरिपरि चिलाउँछ कि?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-5129-step1",
+          "language": "ne-rom",
+          "text": "sensitive skin bhako le lauda rashes ta aaudaina ni fabric le gham ma?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-2142-step1",
+          "language": "ne",
+          "text": "सहयोगको लागि धेरै धेरै धन्यवाद है",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-4579-step1",
+          "language": "ne-rom",
+          "text": "dherai thanks dai packaging box safe gari aipugyo",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3992-step1",
+          "language": "ne-rom",
+          "text": "thank you didi mero family lai dress dherai man paryo",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-6206-step1",
+          "language": "en",
+          "text": "The red or the other?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-3784-step1",
+          "language": "ne-rom",
+          "text": "kata ko kura gardai hununchha thaha bhayena?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-4166-step1",
+          "language": "ne-rom",
+          "text": "paila ko delivery address mai haldinu na didi feri pathauna pardaina",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-7928-step1",
+          "language": "en",
+          "text": "What is the final bill amount for these three festive kurtis?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        }
+      ]
+    },
+    {
+      "id": "bench-case-pokhara-boutique",
+      "category": "clothing",
+      "description": "Customer dialog steps for Pokhara Style Boutique",
+      "menu_id": "pokhara-boutique",
+      "steps": [
+        {
+          "id": "cl-bank-6919-step1",
+          "language": "en",
+          "text": "Is cash on delivery available for orders sent to Dharan?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-4104-step1",
+          "language": "ne-rom",
+          "text": "Pokhara Lakeside ma courier pathauda shipping charge kati lagcha?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-5945-step1",
+          "language": "en",
+          "text": "Topi",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-2479-step1",
+          "language": "ne",
+          "text": "मोजा",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-3411-step1",
+          "language": "ne-rom",
+          "text": "white crop top",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-7391-step1",
+          "language": "en",
+          "text": "Your Thamel boutique staff was condescending and dismissed me when I came for a pickup.",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-5158-step1",
+          "language": "ne-rom",
+          "text": "photo ma luxury dekhine real ma Asan ko 200 ko jasto kapada aayo bezzat bho",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-4927-step1",
+          "language": "ne-rom",
+          "text": "kapada ma thulo dirty mark cha daag lageko kapada pathaidine?",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-4215-step1",
+          "language": "ne-rom",
+          "text": "photo ma dekheko color ra aayeko color pura farak cha totally cheated",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-7273-step1",
+          "language": "en",
+          "text": "Is this authentic Newari Haku Patasi hand-loomed in Patan or mill-manufactured synthetics?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-6027-step1",
+          "language": "en",
+          "text": "Is this authentic Newari Haku Patasi handloom or mill-made polyester?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-6023-step1",
+          "language": "en",
+          "text": "How do you prove that this cashmere sweater is 100% authentic?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-2092-step1",
+          "language": "ne",
+          "text": "लोकल सामानलाई ब्राण्डेड भनेर झुक्याउनुभएको त होइन?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-3499-step1",
+          "language": "ne-rom",
+          "text": "authentic original brand ho ki master copy ho?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-6379-step1",
+          "language": "en",
+          "text": "Do you make custom traditional Newari sets to fit tall heights?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-7448-step1",
+          "language": "en",
+          "text": "123498765000",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-5377-step1",
+          "language": "ne-rom",
+          "text": "lkjsdf098234zzzz",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-5449-step1",
+          "language": "en",
+          "text": "Thank you, talk to you later!",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-7564-step1",
+          "language": "en",
+          "text": "Talk to you later once the payment clears. Goodbye!",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-4005-step1",
+          "language": "ne-rom",
+          "text": "bye bro bholi bihana bank transfer garera confirm garchu",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-4013-step1",
+          "language": "ne-rom",
+          "text": "huss ta hai pachi feri chat garumla bye didi",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-7473-step1",
+          "language": "en",
+          "text": "Hello team, hope you are having a productive day!",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-5409-step1",
+          "language": "en",
+          "text": "Namaste, I wanted to ask about your boutique services.",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-5397-step1",
+          "language": "en",
+          "text": "Hey! Are you guys open for walk-ins in Thamel today?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-7481-step1",
+          "language": "en",
+          "text": "Hey there! Loved your latest post on chiffon sarees.",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3535-step1",
+          "language": "ne-rom",
+          "text": "hello bhaiya naya collection kahile dekhaunu huncha?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-4560-step1",
+          "language": "ne-rom",
+          "text": "sanchai hununxa didi? shopping garna aako ma",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-3547-step1",
+          "language": "ne-rom",
+          "text": "hello admin hajur active hununxa page ma?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-6147-step1",
+          "language": "en",
+          "text": "Please disconnect the bot and reply manually.",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-2096-step1",
+          "language": "ne",
+          "text": "स्टाफसँग फोनमा कुरा गर्न सकिन्छ कि?",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-5170-step1",
+          "language": "ne-rom",
+          "text": "store manager ko direct mobile number dinus call garna lai delivery issue ma",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-3503-step1",
+          "language": "ne-rom",
+          "text": "real staff sanga kura garidinu robot le kura bujhena",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-6959-step1",
+          "language": "en",
+          "text": "Could you check the current status of my order placed on Thursday?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-6343-step1",
+          "language": "en",
+          "text": "Is order #3391 out for delivery with the courier today?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-1981-step1",
+          "language": "ne",
+          "text": "मेरो सामान कुरियरमा पुग्यो कि पसलमै अड्किएको छ?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-1797-step1",
+          "language": "ne",
+          "text": "मेरो पार्सल कुरियरबाट हिँड्यो कि अझै हिँडेको छैन?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-6795-step1",
+          "language": "en",
+          "text": "What color is the lining fabric inside the sheer kurti?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-4644-step1",
+          "language": "ne-rom",
+          "text": "multi color print matra ho ki plain solid color ni cha?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-7767-step1",
+          "language": "en",
+          "text": "Is the Palpali Dhaka fabric handwoven on wooden looms or machine-made?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-5633-step1",
+          "language": "en",
+          "text": "What fabric is used in the traditional Newari Haku Patasi?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-7771-step1",
+          "language": "en",
+          "text": "Is the zari thread genuine metallic thread or tested silver coating?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-6695-step1",
+          "language": "en",
+          "text": "Could you quote the price for this pastel engagement gown?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-6711-step1",
+          "language": "en",
+          "text": "How much is the bridal red veil with pearl lace?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-6703-step1",
+          "language": "en",
+          "text": "What is the cost of international courier shipping to the UK?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-2500-step1",
+          "language": "ne",
+          "text": "यो ढाका पटुकीको मूल्य कति हो भनिदिनुस् न",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-6731-step1",
+          "language": "en",
+          "text": "Is this chiffon saree full 5.5 meters length?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-5561-step1",
+          "language": "en",
+          "text": "Would size 34 fit a 32-inch waist?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-6735-step1",
+          "language": "en",
+          "text": "Do you make custom plus sizes up to 4XL for ethnic wear?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-6727-step1",
+          "language": "en",
+          "text": "Is size XXL available in this festive kurti design?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-2261-step1",
+          "language": "ne",
+          "text": "यो जिन्स बयालीस कम्मरमा उपलब्ध छ?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-4367-step1",
+          "language": "ne-rom",
+          "text": "pant ko length kati inch cha measurement bhandinu na height naapna paryo",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-6875-step1",
+          "language": "en",
+          "text": "Are you out of stock on the pure gold zari Banarasi sarees?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-6676-step1",
+          "language": "en",
+          "text": "Which bridal saree color looks best under warm indoor photography lights?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-6259-step1",
+          "language": "en",
+          "text": "Could you recommend an authentic gift for a foreigner visiting Nepal?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-5505-step1",
+          "language": "en",
+          "text": "I need a traditional Newari dress for a photo shoot, what do you suggest?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-7356-step1",
+          "language": "en",
+          "text": "Send my refund to 9851XXXXXX via Fonepay right this instant.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-7344-step1",
+          "language": "en",
+          "text": "Where is my refund? It has been over a week since your team received the returned parcel.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-6067-step1",
+          "language": "en",
+          "text": "Process my refund now via Fonepay, I am returning this defective saree.",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-1770-step1",
+          "language": "ne",
+          "text": "सामान फिर्ता लैजानुस् र तुरुन्त मेरो पैसा रिफन्ड गर्नुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-3451-step1",
+          "language": "ne-rom",
+          "text": "defective product pathaunu bhayecha money back chahiyo malai",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-5154-step1",
+          "language": "ne-rom",
+          "text": "defective piece pathaunu bho money back return chahiyo turuntai rider pathaunus",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-5817-step1",
+          "language": "en",
+          "text": "Please confirm the order and send me the payment link.",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-2525-step1",
+          "language": "ne",
+          "text": "यो छालाको पेटी म किन्छु अर्डर लिइदिनुस्",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-5857-step1",
+          "language": "en",
+          "text": "Can your delivery guy do a swap at my doorstep in Lalitpur?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-6371-step1",
+          "language": "en",
+          "text": "Can I exchange this oversized tee for a different graphic print?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-2521-step1",
+          "language": "ne",
+          "text": "यो पेटी अर्को रङ्गसँग साट्न मिल्ला?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-2351-step1",
+          "language": "ne",
+          "text": "कलर एक्सचेन्ज गरिदिनु न यो खैरो रङ्ग चित्त बुझेन",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-4457-step1",
+          "language": "ne-rom",
+          "text": "yo top exchange garera arko pant lina paincha same price ko bhaye tapai ko?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-3726-step1",
+          "language": "ne-rom",
+          "text": "yo top exchange garera arko pant lina paincha rate same bhaye?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-3805-step1",
+          "language": "ne-rom",
+          "text": "size exchange garidinus thulo vayo sano pathaunu",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-6612-step1",
+          "language": "en",
+          "text": "Please show me all the designs for water pashmina stoles.",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-5477-step1",
+          "language": "en",
+          "text": "Do you have images of your pashmina shawls with embroidery?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-1598-step1",
+          "language": "ne",
+          "text": "गर्मी महिनाका नयाँ सुती कुर्ताहरू देखाउनु न",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-4604-step1",
+          "language": "ne-rom",
+          "text": "party gown collection ko whole brochure share garnus",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-6047-step1",
+          "language": "en",
+          "text": "The suruwal length stops above my ankles, it is way too short!",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-1854-step1",
+          "language": "ne",
+          "text": "साइज नै नमिलेको किन पठाएको? हेरेर पठाउनु पर्दैन?",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-5146-step1",
+          "language": "ne-rom",
+          "text": "waist 34 bhaneko tag ma 30 aako cha kasto care nagari pathako pack garda",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-5987-step1",
+          "language": "en",
+          "text": "Is this baby cashmere soft enough for extremely sensitive skin?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-6409-step1",
+          "language": "en",
+          "text": "Is the inner waistband of the Daura Suruwal lined with soft cotton?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-7233-step1",
+          "language": "en",
+          "text": "Is this chiffon drape static-prone or does it cling and irritate sensitive body areas?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-5983-step1",
+          "language": "en",
+          "text": "Will the Daura Suruwal fabric cause sweating or heat rash in warm weather?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-1586-step1",
+          "language": "ne",
+          "text": "यो मफलरले गर्दा घाँटीमा चिलाउने दाना त उठ्दैन?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-4907-step1",
+          "language": "ne-rom",
+          "text": "soft cotton ho ki skin irritation hune rough material ho?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-4191-step1",
+          "language": "ne-rom",
+          "text": "chilaune khalko kapada ta haina yo synthetic polyester mixed cha ki?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-7537-step1",
+          "language": "en",
+          "text": "Appreciate your honesty about the fabric composition.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-6533-step1",
+          "language": "en",
+          "text": "Appreciate the honest advice regarding the cashmere weave.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-7529-step1",
+          "language": "en",
+          "text": "Appreciate the dry-clean care instructions card you included.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-6537-step1",
+          "language": "en",
+          "text": "Thank you! Can't wait to gift this Palpali Dhaka topi to my father.",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3997-step1",
+          "language": "ne-rom",
+          "text": "thank you so much hai discount diyeko ma",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-6473-step1",
+          "language": "en",
+          "text": "What about that one?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-6195-step1",
+          "language": "en",
+          "text": "Can you make it more like that?",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-2230-step1",
+          "language": "ne",
+          "text": "आज कस्तो मिठो कफी पिउन मन लागेको छ",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-5889-step1",
+          "language": "en",
+          "text": "Please deliver to the same address as my previous order.",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-5909-step1",
+          "language": "en",
+          "text": "Deliver to my usual apartment in Sanepa.",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-6351-step1",
+          "language": "en",
+          "text": "Did the Dhaka topi get added to my order summary?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-3519-step1",
+          "language": "ne-rom",
+          "text": "cart ma kati ota items add bhayecha heram na",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-5959-step1",
+          "language": "en",
+          "text": "No, wrong one",
+          "expected": null,
+          "note": "family:yes_no"
+        }
+      ]
+    },
+    {
+      "id": "bench-case-thamel-threads",
+      "category": "clothing",
+      "description": "Customer dialog steps for Thamel Threads",
+      "menu_id": "thamel-threads",
+      "steps": [
+        {
+          "id": "cl-bank-1009-step1",
+          "language": "ne",
+          "text": "घरमा सामान आएपछि मात्र पैसा बुझाउँछु",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-0993-step1",
+          "language": "ne",
+          "text": "डेलिभरी भएपछि मात्र पैसा बुझाउँछु है",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-1417-step1",
+          "language": "ne",
+          "text": "सामान हातमा परेपछि मात्र पैसा तिर्न मिल्छ?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-2290-step1",
+          "language": "ne",
+          "text": "सामान हातमा परेपछि क्यास दिन मिल्छ हजुर?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-2085-step1",
+          "language": "ne",
+          "text": "सामान बुझेपछि मात्र नगद तिर्न मिल्छ नि?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-1325-step1",
+          "language": "ne",
+          "text": "सामान हातमा परेपछि तिर्छु",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-0989-step1",
+          "language": "ne",
+          "text": "सामान हेरेर चित्त बुझेपछि पैसा तिर्छु",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-4119-step1",
+          "language": "ne-rom",
+          "text": "delivery rider lai parcel hath ma aayepachi cash tirda huncha?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-2875-step1",
+          "language": "ne-rom",
+          "text": "cod huncha ki esewa garnai parcha?",
+          "expected": "fulfillment.ask_cod",
+          "note": "family:ask_cod"
+        },
+        {
+          "id": "cl-bank-1785-step1",
+          "language": "ne",
+          "text": "चितवन नारायणगढमा डेलिभरी हुन्छ?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-0889-step1",
+          "language": "ne",
+          "text": "हवाइजहाजबाट छिटो पठाउन मिल्छ कि?",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-3678-step1",
+          "language": "ne-rom",
+          "text": "Butwal pathauna milxa bhane courier charge bhandinus na please",
+          "expected": "fulfillment.ask_delivery",
+          "note": "family:ask_delivery"
+        },
+        {
+          "id": "cl-bank-1456-step1",
+          "language": "ne",
+          "text": "कालो ज्याकेट",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0653-step1",
+          "language": "ne",
+          "text": "विन्टर ज्याकेट",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0641-step1",
+          "language": "ne",
+          "text": "कुर्ता",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0717-step1",
+          "language": "ne",
+          "text": "नेट ब्लाउज",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0697-step1",
+          "language": "ne",
+          "text": "डिजाइनर कुर्ता",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-5341-step1",
+          "language": "ne-rom",
+          "text": "tweed winter coat brown M",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-2959-step1",
+          "language": "ne-rom",
+          "text": "oversized t-shirt",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-4479-step1",
+          "language": "ne-rom",
+          "text": "oversized sweatshirt black XL",
+          "expected": null,
+          "note": "family:bare_order"
+        },
+        {
+          "id": "cl-bank-0289-step1",
+          "language": "ne",
+          "text": "स्कुल ड्रेसको टाँक नै छैन",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-2128-step1",
+          "language": "ne",
+          "text": "कपडा च्यात्तिएको र सिलाई सबै उध्रिएको सामान आयो",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-3047-step1",
+          "language": "ne-rom",
+          "text": "damaged saman pathaidinu bhayecha",
+          "expected": null,
+          "note": "family:complaint"
+        },
+        {
+          "id": "cl-bank-4755-step1",
+          "language": "ne-rom",
+          "text": "duplicate saman ta aaudaina ni bharosa garda tapaiharuko page ma?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-4503-step1",
+          "language": "ne-rom",
+          "text": "genuine official tag ra scan code huncha saman ma original official showroom ko?",
+          "expected": null,
+          "note": "family:counterfeit_concern"
+        },
+        {
+          "id": "cl-bank-7978-step1",
+          "language": "en",
+          "text": "Do you make custom matching outfits for mother and son?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-7974-step1",
+          "language": "en",
+          "text": "Can you customize the collar style of the men's bandhgala?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-0813-step1",
+          "language": "ne",
+          "text": "ट्र्याक सुटको कम्मर अलिकति कसिलो बनाइदिनु",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-4719-step1",
+          "language": "ne-rom",
+          "text": "body size measurement send garda personalized banaidinu huncha?",
+          "expected": "ordering.custom_order",
+          "note": "family:custom_order"
+        },
+        {
+          "id": "cl-bank-1273-step1",
+          "language": "ne",
+          "text": "घझढधभव",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-2414-step1",
+          "language": "ne",
+          "text": "लवशषसहक्ष",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-4791-step1",
+          "language": "ne-rom",
+          "text": ",,,,,.....///???!",
+          "expected": null,
+          "note": "family:gibberish"
+        },
+        {
+          "id": "cl-bank-2707-step1",
+          "language": "ne-rom",
+          "text": "see you bye",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-3243-step1",
+          "language": "ne-rom",
+          "text": "bye hajur arko hapta kura garumla",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-4815-step1",
+          "language": "ne-rom",
+          "text": "huss bye ma bholi bihana final garchu address",
+          "expected": "social.goodbye",
+          "note": "family:goodbye"
+        },
+        {
+          "id": "cl-bank-2667-step1",
+          "language": "ne-rom",
+          "text": "hallo sanchai hununxa?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-5206-step1",
+          "language": "ne-rom",
+          "text": "morning admin jiu aaja order leko xau ki bida ho pasal?",
+          "expected": "social.greet",
+          "note": "family:greet"
+        },
+        {
+          "id": "cl-bank-0381-step1",
+          "language": "ne",
+          "text": "कर्मचारीसँग सिधा कुरा गराइदिनु न",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-1735-step1",
+          "language": "ne",
+          "text": "पसलको साहुजीसँग कुरा गराइदिनु पर्यो",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-0369-step1",
+          "language": "ne",
+          "text": "मलाई बोटसँग गफ गर्न मन छैन",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-0397-step1",
+          "language": "ne",
+          "text": "साहुजीसँग डिलिङ गर्नुपर्ने छ",
+          "expected": null,
+          "note": "family:human"
+        },
+        {
+          "id": "cl-bank-7915-step1",
+          "language": "en",
+          "text": "What is the status of my custom-stitched Daura Suruwal?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-0205-step1",
+          "language": "ne",
+          "text": "साडीको पार्सल कहाँ छ?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-1425-step1",
+          "language": "ne",
+          "text": "तीन दिन अगाडि अर्डर गरेको सामान कहिले आउँछ?",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-4687-step1",
+          "language": "ne-rom",
+          "text": "courier update dinus na 3 days vaisakyo message nai xaina",
+          "expected": "fulfillment.order_status",
+          "note": "family:order_status"
+        },
+        {
+          "id": "cl-bank-1393-step1",
+          "language": "ne",
+          "text": "निलो र हरियो रङ्गमा पनि हेर्न मिल्छ?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-2799-step1",
+          "language": "ne-rom",
+          "text": "black bahek kun kun color cha?",
+          "expected": "discovery.query",
+          "note": "family:query_color"
+        },
+        {
+          "id": "cl-bank-1546-step1",
+          "language": "ne",
+          "text": "यो कुर्ताको फेब्रिक कटन हो?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-2632-step1",
+          "language": "ne",
+          "text": "यो कपडा प्योर सुती हो कि पोलिएस्टर मिक्स हो?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-4084-step1",
+          "language": "ne-rom",
+          "text": "pure georgette fabric ho ki synthetic chiffon ho yo kurti ko material?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-3654-step1",
+          "language": "ne-rom",
+          "text": "pure silk saree ho ki synthetic mixed fabric banako ho?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-2819-step1",
+          "language": "ne-rom",
+          "text": "kapada kasto type ko ho linen ho?",
+          "expected": "discovery.query",
+          "note": "family:query_material"
+        },
+        {
+          "id": "cl-bank-7658-step1",
+          "language": "en",
+          "text": "Can you share the price of the Newari Haku Patasi complete set?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-3618-step1",
+          "language": "ne-rom",
+          "text": "price bhanna milcha yo item ko kati linuhuncha?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-5250-step1",
+          "language": "ne-rom",
+          "text": "yo black windcheater ko dam kati ho solti fixed price bhannus na?",
+          "expected": "discovery.query",
+          "note": "family:query_price"
+        },
+        {
+          "id": "cl-bank-3626-step1",
+          "language": "ne-rom",
+          "text": "chest 42 size cha yo jacket ko ki max 40 matra ho?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3183-step1",
+          "language": "ne-rom",
+          "text": "30 waist bhako lai kun size fit huncha?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3932-step1",
+          "language": "ne-rom",
+          "text": "XL size stock ma available cha yo jacket ko check garnus ta",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-3187-step1",
+          "language": "ne-rom",
+          "text": "38 bust size lai kun size lida ramro?",
+          "expected": "discovery.query",
+          "note": "family:query_size"
+        },
+        {
+          "id": "cl-bank-7798-step1",
+          "language": "en",
+          "text": "Are these pure pashmina shawls sold out or still available?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-4394-step1",
+          "language": "ne-rom",
+          "text": "yo item ahile showroom ma baki cha ki sakiyo didi bhandinu na?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-2843-step1",
+          "language": "ne-rom",
+          "text": "feri stock aauchha ki aaudaina?",
+          "expected": "discovery.query",
+          "note": "family:query_stock"
+        },
+        {
+          "id": "cl-bank-7627-step1",
+          "language": "en",
+          "text": "Recommend me an easy-to-drape saree for a family Mehendi celebration.",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-7647-step1",
+          "language": "en",
+          "text": "Can you advise on a matching waistcoat for an off-white kurta set?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-1369-step1",
+          "language": "ne",
+          "text": "विवाहमा लगाउनको लागि कुन साडी बढी सुहाउँछ?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-4340-step1",
+          "language": "ne-rom",
+          "text": "casual hangout ko lagi k recommend garnu huncha sasto ra ramro ma?",
+          "expected": "discovery.recommend",
+          "note": "family:recommend"
+        },
+        {
+          "id": "cl-bank-0569-step1",
+          "language": "ne",
+          "text": "कपडा फिर्ता लैजानुस् मेरो भुक्तानी फिर्ता दिनुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-0617-step1",
+          "language": "ne",
+          "text": "ढाका टोपीको रकम फिर्ता गर्नुस् प्लिज",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-1657-step1",
+          "language": "ne",
+          "text": "सामान तुरुन्त फिर्ता लिएर मेरो पैसा रिफन्ड गरिदिनुस्",
+          "expected": null,
+          "note": "family:refund_demand"
+        },
+        {
+          "id": "cl-bank-2580-step1",
+          "language": "ne",
+          "text": "यो ब्याकप्याक म किन्छु मेरो नाममा अर्डर बुक गरिदिनुस्",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-1570-step1",
+          "language": "ne",
+          "text": "यो सामान मेरो नाममा अर्डर कन्फर्म गरिदिनुस्",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-5079-step1",
+          "language": "ne-rom",
+          "text": "order confirm garidinu invoice bill pathaunus turuntai esewa garchu",
+          "expected": "ordering.request_checkout",
+          "note": "family:request_checkout"
+        },
+        {
+          "id": "cl-bank-2488-step1",
+          "language": "ne",
+          "text": "यो चोली अर्को रङ्गसँग साट्न मिल्ला?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-1704-step1",
+          "language": "ne",
+          "text": "जुत्ता चेन्ज गर्न मिल्छ अर्को साइजसँग?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-1873-step1",
+          "language": "ne",
+          "text": "रङ्ग चित्त बुझेन अर्को रङ्गसँग साट्न मिल्ला?",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-3391-step1",
+          "language": "ne-rom",
+          "text": "fitting match bhayena exchange request accept garnus na",
+          "expected": "ordering.request_exchange",
+          "note": "family:request_exchange"
+        },
+        {
+          "id": "cl-bank-7579-step1",
+          "language": "en",
+          "text": "Do you have photos of your bridal lehengas in pastel tones?",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-3131-step1",
+          "language": "ne-rom",
+          "text": "kurtha set ko designs haru dekhaunu na",
+          "expected": "discovery.show_catalog",
+          "note": "family:show_catalog"
+        },
+        {
+          "id": "cl-bank-8004-step1",
+          "language": "en",
+          "text": "The bust cups on the padded blouse are completely lopsided.",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0549-step1",
+          "language": "ne",
+          "text": "साडीको चौडाई कम भएर बाँध्न मिलेन",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0493-step1",
+          "language": "ne",
+          "text": "स्कुल ड्रेस बच्चालाई एकदम सानो भयो",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0529-step1",
+          "language": "ne",
+          "text": "हाकुपटासीको कम्मरको नाप निकै ठूलो छ",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-0517-step1",
+          "language": "ne",
+          "text": "जिन्सको लम्बाइ निकै छोटो आयो",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-3023-step1",
+          "language": "ne-rom",
+          "text": "sizing totally mistake cha tapaiharuko",
+          "expected": null,
+          "note": "family:sizing_dispute"
+        },
+        {
+          "id": "cl-bank-1876-step1",
+          "language": "ne",
+          "text": "यो कपडाले शरीर चिलाएर रातो डाबर त बनाउँदैन?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-4751-step1",
+          "language": "ne-rom",
+          "text": "rough fabric le garda body ma itching aaune dar cha soft cha yo?",
+          "expected": null,
+          "note": "family:skin_sensitivity"
+        },
+        {
+          "id": "cl-bank-1345-step1",
+          "language": "ne",
+          "text": "थ्याङ्क यु सो मच",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-5218-step1",
+          "language": "ne-rom",
+          "text": "dhanyabaad bhauju packing fukauda ek scratch ni thiyena surakshit aayo",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-4966-step1",
+          "language": "ne-rom",
+          "text": "tysm didi size ekdam spot on raicha",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3566-step1",
+          "language": "ne-rom",
+          "text": "thank u brother service ekdum chaine bhanda ramro cha",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-3866-step1",
+          "language": "ne-rom",
+          "text": "huss thank u very much quick response ko lagi hajur",
+          "expected": "social.thanks",
+          "note": "family:thanks"
+        },
+        {
+          "id": "cl-bank-1185-step1",
+          "language": "ne",
+          "text": "सबै कुरा सामान्य नै छ अहिले",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-1153-step1",
+          "language": "ne",
+          "text": "कतै घुम्न जान मन लागेको छ",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-1209-step1",
+          "language": "ne",
+          "text": "म त यत्तिकै बसिरहेको छु",
+          "expected": null,
+          "note": "family:unclear"
+        },
+        {
+          "id": "cl-bank-7170-step1",
+          "language": "en",
+          "text": "Ship to the same address you used for my cashmere sweater.",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-7987-step1",
+          "language": "en",
+          "text": "Same address in Dhangadhi as before please.",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-2955-step1",
+          "language": "ne-rom",
+          "text": "tehi puranai ghar ko address ma send garnus",
+          "expected": "ordering.use_saved_address",
+          "note": "family:use_saved_address"
+        },
+        {
+          "id": "cl-bank-7006-step1",
+          "language": "en",
+          "text": "What is the grand total for the pashmina wrap and the Banarasi saree?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-7002-step1",
+          "language": "en",
+          "text": "Can you share my cart total before I initiate the Fonepay transfer?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-1125-step1",
+          "language": "ne",
+          "text": "टोटल कति खर्च भयो देखाइदिनुस् दाइ",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-1105-step1",
+          "language": "ne",
+          "text": "कार्टमा भएको साडीको मूल्य कति पर्यो?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-1089-step1",
+          "language": "ne",
+          "text": "टोटल कति तिर्नुपर्ने भयो हिसाब गर्नु त",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-1129-step1",
+          "language": "ne",
+          "text": "कार्टमा रहेका सामानको लिस्ट आउँछ?",
+          "expected": "ordering.view_cart",
+          "note": "family:view_cart"
+        },
+        {
+          "id": "cl-bank-0049-step1",
+          "language": "ne",
+          "text": "ठिक छ हुन्छ",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0073-step1",
+          "language": "ne",
+          "text": "नाइँ पर्दैन",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0093-step1",
+          "language": "ne",
+          "text": "होइन अहिल्यै नपठाउनु",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-0053-step1",
+          "language": "ne",
+          "text": "हुन्छ दिउँसो ल्याउनुस्",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-4487-step1",
+          "language": "ne-rom",
+          "text": "nai pardaina no thanks ahile lai",
+          "expected": null,
+          "note": "family:yes_no"
+        },
+        {
+          "id": "cl-bank-2983-step1",
+          "language": "ne-rom",
+          "text": "ho tehi ho",
+          "expected": null,
+          "note": "family:yes_no"
+        }
+      ]
+    }
+  ]
+}
