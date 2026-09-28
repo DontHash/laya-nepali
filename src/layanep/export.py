@@ -81,6 +81,16 @@ def _count_by(cases: Sequence[Case], key: str, default: str) -> dict[str, int]:
     return counts
 
 
+def _display_path(path: Path | None) -> str | None:
+    """Record repo-relative paths in manifests so they stay machine-neutral."""
+    if path is None:
+        return None
+    try:
+        return path.resolve().relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        return str(path)
+
+
 def write_export(
     cases: Sequence[Case],
     export_dir: Path = DEFAULT_EXPORT_DIR,
@@ -98,7 +108,7 @@ def write_export(
 
     manifest = {
         "revision": DATASET_REVISION,
-        "generated_from": str(reviewed_from) if reviewed_from else None,
+        "generated_from": _display_path(reviewed_from),
         "calibration_share": calibration_share,
         "splits": {name: len(split) for name, split in splits.items()},
         "review_modes": _count_by(cases, "review_mode", "human"),

@@ -39,6 +39,7 @@ def test_write_export_writes_splits_and_manifest(tmp_path: Path) -> None:
     assert len(rows) == len(cases)
 
     manifest = json.loads(report.manifest.read_text(encoding="utf-8"))
+    assert manifest["generated_from"] == "data/reviewed/ne-decisions-v1.jsonl"
     assert manifest["splits"]["train"] == report.train
     expected_modes: dict[str, int] = {}
     for case in cases:
