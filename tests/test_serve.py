@@ -128,3 +128,29 @@ def test_message_with_mock_agent_clothing() -> None:
     finally:
         serve._agent = original_agent
         serve._config = original_config
+
+
+def test_api_key_enforced_when_configured(monkeypatch) -> None:
+    monkeypatch.setenv("LAYA_API_KEY", "test-secret-key")
+    app = serve.create_app(domain="clothing")
+    c = TestClient(app)
+
+    assert c.get("/health").status_code == 200
+
+    unauthorized = c.post("/v1/systemone", json={"state": {"body": "hi"}})
+    assert unauthorized.status_code == 401
+    assert unauthorized.json() == {"error": "unauthorized"}
+
+    wrong = c.post(
+        "/v1/systemone",
+        json={"state": {"body": "hi"}},
+        headers={"authorization": "Bearer wrong-key"},
+    )
+    assert wrong.status_code == 401
+
+    authorized = c.post(
+        "/v1/systemone",
+        json={"state": {"body": "hi"}},
+        headers={"authorization": "Bearer test-secret-key"},
+    )
+    assert authorized.status_code == 503  # authorized, but no model loaded

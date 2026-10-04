@@ -1,0 +1,17 @@
+# Keep the build context minimal: only what the image needs.
+# The nested checkpoint_latest/ duplicate (614 MB) is excluded.
+*
+!Dockerfile
+!pyproject.toml
+!README.md
+!src
+!src/**
+!data
+!data/checkpoints
+!data/checkpoints/clothing_v1
+!data/checkpoints/clothing_v1/model.safetensors
+!data/checkpoints/clothing_v1/rl_agent_config.json
+!data/checkpoints/clothing_v1/encoder
+!data/checkpoints/clothing_v1/encoder/**
+!data/checkpoints/clothing_v1/tokenizer
+!data/checkpoints/clothing_v1/tokenizer/**

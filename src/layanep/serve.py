@@ -24,6 +24,7 @@ Environment variables (override CLI defaults):
 from __future__ import annotations
 
 import argparse
+import hmac
 import json
 import logging
 import os
@@ -172,6 +173,23 @@ def create_app(
         version="0.1.0",
         lifespan=lifespan,
     )
+
+    # --- Optional Bearer auth ----------------------------------------------
+    # When LAYA_API_KEY is set, every endpoint except /health requires the
+    # matching Authorization: Bearer <key> header. /health stays open so the
+    # container healthcheck and platform probes work.
+    api_key = (os.environ.get("LAYA_API_KEY") or "").strip()
+    if api_key:
+
+        @app.middleware("http")
+        async def require_api_key(request, call_next):
+            if request.url.path == "/health":
+                return await call_next(request)
+            header = request.headers.get("authorization", "")
+            expected = f"Bearer {api_key}"
+            if not hmac.compare_digest(header.encode("utf-8"), expected.encode("utf-8")):
+                return JSONResponse(status_code=401, content={"error": "unauthorized"})
+            return await call_next(request)
 
     # --- Health check ------------------------------------------------------
 
