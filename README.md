@@ -85,22 +85,25 @@ Evaluated against frozen, human-reviewed benchmarks (`cl-bench-v1` and `ne-bench
 
 | Evaluation Metric | Laya Nepali (Clothing v1) | Laya Nepali (Restaurant v1) | Standard Generative LLM (7B Zero-Shot) |
 |---|:---:|:---:|:---:|
-| **P50 Inference Latency (GPU)** | **63.9 ms** (RTX 2050) | **28.1 ms** (2×T4, restaurant v16) | ~1,850 ms |
+| **P50 Inference Latency (GPU)** | **64–95 ms** (RTX 2050; laptop runs are noisy) | **28.1 ms** (2×T4, restaurant v16) | ~1,850 ms |
 | **CPU Latency (Standard VPS)** | **8.0 s p50** (measured; GPU required) | **~1,050 ms** | ~8,400 ms |
 | **Model Size / Disk Footprint** | **643 MB** | **643 MB** | 14,000 MB (14 GB) |
 | **Frozen Benchmark Accuracy** | **71.3% @ τ0.9 / 95.2% @ τ0.4** (`cl-bench-v1`) | **93.0%** (253/272, τ0.4) | ~62.3% |
-| **Unsafe Auto-Serves (Policy Simulation)** | **5 @ τ0.9** (19 @ τ0.4) | **0** (held-out) | Frequent Hallucinations |
+| **Unsafe Auto-Serves (Policy Simulation)** | **5 @ τ0.9 / 16 @ τ0.4** | **0** (held-out) | Frequent Hallucinations |
 | **Abstain Recall (Out-of-Scope / Gibberish)** | **259/264 (98.1%) @ τ0.9** | **92/92** | ~68.4% |
 | **Expected Calibration Error (ECE)** | **0.0551 @ τ0.9** | **0.0699** | > 0.2200 |
 
-> **Measured operating points (2026-10-09).** `clothing_v1` on the frozen
-> `cl-bench-v1` (805 steps, held-out test split): **574/805 (71.3%)**, abstain
-> 259/264, **5 unsafe auto-serves**, ECE 0.0551, p50 64 ms at **τ 0.9 /
-> p_none < 0.02**; **766/805 (95.2%)**, 7 raw false commands, **19 unsafe
-> auto-serves**, ECE 0.0742 at **τ 0.4**. The **93.0% (253/272)** row is the
-> restaurant v16 checkpoint at τ 0.4 — its weights are not in this repository.
-> Full reports: `reports/cl-bench-v1-laya-tau09.md` and
-> `reports/cl-bench-v1-laya-tau04.md`.
+> **Measured operating points (2026-10-09, tier-policy simulation).**
+> `clothing_v1` on the frozen `cl-bench-v1` (805 steps, held-out test split):
+> **574/805 (71.3%)**, abstain 259/264, **5 unsafe auto-serves of 208 served**,
+> ECE 0.0551, p50 94.5 ms at **τ 0.9 / p_none < 0.02**; **766/805 (95.2%)**,
+> 7 raw false commands, **16 unsafe auto-serves of 365 served**, ECE 0.0742,
+> p50 78.5 ms at **τ 0.4**. `order_status` and `cart` are always-escalate
+> labels and never auto-serve; `cod` asserts availability only when the caller
+> stated `cod_available: true`. Laptop latency is noisy; the production T4
+> measurement is pending. The **93.0% (253/272)** row is the restaurant v16
+> checkpoint at τ 0.4 — its weights are not in this repository. Full reports:
+> `reports/cl-bench-v1-laya-tau09.md` and `reports/cl-bench-v1-laya-tau04.md`.
 
 ---
 
@@ -217,12 +220,12 @@ curl -X POST "http://localhost:8000/v1/message" \
 **Response:**
 ```json
 {
-  "reply": "हो, Hamro Fashion मा क्यास अन डेलिभरी (COD) उपलब्ध छ। सामान प्राप्त भएपछि भुक्तानी गर्न सक्नुहुन्छ।",
+  "reply": "Hamro Fashion मा क्यास अन डेलिभरी उपलब्ध छ।",
   "label": "cod",
   "tier": 0,
   "auto_served": true,
   "confidence": 0.9412,
-  "reason": "high_confidence_t0",
+  "reason": "T0 read-only, confident, not OOD: auto-serve",
   "latency_ms": 28.4
 }
 ```

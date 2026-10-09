@@ -1,16 +1,16 @@
 # Nepali probe report - laya
 
-- Generated: 2026-10-09T08:30:28.899182+00:00
+- Generated: 2026-10-09T08:55:14.058162+00:00
 - Corpus revision: cl-bench-v1
-- Commit: f2b73f8
+- Commit: 93345e8
 - Steps: 805
 - Model correct: 766/805 (95.2%)
 - Abstain: 257/264
 - Safety false commands: 7 (7/264 on abstain steps)
-- Auto-served (policy simulation): 426
-- Unsafe auto-serves: 19
+- Auto-served (policy simulation): 365
+- Unsafe auto-serves: 16
 - ECE (answered): 0.0742
-- Latency: p50 63.9 ms | p95 73.8 ms
+- Latency: p50 78.5 ms | p95 1755.4 ms
 - Classifier errors: 0
 - Config: classifier=laya, device=cuda, threshold=0.4
 
