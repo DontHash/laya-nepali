@@ -23,14 +23,19 @@ from pathlib import Path
 from typing import Callable, Mapping, Sequence
 
 from ..pins import MODEL_REPO, MODEL_REVISION, MULTILINGUAL_SUBFOLDER
+from ..domains.clothing.questions import (
+    CLOTHING_COMMAND_LABEL_TO_KIND,
+    clothing_command_question,
+)
 from ..domains.restaurant.questions import COMMAND_LABEL_TO_KIND, command_question
-from ..schema import LU_COMMAND_KINDS
 from ..transliterate import detect_language
 from .corpus import (
     BENCHMARK_REVISION,
+    CLOTHING_CORPUS_PATH,
     DEFAULT_CORPUS_PATH,
     ProbeCorpus,
     ProbeStep,
+    kinds_for_revision,
     load_corpus,
     validate_corpus,
 )
@@ -39,7 +44,20 @@ from .report import build_report_json, build_report_markdown
 REPO_ROOT = Path(__file__).resolve().parents[3]
 REPORTS_DIR = REPO_ROOT / "reports"
 
-ProbeClassifier = Callable[[ProbeStep, Mapping], "str | None"]
+
+@dataclass(frozen=True)
+class StepPrediction:
+    """One decision with the calibrated signals the serving policy gates on."""
+
+    kind: str | None
+    confidence: float | None = None
+    p_none: float | None = None
+    label: str | None = None
+    needs_staff: bool | None = None
+    abstain: bool | None = None
+
+
+ProbeClassifier = Callable[[ProbeStep, Mapping], "str | None | StepPrediction"]
 
 
 @dataclass(frozen=True)
@@ -52,6 +70,12 @@ class StepResult:
     predicted: str | None
     latency_ms: float | None
     error: str | None
+    confidence: float | None = None
+    p_none: float | None = None
+    label: str | None = None
+    needs_staff: bool | None = None
+    abstain: bool | None = None
+    note: str | None = None
 
 
 @dataclass(frozen=True)
@@ -74,6 +98,10 @@ class ProbeScore:
     latency_p50: float | None
     latency_p95: float | None
     errors: int
+    ece: float | None
+    unsafe: int
+    auto_served: int
+    unsafe_auto: int
     results: tuple[StepResult, ...]
 
 
@@ -108,7 +136,10 @@ def laya_classifier(
     *,
     device: str | None = None,
     threshold: float = 0.5,
+    p_none_max: float | None = None,
     threads: int | None = None,
+    model_path: str | None = None,
+    domain: str = "restaurant",
 ) -> ProbeClassifier:
     import laya  # lazy: deterministic gates must never require the model extra
 
@@ -118,27 +149,55 @@ def laya_classifier(
         torch.set_num_threads(threads)
         torch.set_num_interop_threads(1)
 
-    agent_en = laya.load(_pinned_model_path(None), device=device)
-    agent_ml = laya.load(_pinned_model_path(MULTILINGUAL_SUBFOLDER), device=device)
+    if domain == "clothing":
+        question_for = clothing_command_question
+        label_to_kind = CLOTHING_COMMAND_LABEL_TO_KIND
+    else:
+        question_for = command_question
+        label_to_kind = COMMAND_LABEL_TO_KIND
 
-    def classify(step: ProbeStep, business: Mapping) -> str | None:
-        agent = agent_ml if detect_language(step.text) == "ne" else agent_en
-        questions = {"command": command_question(str(business["name"])).to_dict()}
-        result = agent.system_one({"body": step.text}, questions)
-        answer = result["answers"]["command"]
+    if model_path:
+        # One fine-tuned checkpoint serves every language; the base model split
+        # (english vs multilingual) only applies to the pinned zero-shot pair.
+        single_agent = laya.load(model_path, device=device)
+
+        def pick_agent(_text: str):
+            return single_agent
+
+    else:
+        agent_en = laya.load(_pinned_model_path(None), device=device)
+        agent_ml = laya.load(_pinned_model_path(MULTILINGUAL_SUBFOLDER), device=device)
+
+        def pick_agent(text: str):
+            return agent_ml if detect_language(text) == "ne" else agent_en
+
+    def classify(step: ProbeStep, business: Mapping) -> StepPrediction:
+        agent = pick_agent(step.text)
+        questions = {"command": question_for(str(business["name"])).to_dict()}
+        result = agent.system_one({"customer_message": step.text}, questions)
+        answers = result["answers"]
+        answer = answers["command"]
         label = answer.get("choice")
-        confidence = answer.get("answer_confidence", answer.get("confidence", 0.0))
-        if not label or label == "none" or float(confidence) < threshold:
-            return None
-        kind = COMMAND_LABEL_TO_KIND.get(label)
+        confidence = float(answer.get("answer_confidence", answer.get("confidence", 0.0)))
+        p_none = float((answer.get("probabilities") or {}).get("none", 0.0))
+        needs_staff = str(answers.get("needs_staff", {}).get("choice", "false")).lower() == "true"
+        abstain = str(answers.get("abstain", {}).get("choice", "false")).lower() == "true"
+        # When the run's threshold gates the step, drop the label too: the
+        # policy simulation must not re-admit an answer the server would not.
+        if not label or label == "none" or confidence < threshold:
+            return StepPrediction(None, confidence, p_none, None, needs_staff, abstain)
+        if p_none_max is not None and p_none >= p_none_max:
+            return StepPrediction(None, confidence, p_none, None, needs_staff, abstain)
+        kind = label_to_kind.get(label)
         if kind is None:
             raise ValueError(f"unmapped Laya label {label!r}")
-        return kind
+        return StepPrediction(kind, confidence, p_none, label, needs_staff, abstain)
 
     return classify
 
 
 def run_probe(classifier: ProbeClassifier, corpus: ProbeCorpus, *, delay_ms: int = 0) -> list[StepResult]:
+    kinds = kinds_for_revision(corpus.revision)
     results: list[StepResult] = []
     first = True
     for case in corpus.cases:
@@ -150,11 +209,21 @@ def run_probe(classifier: ProbeClassifier, corpus: ProbeCorpus, *, delay_ms: int
             predicted: str | None = None
             latency_ms: float | None = None
             error: str | None = None
+            confidence: float | None = None
+            p_none: float | None = None
+            label: str | None = None
+            needs_staff: bool | None = None
+            abstain: bool | None = None
             try:
                 started = time.perf_counter()
-                predicted = classifier(step, business)
+                raw = classifier(step, business)
                 latency_ms = (time.perf_counter() - started) * 1000
-                if predicted is not None and predicted not in LU_COMMAND_KINDS:
+                if isinstance(raw, StepPrediction):
+                    predicted, confidence, p_none = raw.kind, raw.confidence, raw.p_none
+                    label, needs_staff, abstain = raw.label, raw.needs_staff, raw.abstain
+                else:
+                    predicted = raw
+                if predicted is not None and predicted not in kinds:
                     error = f"classifier returned unknown kind {predicted!r}"
                     predicted = None
             except Exception as exc:  # noqa: BLE001 - per-step failures are recorded, not raised
@@ -170,6 +239,12 @@ def run_probe(classifier: ProbeClassifier, corpus: ProbeCorpus, *, delay_ms: int
                     predicted=predicted,
                     latency_ms=latency_ms,
                     error=error,
+                    confidence=confidence,
+                    p_none=p_none,
+                    label=label,
+                    needs_staff=needs_staff,
+                    abstain=abstain,
+                    note=step.note,
                 )
             )
     return results
@@ -183,10 +258,50 @@ def _percentile(values: Sequence[float], percent: float) -> float | None:
     return ordered[index]
 
 
-def score_probe(classifier: str, corpus: ProbeCorpus, results: Sequence[StepResult]) -> ProbeScore:
+def _expected_calibration_error(pairs: Sequence[tuple[float, bool]], bins: int = 15) -> float | None:
+    """ECE over answered decisions, matching ``laya.common.ece_score``.
+
+    ``pairs`` is ``(calibrated confidence, was correct)`` for every step the
+    classifier answered; abstains are excluded, exactly as the notebook did.
+    """
+    if not pairs:
+        return None
+    total = len(pairs)
+    error = 0.0
+    for index in range(bins):
+        low = index / bins
+        high = (index + 1) / bins
+        selected = [
+            pair
+            for pair in pairs
+            if (pair[0] >= low if index == 0 else pair[0] > low) and pair[0] <= high
+        ]
+        if not selected:
+            continue
+        mean_confidence = sum(pair[0] for pair in selected) / len(selected)
+        accuracy = sum(1 for pair in selected if pair[1]) / len(selected)
+        error += (len(selected) / total) * abs(mean_confidence - accuracy)
+    return error
+
+
+def score_probe(
+    classifier: str,
+    corpus: ProbeCorpus,
+    results: Sequence[StepResult],
+    *,
+    policy_domain: str | None = None,
+) -> ProbeScore:
+    """Score results; with ``policy_domain`` also simulate the serving policy.
+
+    The tier policy is applied at tau 0 (the run's threshold already gated the
+    classifier), so the simulation contributes only the allowlist and the
+    ``needs_staff`` / ``abstain`` guards — the part of safety that raw command
+    accuracy cannot see.
+    """
+    kinds = kinds_for_revision(corpus.revision)
     counters = {
         key: {"expected": 0, "correct": 0, "predicted": 0, "false_positive": 0}
-        for key in (*LU_COMMAND_KINDS, "none")
+        for key in (*kinds, "none")
     }
     for result in results:
         expected_key = result.expected or "none"
@@ -198,7 +313,35 @@ def score_probe(classifier: str, corpus: ProbeCorpus, results: Sequence[StepResu
         else:
             counters[predicted_key]["false_positive"] += 1
 
+    auto_served = 0
+    unsafe_auto = 0
+    if policy_domain:
+        from ..domains import get_domain
+
+        domain = get_domain(policy_domain)
+        for result in results:
+            if result.label is None:
+                continue
+            tier = domain.classify_tier(
+                result.label,
+                float(result.confidence or 0.0),
+                float(result.p_none or 0.0),
+                needs_staff=bool(result.needs_staff),
+                abstain=bool(result.abstain),
+                tau=0.0,
+                p_none_max=1.0,
+            )
+            if tier.auto_serve:
+                auto_served += 1
+                if result.expected is None or result.predicted != result.expected:
+                    unsafe_auto += 1
+
     latencies = [result.latency_ms for result in results if result.latency_ms is not None]
+    answered = [
+        (result.confidence, result.predicted == result.expected)
+        for result in results
+        if result.predicted is not None and result.confidence is not None
+    ]
     return ProbeScore(
         classifier=classifier,
         revision=corpus.revision,
@@ -210,6 +353,10 @@ def score_probe(classifier: str, corpus: ProbeCorpus, results: Sequence[StepResu
         latency_p50=_percentile(latencies, 50),
         latency_p95=_percentile(latencies, 95),
         errors=sum(1 for result in results if result.error),
+        ece=_expected_calibration_error(answered),
+        unsafe=sum(1 for result in results if result.expected is None and result.predicted is not None),
+        auto_served=auto_served,
+        unsafe_auto=unsafe_auto,
         results=tuple(results),
     )
 
@@ -234,10 +381,13 @@ def _print_summary(score: ProbeScore) -> None:
     def ms(value: float | None) -> str:
         return "n/a" if value is None else f"{value:.1f}ms"
 
+    ece = "n/a" if score.ece is None else f"{score.ece:.4f}"
     print(
-        f"ne-probe [{score.classifier}]: {score.total} steps | "
+        f"{score.revision} [{score.classifier}]: {score.total} steps | "
         f"model {score.correct}/{score.total} ({rate(score.correct, score.total)}) | "
         f"abstain {score.abstain_correct}/{score.abstain_total} | "
+        f"unsafe {score.unsafe} | auto-served {score.auto_served} | "
+        f"unsafe-auto {score.unsafe_auto} | ECE {ece} | "
         f"p50 {ms(score.latency_p50)} p95 {ms(score.latency_p95)} | "
         f"errors {score.errors}"
     )
@@ -246,15 +396,19 @@ def _print_summary(score: ProbeScore) -> None:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run the ne-probe-v1 benchmark.")
     parser.add_argument("--classifier", choices=("stub", "laya"), default="stub")
-    parser.add_argument("--corpus", type=Path, default=None, help="corpus JSON (default data/benchmark/ne-probe-v1.json)")
+    parser.add_argument("--domain", choices=("restaurant", "clothing"), default="restaurant")
+    parser.add_argument("--corpus", type=Path, default=None, help="corpus JSON (default: ne-probe-v1; clothing: cl-bench-v1)")
+    parser.add_argument("--model-path", default=None, help="fine-tuned checkpoint dir; default pinned base model")
     parser.add_argument("--device", default=None, help="Laya device (cpu, cuda, mps); default auto")
-    parser.add_argument("--threshold", type=float, default=0.5, help="answer-confidence gate")
+    parser.add_argument("--threshold", type=float, default=0.5, help="answer-confidence gate (serving tau)")
+    parser.add_argument("--p-none-max", type=float, default=None, help="optional OOD gate on p(none), as served")
     parser.add_argument("--threads", type=int, default=None, help="torch intra-op threads for CPU runs")
     parser.add_argument("--delay-ms", type=int, default=0, help="pause between model steps")
+    parser.add_argument("--out-stem", default=None, help="report file stem (default derived from corpus/classifier)")
     parser.add_argument("--no-write", action="store_true", help="print without writing reports/")
     args = parser.parse_args(argv)
 
-    corpus_path = args.corpus or DEFAULT_CORPUS_PATH
+    corpus_path = args.corpus or (CLOTHING_CORPUS_PATH if args.domain == "clothing" else DEFAULT_CORPUS_PATH)
     corpus = load_corpus(corpus_path)
     failures = validate_corpus(corpus)
     if failures:
@@ -264,16 +418,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
 
     if args.classifier == "laya":
-        classifier = laya_classifier(device=args.device, threshold=args.threshold, threads=args.threads)
+        classifier = laya_classifier(
+            device=args.device,
+            threshold=args.threshold,
+            p_none_max=args.p_none_max,
+            threads=args.threads,
+            model_path=args.model_path,
+            domain=args.domain,
+        )
     else:
         classifier = stub_classifier
 
     results = run_probe(classifier, corpus, delay_ms=args.delay_ms)
-    score = score_probe(args.classifier, corpus, results)
+    score = score_probe(args.classifier, corpus, results, policy_domain=args.domain)
     _print_summary(score)
 
     if not args.no_write:
-        stem = (
+        stem = args.out_stem or (
             f"ne-probe-{args.classifier}"
             if corpus.revision == BENCHMARK_REVISION
             else f"{corpus.revision}-{args.classifier}"
@@ -281,11 +442,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         meta = {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "classifier": args.classifier,
+            "domain": args.domain,
+            "model_path": args.model_path or "pinned-base",
             "corpus": str(corpus_path),
             "corpus_revision": corpus.revision,
             "commit": _current_commit(),
             "device": args.device or "auto",
             "threshold": args.threshold,
+            "p_none_max": args.p_none_max,
             "threads": args.threads,
         }
         REPORTS_DIR.mkdir(parents=True, exist_ok=True)
