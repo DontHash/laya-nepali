@@ -45,6 +45,7 @@ def classify_tier(
     p_none_max: float = DEFAULT_P_NONE_MAX,
     t0_read_only: frozenset[str] = frozenset(),
     t1_mutations: frozenset[str] = frozenset(),
+    always_escalate: frozenset[str] = frozenset(),
     needs_staff_reason: str = DEFAULT_NEEDS_STAFF_REASON,
 ) -> TierResult:
     """Classify a model decision into an autonomy tier and decide auto-serve.
@@ -70,6 +71,10 @@ def classify_tier(
         The domain's read-only allowlist; only these labels can auto-serve.
     t1_mutations:
         The domain's state-changing labels; they always escalate.
+    always_escalate:
+        Labels that depend on live backend state the service does not hold
+        (order status, cart); they always escalate to a human regardless of
+        confidence.
     needs_staff_reason:
         Domain wording recorded when ``needs_staff`` forces escalation.
 
@@ -114,6 +119,17 @@ def classify_tier(
             p_none=p_none,
             auto_serve=False,
             reason=f"{effective_label} is a T1 mutation: always escalate",
+        )
+
+    # --- T2: live-backend-state labels (order status, cart) ----------------
+    if effective_label in always_escalate:
+        return TierResult(
+            tier=2,
+            label=effective_label,
+            confidence=confidence,
+            p_none=p_none,
+            auto_serve=False,
+            reason=f"{effective_label} needs live backend state: escalate",
         )
 
     # --- T0: read-only — auto-serve only when calibration passes ----------

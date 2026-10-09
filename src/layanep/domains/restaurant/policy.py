@@ -28,8 +28,10 @@ T0_READ_ONLY = frozenset({
     "menu", "recommend",
     "price", "availability", "details",
     "hours", "delivery",
-    "order_status", "cart",
 })
+
+# Live backend state the service does not hold; always escalate.
+ALWAYS_ESCALATE = frozenset({"order_status", "cart"})
 
 T1_MUTATIONS = frozenset({
     "checkout", "repeat_order", "saved_address",
@@ -62,5 +64,6 @@ def classify_tier(
         p_none_max=p_none_max,
         t0_read_only=T0_READ_ONLY,
         t1_mutations=T1_MUTATIONS,
+        always_escalate=ALWAYS_ESCALATE,
         needs_staff_reason=NEEDS_STAFF_REASON,
     )

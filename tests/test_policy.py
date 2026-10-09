@@ -6,6 +6,7 @@ import pytest
 
 from layanep.domains.clothing import policy as clothing_policy
 from layanep.domains.restaurant.policy import (
+    ALWAYS_ESCALATE,
     T0_READ_ONLY,
     T1_MUTATIONS,
     TierResult,
@@ -65,7 +66,7 @@ def test_t3_none_string_label() -> None:
 
 
 def test_t0_vocabulary_coverage() -> None:
-    assert len(T0_READ_ONLY) == 12
+    assert len(T0_READ_ONLY) == 10
     for label in T0_READ_ONLY:
         result = classify_tier(label, confidence=0.95, p_none=0.001)
         assert result.tier == 0
@@ -78,6 +79,15 @@ def test_t1_vocabulary_coverage() -> None:
         result = classify_tier(label, confidence=0.99, p_none=0.001)
         assert result.tier == 1
         assert result.auto_serve is False, f"{label} must always escalate"
+
+
+def test_live_state_labels_escalate() -> None:
+    for label in ("order_status", "cart"):
+        assert label in ALWAYS_ESCALATE
+        assert label not in T0_READ_ONLY
+        result = classify_tier(label, confidence=0.99, p_none=0.001)
+        assert result.tier == 2, label
+        assert result.auto_serve is False, label
 
 
 def test_extract_signals() -> None:

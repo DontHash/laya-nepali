@@ -28,8 +28,11 @@ T0_READ_ONLY = frozenset({
     "catalog", "recommend",
     "price", "size", "color", "material",
     "stock", "delivery", "cod",
-    "order_status", "cart",
 })
+
+# These labels describe live backend state (an order, a cart) that this
+# service never receives, so no template can answer them truthfully.
+ALWAYS_ESCALATE = frozenset({"order_status", "cart"})
 
 T1_MUTATIONS = frozenset({
     "checkout", "exchange", "custom_order", "saved_address",
@@ -67,5 +70,6 @@ def classify_tier(
         p_none_max=p_none_max,
         t0_read_only=T0_READ_ONLY,
         t1_mutations=T1_MUTATIONS,
+        always_escalate=ALWAYS_ESCALATE,
         needs_staff_reason=NEEDS_STAFF_REASON,
     )
