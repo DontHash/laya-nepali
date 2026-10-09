@@ -26,7 +26,7 @@ However, **Jev does not understand or support Nepali, Romanized NepGlish, or loc
 **Laya Nepali is essentially "Jev for Nepal"**:
 - **Wire-Compatible**: Direct drop-in replacement exposing the exact Jev-compatible API format (`POST /v1/systemone`).
 - **Nepali-Native**: Fine-tuned on **custom accumulated and curated conversational datasets** spanning pure Devanagari, Romanized Nepali (NepGlish), and English.
-- **Ultra-Fast & Predictable**: Runs in **28 ms** on GPU and **~1s** on standard CPU with zero generative hallucination.
+- **Ultra-Fast & Predictable**: **28 ms** p50 on 2×T4 (restaurant v16), **64 ms** p50 for the clothing checkpoint on an RTX 2050; CPU is not viable (8.0 s p50 measured). No generative hallucination by construction.
 
 ---
 
@@ -35,7 +35,7 @@ However, **Jev does not understand or support Nepali, Romanized NepGlish, or loc
 | Feature | Laya Nepali (System 1) | Generic Generative LLM (LLaMA / GPT-4) |
 |---|:---:|:---:|
 | **Paradigm** | **Non-autoregressive Decision Model** (like Jev) | Autoregressive Token Generator |
-| **Response Latency** | **28.1 ms** (GPU) / **~1,050 ms** (CPU) | 1,500 – 3,500 ms |
+| **Response Latency** | **28.1 ms** (restaurant, 2×T4) / **63.9 ms** (clothing, RTX 2050) | 1,500 – 3,500 ms |
 | **Cost per 1,000 decisions** | **< \$0.001** (Self-hostable on free/cheap T4) | \$5.00 – \$15.00+ |
 | **Hallucination Risk** | **0%** (Calibrated probabilities + deterministic templates) | High (can invent fake discounts, policies, or stock) |
 | **NepGlish / Romanized Fluency** | **Native** (explicitly trained on Nepali chat styles) | Poor / unstable |
@@ -85,13 +85,22 @@ Evaluated against frozen, human-reviewed benchmarks (`cl-bench-v1` and `ne-bench
 
 | Evaluation Metric | Laya Nepali (Clothing v1) | Laya Nepali (Restaurant v1) | Standard Generative LLM (7B Zero-Shot) |
 |---|:---:|:---:|:---:|
-| **P50 Inference Latency (2×T4 GPU)** | **28.1 ms** | **28.1 ms** | ~1,850 ms |
-| **CPU Latency (Standard VPS)** | **~1,050 ms** | **~1,050 ms** | ~8,400 ms |
+| **P50 Inference Latency (GPU)** | **63.9 ms** (RTX 2050) | **28.1 ms** (2×T4, restaurant v16) | ~1,850 ms |
+| **CPU Latency (Standard VPS)** | **8.0 s p50** (measured; GPU required) | **~1,050 ms** | ~8,400 ms |
 | **Model Size / Disk Footprint** | **643 MB** | **643 MB** | 14,000 MB (14 GB) |
-| **Devanagari Benchmark Accuracy** | **93.0%** | **93.0%** (253/272) | ~62.3% |
-| **Safety False Commands** | **0** (Held-Out Boundary) | **0** | Frequent Hallucinations |
-| **Abstain Recall (Out-of-Scope / Gibberish)** | **100.0%** | **100.0%** (92/92) | ~68.4% |
-| **Expected Calibration Error (ECE)** | **0.0699** | **0.0699** | > 0.2200 |
+| **Frozen Benchmark Accuracy** | **71.3% @ τ0.9 / 95.2% @ τ0.4** (`cl-bench-v1`) | **93.0%** (253/272, τ0.4) | ~62.3% |
+| **Unsafe Auto-Serves (Policy Simulation)** | **5 @ τ0.9** (19 @ τ0.4) | **0** (held-out) | Frequent Hallucinations |
+| **Abstain Recall (Out-of-Scope / Gibberish)** | **259/264 (98.1%) @ τ0.9** | **92/92** | ~68.4% |
+| **Expected Calibration Error (ECE)** | **0.0551 @ τ0.9** | **0.0699** | > 0.2200 |
+
+> **Measured operating points (2026-10-09).** `clothing_v1` on the frozen
+> `cl-bench-v1` (805 steps, held-out test split): **574/805 (71.3%)**, abstain
+> 259/264, **5 unsafe auto-serves**, ECE 0.0551, p50 64 ms at **τ 0.9 /
+> p_none < 0.02**; **766/805 (95.2%)**, 7 raw false commands, **19 unsafe
+> auto-serves**, ECE 0.0742 at **τ 0.4**. The **93.0% (253/272)** row is the
+> restaurant v16 checkpoint at τ 0.4 — its weights are not in this repository.
+> Full reports: `reports/cl-bench-v1-laya-tau09.md` and
+> `reports/cl-bench-v1-laya-tau04.md`.
 
 ---
 
@@ -108,6 +117,10 @@ Here is how Laya Nepali handles real conversational nuances from Nepali customer
 | *"सामान हेरेर मात्र पैसा दिन पाउँछु?"* | Devanagari | Split (`cod` vs `delivery`) | **0.5443** | 🛡️ **Tier 3 Escalate** (Ambiguity guarded) |
 | *"लेहेंगाको कपडा च्यातिएको रहेछ"* *(Damaged item)* | Devanagari | `none` (`needs_staff=True`) | **0.9810** | 🚨 **Tier 2 Escalate** (Damage complaint routed to human) |
 | *"crop cardigan olive green"* *(Bare item name)* | English | `none` (`abstain=True`) | **0.9650** | 🛡️ **Tier 3 Escalate** (No explicit command given) |
+
+> **Note.** The confidences above are illustrative from an early serving run.
+> The frozen-benchmark reports in `reports/cl-bench-v1-laya-*.md` are the
+> measured source of truth as of 2026-10-09.
 
 ---
 
