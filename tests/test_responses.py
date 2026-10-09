@@ -93,5 +93,18 @@ def test_response_templates_cover_t0_labels() -> None:
     )
 
 
+def test_restaurant_templates_contain_no_future_promises() -> None:
+    markers = ("गर्दैछु", "पठाउँछु", "दिन्छु", "हेर्दैछु", "सिफारिस गर्छु", "जाँच गर्दैछु")
+    for label, (specific, generic) in RESPONSE_TEMPLATES.items():
+        for text in (specific, generic):
+            for marker in markers:
+                assert marker not in text, f"{label}: promise marker {marker!r} in {text!r}"
+
+
+def test_restaurant_tier0_escalation_is_specific() -> None:
+    assert escalation_message(0) == ESCALATION_TEMPLATES[0]
+    assert escalation_message(0) != ESCALATION_TEMPLATES[3]
+
+
 def test_domains_share_one_escalation_table() -> None:
     assert ESCALATION_TEMPLATES is clothing_responses.ESCALATION_TEMPLATES

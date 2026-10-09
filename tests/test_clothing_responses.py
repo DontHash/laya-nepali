@@ -6,6 +6,7 @@ import re
 
 from layanep.domains.clothing.policy import T0_READ_ONLY
 from layanep.domains.clothing.responses import (
+    COD_UNAVAILABLE,
     ESCALATION_TEMPLATES,
     RESPONSE_TEMPLATES,
     escalation_message,
@@ -98,6 +99,41 @@ def test_clothing_all_templates_contain_devanagari() -> None:
         assert DEVANAGARI_RE.search(generic), f"{label} generic lacks Devanagari"
     for tier, text in ESCALATION_TEMPLATES.items():
         assert DEVANAGARI_RE.search(text), f"escalation tier {tier} lacks Devanagari"
+
+
+PROMISE_MARKERS = ("गर्दैछु", "पठाउँछु", "दिन्छु", "हेर्दैछु", "सिफारिस गर्छु", "जाँच गर्दैछु")
+
+
+def test_clothing_templates_contain_no_future_promises() -> None:
+    # Auto-served templates must not promise an action the template runtime
+    # cannot take. Escalation templates are exempt: the consumer's staff queue
+    # is the action behind them.
+    for label, (specific, generic) in RESPONSE_TEMPLATES.items():
+        for text in (specific, generic):
+            for marker in PROMISE_MARKERS:
+                assert marker not in text, f"{label}: promise marker {marker!r} in {text!r}"
+
+
+def test_clothing_cod_asserts_only_when_stated_true() -> None:
+    state = {"business": {"name": "Hamro Fashion", "cod_available": True}}
+    assert fill_template("cod", state) == "Hamro Fashion मा क्यास अन डेलिभरी उपलब्ध छ।"
+
+
+def test_clothing_cod_false_is_negative() -> None:
+    state = {"business": {"name": "Hamro Fashion", "cod_available": False}}
+    assert fill_template("cod", state) == COD_UNAVAILABLE
+
+
+def test_clothing_cod_unstated_is_a_question() -> None:
+    for state in ({}, {"business": {"name": "Hamro Fashion"}}, {"business": {"cod_available": None}}):
+        result = fill_template("cod", state)
+        assert "?" in result, state
+        assert "उपलब्ध छ" not in result, state
+
+
+def test_clothing_tier0_escalation_is_specific() -> None:
+    assert escalation_message(0) == ESCALATION_TEMPLATES[0]
+    assert escalation_message(0) != ESCALATION_TEMPLATES[3]
 
 
 def test_clothing_response_templates_cover_t0_labels() -> None:

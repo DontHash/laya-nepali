@@ -50,11 +50,11 @@ RESPONSE_TEMPLATES: dict[str, tuple[str, str]] = {
     ),
     "catalog": (
         "हाम्रो क्याटलगमा {products} छ। के हेर्नुहुन्छ?",
-        "हाम्रो क्याटलग हेर्न चाहनुभएको हो? म पठाउँछु।",
+        "हाम्रो क्याटलग हेर्न चाहनुभएको हो? कृपया कुन कपडा चाहिने भन्नुहोस्।",
     ),
     "recommend": (
         "हाम्रो लोकप्रिय कपडा {products} हो। के ट्राई गर्नुहुन्छ?",
-        "हाम्रो सबैभन्दा लोकप्रिय कपडा सिफारिस गर्छु। के ट्राई गर्नुहुन्छ?",
+        "कुन किसिमको कपडा खोज्दै हुनुहुन्छ? कृपया भन्नुहोस्।",
     ),
     "price": (
         "{product} को मूल्य रु. {price} हो।",
@@ -78,28 +78,54 @@ RESPONSE_TEMPLATES: dict[str, tuple[str, str]] = {
     ),
     "delivery": (
         "हामी {areas} मा डेलिभरी गर्छौं। डेलिभरी चार्ज रु. {fee} हो।",
-        "डेलिभरीको बारेमा जान्न चाहनुभएको हो? कुर्नुहोस्, जानकारी दिन्छु।",
+        "डेलिभरीको बारेमा जान्न चाहनुभएको हो? कृपया आफ्नो स्थान लेख्नुहोस्।",
     ),
     "cod": (
         "{business_name} मा क्यास अन डेलिभरी उपलब्ध छ।",
-        "क्यास अन डेलिभरीको बारेमा जान्न चाहनुभएको हो? कुर्नुहोस्।",
+        "क्यास अन डेलिभरीको बारेमा जान्न चाहनुभएको हो? कृपया भन्नुहोस्।",
     ),
     "order_status": (
-        "तपाईंको अर्डरको अवस्था जाँच गर्दैछु।",
-        "तपाईंको अर्डरको अवस्था जाँच गर्दैछु।",
+        "तपाईंको अर्डरको जानकारीका लागि कृपया अर्डर नम्बर वा मिति पठाउनुहोस्।",
+        "कुन अर्डरको अवस्था जान्न चाहनुहुन्छ? कृपया अर्डर नम्बर पठाउनुहोस्।",
     ),
     "cart": (
         "तपाईंको कार्टमा अहिले {cart_items} छ।",
-        "तपाईंको कार्ट हेर्दैछु।",
+        "कार्टको जानकारीका लागि कृपया हाम्रो टोलीलाई सम्पर्क गर्नुहोस्।",
     ),
 }
+
+
+COD_UNAVAILABLE = "हामी क्यास अन डेलिभरी (COD) उपलब्ध गर्दैनौं।"
+
+
+def _cod_available(state: Mapping[str, Any]) -> bool | None:
+    """Read the caller's stated COD flag; ``None`` means "not stated"."""
+    business = state.get("business")
+    if isinstance(business, dict) and "cod_available" in business:
+        value = business.get("cod_available")
+    elif "cod_available" in state:
+        value = state.get("cod_available")
+    else:
+        return None
+    if value is None:
+        return None
+    return value is True
 
 
 def fill_template(label: str, state: Mapping[str, Any]) -> str:
     """Return a Nepali response for the given command label and business state.
 
     Falls back to the generic template when required placeholders are missing.
+    ``cod`` asserts availability only when the caller stated
+    ``cod_available: true``; an explicit ``false`` renders the negative form
+    and an unstated flag renders the clarifying question.
     """
+    if label == "cod":
+        available = _cod_available(state)
+        if available is False:
+            return COD_UNAVAILABLE
+        if available is not True:
+            return RESPONSE_TEMPLATES["cod"][1]
     return _fill_template(label, state, RESPONSE_TEMPLATES, _flatten_state)
 
 

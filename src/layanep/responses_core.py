@@ -15,6 +15,9 @@ from typing import Any, Callable, Mapping, Sequence
 
 # Escalation templates — used when auto-serve is off and a human is needed.
 ESCALATION_TEMPLATES: dict[int, str] = {
+    # Tier 0: the model saw a T0 label but could not confirm it. Never claim an
+    # action; hand the customer to the human path.
+    0: "यो जानकारी पुष्टि गर्न सकिएन। कृपया हाम्रो टोलीलाई सम्पर्क गर्नुहोस्।",
     1: "तपाईंको अनुरोध हाम्रो टोलीलाई पठाइएको छ। केही बेरमा जवाफ दिन्छौं।",
     2: "यो विषयमा हाम्रो स्टाफसँग कुरा गर्नुपर्छ। तुरुन्तै सम्पर्क गर्छौं।",
     3: "माफ गर्नुहोस्, तपाईंको सन्देश बुझ्न सकिएन। कृपया फेरि लेख्नुहोस्।",
