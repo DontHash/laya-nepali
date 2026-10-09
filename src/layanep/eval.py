@@ -42,10 +42,20 @@ def dataset_files(directory: Path) -> list[Path]:
     ]
 
 
+# Additional frozen export trees beyond ``DEFAULT_DATA_DIR`` (which stays a
+# module attribute so tests can monkeypatch the default export location).
+EXTRA_EXPORT_DIRS = (
+    REPO_ROOT / "data" / "clothing_export",
+)
+
+
 def is_export_path(path: Path) -> bool:
+    """True when ``path`` is one of the frozen export trees (``reviewed_by`` required)."""
     resolved = path.resolve()
-    export = DEFAULT_DATA_DIR.resolve()
-    return resolved == export or export in resolved.parents
+    return any(
+        resolved == export.resolve() or export.resolve() in resolved.parents
+        for export in (DEFAULT_DATA_DIR, *EXTRA_EXPORT_DIRS)
+    )
 
 
 def resolve_paths(paths: Sequence[Path] | None) -> list[Path]:

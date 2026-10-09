@@ -40,8 +40,10 @@ jobs:
       - name: Install
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[dev]"
+          pip install -e ".[dev,serve]"
       - name: Unit tests
         run: python -m pytest -q
       - name: Deterministic eval gate
         run: python -m layanep.eval --check
+      - name: Clothing export gate
+        run: python -m layanep.eval --check --data data/clothing_export

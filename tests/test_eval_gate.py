@@ -74,3 +74,11 @@ def test_export_directory_requires_reviewed_by(tmp_path: Path, monkeypatch) -> N
     result = eval_module.run_gate(None)
     assert not result.passed
     assert any("reviewed_by" in failure for failure in result.failures)
+
+
+def test_clothing_export_requires_reviewed_by() -> None:
+    import layanep.eval as eval_module
+
+    clothing = Path(__file__).resolve().parents[1] / "data" / "clothing_export"
+    assert eval_module.is_export_path(clothing / "cl-decisions-v1-train.jsonl")
+    assert not eval_module.is_export_path(FIXTURE)

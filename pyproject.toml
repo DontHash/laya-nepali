@@ -17,6 +17,7 @@ dependencies = []
 dev = [
     "pytest>=8.0",
     "ruff>=0.6",
+    "httpx>=0.27",
 ]
 model = [
     "laya==0.3.20",
