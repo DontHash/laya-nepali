@@ -29,6 +29,8 @@ def test_health_no_model(client: TestClient) -> None:
     data = resp.json()
     assert data["status"] == "no_model"
     assert data["domain"] == "restaurant"
+    assert data["max_len"] is None
+    assert data["head_max_len"] is None
 
 
 def test_system_one_no_model(client: TestClient) -> None:
@@ -189,3 +191,50 @@ def test_api_key_enforced_when_configured(monkeypatch) -> None:
         headers={"authorization": "Bearer test-secret-key"},
     )
     assert authorized.status_code == 503  # authorized, but no model loaded
+
+
+def test_health_exposes_effective_thresholds_and_limits() -> None:
+    original_config = serve._config
+    try:
+        serve._config = {
+            "abstain_threshold": 0.9,
+            "abstain_p_none": 0.02,
+            "max_len": 1024,
+            "head_max_len": 256,
+            "model_name": "laya-nepali-clothing-v1",
+            "fine_tuned": True,
+        }
+        c = TestClient(serve.create_app(domain="clothing"))
+        data = c.get("/health").json()
+        assert data["tau"] == 0.9
+        assert data["p_none_max"] == 0.02
+        assert data["max_len"] == 1024
+        assert data["head_max_len"] == 256
+        assert data["model"] == "laya-nepali-clothing-v1"
+        assert data["fine_tuned"] is True
+    finally:
+        serve._config = original_config
+
+
+def test_unknown_app_domain_fails_fast() -> None:
+    with pytest.raises(KeyError):
+        serve.create_app(domain="garden")
+
+
+def test_unknown_request_domain_returns_422() -> None:
+    mock_agent = MagicMock()
+    mock_agent.system_one.return_value = {"answers": {}}
+    original_agent = serve._agent
+    original_config = serve._config
+    try:
+        serve._agent = mock_agent
+        serve._config = {"abstain_threshold": 0.4, "abstain_p_none": 0.02}
+        c = TestClient(serve.create_app(domain="clothing"))
+        resp = c.post("/v1/message", json={"text": "hi", "domain": "garden"})
+        assert resp.status_code == 422
+        assert "unknown domain" in resp.json()["error"]
+        resp2 = c.post("/v1/systemone", json={"state": {"customer_message": "hi"}, "domain": "garden"})
+        assert resp2.status_code == 422
+    finally:
+        serve._agent = original_agent
+        serve._config = original_config

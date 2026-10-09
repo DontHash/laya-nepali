@@ -47,14 +47,6 @@ _config: dict[str, Any] = {}
 from .domains import available_domains, get_domain
 
 
-def _resolve_domain(name: str):
-    """Return the domain package for ``name``; unknown names fall back to restaurant."""
-    try:
-        return get_domain(name)
-    except KeyError:
-        return get_domain("restaurant")
-
-
 def _load_checkpoint_config(model_path: str) -> dict[str, Any]:
     """Read ``rl_agent_config.json`` from the checkpoint directory."""
     config_path = Path(model_path) / "rl_agent_config.json"
@@ -150,6 +142,11 @@ def create_app(
         )
 
     app_domain = domain or os.environ.get("LAYA_DOMAIN", "restaurant")
+    # Fail fast at startup: an unknown domain must not silently become
+    # restaurant (the old fallback could run clothing traffic on a restaurant
+    # policy). Request-level overrides that are unknown return 422 instead.
+    default_domain = get_domain(app_domain)
+    app_device = device or os.environ.get("LAYA_DEVICE")
 
     # --- Lifespan: load model at startup -----------------------------------
 
@@ -157,7 +154,7 @@ def create_app(
     async def lifespan(application):
         global _agent, _config
         path = model_path or os.environ.get("LAYA_MODEL_PATH")
-        dev = device or os.environ.get("LAYA_DEVICE")
+        dev = app_device
         if path:
             _agent, _config = _load_agent(path, dev)
         else:
@@ -200,6 +197,11 @@ def create_app(
             "model": _config.get("model_name", "unknown"),
             "domain": app_domain,
             "fine_tuned": _config.get("fine_tuned", False),
+            "tau": float(_config.get("abstain_threshold", default_domain.DEFAULT_CONFIDENCE_TAU)),
+            "p_none_max": float(_config.get("abstain_p_none", default_domain.DEFAULT_P_NONE_MAX)),
+            "max_len": _config.get("max_len"),
+            "head_max_len": _config.get("head_max_len"),
+            "device": app_device,
         }
 
     # --- Raw system_one (Jev-wire compatible) ------------------------------
@@ -211,8 +213,15 @@ def create_app(
 
         questions = req.questions
         req_domain = req.domain or app_domain
+        try:
+            domain = get_domain(req_domain)
+        except KeyError:
+            return JSONResponse(
+                status_code=422,
+                content={"error": f"unknown domain {req_domain!r}", "available": available_domains()},
+            )
         if questions is None:
-            qs = _resolve_domain(req_domain).questions(req.business_name)
+            qs = domain.questions(req.business_name)
             questions = {qid: q.to_dict() for qid, q in qs.items()}
 
         started = time.perf_counter()
@@ -229,7 +238,13 @@ def create_app(
             return JSONResponse(status_code=503, content={"error": "model not loaded"})
 
         req_domain = req.domain or app_domain
-        domain = _resolve_domain(req_domain)
+        try:
+            domain = get_domain(req_domain)
+        except KeyError:
+            return JSONResponse(
+                status_code=422,
+                content={"error": f"unknown domain {req_domain!r}", "available": available_domains()},
+            )
         state = {"customer_message": req.text}
         biz_state = req.business_state or {}
         business_name = req.business_name or biz_state.get("business", {}).get("name")
