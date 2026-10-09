@@ -230,7 +230,7 @@ def create_app(
 
         req_domain = req.domain or app_domain
         domain = _resolve_domain(req_domain)
-        state = {"body": req.text}
+        state = {"customer_message": req.text}
         biz_state = req.business_state or {}
         business_name = req.business_name or biz_state.get("business", {}).get("name")
 

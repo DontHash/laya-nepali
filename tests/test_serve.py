@@ -130,6 +130,41 @@ def test_message_with_mock_agent_clothing() -> None:
         serve._config = original_config
 
 
+def test_message_uses_training_state_key() -> None:
+    """The encoder must see the same state key the dataset and notebook serialise.
+
+    `body` was a train/serve divergence found in the 2026-10-09 audit: every
+    training row and the published benchmark use `customer_message`.
+    """
+    mock_agent = MagicMock()
+    mock_agent.system_one.return_value = {
+        "answers": {
+            "command": {
+                "choice": "greet",
+                "answer_confidence": 0.95,
+                "probabilities": {"greet": 0.95, "none": 0.01},
+            },
+            "needs_staff": {"choice": "false"},
+            "abstain": {"choice": "false"},
+        }
+    }
+
+    original_agent = serve._agent
+    original_config = serve._config
+    try:
+        serve._agent = mock_agent
+        serve._config = {"abstain_threshold": 0.4, "abstain_p_none": 0.02, "model_name": "mock-laya"}
+        app = serve.create_app(domain="clothing")
+        c = TestClient(app)
+
+        resp = c.post("/v1/message", json={"text": "नमस्ते"})
+        assert resp.status_code == 200
+        assert mock_agent.system_one.call_args.args[0] == {"customer_message": "नमस्ते"}
+    finally:
+        serve._agent = original_agent
+        serve._config = original_config
+
+
 def test_api_key_enforced_when_configured(monkeypatch) -> None:
     monkeypatch.setenv("LAYA_API_KEY", "test-secret-key")
     app = serve.create_app(domain="clothing")
